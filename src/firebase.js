@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getFirestore } from 'firebase/firestore'
 
-// Remplacez par votre config Firebase (Firebase Console > Project Settings > General)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,14 +12,10 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-export const storage = getStorage(app)
 
-/**
- * Upload une image dans Firebase Storage et retourne son URL publique.
- * @param {File} file - Le fichier à uploader
- * @param {string} path - Chemin dans Storage, ex: "images/articles/eiffage.jpg"
- * @returns {Promise<string>} URL de téléchargement
- */
+export const storage = getStorage(app)
+export const db = getFirestore(app)
+
 export async function uploadImage(file, path) {
   const storageRef = ref(storage, path)
   await uploadBytes(storageRef, file)

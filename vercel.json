@@ -2,7 +2,16 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
+  "functions": {
+    "api/*.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "rewrites": [
-    { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" }
+    { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" },
+    { "source": "/ma",             "destination": "/ma.html" },
+    { "source": "/ma-entreprise",  "destination": "/ma-entreprise.html" },
+    { "source": "/blog",           "destination": "/blog.html" },
+    { "source": "/article",        "destination": "/article.html" }
   ]
 }
