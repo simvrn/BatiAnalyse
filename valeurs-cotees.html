@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildAlpha — Valeurs Cotées BTP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080807;
+  --bg: #0c0c0a;
+  --surface: #111110;
+  --surface2: #161614;
+  --border: rgba(201,168,76,0.1);
+  --border-hover: rgba(201,168,76,0.35);
+  --gold: #c9a84c;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-glow: rgba(201,168,76,0.08);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,0.12);
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,0.12);
+  --text: #e8e4da;
+  --text-2: #a09880;
+  --text-3: #5a5446;
+  --white: #f5f2eb;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* grain */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:999; opacity:0.5;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:56px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(8,8,7,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo span { color:var(--gold); }
+.nav-right { display:flex; align-items:center; gap:24px; }
+.nav-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; color:var(--text-2); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s; }
+.nav-back:hover { color:var(--gold); }
+.nav-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); padding:5px 12px; border:1px solid var(--gold); }
+
+/* ── HEADER ── */
+.page-header {
+  padding: 88px 32px 0;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:end;
+  gap:32px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 24px;
+}
+.page-header-left { }
+.page-breadcrumb {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.18em;
+  color:var(--text-3); text-transform:uppercase; margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.page-breadcrumb span { color:var(--gold); }
+h1 {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(36px,4vw,60px);
+  font-weight:900; line-height:1; letter-spacing:-0.02em;
+}
+h1 em { font-style:italic; color:var(--gold); }
+.page-sub {
+  font-size:13px; font-weight:400; color:var(--text-2);
+  margin-top:10px; letter-spacing:0.02em;
+}
+.header-stats { display:flex; gap:24px; }
+.hstat {
+  text-align:right;
+  padding: 0 20px;
+  border-left: 1px solid var(--border);
+}
+.hstat-val { font-family:'DM Mono',monospace; font-size:22px; font-weight:500; color:var(--gold); line-height:1; }
+.hstat-label { font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-3); margin-top:4px; }
+
+/* ── FILTERS ── */
+.filters-bar {
+  padding: 20px 32px;
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky; top:56px; z-index:50;
+}
+.filter-group { display:flex; gap:6px; align-items:center; }
+.filter-label {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--text-3); padding-right:4px;
+}
+.filter-btn {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em;
+  padding:6px 14px; border:1px solid var(--border);
+  background:transparent; color:var(--text-2); cursor:pointer;
+  transition:all 0.15s; white-space:nowrap;
+}
+.filter-btn:hover { border-color:var(--gold); color:var(--gold); }
+.filter-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
+.filter-sep { width:1px; height:24px; background:var(--border); margin:0 4px; }
+.search-wrap { margin-left:auto; position:relative; }
+.search-input {
+  font-family:'DM Mono',monospace; font-size:12px; letter-spacing:0.05em;
+  background:var(--surface2); border:1px solid var(--border);
+  color:var(--text); padding:7px 14px 7px 34px;
+  outline:none; width:220px; transition:border-color 0.2s;
+}
+.search-input:focus { border-color:var(--gold); }
+.search-input::placeholder { color:var(--text-3); }
+.search-icon {
+  position:absolute; left:10px; top:50%; transform:translateY(-50%);
+  font-size:13px; color:var(--text-3); pointer-events:none;
+}
+.sort-wrap { display:flex; align-items:center; gap:6px; }
+.sort-select {
+  font-family:'DM Mono',monospace; font-size:11px;
+  background:var(--surface2); border:1px solid var(--border);
+  color:var(--text-2); padding:6px 12px; outline:none; cursor:pointer;
+}
+.view-toggle { display:flex; gap:4px; }
+.view-btn {
+  width:30px; height:30px; border:1px solid var(--border); background:transparent;
+  color:var(--text-3); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:14px; transition:all 0.15s;
+}
+.view-btn.active { border-color:var(--gold); color:var(--gold); background:var(--gold-dim); }
+
+/* ── RESULTS META ── */
+.results-meta {
+  padding: 12px 32px;
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3);
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--border);
+}
+.results-meta strong { color:var(--gold); }
+
+/* ── MAIN LAYOUT ── */
+.main-layout {
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  min-height: calc(100vh - 56px);
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+  position:sticky; top:56px;
+  height: calc(100vh - 56px);
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar { width:3px; }
+.sidebar::-webkit-scrollbar-thumb { background:var(--border); }
+
+.sidebar-section { margin-bottom:32px; }
+.sidebar-title {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--text-3);
+  padding: 0 20px 10px; border-bottom: 1px solid var(--border);
+  margin-bottom:8px;
+}
+.sidebar-item {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:9px 20px; cursor:pointer; transition:background 0.15s;
+  border-left: 2px solid transparent;
+}
+.sidebar-item:hover { background:var(--gold-glow); border-left-color:var(--gold); }
+.sidebar-item.active { background:var(--gold-dim); border-left-color:var(--gold); }
+.sidebar-item-name { font-size:13px; font-weight:600; letter-spacing:0.02em; }
+.sidebar-item.active .sidebar-item-name { color:var(--gold); }
+.sidebar-item-count {
+  font-family:'DM Mono',monospace; font-size:10px;
+  color:var(--text-3); background:var(--surface2);
+  padding:2px 7px;
+}
+.sidebar-item.active .sidebar-item-count { background:var(--gold); color:var(--black); }
+
+/* performance bar in sidebar */
+.perf-bar-wrap { padding: 0 20px; margin-top:4px; }
+.perf-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.perf-name { font-size:11px; color:var(--text-2); width:80px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.perf-bar-bg { flex:1; height:3px; background:var(--surface2); }
+.perf-bar-fill { height:3px; transition:width 0.6s ease; }
+.perf-val { font-family:'DM Mono',monospace; font-size:10px; width:44px; text-align:right; }
+
+/* ── CONTENT ── */
+.content { padding: 24px 32px; }
+
+/* ── TABLE VIEW ── */
+.stocks-table { width:100%; border-collapse:collapse; }
+.stocks-table thead tr {
+  border-bottom: 1px solid var(--border);
+}
+.stocks-table th {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--text-3); text-align:left;
+  padding:10px 14px; font-weight:400; cursor:pointer; white-space:nowrap;
+  user-select:none;
+}
+.stocks-table th:hover { color:var(--gold); }
+.stocks-table th.sort-active { color:var(--gold); }
+.stocks-table tbody tr {
+  border-bottom: 1px solid rgba(201,168,76,0.05);
+  cursor:pointer; transition:background 0.12s;
+  animation: rowIn 0.4s ease forwards;
+  opacity:0;
+}
+@keyframes rowIn {
+  from { opacity:0; transform:translateX(-8px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+.stocks-table tbody tr:hover { background:var(--gold-glow); }
+.stocks-table td { padding:14px 14px; vertical-align:middle; }
+
+.td-company { display:flex; flex-direction:column; gap:3px; }
+.td-ticker { font-family:'DM Mono',monospace; font-size:11px; font-weight:500; color:var(--gold); letter-spacing:0.1em; }
+.td-name { font-size:13px; font-weight:700; }
+.td-sector-badge {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--text-3);
+}
+
+.td-price { font-family:'DM Mono',monospace; font-size:15px; font-weight:500; }
+.td-change {
+  font-family:'DM Mono',monospace; font-size:12px; font-weight:500;
+  padding:4px 10px; display:inline-block;
+}
+.td-change.up { color:var(--green); background:var(--green-dim); }
+.td-change.down { color:var(--red); background:var(--red-dim); }
+.td-change.flat { color:var(--text-3); }
+
+.td-num { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); }
+
+/* sparkline */
+.sparkline { width:100px; height:36px; }
+
+.td-signal {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em;
+  text-transform:uppercase; padding:3px 8px; border:1px solid;
+}
+.td-signal.buy { color:#4ade80; border-color:rgba(74,222,128,0.3); }
+.td-signal.hold { color:var(--gold); border-color:rgba(201,168,76,0.3); }
+.td-signal.watch { color:var(--text-3); border-color:var(--text-3); }
+.td-signal.sell { color:var(--red); border-color:rgba(248,113,113,0.3); }
+
+.td-action {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em;
+  color:var(--text-3); white-space:nowrap;
+}
+.td-action:hover { color:var(--gold); }
+
+/* ── CARD VIEW ── */
+.cards-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap:16px;
+}
+.stock-card {
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:24px;
+  cursor:pointer;
+  transition:all 0.2s;
+  position:relative; overflow:hidden;
+  animation: cardIn 0.4s ease forwards; opacity:0;
+}
+@keyframes cardIn {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.stock-card:hover { border-color:var(--border-hover); background:var(--surface2); }
+.stock-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  transition:transform 0.3s;
+}
+.stock-card:hover::before { transform:scaleX(1); }
+.card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+.card-ticker { font-family:'DM Mono',monospace; font-size:12px; font-weight:500; color:var(--gold); letter-spacing:0.12em; }
+.card-signal { }
+.card-name { font-size:16px; font-weight:700; line-height:1.2; margin-bottom:4px; }
+.card-sector { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--text-3); text-transform:uppercase; margin-bottom:16px; }
+.card-chart { margin-bottom:16px; }
+.card-price-row { display:flex; justify-content:space-between; align-items:center; }
+.card-price { font-family:'DM Mono',monospace; font-size:20px; font-weight:500; }
+.card-change { font-family:'DM Mono',monospace; font-size:13px; padding:4px 10px; }
+.card-change.up { color:var(--green); background:var(--green-dim); }
+.card-change.down { color:var(--red); background:var(--red-dim); }
+.card-meta { display:flex; gap:16px; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+.card-meta-item { }
+.card-meta-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--text-3); text-transform:uppercase; }
+.card-meta-val { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); margin-top:2px; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:80px 32px; text-align:center; display:none;
+}
+.empty-state.visible { display:flex; }
+.empty-icon { font-size:48px; margin-bottom:20px; opacity:0.3; }
+.empty-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--text-2); margin-bottom:8px; }
+.empty-sub { font-size:13px; color:var(--text-3); }
+
+/* ── FEATURED BAND ── */
+.featured-band {
+  background: linear-gradient(135deg, #0f0f0c, #1a1408);
+  border: 1px solid rgba(201,168,76,0.2);
+  padding:20px 24px;
+  margin-bottom:24px;
+  display:flex; gap:24px; align-items:center;
+  position:relative; overflow:hidden;
+}
+.featured-band::before {
+  content:'ANALYSE DU JOUR';
+  position:absolute; top:8px; right:16px;
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em;
+  color:var(--gold); opacity:0.5;
+}
+.featured-left { flex:1; }
+.featured-pretitle { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:6px; }
+.featured-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; line-height:1.2; margin-bottom:6px; }
+.featured-sub { font-size:12px; color:var(--text-2); }
+.featured-mid { display:flex; flex-direction:column; gap:4px; align-items:center; }
+.featured-price { font-family:'DM Mono',monospace; font-size:28px; font-weight:500; color:var(--white); }
+.featured-change { font-family:'DM Mono',monospace; font-size:13px; color:var(--green); background:var(--green-dim); padding:4px 12px; }
+.featured-right { width:160px; }
+.featured-cta {
+  display:inline-block; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em;
+  text-transform:uppercase; padding:10px 20px; border:1px solid var(--gold);
+  color:var(--gold); text-decoration:none; cursor:pointer; background:none;
+  transition:all 0.2s; margin-top:12px; width:100%;
+}
+.featured-cta:hover { background:var(--gold); color:var(--black); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position:fixed; inset:0; z-index:200;
+  background:rgba(8,8,7,0.88); backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--surface);
+  border:1px solid var(--border-hover);
+  width:100%; max-width:760px;
+  max-height:90vh; overflow-y:auto;
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn {
+  from { opacity:0; transform:scale(0.96) translateY(16px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+.modal::-webkit-scrollbar { width:3px; }
+.modal::-webkit-scrollbar-thumb { background:var(--border-hover); }
+.modal-header {
+  padding:28px 32px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:flex-start;
+}
+.modal-ticker { font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:0.15em; margin-bottom:4px; }
+.modal-name { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; margin-bottom:4px; }
+.modal-sector { font-size:12px; color:var(--text-2); }
+.modal-close {
+  width:36px; height:36px; border:1px solid var(--border); background:none;
+  color:var(--text-2); font-size:18px; cursor:pointer; transition:all 0.15s;
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-close:hover { border-color:var(--red); color:var(--red); }
+.modal-body { padding:28px 32px; }
+.modal-price-band { display:flex; gap:24px; align-items:center; margin-bottom:28px; flex-wrap:wrap; }
+.modal-price { font-family:'DM Mono',monospace; font-size:36px; font-weight:500; }
+.modal-change { font-family:'DM Mono',monospace; font-size:16px; padding:6px 14px; }
+.modal-change.up { color:var(--green); background:var(--green-dim); }
+.modal-change.down { color:var(--red); background:var(--red-dim); }
+.modal-ytd { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-3); }
+/* big chart area */
+.modal-chart-area { background:var(--surface2); border:1px solid var(--border); padding:20px; margin-bottom:24px; }
+.modal-chart-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text-3); text-transform:uppercase; margin-bottom:12px; }
+.modal-kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); margin-bottom:24px; }
+.modal-kpi { background:var(--surface2); padding:16px; }
+.modal-kpi-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--text-3); text-transform:uppercase; margin-bottom:6px; }
+.modal-kpi-val { font-family:'DM Mono',monospace; font-size:16px; font-weight:500; }
+.modal-section-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.modal-desc { font-size:13px; font-weight:400; line-height:1.7; color:var(--text-2); margin-bottom:24px; }
+.modal-articles { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.modal-article {
+  padding:14px 16px; border:1px solid var(--border); cursor:pointer; transition:border-color 0.15s;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.modal-article:hover { border-color:var(--gold); }
+.modal-article-title { font-size:13px; font-weight:600; }
+.modal-article-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-top:3px; }
+.modal-article-arrow { color:var(--gold); font-size:18px; }
+.modal-actions { display:flex; gap:12px; }
+.modal-btn {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em;
+  text-transform:uppercase; padding:12px 24px; cursor:pointer;
+  transition:all 0.2s; border:1px solid var(--gold);
+}
+.modal-btn.primary { background:var(--gold); color:var(--black); }
+.modal-btn.primary:hover { background:#e8c97a; }
+.modal-btn.ghost { background:none; color:var(--gold); }
+.modal-btn.ghost:hover { background:var(--gold-dim); }
+
+/* scrollbar thin for page */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); }
+
+/* hidden utility */
+.hidden { display:none !important; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Build<span>Alpha</span></a>
+  <div class="nav-right">
+    <a href="/" class="nav-back">← Accueil</a>
+    <div class="nav-tag">Valeurs Cotées</div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="page-header-left">
+    <div class="page-breadcrumb">BuildAlpha <span>/</span> Valeurs Cotées</div>
+    <h1>Valeurs <em>BTP</em><br>& Construction</h1>
+    <p class="page-sub">47 entreprises cotées · Mis à jour vendredi 13 mars 2026, 17h35 CET</p>
+  </div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--green)">+0,84%</div>
+      <div class="hstat-label">Indice BTP jour</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">31</div>
+      <div class="hstat-label">En hausse</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--red)">14</div>
+      <div class="hstat-label">En baisse</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">€2,1T</div>
+      <div class="hstat-label">Capitalisation</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-bar">
+  <div class="filter-group">
+    <span class="filter-label">Secteur</span>
+    <button class="filter-btn active" data-filter="secteur" data-val="tous">Tous</button>
+    <button class="filter-btn" data-filter="secteur" data-val="construction">Construction</button>
+    <button class="filter-btn" data-filter="secteur" data-val="materiaux">Matériaux</button>
+    <button class="filter-btn" data-filter="secteur" data-val="promotion">Promotion</button>
+    <button class="filter-btn" data-filter="secteur" data-val="equipement">Équipements</button>
+    <button class="filter-btn" data-filter="secteur" data-val="infrastructure">Infra</button>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <span class="filter-label">Perf</span>
+    <button class="filter-btn" data-filter="perf" data-val="tous">Toutes</button>
+    <button class="filter-btn" data-filter="perf" data-val="up">↑ Hausse</button>
+    <button class="filter-btn" data-filter="perf" data-val="down">↓ Baisse</button>
+  </div>
+  <div class="filter-sep"></div>
+  <div class="filter-group">
+    <span class="filter-label">Signal</span>
+    <button class="filter-btn" data-filter="signal" data-val="tous">Tous</button>
+    <button class="filter-btn" data-filter="signal" data-val="buy">Acheter</button>
+    <button class="filter-btn" data-filter="signal" data-val="hold">Conserver</button>
+    <button class="filter-btn" data-filter="signal" data-val="watch">Surveiller</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="Rechercher une valeur...">
+  </div>
+  <div class="sort-wrap">
+    <select class="sort-select" id="sortSelect">
+      <option value="cap">Cap. boursière</option>
+      <option value="change">Variation</option>
+      <option value="name">Nom A→Z</option>
+      <option value="price">Cours</option>
+    </select>
+  </div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="btnTable" title="Tableau">☰</button>
+    <button class="view-btn" id="btnCards" title="Cartes">⊞</button>
+  </div>
+</div>
+
+<!-- RESULTS META -->
+<div class="results-meta">
+  <span>Affichage de <strong id="resultCount">14</strong> valeurs</span>
+  <span style="font-size:9px; letter-spacing:0.15em">DONNÉES INDICATIVES · PAS UN CONSEIL EN INVESTISSEMENT</span>
+</div>
+
+<!-- MAIN -->
+<div class="main-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Par secteur</div>
+      <div class="sidebar-item active" onclick="sidebarFilter('tous')">
+        <span class="sidebar-item-name">Toutes valeurs</span>
+        <span class="sidebar-item-count">14</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('construction')">
+        <span class="sidebar-item-name">Construction</span>
+        <span class="sidebar-item-count">4</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('materiaux')">
+        <span class="sidebar-item-name">Matériaux</span>
+        <span class="sidebar-item-count">4</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('promotion')">
+        <span class="sidebar-item-name">Promotion immo</span>
+        <span class="sidebar-item-count">3</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('equipement')">
+        <span class="sidebar-item-name">Équipements</span>
+        <span class="sidebar-item-count">2</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('infrastructure')">
+        <span class="sidebar-item-name">Infrastructures</span>
+        <span class="sidebar-item-count">1</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Top performers (1 an)</div>
+      <div class="perf-bar-wrap" id="perfBars"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-title">Par pays</div>
+      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+        <span class="sidebar-item-name">🇫🇷 France</span>
+        <span class="sidebar-item-count">9</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+        <span class="sidebar-item-name">🇩🇪 Allemagne</span>
+        <span class="sidebar-item-count">2</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+        <span class="sidebar-item-name">🇬🇧 Royaume-Uni</span>
+        <span class="sidebar-item-count">2</span>
+      </div>
+      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+        <span class="sidebar-item-name">🇪🇸 Espagne</span>
+        <span class="sidebar-item-count">1</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- FEATURED -->
+    <div class="featured-band">
+      <div class="featured-left">
+        <div class="featured-pretitle">Analyse du jour · Eiffage</div>
+        <div class="featured-title">Le segment concessions<br>sous-valorisé par le marché</div>
+        <div class="featured-sub">Carnet de commandes +9% · Marge EBIT 6,4% · Dette/EBITDA 1,9x</div>
+      </div>
+      <div class="featured-mid">
+        <div class="featured-price">98,45 €</div>
+        <div class="featured-change">▲ +3,2%</div>
+      </div>
+      <div class="featured-right">
+        <svg viewBox="0 0 160 60" width="160" height="60">
+          <polyline points="0,50 20,44 40,47 60,32 80,28 100,18 130,12 160,8"
+            stroke="#4ade80" stroke-width="1.5" fill="none"/>
+          <polygon points="0,50 20,44 40,47 60,32 80,28 100,18 130,12 160,8 160,60 0,60"
+            fill="rgba(74,222,128,0.06)"/>
+        </svg>
+        <button class="featured-cta" onclick="openModal('eiffage')">Lire l'analyse →</button>
+      </div>
+    </div>
+
+    <!-- TABLE VIEW -->
+    <div id="tableView">
+      <table class="stocks-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('name')">Entreprise</th>
+            <th onclick="sortTable('price')">Cours</th>
+            <th onclick="sortTable('change')">Variation</th>
+            <th>Évolution 3M</th>
+            <th onclick="sortTable('cap')">Cap. (Md€)</th>
+            <th>P/E</th>
+            <th>Marge EBIT</th>
+            <th>Signal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="stocksTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- CARDS VIEW -->
+    <div id="cardsView" class="cards-grid hidden"></div>
+
+    <!-- EMPTY -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">◎</div>
+      <div class="empty-title">Aucune valeur trouvée</div>
+      <div class="empty-sub">Modifiez vos filtres ou votre recherche</div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+// ── DATA ──
+const stocks = [
+  { id:'vinci', ticker:'DG.PA', name:'Vinci', secteur:'construction', pays:'FR', price:125.80, change:1.24, ytd:8.4, cap:42.1, pe:14.2, marge:'6,8%', carnet:'64 Md€', signal:'hold', desc:'Leader mondial du BTP et des concessions, Vinci opère via deux pôles complémentaires : les métiers de la construction (Vinci Construction, Eurovia, Vinci Energies) et les concessions (autoroutes ESCOTA, ASF). La diversification géographique et la récurrence des revenus de concession constituent des atouts structurels majeurs.', articles:['Vinci : les concessions résistent mieux qu\'attendu','Vinci Energies — moteur discret de la croissance 2026','Analyse : P/E à 14x, le titre a-t-il encore du potentiel ?'] },
+  { id:'eiffage', ticker:'FGR.PA', name:'Eiffage', secteur:'construction', pays:'FR', price:98.45, change:3.20, ytd:12.1, cap:7.8, pe:11.8, marge:'6,4%', carnet:'24 Md€', signal:'buy', desc:'Eiffage est l\'un des leaders européens du BTP et des concessions, positionné sur la construction, le génie civil, l\'énergie et les concessions autoroutières (APRR/AREA). Le groupe affiche un carnet de commandes record et une amélioration continue de ses marges, porté par la montée en puissance de son pôle énergie.', articles:['Eiffage : le segment concessions sous-valorisé','APRR — la vache à lait qui finance la croissance','Résultats 2025 : analyse des 4 divisions en détail'] },
+  { id:'bouygues', ticker:'EN.PA', name:'Bouygues', secteur:'construction', pays:'FR', price:32.12, change:-0.43, ytd:-2.8, cap:11.4, pe:13.1, marge:'3,9%', carnet:'35 Md€', signal:'watch', desc:'Bouygues est un conglomérat aux activités diversifiées incluant la construction (Bouygues Construction, Colas, Bouygues Immobilier), les télécom (Bouygues Telecom) et les médias (TF1). La décote de conglomérat pèse sur la valorisation malgré des fondamentaux BTP solides. La question de la simplification du portefeuille est au cœur des débats.', articles:['Bouygues : la décote conglomérat, opportunité ou piège ?','Colas — les marges résistent face à l\'envolée des bitumes','Bouygues Telecom compense-t-il vraiment la construction ?'] },
+  { id:'saint-gobain', ticker:'SGO.PA', name:'Saint-Gobain', secteur:'materiaux', pays:'FR', price:78.34, change:2.11, ytd:15.3, cap:40.8, pe:16.4, marge:'9,2%', carnet:'—', signal:'buy', desc:'Saint-Gobain est le leader mondial des matériaux de construction durables, positionné sur la performance énergétique des bâtiments (isolation, vitrage, cloisons). La réglementation RE2020 et les plans de rénovation européens constituent un catalyseur structurel puissant pour le groupe. Sa transformation en pure player de la construction durable est remarquable.', articles:['Saint-Gobain : RE2020 comme accélérateur de marges','L\'isolation — nouveau centre de profit stratégique','Acquisition de Rockwool : ce que les marchés n\'ont pas vu'] },
+  { id:'nexity', ticker:'NXI.PA', name:'Nexity', secteur:'promotion', pays:'FR', price:14.22, change:-1.08, ytd:-18.4, cap:1.0, pe:8.4, marge:'4,1%', carnet:'3,2 Md€', signal:'watch', desc:'Nexity, premier promoteur immobilier français, traverse une période difficile marquée par l\'effondrement des mises en chantier résidentielles, la remontée des taux et la contraction de la demande. Le management a engagé un plan de transformation profond incluant des cessions d\'actifs et une réduction des coûts structurels.', articles:['Nexity : plan de sauvetage ou restructuration profonde ?','Le marché résidentiel neuf — chronique d\'un effondrement annoncé','Nexity vs Kaufman : qui résiste mieux à la crise du logement ?'] },
+  { id:'kaufman', ticker:'KOF.PA', name:'Kaufman & Broad', secteur:'promotion', pays:'FR', price:28.50, change:0.55, ytd:3.2, cap:0.6, pe:9.1, marge:'5,8%', carnet:'1,8 Md€', signal:'hold', desc:'Kaufman & Broad, promoteur immobilier mid-market, affiche une résistance relative dans un contexte sectoriel difficile. Son positionnement sur le logement intermédiaire et sa politique de pré-commercialisation systématique limitent l\'exposition au risque de stocks invendus. La valorisation reste attractive malgré un contexte de marché dégradé.', articles:['K&B : le seul promoteur coté qui préserve ses marges','Pré-commercialisation à 80% — la clé de la résilience','Dividende maintenu : signal de confiance ou imprudence ?'] },
+  { id:'imerys', ticker:'NK.PA', name:'Imerys', secteur:'materiaux', pays:'FR', price:18.90, change:-0.29, ytd:-5.1, cap:1.6, pe:10.2, marge:'8,4%', carnet:'—', signal:'hold', desc:'Imerys, leader mondial des minéraux industriels, approvisionne les secteurs de la construction, de la céramique et des spécialités. Le groupe fait face à des défis structurels liés à l\'exposition à l\'amiante aux États-Unis et à la transformation de son portefeuille vers les minéraux de la transition énergétique.', articles:['Imerys : le passif amiante, une épée de Damoclès','Minéraux pour batteries — le pivot vers la transition énergétique','Résultats S2 2025 : marges sous pression dans la construction'] },
+  { id:'legrand', ticker:'LR.PA', name:'Legrand', secteur:'equipement', pays:'FR', price:92.60, change:1.63, ytd:11.8, cap:24.2, pe:22.3, marge:'20,1%', carnet:'—', signal:'hold', desc:'Legrand est le spécialiste mondial des infrastructures électriques et numériques du bâtiment. Ses marges exceptionnelles (EBITA >20%) témoignent d\'un pricing power remarquable. Le groupe bénéficie structurellement de la numérisation des bâtiments, de la croissance des data centers et de la rénovation énergétique.', articles:['Legrand : 20% de marge EBITA, un modèle à part dans le BTP','Data centers — le nouveau moteur de croissance discret','Premium de valorisation à 22x : justifié ou excessif ?'] },
+  { id:'vicat', ticker:'VCT.PA', name:'Vicat', secteur:'materiaux', pays:'FR', price:32.70, change:0.80, ytd:6.2, cap:1.2, pe:9.8, marge:'10,3%', carnet:'—', signal:'buy', desc:'Vicat, cimentier franco-mondial, opère dans 12 pays avec une exposition significative aux marchés émergents (Inde, Afrique, Moyen-Orient). Sa stratégie de décarbonation du béton et ses investissements dans les ciments alternatifs le positionnent favorablement dans la transition bas-carbone du secteur.', articles:['Vicat : les marchés émergents comme relais de croissance','Décarbonation du ciment — qui prend le mieux le virage ?','Valorisation à 9x : la décote des cimentiers est-elle justifiée ?'] },
+  { id:'bassac', ticker:'BA.PA', name:'Bassac', secteur:'promotion', pays:'FR', price:42.10, change:1.20, ytd:8.9, cap:0.5, pe:7.2, marge:'6,4%', carnet:'1,2 Md€', signal:'buy', desc:'Bassac (ex-Pierre & Vacances Développement) est un promoteur immobilier familial discret mais régulièrement profitable. Sa gestion prudente du foncier, sa présence sur les marchés régionaux dynamiques et sa politique de dividende constante en font une valeur de fond de portefeuille sur le segment promotion.', articles:['Bassac : le promoteur discret que les analystes ignorent','Résultats 2025 : marge nette à 6,4%, dans le haut de la fourchette','Valeur patrimoniale vs cours de bourse : la décote persiste'] },
+  { id:'spie', ticker:'SPIE.PA', name:'Spie', secteur:'construction', pays:'FR', price:36.80, change:0.90, ytd:9.4, cap:4.1, pe:15.6, marge:'5,2%', carnet:'12 Md€', signal:'hold', desc:'Spie est un leader européen des services multi-techniques dans les domaines de l\'énergie et des communications. Son modèle de services récurrents et sa forte exposition à la rénovation énergétique des bâtiments lui confèrent une visibilité supérieure à la moyenne du secteur. La croissance externe reste un axe central de développement.', articles:['Spie : services multi-techniques, la valeur récurrence','Transition énergétique — Spie en première ligne','LBO to blue chip : l\'histoire financière remarquable de Spie'] },
+  { id:'bouygues-immo', ticker:'—', name:'Cofinimmo', secteur:'infrastructure', pays:'BE', price:62.40, change:-0.85, ytd:-4.2, cap:2.8, pe:18.1, marge:'45,2%', carnet:'—', signal:'watch', desc:'Cofinimmo est la plus grande foncière cotée belge, spécialisée dans l\'immobilier de santé, les bureaux et la distribution. Dans un contexte de taux élevés, sa décote sur ANR reste importante mais la qualité de ses actifs de santé (EHPAD, cliniques) lui confère une résilience défensive. La remontée des taux pèse structurellement sur sa valorisation.', articles:['Cofinimmo : la foncière santé résiste aux taux hauts','ANR vs cours : décote à 25%, opportunité ou value trap ?','Portefeuille EHPAD — la carte de la démographie'] },
+  { id:'saint-gobain-uk', ticker:'BALI.L', name:'Balfour Beatty', secteur:'construction', pays:'GB', price:412.00, change:1.85, ytd:14.2, cap:2.9, pe:12.4, marge:'3,1%', carnet:'18 Md€', signal:'hold', desc:'Balfour Beatty est l\'un des leaders britanniques du BTP, positionné sur les infrastructures, la construction civile et les PPP. Le groupe bénéficie du grand plan d\'investissement infrastructures du Royaume-Uni post-Brexit. Son portefeuille PPP représente un actif sous-valorisé au bilan qui soutient la valeur fondamentale.', articles:['Balfour Beatty : le plan infra UK comme catalyseur','PPP portfolio — actif caché dans le bilan','Construction UK : qui profite vraiment des 100Md£ d\'investissements ?'] },
+  { id:'schneider', ticker:'SU.PA', name:'Schneider Electric', secteur:'equipement', pays:'FR', price:228.50, change:0.72, ytd:18.6, cap:126.0, pe:31.2, marge:'17,8%', carnet:'—', signal:'hold', desc:'Schneider Electric, bien que non exclusivement BTP, est incontournable dans l\'analyse du secteur de l\'efficacité énergétique des bâtiments. Son exposition à la gestion intelligente de l\'énergie, aux data centers et à l\'électrification en fait un bénéficiaire direct de toutes les grandes tendances structurelles du bâtiment durable.', articles:['Schneider Electric : la convergence bâtiment-numérique-énergie','Data centers — la bonne surprise dans les résultats 2025','Premium 31x : la juste valeur d\'un leader de la transition'] },
+];
+
+// ── STATE ──
+let currentFilters = { secteur:'tous', perf:'tous', signal:'tous' };
+let currentSearch = '';
+let currentSort = 'cap';
+let currentView = 'table';
+
+// ── RENDER SPARKLINE ──
+function sparkline(trend, color, w=100, h=36) {
+  const pts = trend.map((v,i) => `${i*(w/(trend.length-1))},${h - (v/100)*h}`).join(' ');
+  const area = pts + ` ${w},${h} 0,${h}`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    <polygon points="${area}" fill="${color}" opacity="0.08"/>
+    <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
+  </svg>`;
+}
+
+function randomTrend(up) {
+  let v = 50; const arr = [v];
+  for(let i=0;i<7;i++) { v += (Math.random()-( up ? 0.35 : 0.65))*20; v=Math.max(5,Math.min(95,v)); arr.push(v); }
+  return arr;
+}
+
+// ── FILTER & SORT ──
+function getFiltered() {
+  return stocks.filter(s => {
+    if(currentFilters.secteur !== 'tous' && s.secteur !== currentFilters.secteur) return false;
+    if(currentFilters.perf === 'up' && s.change <= 0) return false;
+    if(currentFilters.perf === 'down' && s.change >= 0) return false;
+    if(currentFilters.signal !== 'tous' && s.signal !== currentFilters.signal) return false;
+    if(currentSearch && !s.name.toLowerCase().includes(currentSearch) && !s.ticker.toLowerCase().includes(currentSearch)) return false;
+    return true;
+  }).sort((a,b) => {
+    if(currentSort==='name') return a.name.localeCompare(b.name);
+    if(currentSort==='change') return b.change - a.change;
+    if(currentSort==='price') return b.price - a.price;
+    return b.cap - a.cap;
+  });
+}
+
+function signalLabel(s) {
+  const map = { buy:'Acheter', hold:'Conserver', watch:'Surveiller', sell:'Vendre' };
+  return map[s]||s;
+}
+
+function render() {
+  const data = getFiltered();
+  document.getElementById('resultCount').textContent = data.length;
+
+  const empty = document.getElementById('emptyState');
+  empty.classList.toggle('visible', data.length===0);
+
+  if(currentView==='table') renderTable(data);
+  else renderCards(data);
+}
+
+function renderTable(data) {
+  const body = document.getElementById('stocksTableBody');
+  body.innerHTML = data.map((s,i) => {
+    const up = s.change >= 0;
+    const color = up ? 'var(--green)' : 'var(--red)';
+    const trend = randomTrend(up);
+    const spark = sparkline(trend, up ? '#4ade80' : '#f87171');
+    return `<tr onclick="openModal('${s.id}')" style="animation-delay:${i*0.04}s">
+      <td><div class="td-company">
+        <span class="td-ticker">${s.ticker}</span>
+        <span class="td-name">${s.name}</span>
+        <span class="td-sector-badge">${s.secteur} · ${s.pays}</span>
+      </div></td>
+      <td><span class="td-price">${s.price.toFixed(2)} €</span></td>
+      <td><span class="td-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span></td>
+      <td>${spark}</td>
+      <td><span class="td-num">${s.cap} Md€</span></td>
+      <td><span class="td-num">${s.pe}x</span></td>
+      <td><span class="td-num">${s.marge}</span></td>
+      <td><span class="td-signal ${s.signal}">${signalLabel(s.signal)}</span></td>
+      <td><span class="td-action">Analyse →</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderCards(data) {
+  const grid = document.getElementById('cardsView');
+  grid.innerHTML = data.map((s,i) => {
+    const up = s.change >= 0;
+    const trend = randomTrend(up);
+    const spark = sparkline(trend, up ? '#4ade80' : '#f87171', 240, 50);
+    return `<div class="stock-card" onclick="openModal('${s.id}')" style="animation-delay:${i*0.05}s">
+      <div class="card-top">
+        <span class="card-ticker">${s.ticker}</span>
+        <span class="td-signal ${s.signal}">${signalLabel(s.signal)}</span>
+      </div>
+      <div class="card-name">${s.name}</div>
+      <div class="card-sector">${s.secteur} · ${s.pays}</div>
+      <div class="card-chart">${spark}</div>
+      <div class="card-price-row">
+        <span class="card-price">${s.price.toFixed(2)} €</span>
+        <span class="card-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span>
+      </div>
+      <div class="card-meta">
+        <div class="card-meta-item">
+          <div class="card-meta-label">Cap.</div>
+          <div class="card-meta-val">${s.cap} Md€</div>
+        </div>
+        <div class="card-meta-item">
+          <div class="card-meta-label">P/E</div>
+          <div class="card-meta-val">${s.pe}x</div>
+        </div>
+        <div class="card-meta-item">
+          <div class="card-meta-label">Marge</div>
+          <div class="card-meta-val">${s.marge}</div>
+        </div>
+        <div class="card-meta-item">
+          <div class="card-meta-label">YTD</div>
+          <div class="card-meta-val" style="color:${s.ytd>=0?'var(--green)':'var(--red)'}">${s.ytd>=0?'+':''}${s.ytd}%</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── PERF BARS ──
+function renderPerfBars() {
+  const sorted = [...stocks].sort((a,b) => b.ytd - a.ytd).slice(0,6);
+  const max = Math.max(...sorted.map(s=>Math.abs(s.ytd)));
+  document.getElementById('perfBars').innerHTML = sorted.map(s => {
+    const color = s.ytd >= 0 ? 'var(--green)' : 'var(--red)';
+    const pct = Math.abs(s.ytd)/max*100;
+    return `<div class="perf-row">
+      <span class="perf-name">${s.name}</span>
+      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      <span class="perf-val" style="color:${color}">${s.ytd>=0?'+':''}${s.ytd}%</span>
+    </div>`;
+  }).join('');
+}
+
+// ── FILTERS LOGIC ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.dataset.filter;
+    document.querySelectorAll(`[data-filter="${group}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilters[group] = btn.dataset.val;
+    render();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  currentSearch = e.target.value.toLowerCase();
+  render();
+});
+
+document.getElementById('sortSelect').addEventListener('change', e => {
+  currentSort = e.target.value;
+  render();
+});
+
+document.getElementById('btnTable').addEventListener('click', () => {
+  currentView='table';
+  document.getElementById('btnTable').classList.add('active');
+  document.getElementById('btnCards').classList.remove('active');
+  document.getElementById('tableView').classList.remove('hidden');
+  document.getElementById('cardsView').classList.add('hidden');
+  render();
+});
+document.getElementById('btnCards').addEventListener('click', () => {
+  currentView='cards';
+  document.getElementById('btnCards').classList.add('active');
+  document.getElementById('btnTable').classList.remove('active');
+  document.getElementById('cardsView').classList.remove('hidden');
+  document.getElementById('tableView').classList.add('hidden');
+  render();
+});
+
+function sortTable(col) {
+  currentSort = col;
+  document.getElementById('sortSelect').value = col;
+  render();
+}
+
+// ── SIDEBAR ──
+function sidebarFilter(val) {
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  document.querySelectorAll('[data-filter="secteur"]').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`[data-filter="secteur"][data-val="${val}"]`);
+  if(btn) btn.classList.add('active');
+  currentFilters.secteur = val;
+  render();
+}
+
+// ── MODAL ──
+function openModal(id) {
+  const s = stocks.find(x => x.id===id);
+  if(!s) return;
+  const up = s.change >= 0;
+  const trend = randomTrend(up);
+
+  // big chart
+  const w=680, h=120;
+  const pts = trend.map((v,i) => `${i*(w/(trend.length-1))},${h-(v/100)*h}`).join(' ');
+  const area = pts + ` ${w},${h} 0,${h}`;
+  const bigChart = `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">
+    <defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${up?'#4ade80':'#f87171'}" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="${up?'#4ade80':'#f87171'}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <polygon points="${area}" fill="url(#mg)"/>
+    <polyline points="${pts}" stroke="${up?'#4ade80':'#f87171'}" stroke-width="2" fill="none"/>
+    <circle cx="${trend.length-1>0?(trend.length-1)*(w/(trend.length-1)):w}" cy="${h-(trend[trend.length-1]/100)*h}" r="4" fill="${up?'#4ade80':'#f87171'}"/>
+  </svg>`;
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-header">
+      <div>
+        <div class="modal-ticker">${s.ticker} · ${s.pays}</div>
+        <div class="modal-name">${s.name}</div>
+        <div class="modal-sector">${s.secteur.charAt(0).toUpperCase()+s.secteur.slice(1)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-price-band">
+        <div class="modal-price">${s.price.toFixed(2)} €</div>
+        <div class="modal-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}% aujourd'hui</div>
+        <div class="modal-ytd" style="color:${s.ytd>=0?'var(--green)':'var(--red)'}">YTD : ${s.ytd>=0?'+':''}${s.ytd}%</div>
+        <div style="margin-left:auto"><span class="td-signal ${s.signal}" style="font-size:11px">${signalLabel(s.signal)}</span></div>
+      </div>
+      <div class="modal-chart-area">
+        <div class="modal-chart-label">Évolution du cours — 3 mois</div>
+        ${bigChart}
+      </div>
+      <div class="modal-kpis">
+        <div class="modal-kpi"><div class="modal-kpi-label">Cap. boursière</div><div class="modal-kpi-val">${s.cap} Md€</div></div>
+        <div class="modal-kpi"><div class="modal-kpi-label">P/E ratio</div><div class="modal-kpi-val">${s.pe}x</div></div>
+        <div class="modal-kpi"><div class="modal-kpi-label">Marge EBIT</div><div class="modal-kpi-val">${s.marge}</div></div>
+        <div class="modal-kpi"><div class="modal-kpi-label">Carnet cmd.</div><div class="modal-kpi-val">${s.carnet}</div></div>
+      </div>
+      <div class="modal-section-title">Présentation</div>
+      <div class="modal-desc">${s.desc}</div>
+      <div class="modal-section-title">Analyses récentes</div>
+      <div class="modal-articles">
+        ${s.articles.map(a=>`<div class="modal-article">
+          <div><div class="modal-article-title">${a}</div><div class="modal-article-meta">BuildAlpha · Mars 2026 · 6 min de lecture</div></div>
+          <span class="modal-article-arrow">→</span>
+        </div>`).join('')}
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn primary">Lire l'analyse complète</button>
+        <button class="modal-btn ghost">Ajouter au suivi</button>
+        <button class="modal-btn ghost" onclick="closeModal()">Fermer</button>
+      </div>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModalOutside(e) {
+  if(e.target.id==='modalOverlay') closeModal();
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// ── INIT ──
+renderPerfBars();
+render();
+</script>
+</body>
+</html>

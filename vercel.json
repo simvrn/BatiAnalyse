@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" }
+  ]
+}
