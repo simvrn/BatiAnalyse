@@ -9,6 +9,8 @@ export default defineConfig({
         valeurs: resolve(__dirname, 'valeurs-cotees.html'),
         ma: resolve(__dirname, 'ma.html'),
         'ma-entreprise': resolve(__dirname, 'ma-entreprise.html'),
+        pe: resolve(__dirname, 'pe.html'),
+        macro: resolve(__dirname, 'macro.html'),
         blog: resolve(__dirname, 'blog.html'),
         article: resolve(__dirname, 'article.html'),
       },

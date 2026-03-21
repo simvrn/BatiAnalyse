@@ -61,6 +61,12 @@ nav {
 .nav-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; color:var(--text-2); text-decoration:none; display:flex; align-items:center; gap:8px; transition:color 0.2s; }
 .nav-back:hover { color:var(--gold); }
 .nav-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); padding:5px 12px; border:1px solid var(--gold); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--gold); }
+.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; border:1px solid var(--gold); color:var(--gold); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
+.nav-cta:hover { background:var(--gold); color:var(--black); }
 
 /* ── HEADER ── */
 .page-header {
@@ -439,11 +445,15 @@ h1 em { font-style:italic; color:var(--gold); }
 <!-- NAV -->
 <nav>
   <a href="/" class="logo">Build<span>Alpha</span></a>
-  <div class="nav-right">
-    <a href="/" class="nav-back">← Accueil</a>
-    <a href="/ma.html" class="nav-back">M&A / PE</a>
-    <div class="nav-tag">Valeurs Cotées</div>
-  </div>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
+    <li><a href="/ma.html">M&amp;A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="#">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
 </nav>
 
 <!-- HEADER -->
