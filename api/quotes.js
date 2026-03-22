@@ -1,66 +1,85 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Proxy Yahoo Finance pour récupérer les cours boursiers BTP en temps réel.
- * Évite les problèmes CORS côté client.
+ * Cours boursiers BTP en temps réel via Yahoo Finance v8/chart.
+ * Plus fiable que v7 : pas de crumb nécessaire, données fraîches.
  *
  * GET /api/quotes
- * Retourne les cotations des principales valeurs BTP cotées à Paris.
  */
 
 const SYMBOLS = [
-  'VIE.PA',   // Vinci
-  'FGR.PA',   // Eiffage
-  'EN.PA',    // Bouygues
-  'SGO.PA',   // Saint-Gobain
-  'NXI.PA',   // Nexity
-  'KOF.PA',   // Kaufman & Broad
-  'LR.PA',    // Legrand
-  'NK.PA',    // Imerys
+  { symbol: 'VIE.PA',  name: 'VINCI' },
+  { symbol: 'FGR.PA',  name: 'EIFFAGE' },
+  { symbol: 'EN.PA',   name: 'BOUYGUES' },
+  { symbol: 'SGO.PA',  name: 'SAINT-GOBAIN' },
+  { symbol: 'NXI.PA',  name: 'NEXITY' },
+  { symbol: 'KOF.PA',  name: 'KAUFMAN & BROAD' },
+  { symbol: 'LR.PA',   name: 'LEGRAND' },
+  { symbol: 'NK.PA',   name: 'IMERYS' },
 ]
+
+async function fetchQuote({ symbol, name }) {
+  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1d&includePrePost=false`
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'application/json, text/plain, */*',
+      'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8',
+      'Referer': 'https://finance.yahoo.com/',
+      'Origin': 'https://finance.yahoo.com',
+    },
+  })
+
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${symbol}`)
+
+  const data = await res.json()
+  const result = data?.chart?.result?.[0]
+  if (!result) throw new Error(`No data for ${symbol}`)
+
+  const meta = result.meta
+  const price = meta.regularMarketPrice
+  const prevClose = meta.chartPreviousClose ?? meta.previousClose ?? meta.regularMarketPreviousClose
+
+  if (!price || !prevClose) throw new Error(`Missing price for ${symbol}`)
+
+  const change = price - prevClose
+  const changePercent = (change / prevClose) * 100
+
+  return {
+    symbol,
+    name,
+    price: Math.round(price * 100) / 100,
+    change: Math.round(change * 100) / 100,
+    changePercent: Math.round(changePercent * 100) / 100,
+    prevClose: Math.round(prevClose * 100) / 100,
+    currency: meta.currency ?? 'EUR',
+    marketState: meta.marketState ?? 'UNKNOWN',
+  }
+}
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=30')
+  // Cache 2 minutes sur Vercel Edge, 30s stale-while-revalidate
+  res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=30')
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  try {
-    const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${SYMBOLS.join(',')}&fields=symbol,shortName,regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketPreviousClose`
+  const results = await Promise.allSettled(SYMBOLS.map(fetchQuote))
 
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-        'Accept': 'application/json',
-        'Accept-Language': 'fr-FR,fr;q=0.9',
-      },
+  const quotes = results
+    .map((r, i) => {
+      if (r.status === 'fulfilled') return r.value
+      console.warn(`[Quotes] ${SYMBOLS[i].symbol} échec:`, r.reason?.message)
+      return null
     })
+    .filter(Boolean)
 
-    if (!response.ok) {
-      throw new Error(`Yahoo Finance error: ${response.status}`)
-    }
-
-    const data = await response.json()
-    const quotes = data?.quoteResponse?.result ?? []
-
-    const result = quotes.map(q => ({
-      symbol: q.symbol,
-      name: q.shortName ?? q.symbol,
-      price: q.regularMarketPrice,
-      change: q.regularMarketChange,
-      changePercent: q.regularMarketChangePercent,
-      prevClose: q.regularMarketPreviousClose,
-    }))
-
-    return res.status(200).json({ quotes: result, timestamp: new Date().toISOString() })
-
-  } catch (error) {
-    console.error('[Quotes] Erreur:', error.message)
-    // Retourne des données statiques en fallback pour ne pas casser le ticker
-    return res.status(200).json({
-      quotes: [],
-      error: error.message,
-      fallback: true,
-      timestamp: new Date().toISOString(),
-    })
+  if (quotes.length === 0) {
+    return res.status(502).json({ error: 'Impossible de récupérer les cours', quotes: [] })
   }
+
+  return res.status(200).json({
+    quotes,
+    count: quotes.length,
+    timestamp: new Date().toISOString(),
+  })
 }

@@ -1038,17 +1038,6 @@
 
 <script type="module">
 // ── TICKER EN TEMPS RÉEL ──
-const FALLBACK_QUOTES = [
-  { name:'VINCI', changePercent:1.24, price:null },
-  { name:'EIFFAGE', changePercent:0.87, price:null },
-  { name:'BOUYGUES', changePercent:-0.43, price:null },
-  { name:'SAINT-GOBAIN', changePercent:2.11, price:null },
-  { name:'NEXITY', changePercent:-1.08, price:null },
-  { name:'KAUFMAN & BROAD', changePercent:0.55, price:null },
-  { name:'LEGRAND', changePercent:1.63, price:null },
-  { name:'IMERYS', changePercent:-0.29, price:null },
-]
-
 function buildTickerHTML(quotes) {
   const items = quotes.map(q => {
     const pct = typeof q.changePercent === 'number' ? q.changePercent : 0
@@ -1067,10 +1056,15 @@ async function loadTicker() {
   try {
     const res = await fetch('/api/quotes')
     const data = await res.json()
-    const quotes = (data.quotes && data.quotes.length > 0) ? data.quotes : FALLBACK_QUOTES
-    track.innerHTML = buildTickerHTML(quotes)
-  } catch {
-    track.innerHTML = buildTickerHTML(FALLBACK_QUOTES)
+    if (data.quotes && data.quotes.length > 0) {
+      track.innerHTML = buildTickerHTML(data.quotes)
+    }
+    // Rafraîchir toutes les 2 minutes
+    setTimeout(loadTicker, 120000)
+  } catch (e) {
+    console.warn('[Ticker] API indisponible:', e.message)
+    // Réessayer dans 30s si erreur
+    setTimeout(loadTicker, 30000)
   }
 }
 
