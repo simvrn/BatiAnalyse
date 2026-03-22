@@ -1050,8 +1050,8 @@
   </div>
 </footer>
 
-<script type="module">
-// ── TICKER EN TEMPS RÉEL ──
+<script>
+// ── TICKER EN TEMPS RÉEL — script indépendant (pas de module import) ──
 function buildTickerHTML(quotes) {
   const items = quotes.map(q => {
     const pct = typeof q.changePercent === 'number' ? q.changePercent : 0
@@ -1060,26 +1060,28 @@ function buildTickerHTML(quotes) {
     const price = q.price ? ` ${q.price.toFixed(2)}€` : ''
     return `<div class="ticker-item">${q.name}${price} <span class="${cls}">${sign} ${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</span><span class="ticker-sep">|</span></div>`
   })
-  return [...items, ...items].join('') // double pour boucle infinie
+  return [...items, ...items].join('')
 }
 
 async function loadTicker() {
   try {
-    const res  = await fetch('/api/quotes')
-    const data = await res.json()
+    const r = await fetch('/api/quotes')
+    if (!r.ok) throw new Error('HTTP ' + r.status)
+    const data = await r.json()
     if (data.quotes && data.quotes.length > 0) {
       document.getElementById('tickerTrack').innerHTML = buildTickerHTML(data.quotes)
+    } else {
+      console.warn('[Ticker] API:', data.error || 'réponse vide')
     }
   } catch (e) {
-    console.warn('[Ticker] API indisponible:', e.message)
+    console.warn('[Ticker] Erreur:', e.message)
   }
-  // Rafraîchir toutes les 5 minutes (cache Vercel = 5 min)
-  setTimeout(loadTicker, 300000)
+  setTimeout(loadTicker, 1800000) // refresh 30 min (aligne sur cache Vercel)
 }
-
-// Charger immédiatement au démarrage
 loadTicker()
+</script>
 
+<script type="module">
 // ── BLOG PREVIEW ──
 import { getPosts } from '/src/wordpress.js'
 

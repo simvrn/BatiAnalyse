@@ -944,14 +944,32 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
 renderPerfBars();
 render();
 
+// ── STATUT API (visible en bas à droite) ──
+function showApiStatus(state, msg) {
+  let badge = document.getElementById('apiBadge')
+  if (!badge) {
+    badge = document.createElement('div')
+    badge.id = 'apiBadge'
+    badge.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);padding:8px 16px;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:0.1em;z-index:500;display:flex;align-items:center;gap:8px;border-radius:2px'
+    document.body.appendChild(badge)
+  }
+  const dot = state === 'ok'
+    ? '<span style="width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0"></span>'
+    : '<span style="width:7px;height:7px;background:#f87171;border-radius:50%;flex-shrink:0"></span>'
+  badge.style.color = state === 'ok' ? 'var(--green)' : '#f87171'
+  badge.innerHTML = dot + msg
+  if (state === 'ok') setTimeout(() => badge && badge.remove(), 5000)
+}
+
 // ── COURS EN TEMPS RÉEL ──
 async function loadLiveQuotes() {
   try {
     const res  = await fetch('/api/quotes')
     const data = await res.json()
-    console.log('[Valeurs Live]', data)
+
     if (!data.quotes || data.quotes.length === 0) {
-      console.warn('[Valeurs Live] Pas de données:', data.error || 'réponse vide')
+      showApiStatus('error', 'API: ' + (data.error || 'réponse vide'))
+      setTimeout(loadLiveQuotes, 1800000)
       return
     }
 
@@ -959,19 +977,20 @@ async function loadLiveQuotes() {
     const liveMap = {}
     data.quotes.forEach(q => { liveMap[q.id] = q })
 
-    // Mettre à jour le tableau stocks en mémoire
+    let updated = 0
     stocks.forEach(s => {
       const live = liveMap[s.id]
       if (!live) return
       s.price  = live.price
       s.change = live.changePercent
+      updated++
       // Mettre à jour le cours affiché dans la hero featured
-      if (s.signal === 'buy' || s.id === 'eiffage') {
+      const featured = stocks.find(x => x.signal === 'buy') || stocks[0]
+      if (s.id === featured.id) {
         const fp = document.querySelector('.featured-price')
         const fc = document.querySelector('.featured-change')
-        const featured = stocks.find(x => x.signal === 'buy') || stocks[0]
-        if (fp && s.id === featured.id) {
-          fp.textContent = `${live.price.toFixed(2)} €`
+        if (fp) fp.textContent = `${live.price.toFixed(2)} €`
+        if (fc) {
           const up = live.changePercent >= 0
           fc.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${live.changePercent.toFixed(2)}%`
           fc.style.color = up ? 'var(--green)' : 'var(--red)'
@@ -980,26 +999,14 @@ async function loadLiveQuotes() {
       }
     })
 
-    // Rafraîchir le tableau/cards avec les nouveaux prix
     render()
-
-    // Ajouter un badge "Live" discret la première fois
-    if (!document.getElementById('liveBadge')) {
-      const badge = document.createElement('div')
-      badge.id = 'liveBadge'
-      badge.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;font-family:"DM Mono",monospace;font-size:10px;color:var(--green);letter-spacing:0.12em;z-index:200;display:flex;align-items:center;gap:6px'
-      badge.innerHTML = '<span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulseDot 2s infinite"></span> COURS EN DIRECT'
-      document.body.appendChild(badge)
-      // Disparaît après 4s
-      setTimeout(() => badge.remove(), 4000)
-    }
+    showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
 
   } catch (e) {
-    console.warn('[Valeurs] Impossible de charger les cours live:', e.message)
+    showApiStatus('error', 'Erreur: ' + e.message)
   }
 
-  // Rafraîchir toutes les 5 minutes
-  setTimeout(loadLiveQuotes, 300000)
+  setTimeout(loadLiveQuotes, 1800000) // refresh 30 min
 }
 
 loadLiveQuotes()

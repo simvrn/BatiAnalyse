@@ -42,14 +42,22 @@ export default async function handler(req, res) {
     const symbols = STOCKS.map(s => s.symbol).join(',')
     const url = `https://financialmodelingprep.com/api/v3/quote/${symbols}?apikey=${apiKey}`
 
+    console.log('[Quotes] Appel FMP:', url.replace(apiKey, '***'))
     const r = await fetch(url)
-    if (!r.ok) throw new Error(`FMP HTTP ${r.status}`)
+    const rawText = await r.text()
+    console.log('[Quotes] FMP status:', r.status, '| réponse (200 chars):', rawText.slice(0, 200))
 
-    const data = await r.json()
+    if (!r.ok) throw new Error(`FMP HTTP ${r.status}: ${rawText.slice(0, 100)}`)
+
+    let data
+    try { data = JSON.parse(rawText) } catch { throw new Error('FMP: réponse non-JSON — ' + rawText.slice(0, 100)) }
 
     // FMP retourne un tableau : [{ symbol: "VIE.PA", price: 125.80, changesPercentage: 1.24, ... }]
-    if (!Array.isArray(data) || data.length === 0) {
-      throw new Error('FMP: réponse vide ou invalide')
+    if (!Array.isArray(data)) {
+      throw new Error('FMP: format inattendu — ' + JSON.stringify(data).slice(0, 100))
+    }
+    if (data.length === 0) {
+      throw new Error('FMP: aucune donnée pour ces symboles — le plan gratuit couvre-t-il les actions européennes ?')
     }
 
     // Indexer par symbol pour lookup rapide
@@ -58,7 +66,10 @@ export default async function handler(req, res) {
 
     const quotes = STOCKS.map(s => {
       const q = bySymbol[s.symbol]
-      if (!q || !q.price) return null
+      if (!q || !q.price) {
+        console.warn('[Quotes] Symbole manquant:', s.symbol, '| reçus:', Object.keys(bySymbol).join(','))
+        return null
+      }
 
       const price     = parseFloat(q.price)
       const prevClose = parseFloat(q.previousClose)
@@ -77,12 +88,13 @@ export default async function handler(req, res) {
       }
     }).filter(Boolean)
 
-    if (quotes.length === 0) throw new Error('Aucune cotation retournée — vérifie les symboles FMP')
+    if (quotes.length === 0) throw new Error('Aucune cotation mappée — symboles FMP reçus: ' + Object.keys(bySymbol).join(','))
 
+    console.log('[Quotes] OK —', quotes.length, 'cotations')
     return res.status(200).json({ quotes, count: quotes.length, timestamp: new Date().toISOString() })
 
   } catch (error) {
-    console.error('[Quotes]', error.message)
+    console.error('[Quotes] ERREUR:', error.message)
     return res.status(502).json({ error: error.message, quotes: [] })
   }
 }
