@@ -818,8 +818,22 @@
 <!-- TICKER -->
 <div class="ticker-bar">
   <div class="ticker-track" id="tickerTrack">
-    <!-- Chargement initial statique — remplacé par JS en temps réel -->
-    <div class="ticker-item">Chargement des cours…</div>
+    <div class="ticker-item">VINCI <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">EIFFAGE <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">BOUYGUES <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">SAINT-GOBAIN <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">NEXITY <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">KAUFMAN & BROAD <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">LEGRAND <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">IMERYS <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">VINCI <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">EIFFAGE <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">BOUYGUES <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">SAINT-GOBAIN <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">NEXITY <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">KAUFMAN & BROAD <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">LEGRAND <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
+    <div class="ticker-item">IMERYS <span class="up">▲ +0,00%</span><span class="ticker-sep">|</span></div>
   </div>
 </div>
 
@@ -1042,31 +1056,29 @@ function buildTickerHTML(quotes) {
   const items = quotes.map(q => {
     const pct = typeof q.changePercent === 'number' ? q.changePercent : 0
     const sign = pct >= 0 ? '▲' : '▼'
-    const cls = pct >= 0 ? 'up' : 'down'
+    const cls  = pct >= 0 ? 'up' : 'down'
     const price = q.price ? ` ${q.price.toFixed(2)}€` : ''
     return `<div class="ticker-item">${q.name}${price} <span class="${cls}">${sign} ${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</span><span class="ticker-sep">|</span></div>`
   })
-  // Double pour la boucle infinie
-  const html = [...items, ...items].join('')
-  return html
+  return [...items, ...items].join('') // double pour boucle infinie
 }
 
 async function loadTicker() {
-  const track = document.getElementById('tickerTrack')
   try {
-    const res = await fetch('/api/quotes')
+    const res  = await fetch('/api/quotes')
     const data = await res.json()
     if (data.quotes && data.quotes.length > 0) {
-      track.innerHTML = buildTickerHTML(data.quotes)
+      document.getElementById('tickerTrack').innerHTML = buildTickerHTML(data.quotes)
     }
-    // Rafraîchir toutes les 2 minutes
-    setTimeout(loadTicker, 120000)
   } catch (e) {
     console.warn('[Ticker] API indisponible:', e.message)
-    // Réessayer dans 30s si erreur
-    setTimeout(loadTicker, 30000)
   }
+  // Rafraîchir toutes les 5 minutes (cache Vercel = 5 min)
+  setTimeout(loadTicker, 300000)
 }
+
+// Charger immédiatement au démarrage
+loadTicker()
 
 // ── BLOG PREVIEW ──
 import { getPosts } from '/src/wordpress.js'
@@ -1128,7 +1140,6 @@ async function loadBlogPreview() {
   }
 }
 
-loadTicker()
 loadBlogPreview()
 </script>
 </body>
