@@ -30,10 +30,10 @@ export default async function handler(req, res) {
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  const apiKey = process.env.FMP_API_KEY
+  const apiKey = process.env.API_FMP_Bourse
   if (!apiKey) {
     return res.status(500).json({
-      error: 'FMP_API_KEY manquant — ajoute-la dans Vercel > Settings > Environment Variables',
+      error: 'API_FMP_Bourse manquant — ajoute-la dans Vercel > Settings > Environment Variables',
       quotes: [],
     })
   }
