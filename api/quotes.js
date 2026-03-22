@@ -1,27 +1,46 @@
 /**
  * api/quotes.js — BatiAnalyse
  * Cours boursiers BTP en temps réel via Twelve Data API.
- * Twelve Data supporte Euronext Paris et n'est pas bloqué par Vercel.
+ * Couvre toutes les valeurs de la page Valeurs Cotées + le ticker de la home.
  *
  * Env requis : TWELVEDATA_API_KEY (gratuit sur twelvedata.com)
- *
  * GET /api/quotes
  */
 
-const SYMBOLS = [
-  { symbol: 'VIE',  name: 'VINCI' },
-  { symbol: 'FGR',  name: 'EIFFAGE' },
-  { symbol: 'EN',   name: 'BOUYGUES' },
-  { symbol: 'SGO',  name: 'SAINT-GOBAIN' },
-  { symbol: 'NXI',  name: 'NEXITY' },
-  { symbol: 'KOF',  name: 'KAUFMAN & BROAD' },
-  { symbol: 'LR',   name: 'LEGRAND' },
-  { symbol: 'NK',   name: 'IMERYS' },
+// Toutes les valeurs du site, regroupées par place de cotation
+const STOCKS = [
+  // ── Euronext Paris ──
+  { symbol: 'VIE',  exchange: 'XPAR', name: 'VINCI',            id: 'vinci' },
+  { symbol: 'FGR',  exchange: 'XPAR', name: 'EIFFAGE',          id: 'eiffage' },
+  { symbol: 'EN',   exchange: 'XPAR', name: 'BOUYGUES',         id: 'bouygues' },
+  { symbol: 'SGO',  exchange: 'XPAR', name: 'SAINT-GOBAIN',     id: 'saint-gobain' },
+  { symbol: 'NXI',  exchange: 'XPAR', name: 'NEXITY',           id: 'nexity' },
+  { symbol: 'KOF',  exchange: 'XPAR', name: 'KAUFMAN & BROAD',  id: 'kaufman' },
+  { symbol: 'LR',   exchange: 'XPAR', name: 'LEGRAND',          id: 'legrand' },
+  { symbol: 'NK',   exchange: 'XPAR', name: 'IMERYS',           id: 'imerys' },
+  { symbol: 'VCT',  exchange: 'XPAR', name: 'VICAT',            id: 'vicat' },
+  { symbol: 'BA',   exchange: 'XPAR', name: 'BASSAC',           id: 'bassac' },
+  { symbol: 'SPIE', exchange: 'XPAR', name: 'SPIE',             id: 'spie' },
+  { symbol: 'SU',   exchange: 'XPAR', name: 'SCHNEIDER',        id: 'schneider' },
+  // ── Euronext Bruxelles ──
+  { symbol: 'COFB', exchange: 'XBRU', name: 'COFINIMMO',        id: 'bouygues-immo' },
+  // ── London Stock Exchange ──
+  { symbol: 'BBY',  exchange: 'XLON', name: 'BALFOUR BEATTY',   id: 'saint-gobain-uk' },
 ]
+
+async function fetchBatch(stocks, apiKey) {
+  // Twelve Data supporte les appels mixtes : symbol=VIE:XPAR,BBY:XLON
+  const symbolsParam = stocks.map(s => `${s.symbol}:${s.exchange}`).join(',')
+  const url = `https://api.twelvedata.com/quote?symbol=${encodeURIComponent(symbolsParam)}&apikey=${apiKey}`
+
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Twelve Data HTTP ${res.status}`)
+  return res.json()
+}
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  // Cache 5 min sur Vercel Edge — toutes les visites partagent la même réponse
+  // Cache 5 min sur Vercel Edge
   res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=60')
 
   if (req.method === 'OPTIONS') return res.status(200).end()
@@ -32,27 +51,24 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Batch request — tous les symboles en 1 seul appel (8 crédits)
-    const symbolsList = SYMBOLS.map(s => s.symbol).join(',')
-    const url = `https://api.twelvedata.com/quote?symbol=${symbolsList}&exchange=XPAR&apikey=${apiKey}`
+    const data = await fetchBatch(STOCKS, apiKey)
 
-    const response = await fetch(url)
-    if (!response.ok) throw new Error(`Twelve Data HTTP ${response.status}`)
+    const quotes = STOCKS.map(s => {
+      // Twelve Data : si 1 seul symbole la réponse est directe, sinon c'est un dict
+      const key = `${s.symbol}:${s.exchange}`
+      const q = data[key] ?? data[s.symbol]
 
-    const data = await response.json()
-
-    // Réponse batch : { VIE: {...}, FGR: {...}, ... }
-    // Si 1 seul symbole, la réponse est directement l'objet (pas un dict)
-    const quotes = SYMBOLS.map(s => {
-      const q = Array.isArray(data) ? null : (Object.keys(SYMBOLS).length === 1 ? data : data[s.symbol])
       if (!q || q.status === 'error' || !q.close) return null
 
-      const price      = parseFloat(q.close)
-      const prevClose  = parseFloat(q.previous_close)
-      const change     = price - prevClose
-      const changePct  = prevClose ? (change / prevClose) * 100 : 0
+      const price     = parseFloat(q.close)
+      const prevClose = parseFloat(q.previous_close)
+      if (isNaN(price) || isNaN(prevClose) || prevClose === 0) return null
+
+      const change    = price - prevClose
+      const changePct = (change / prevClose) * 100
 
       return {
+        id:            s.id,
         symbol:        s.symbol,
         name:          s.name,
         price:         Math.round(price   * 100) / 100,
@@ -60,17 +76,17 @@ export default async function handler(req, res) {
         changePercent: Math.round(changePct * 100) / 100,
         prevClose:     Math.round(prevClose * 100) / 100,
         currency:      q.currency ?? 'EUR',
+        exchange:      s.exchange,
+        isOpen:        q.is_market_open ?? null,
       }
     }).filter(Boolean)
 
-    if (quotes.length === 0) {
-      throw new Error('Aucune cotation retournée par Twelve Data')
-    }
+    if (quotes.length === 0) throw new Error('Aucune cotation retournée')
 
-    return res.status(200).json({ quotes, timestamp: new Date().toISOString() })
+    return res.status(200).json({ quotes, count: quotes.length, timestamp: new Date().toISOString() })
 
   } catch (error) {
-    console.error('[Quotes] Erreur:', error.message)
+    console.error('[Quotes]', error.message)
     return res.status(502).json({ error: error.message, quotes: [] })
   }
 }

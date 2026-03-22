@@ -233,6 +233,7 @@ h1 em { font-style:italic; color:var(--gold); }
   animation: rowIn 0.4s ease forwards;
   opacity:0;
 }
+@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
 @keyframes rowIn {
   from { opacity:0; transform:translateX(-8px); }
   to   { opacity:1; transform:translateX(0); }
@@ -942,6 +943,62 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); }
 // ── INIT ──
 renderPerfBars();
 render();
+
+// ── COURS EN TEMPS RÉEL ──
+async function loadLiveQuotes() {
+  try {
+    const res  = await fetch('/api/quotes')
+    const data = await res.json()
+    if (!data.quotes || data.quotes.length === 0) return
+
+    // Map id → cotation live
+    const liveMap = {}
+    data.quotes.forEach(q => { liveMap[q.id] = q })
+
+    // Mettre à jour le tableau stocks en mémoire
+    stocks.forEach(s => {
+      const live = liveMap[s.id]
+      if (!live) return
+      s.price  = live.price
+      s.change = live.changePercent
+      // Mettre à jour le cours affiché dans la hero featured
+      if (s.signal === 'buy' || s.id === 'eiffage') {
+        const fp = document.querySelector('.featured-price')
+        const fc = document.querySelector('.featured-change')
+        const featured = stocks.find(x => x.signal === 'buy') || stocks[0]
+        if (fp && s.id === featured.id) {
+          fp.textContent = `${live.price.toFixed(2)} €`
+          const up = live.changePercent >= 0
+          fc.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${live.changePercent.toFixed(2)}%`
+          fc.style.color = up ? 'var(--green)' : 'var(--red)'
+          fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
+        }
+      }
+    })
+
+    // Rafraîchir le tableau/cards avec les nouveaux prix
+    render()
+
+    // Ajouter un badge "Live" discret la première fois
+    if (!document.getElementById('liveBadge')) {
+      const badge = document.createElement('div')
+      badge.id = 'liveBadge'
+      badge.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);padding:6px 14px;font-family:"DM Mono",monospace;font-size:10px;color:var(--green);letter-spacing:0.12em;z-index:200;display:flex;align-items:center;gap:6px'
+      badge.innerHTML = '<span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulseDot 2s infinite"></span> COURS EN DIRECT'
+      document.body.appendChild(badge)
+      // Disparaît après 4s
+      setTimeout(() => badge.remove(), 4000)
+    }
+
+  } catch (e) {
+    console.warn('[Valeurs] Impossible de charger les cours live:', e.message)
+  }
+
+  // Rafraîchir toutes les 5 minutes
+  setTimeout(loadLiveQuotes, 300000)
+}
+
+loadLiveQuotes()
 </script>
 </body>
 </html>
