@@ -1,96 +1,93 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Cours boursiers BTP via Financial Modeling Prep (FMP).
- * 1 seul appel batch pour tout le site.
- * Cache Vercel Edge 30 min → max 48 appels/jour (plan free = 250/jour).
+ * Cours boursiers BTP via Stooq — gratuit, sans clé API, sans limite.
+ * Cache Vercel Edge 30 min → max 48 appels/jour.
  *
- * Env requis : FMP_API_KEY (gratuit sur financialmodelingprep.com)
+ * Aucune variable d'environnement requise.
  * GET /api/quotes
  */
 
 const STOCKS = [
-  { symbol: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
-  { symbol: 'FGR.PA',  name: 'EIFFAGE',         id: 'eiffage' },
-  { symbol: 'EN.PA',   name: 'BOUYGUES',        id: 'bouygues' },
-  { symbol: 'SGO.PA',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
-  { symbol: 'NXI.PA',  name: 'NEXITY',          id: 'nexity' },
-  { symbol: 'KOF.PA',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
-  { symbol: 'LR.PA',   name: 'LEGRAND',         id: 'legrand' },
-  { symbol: 'NK.PA',   name: 'IMERYS',          id: 'imerys' },
-  { symbol: 'VCT.PA',  name: 'VICAT',           id: 'vicat' },
-  { symbol: 'BA.PA',   name: 'BASSAC',          id: 'bassac' },
-  { symbol: 'SPIE.PA', name: 'SPIE',            id: 'spie' },
-  { symbol: 'SU.PA',   name: 'SCHNEIDER',       id: 'schneider' },
+  { symbol: 'vie.pa',  name: 'VINCI',           id: 'vinci' },
+  { symbol: 'fgr.pa',  name: 'EIFFAGE',         id: 'eiffage' },
+  { symbol: 'en.pa',   name: 'BOUYGUES',        id: 'bouygues' },
+  { symbol: 'sgo.pa',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
+  { symbol: 'nxi.pa',  name: 'NEXITY',          id: 'nexity' },
+  { symbol: 'kof.pa',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
+  { symbol: 'lr.pa',   name: 'LEGRAND',         id: 'legrand' },
+  { symbol: 'nk.pa',   name: 'IMERYS',          id: 'imerys' },
+  { symbol: 'vct.pa',  name: 'VICAT',           id: 'vicat' },
+  { symbol: 'ba.pa',   name: 'BASSAC',          id: 'bassac' },
+  { symbol: 'spie.pa', name: 'SPIE',            id: 'spie' },
+  { symbol: 'su.pa',   name: 'SCHNEIDER',       id: 'schneider' },
 ]
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  // Cache 30 min sur Vercel Edge — max 48 appels/jour (plan free = 250/jour)
+  // Cache 30 min sur Vercel Edge — aucune limite Stooq à respecter
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=300')
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
-  const apiKey = process.env.API_FMP_Bourse
-  if (!apiKey) {
-    return res.status(500).json({
-      error: 'API_FMP_Bourse manquant — ajoute-la dans Vercel > Settings > Environment Variables',
-      quotes: [],
-    })
-  }
-
   try {
     const symbols = STOCKS.map(s => s.symbol).join(',')
-    const url = `https://financialmodelingprep.com/api/v3/quote/${symbols}?apikey=${apiKey}`
+    // f=sd2t2ohlcvp : Symbol, Date, Time, Open, High, Low, Close, Volume, %Change
+    const url = `https://stooq.com/q/l/?s=${symbols}&f=sd2t2ohlcvp&h&e=csv`
 
-    console.log('[Quotes] Appel FMP:', url.replace(apiKey, '***'))
-    const r = await fetch(url)
-    const rawText = await r.text()
-    console.log('[Quotes] FMP status:', r.status, '| réponse (200 chars):', rawText.slice(0, 200))
+    console.log('[Quotes] Appel Stooq pour', STOCKS.length, 'symboles')
 
-    if (!r.ok) throw new Error(`FMP HTTP ${r.status}: ${rawText.slice(0, 100)}`)
+    const r = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BatiAnalyse/1.0; +https://batianalyse.fr)' },
+    })
+    if (!r.ok) throw new Error(`Stooq HTTP ${r.status}`)
 
-    let data
-    try { data = JSON.parse(rawText) } catch { throw new Error('FMP: réponse non-JSON — ' + rawText.slice(0, 100)) }
+    const csv = await r.text()
+    console.log('[Quotes] Stooq réponse (300 chars):', csv.slice(0, 300))
 
-    // FMP retourne un tableau : [{ symbol: "VIE.PA", price: 125.80, changesPercentage: 1.24, ... }]
-    if (!Array.isArray(data)) {
-      throw new Error('FMP: format inattendu — ' + JSON.stringify(data).slice(0, 100))
-    }
-    if (data.length === 0) {
-      throw new Error('FMP: aucune donnée pour ces symboles — le plan gratuit couvre-t-il les actions européennes ?')
-    }
+    const lines = csv.trim().split('\n')
+    if (lines.length < 2) throw new Error('Stooq: CSV vide ou sans données')
 
-    // Indexer par symbol pour lookup rapide
+    // Colonnes : Symbol(0), Date(1), Time(2), Open(3), High(4), Low(5), Close(6), Volume(7), %Change(8)
     const bySymbol = {}
-    data.forEach(q => { bySymbol[q.symbol] = q })
+    lines.slice(1).forEach(line => {
+      const cols = line.split(',').map(c => c.trim())
+      if (cols.length < 7) return
+      const sym   = cols[0].toLowerCase()
+      const close = parseFloat(cols[6])
+      const pct   = cols[8] !== undefined ? parseFloat(cols[8]) : NaN
+      if (!isNaN(close) && close > 0) bySymbol[sym] = { close, pct }
+    })
+
+    console.log('[Quotes] Symboles reçus:', Object.keys(bySymbol).join(', '))
 
     const quotes = STOCKS.map(s => {
       const q = bySymbol[s.symbol]
-      if (!q || !q.price) {
-        console.warn('[Quotes] Symbole manquant:', s.symbol, '| reçus:', Object.keys(bySymbol).join(','))
+      if (!q) {
+        console.warn('[Quotes] Manquant:', s.symbol)
         return null
       }
 
-      const price     = parseFloat(q.price)
-      const prevClose = parseFloat(q.previousClose)
-      if (isNaN(price) || isNaN(prevClose) || prevClose === 0) return null
+      const changePct = isNaN(q.pct) ? 0 : q.pct
+      const prevClose = changePct !== 0 ? q.close / (1 + changePct / 100) : q.close
 
       return {
         id:            s.id,
         symbol:        s.symbol,
         name:          s.name,
-        price:         Math.round(price * 100) / 100,
-        change:        Math.round((price - prevClose) * 100) / 100,
-        changePercent: Math.round(parseFloat(q.changesPercentage) * 100) / 100,
+        price:         Math.round(q.close  * 100) / 100,
+        change:        Math.round((q.close - prevClose) * 100) / 100,
+        changePercent: Math.round(changePct * 100) / 100,
         prevClose:     Math.round(prevClose * 100) / 100,
         currency:      'EUR',
-        isOpen:        q.isActivelyTrading ?? null,
+        isOpen:        null,
       }
     }).filter(Boolean)
 
-    if (quotes.length === 0) throw new Error('Aucune cotation mappée — symboles FMP reçus: ' + Object.keys(bySymbol).join(','))
+    if (quotes.length === 0) {
+      throw new Error('Aucune cotation valide — symboles Stooq reçus: ' + Object.keys(bySymbol).join(','))
+    }
 
-    console.log('[Quotes] OK —', quotes.length, 'cotations')
+    console.log('[Quotes] OK —', quotes.length, '/', STOCKS.length, 'cotations')
     return res.status(200).json({ quotes, count: quotes.length, timestamp: new Date().toISOString() })
 
   } catch (error) {
