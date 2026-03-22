@@ -968,7 +968,11 @@ async function loadLiveQuotes() {
     const data = await res.json()
 
     if (!data.quotes || data.quotes.length === 0) {
-      showApiStatus('error', 'API: ' + (data.error || 'réponse vide'))
+      if (data.marketClosed) {
+        showApiStatus('error', 'Marchés fermés — cours du dernier jour ouvré')
+      } else {
+        showApiStatus('error', 'API: ' + (data.error || 'réponse vide'))
+      }
       setTimeout(loadLiveQuotes, 1800000)
       return
     }

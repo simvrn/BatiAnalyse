@@ -1,7 +1,8 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Cours boursiers BTP via Stooq — gratuit, sans clé API, sans limite.
- * Cache Vercel Edge 30 min → max 48 appels/jour.
+ * Cours boursiers BTP via Stooq — gratuit, sans clé API.
+ * Requêtes individuelles en parallèle (batch non supporté par Stooq CSV).
+ * Cache Vercel Edge 30 min.
  *
  * Aucune variable d'environnement requise.
  * GET /api/quotes
@@ -22,72 +23,82 @@ const STOCKS = [
   { symbol: 'su.pa',   name: 'SCHNEIDER',       id: 'schneider' },
 ]
 
+// Fetche un seul symbole Stooq → { price, changePercent } ou null
+async function fetchOne(symbol) {
+  try {
+    // f = s(symbol) d2(date) t2(time) o(open) h(high) l(low) c(close) v(volume) p(%chg)
+    const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcvp&h&e=csv`
+    const r = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BatiAnalyse/1.0)' },
+      signal: AbortSignal.timeout(8000),
+    })
+    if (!r.ok) return null
+
+    const csv = await r.text()
+    const lines = csv.trim().split('\n')
+    if (lines.length < 2) return null
+
+    // Ligne de données : Symbol,Date,Time,Open,High,Low,Close,Volume,%Change
+    const cols = lines[1].split(',').map(c => c.trim())
+    if (cols.length < 7) return null
+
+    const close = parseFloat(cols[6])
+    const pct   = parseFloat(cols[8])
+
+    if (isNaN(close) || close <= 0) return null // N/D = marché fermé ou symbole inconnu
+
+    return {
+      price:         Math.round(close * 100) / 100,
+      changePercent: isNaN(pct) ? 0 : Math.round(pct * 100) / 100,
+    }
+  } catch {
+    return null
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  // Cache 30 min sur Vercel Edge — aucune limite Stooq à respecter
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=300')
 
   if (req.method === 'OPTIONS') return res.status(200).end()
 
   try {
-    const symbols = STOCKS.map(s => s.symbol).join(',')
-    // f=sd2t2ohlcvp : Symbol, Date, Time, Open, High, Low, Close, Volume, %Change
-    const url = `https://stooq.com/q/l/?s=${symbols}&f=sd2t2ohlcvp&h&e=csv`
+    // 12 requêtes en parallèle — Stooq ne supporte pas le batch CSV
+    const results = await Promise.all(STOCKS.map(s => fetchOne(s.symbol)))
 
-    console.log('[Quotes] Appel Stooq pour', STOCKS.length, 'symboles')
+    const quotes = STOCKS.map((s, i) => {
+      const q = results[i]
+      if (!q) return null
 
-    const r = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BatiAnalyse/1.0; +https://batianalyse.fr)' },
-    })
-    if (!r.ok) throw new Error(`Stooq HTTP ${r.status}`)
-
-    const csv = await r.text()
-    console.log('[Quotes] Stooq réponse (300 chars):', csv.slice(0, 300))
-
-    const lines = csv.trim().split('\n')
-    if (lines.length < 2) throw new Error('Stooq: CSV vide ou sans données')
-
-    // Colonnes : Symbol(0), Date(1), Time(2), Open(3), High(4), Low(5), Close(6), Volume(7), %Change(8)
-    const bySymbol = {}
-    lines.slice(1).forEach(line => {
-      const cols = line.split(',').map(c => c.trim())
-      if (cols.length < 7) return
-      const sym   = cols[0].toLowerCase()
-      const close = parseFloat(cols[6])
-      const pct   = cols[8] !== undefined ? parseFloat(cols[8]) : NaN
-      if (!isNaN(close) && close > 0) bySymbol[sym] = { close, pct }
-    })
-
-    console.log('[Quotes] Symboles reçus:', Object.keys(bySymbol).join(', '))
-
-    const quotes = STOCKS.map(s => {
-      const q = bySymbol[s.symbol]
-      if (!q) {
-        console.warn('[Quotes] Manquant:', s.symbol)
-        return null
-      }
-
-      const changePct = isNaN(q.pct) ? 0 : q.pct
-      const prevClose = changePct !== 0 ? q.close / (1 + changePct / 100) : q.close
+      const prevClose = q.changePercent !== 0
+        ? q.price / (1 + q.changePercent / 100)
+        : q.price
 
       return {
         id:            s.id,
         symbol:        s.symbol,
         name:          s.name,
-        price:         Math.round(q.close  * 100) / 100,
-        change:        Math.round((q.close - prevClose) * 100) / 100,
-        changePercent: Math.round(changePct * 100) / 100,
+        price:         q.price,
+        change:        Math.round((q.price - prevClose) * 100) / 100,
+        changePercent: q.changePercent,
         prevClose:     Math.round(prevClose * 100) / 100,
         currency:      'EUR',
         isOpen:        null,
       }
     }).filter(Boolean)
 
+    console.log('[Quotes] OK —', quotes.length, '/', STOCKS.length, 'cotations')
+
     if (quotes.length === 0) {
-      throw new Error('Aucune cotation valide — CSV brut: ' + csv.slice(0, 400))
+      return res.status(200).json({
+        quotes: [],
+        count: 0,
+        marketClosed: true,
+        message: 'Marchés fermés — données disponibles en semaine 9h–17h30',
+        timestamp: new Date().toISOString(),
+      })
     }
 
-    console.log('[Quotes] OK —', quotes.length, '/', STOCKS.length, 'cotations')
     return res.status(200).json({ quotes, count: quotes.length, timestamp: new Date().toISOString() })
 
   } catch (error) {
