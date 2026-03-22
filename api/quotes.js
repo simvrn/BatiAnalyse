@@ -84,7 +84,7 @@ export default async function handler(req, res) {
     }).filter(Boolean)
 
     if (quotes.length === 0) {
-      throw new Error('Aucune cotation valide — symboles Stooq reçus: ' + Object.keys(bySymbol).join(','))
+      throw new Error('Aucune cotation valide — CSV brut: ' + csv.slice(0, 400))
     }
 
     console.log('[Quotes] OK —', quotes.length, '/', STOCKS.length, 'cotations')
