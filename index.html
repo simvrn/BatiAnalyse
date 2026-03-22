@@ -1070,13 +1070,17 @@ async function loadTicker() {
     const data = await r.json()
     if (data.quotes && data.quotes.length > 0) {
       document.getElementById('tickerTrack').innerHTML = buildTickerHTML(data.quotes)
-    } else {
-      console.warn('[Ticker] API:', data.error || 'réponse vide')
+    } else if (data.marketClosed) {
+      // Marché fermé : afficher un message dans le ticker
+      const track = document.getElementById('tickerTrack')
+      const msg = '<div class="ticker-item">MARCHÉS FERMÉS<span class="ticker-sep">|</span></div>'
+        + '<div class="ticker-item">Euronext Paris · Lun–Ven 9h–17h30<span class="ticker-sep">|</span></div>'
+      track.innerHTML = msg + msg // double pour boucle infinie
     }
   } catch (e) {
     console.warn('[Ticker] Erreur:', e.message)
   }
-  setTimeout(loadTicker, 1800000) // refresh 30 min (aligne sur cache Vercel)
+  setTimeout(loadTicker, 1800000)
 }
 loadTicker()
 </script>
