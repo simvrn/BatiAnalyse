@@ -949,7 +949,11 @@ async function loadLiveQuotes() {
   try {
     const res  = await fetch('/api/quotes')
     const data = await res.json()
-    if (!data.quotes || data.quotes.length === 0) return
+    console.log('[Valeurs Live]', data)
+    if (!data.quotes || data.quotes.length === 0) {
+      console.warn('[Valeurs Live] Pas de données:', data.error || 'réponse vide')
+      return
+    }
 
     // Map id → cotation live
     const liveMap = {}
