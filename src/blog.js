@@ -1,5 +1,5 @@
 /**
- * src/blog.js — BuildAlpha
+ * src/blog.js — BatiAnalyse
  * Logique de la page listing blog (blog.html)
  */
 import { getPosts, getCategories } from './wordpress.js'

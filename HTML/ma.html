@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — M&A & Private Equity BTP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080807;
+  --bg: #0c0c0a;
+  --surface: #111110;
+  --surface2: #161614;
+  --border: rgba(201,168,76,0.1);
+  --border-hover: rgba(201,168,76,0.35);
+  --gold: #c9a84c;
+  --gold-dim: rgba(201,168,76,0.15);
+  --gold-glow: rgba(201,168,76,0.06);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.12);
+  --text: #e8e4da;
+  --text-2: #a09880;
+  --text-3: #5a5446;
+  --white: #f5f2eb;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none; z-index:999; opacity:0.5;
+}
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:56px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 32px;
+  background: rgba(8,8,7,0.92);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo span { color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a {
+  font-family:'Syne',sans-serif; font-size:12px; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--text-2); text-decoration:none; transition:color 0.15s;
+}
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--gold); }
+.nav-cta {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em;
+  padding:8px 20px; border:1px solid var(--gold);
+  color:var(--gold); text-decoration:none; transition:all 0.15s;
+  text-transform:uppercase;
+}
+.nav-cta:hover { background:var(--gold); color:var(--black); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding: 80px 32px 0;
+  border-bottom: 1px solid var(--border);
+}
+.page-header-inner {
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:32px;
+  align-items:end;
+  padding-bottom:24px;
+}
+.page-breadcrumb {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.18em;
+  color:var(--text-3); text-transform:uppercase; margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.page-breadcrumb span { color:var(--gold); }
+h1 {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(36px,4vw,58px);
+  font-weight:900; line-height:1.0; letter-spacing:-0.02em;
+}
+h1 em { font-style:italic; color:var(--gold); }
+.page-sub {
+  font-size:13px; font-weight:400; color:var(--text-2);
+  margin-top:10px; letter-spacing:0.02em;
+}
+.header-stats { display:flex; gap:0; }
+.hstat {
+  text-align:right; padding:0 24px;
+  border-left: 1px solid var(--border);
+}
+.hstat:first-child { border-left:none; }
+.hstat-val { font-family:'DM Mono',monospace; font-size:22px; font-weight:500; color:var(--gold); line-height:1; }
+.hstat-label { font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-3); margin-top:4px; }
+
+/* ── MARKET PULSE BAND ── */
+.pulse-band {
+  background: linear-gradient(90deg, #0f0e0a 0%, #141108 50%, #0f0e0a 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 32px;
+  display:flex; gap:48px; align-items:center;
+}
+.pulse-item {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em;
+  color:var(--text-2); display:flex; align-items:center; gap:8px;
+}
+.pulse-item::before {
+  content:''; display:block; width:6px; height:6px;
+  background:var(--gold); border-radius:50%;
+  box-shadow: 0 0 8px var(--gold);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+.pulse-item strong { color:var(--gold); }
+.pulse-sep { color:var(--text-3); }
+
+/* ── 3-COL LAYOUT ── */
+.three-col {
+  display:grid;
+  grid-template-columns: 280px 1fr 260px;
+  min-height: calc(100vh - 56px);
+  align-items:start;
+}
+
+/* ── LEFT SIDEBAR (FILTERS) ── */
+.filters-sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 0 40px;
+  position:sticky; top:56px;
+  height: calc(100vh - 56px);
+  overflow-y:auto;
+}
+.filters-sidebar::-webkit-scrollbar { width:3px; }
+.filters-sidebar::-webkit-scrollbar-thumb { background:var(--border); }
+
+.sidebar-header {
+  padding:0 20px 16px; border-bottom: 1px solid var(--border); margin-bottom:20px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.sidebar-header-title {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--gold);
+}
+.filter-count-badge {
+  font-family:'DM Mono',monospace; font-size:10px;
+  background:var(--gold); color:var(--black);
+  padding:2px 8px; font-weight:700;
+  display:none;
+}
+.filter-count-badge.visible { display:block; }
+
+.filter-section { padding:0 20px; margin-bottom:24px; }
+.filter-section-title {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--text-3);
+  margin-bottom:10px;
+}
+.filter-pills { display:flex; flex-wrap:wrap; gap:6px; }
+.filter-pill {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em;
+  padding:5px 10px; border:1px solid rgba(201,168,76,0.15);
+  color:var(--text-2); cursor:pointer; transition:all 0.15s;
+  background:transparent; user-select:none;
+}
+.filter-pill:hover { border-color:var(--gold); color:var(--gold); }
+.filter-pill.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
+
+.reset-btn {
+  margin:16px 20px 0;
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--text-3);
+  background:transparent; border:1px solid var(--border);
+  padding:8px 16px; cursor:pointer; transition:all 0.15s; width:calc(100% - 40px);
+}
+.reset-btn:hover { border-color:var(--gold); color:var(--gold); }
+
+/* ── MAIN CONTENT ── */
+.main-content {
+  min-width:0;
+  border-right: 1px solid var(--border);
+}
+
+/* Featured deal */
+.featured-deal {
+  margin:24px; padding:24px;
+  background: linear-gradient(135deg, #0f0d09 0%, #141009 100%);
+  border:1px solid rgba(201,168,76,0.25);
+  position:relative; overflow:hidden;
+}
+.featured-deal::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.featured-deal-inner {
+  display:flex; justify-content:space-between; align-items:center; gap:24px;
+}
+.deal-week-tag {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.deal-week-tag::before {
+  content:'★'; font-size:10px;
+}
+.featured-deal-title {
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:700; line-height:1.2;
+  margin-bottom:8px;
+}
+.featured-deal-sub {
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--text-2); letter-spacing:0.06em;
+}
+.featured-deal-right { text-align:right; flex-shrink:0; }
+.featured-amount {
+  font-family:'DM Mono',monospace; font-size:36px; font-weight:500; color:var(--gold);
+  line-height:1; margin-bottom:8px;
+}
+.featured-amount span { font-size:16px; }
+.badge-boucle {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--green); border:1px solid rgba(74,222,128,0.3);
+  padding:4px 10px; display:inline-block; margin-bottom:12px;
+}
+.featured-cta {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--gold);
+  border:1px solid var(--gold); padding:8px 18px;
+  text-decoration:none; transition:all 0.15s; display:inline-block;
+}
+.featured-cta:hover { background:var(--gold); color:var(--black); }
+
+/* Quick filter bar */
+.quick-filter-bar {
+  position:sticky; top:56px; z-index:50;
+  background:var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding:14px 24px;
+  display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+}
+.qf-group { display:flex; gap:4px; align-items:center; }
+.qf-label {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--text-3); margin-right:4px;
+}
+.qf-btn {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em;
+  padding:5px 12px; border:1px solid var(--border);
+  background:transparent; color:var(--text-2); cursor:pointer;
+  transition:all 0.15s; white-space:nowrap;
+}
+.qf-btn:hover { border-color:var(--gold); color:var(--gold); }
+.qf-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
+.qf-sep { width:1px; height:20px; background:var(--border); margin:0 8px; }
+.qf-right { margin-left:auto; display:flex; gap:8px; align-items:center; }
+.search-wrap { position:relative; }
+.search-input {
+  font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.05em;
+  background:var(--surface2); border:1px solid var(--border);
+  color:var(--text); padding:6px 12px 6px 30px;
+  outline:none; width:200px; transition:border-color 0.2s;
+}
+.search-input:focus { border-color:var(--gold); }
+.search-input::placeholder { color:var(--text-3); }
+.search-icon {
+  position:absolute; left:9px; top:50%; transform:translateY(-50%);
+  font-size:12px; color:var(--text-3); pointer-events:none;
+}
+.sort-select {
+  font-family:'DM Mono',monospace; font-size:10px;
+  background:var(--surface2); border:1px solid var(--border);
+  color:var(--text-2); padding:6px 10px; outline:none; cursor:pointer;
+}
+.view-toggle { display:flex; gap:3px; }
+.view-btn {
+  width:28px; height:28px; border:1px solid var(--border); background:transparent;
+  color:var(--text-3); cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:13px; transition:all 0.15s;
+}
+.view-btn.active { border-color:var(--gold); color:var(--gold); background:var(--gold-dim); }
+
+/* Results meta */
+.results-meta {
+  padding:10px 24px;
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3);
+  display:flex; justify-content:space-between; align-items:center;
+  border-bottom: 1px solid var(--border);
+}
+.results-meta strong { color:var(--gold); }
+.data-disclaimer {
+  color:var(--text-3); font-size:9px; letter-spacing:0.15em; text-transform:uppercase;
+}
+
+/* ── TABLE VIEW ── */
+.deals-table-wrap { overflow-x:auto; }
+.deals-table {
+  width:100%; border-collapse:collapse;
+}
+.deals-table th {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--text-3);
+  padding:10px 14px; border-bottom:1px solid var(--border);
+  text-align:left; white-space:nowrap; background:var(--surface);
+  position:sticky; top:calc(56px + 56px); z-index:40;
+}
+.deals-table td {
+  padding:12px 14px; border-bottom:1px solid rgba(201,168,76,0.06);
+  font-size:13px; vertical-align:middle; white-space:nowrap;
+}
+.deals-table tr {
+  cursor:pointer; transition:background 0.15s;
+  opacity:0; transform:translateY(8px);
+  animation: rowIn 0.3s ease forwards;
+}
+.deals-table tr:hover td { background:var(--gold-glow); }
+@keyframes rowIn {
+  to { opacity:1; transform:translateY(0); }
+}
+.deals-table tr:nth-child(1)  { animation-delay:0.04s; }
+.deals-table tr:nth-child(2)  { animation-delay:0.08s; }
+.deals-table tr:nth-child(3)  { animation-delay:0.12s; }
+.deals-table tr:nth-child(4)  { animation-delay:0.16s; }
+.deals-table tr:nth-child(5)  { animation-delay:0.20s; }
+.deals-table tr:nth-child(6)  { animation-delay:0.24s; }
+.deals-table tr:nth-child(7)  { animation-delay:0.28s; }
+.deals-table tr:nth-child(8)  { animation-delay:0.32s; }
+.deals-table tr:nth-child(9)  { animation-delay:0.36s; }
+.deals-table tr:nth-child(10) { animation-delay:0.40s; }
+.deals-table tr:nth-child(11) { animation-delay:0.44s; }
+.deals-table tr:nth-child(12) { animation-delay:0.48s; }
+
+.col-date { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); }
+.col-cible { font-weight:700; font-size:13px; }
+.col-acq { font-size:12px; color:var(--text-2); }
+.col-montant { font-family:'DM Mono',monospace; font-size:13px; font-weight:500; color:var(--gold); }
+.col-multiple { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); }
+.col-geo { font-family:'DM Mono',monospace; font-size:11px; }
+.col-action { color:var(--gold); font-family:'DM Mono',monospace; font-size:14px; opacity:0.4; transition:opacity 0.15s; }
+.deals-table tr:hover .col-action { opacity:1; }
+.na { color:var(--text-3); font-family:'DM Mono',monospace; font-size:11px; }
+
+/* Type badges */
+.badge-type {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.12em;
+  text-transform:uppercase; padding:3px 8px; white-space:nowrap; display:inline-block;
+}
+.badge-lbo       { background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.25); }
+.badge-buildup   { background:rgba(20,184,166,0.12); color:#2dd4bf; border:1px solid rgba(20,184,166,0.2); }
+.badge-fusion    { background:rgba(201,168,76,0.12); color:var(--gold); border:1px solid rgba(201,168,76,0.2); }
+.badge-acquisition { background:rgba(59,130,246,0.12); color:#93c5fd; border:1px solid rgba(59,130,246,0.2); }
+.badge-cession   { background:rgba(249,115,22,0.12); color:#fb923c; border:1px solid rgba(249,115,22,0.2); }
+.badge-jv        { background:rgba(99,102,241,0.12); color:#a5b4fc; border:1px solid rgba(99,102,241,0.2); }
+
+/* Status badges */
+.badge-statut {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.12em;
+  text-transform:uppercase; padding:3px 8px; white-space:nowrap; display:inline-block;
+}
+.badge-statut.boucle    { background:var(--green-dim); color:var(--green); border:1px solid rgba(74,222,128,0.25); }
+.badge-statut.annonce   { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
+.badge-statut.en-cours  { background:var(--blue-dim); color:var(--blue); border:1px solid rgba(96,165,250,0.25); }
+.badge-statut.rumeur    { color:var(--text-3); border:1px dashed rgba(90,84,70,0.5); background:transparent; }
+
+/* ── CARDS VIEW ── */
+.deals-cards { display:none; grid-template-columns:1fr 1fr; gap:16px; padding:20px 24px; }
+.deals-cards.visible { display:grid; }
+.deals-table-wrap.hidden { display:none; }
+
+.deal-card {
+  background:var(--surface); border:1px solid var(--border);
+  padding:20px; cursor:pointer; transition:all 0.2s;
+  position:relative; overflow:hidden;
+  opacity:0; transform:translateY(12px);
+  animation: cardIn 0.35s ease forwards;
+}
+.deal-card::before {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:var(--gold); transform:scaleX(0); transition:transform 0.2s; transform-origin:left;
+}
+.deal-card:hover { border-color:var(--border-hover); background:var(--surface2); }
+.deal-card:hover::before { transform:scaleX(1); }
+@keyframes cardIn {
+  to { opacity:1; transform:translateY(0); }
+}
+
+.card-badges { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.card-cible { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; margin-bottom:4px; line-height:1.2; }
+.card-acq { font-size:12px; color:var(--text-2); margin-bottom:10px; }
+.card-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.card-tag {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em;
+  padding:3px 8px; border:1px solid var(--border); color:var(--text-3); text-transform:uppercase;
+}
+.card-financials {
+  display:flex; gap:16px; align-items:baseline; margin-bottom:12px;
+  padding-top:12px; border-top:1px solid var(--border);
+}
+.card-amount { font-family:'DM Mono',monospace; font-size:20px; font-weight:500; color:var(--gold); }
+.card-multiple { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); }
+.card-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-bottom:8px; }
+.card-advisors { font-size:11px; color:var(--text-3); margin-bottom:12px; }
+.card-advisors strong { color:var(--text-2); font-size:10px; font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; }
+.card-cta {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--gold); text-decoration:none;
+  display:flex; align-items:center; gap:6px;
+}
+
+/* ── RIGHT RAIL ── */
+.right-rail {
+  padding:24px 20px;
+  position:sticky; top:56px;
+  height: calc(100vh - 56px);
+  overflow-y:auto;
+}
+.right-rail::-webkit-scrollbar { width:3px; }
+.right-rail::-webkit-scrollbar-thumb { background:var(--border); }
+
+.rail-section { margin-bottom:28px; }
+.rail-title {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--gold);
+  padding-bottom:10px; border-bottom:1px solid var(--border); margin-bottom:14px;
+}
+
+/* Multiples table */
+.multiples-table { width:100%; border-collapse:collapse; }
+.multiples-table tr { border-bottom:1px solid rgba(201,168,76,0.05); }
+.multiples-table td {
+  font-size:11px; padding:7px 4px;
+  font-family:'DM Mono',monospace;
+}
+.multiples-table .m-sector { color:var(--text-2); font-size:10px; }
+.multiples-table .m-range { color:var(--gold); text-align:right; }
+
+/* Advisors ranked */
+.advisors-ranked { display:flex; flex-direction:column; gap:8px; }
+.advisor-row { display:flex; align-items:center; gap:8px; }
+.advisor-rank {
+  font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3);
+  width:16px; flex-shrink:0;
+}
+.advisor-name { font-size:11px; font-weight:600; flex:1; }
+.advisor-mandats {
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--gold);
+  white-space:nowrap;
+}
+
+/* Volume bars */
+.volume-bars { display:flex; flex-direction:column; gap:7px; }
+.vol-row { display:flex; align-items:center; gap:8px; }
+.vol-label { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-2); width:80px; flex-shrink:0; text-transform:uppercase; letter-spacing:0.06em; }
+.vol-bar-wrap { flex:1; height:4px; background:rgba(201,168,76,0.08); }
+.vol-bar { height:100%; background:var(--gold); transition:width 0.6s ease; }
+.vol-count { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); width:14px; text-align:right; }
+
+/* Mini deal cards (derniers bouclés) */
+.mini-deals { display:flex; flex-direction:column; gap:8px; }
+.mini-deal {
+  padding:10px 12px; background:var(--surface);
+  border:1px solid var(--border); cursor:pointer; transition:border-color 0.15s;
+}
+.mini-deal:hover { border-color:var(--border-hover); }
+.mini-deal-cible { font-size:12px; font-weight:700; margin-bottom:3px; }
+.mini-deal-info { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-2); }
+
+/* Empty state */
+.empty-state {
+  padding:60px 24px; text-align:center;
+}
+.empty-state-icon { font-size:40px; margin-bottom:16px; opacity:0.3; }
+.empty-state-text { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-3); }
+
+/* Footer */
+.page-footer {
+  border-top:1px solid var(--border);
+  padding:40px 32px;
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.footer-logo { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--white); }
+.footer-logo span { color:var(--gold); }
+
+/* Geo flag */
+.geo-flag {
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em;
+  padding:2px 6px; background:var(--surface2); color:var(--text-2); border:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma.html" class="active">M&amp;A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="#">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-left">
+      <div class="page-breadcrumb">BatiAnalyse <span>/</span> M&A &amp; Private Equity</div>
+      <h1>Fusions &amp; <em>Acquisitions</em></h1>
+      <div class="page-sub">127 opérations suivies · Mis à jour vendredi 13 mars 2026</div>
+    </div>
+    <div class="header-stats">
+      <div class="hstat">
+        <div class="hstat-val">€14,2Md</div>
+        <div class="hstat-label">Volume YTD</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">23</div>
+        <div class="hstat-label">Deals annoncés</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">18</div>
+        <div class="hstat-label">Deals bouclés</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val">8,4x</div>
+        <div class="hstat-label">Multiple médian</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MARKET PULSE BAND -->
+<div class="pulse-band">
+  <div class="pulse-item">Deal flow <strong>+34%</strong> vs 2025</div>
+  <div class="pulse-sep">·</div>
+  <div class="pulse-item">Secteur le plus actif : <strong>Construction</strong></div>
+  <div class="pulse-sep">·</div>
+  <div class="pulse-item">PE : <strong>67%</strong> des opérations</div>
+</div>
+
+<!-- 3-COL LAYOUT -->
+<div class="three-col">
+
+  <!-- LEFT SIDEBAR — FILTERS -->
+  <aside class="filters-sidebar">
+    <div class="sidebar-header">
+      <span class="sidebar-header-title">Filtres</span>
+      <span class="filter-count-badge" id="filterBadge">0</span>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">Type d'opération</div>
+      <div class="filter-pills" data-filter="type">
+        <div class="filter-pill" data-value="lbo">LBO</div>
+        <div class="filter-pill" data-value="buildup">Build-up</div>
+        <div class="filter-pill" data-value="fusion">Fusion</div>
+        <div class="filter-pill" data-value="acquisition">Acquisition stratégique</div>
+        <div class="filter-pill" data-value="cession">Cession</div>
+        <div class="filter-pill" data-value="jv">Joint-venture</div>
+        <div class="filter-pill" data-value="ipo">IPO / Entrée en bourse</div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">Secteur cible</div>
+      <div class="filter-pills" data-filter="secteur">
+        <div class="filter-pill" data-value="construction">Construction</div>
+        <div class="filter-pill" data-value="materiaux">Matériaux</div>
+        <div class="filter-pill" data-value="promotion">Promotion</div>
+        <div class="filter-pill" data-value="equipement">Équipements</div>
+        <div class="filter-pill" data-value="infrastructure">Infrastructures</div>
+        <div class="filter-pill" data-value="contech">ConTech</div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">Taille deal</div>
+      <div class="filter-pills" data-filter="taille">
+        <div class="filter-pill" data-value="small">&lt; 50M€</div>
+        <div class="filter-pill" data-value="mid">50–200M€</div>
+        <div class="filter-pill" data-value="mid-large">200M–1Md€</div>
+        <div class="filter-pill" data-value="large">&gt; 1Md€</div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">Géographie</div>
+      <div class="filter-pills" data-filter="geo">
+        <div class="filter-pill" data-value="FR">FR</div>
+        <div class="filter-pill" data-value="DE">DE</div>
+        <div class="filter-pill" data-value="UK">UK</div>
+        <div class="filter-pill" data-value="ES">ES</div>
+        <div class="filter-pill" data-value="Benelux">Benelux</div>
+        <div class="filter-pill" data-value="International">International</div>
+      </div>
+    </div>
+
+    <div class="filter-section">
+      <div class="filter-section-title">Statut</div>
+      <div class="filter-pills" data-filter="statut">
+        <div class="filter-pill" data-value="annoncé">Annoncé</div>
+        <div class="filter-pill" data-value="en_cours">En cours</div>
+        <div class="filter-pill" data-value="bouclé">Bouclé</div>
+        <div class="filter-pill" data-value="rumeur">Rumeur</div>
+      </div>
+    </div>
+
+    <button class="reset-btn" id="resetFilters">Réinitialiser les filtres</button>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- FEATURED DEAL -->
+    <div class="featured-deal">
+      <div class="featured-deal-inner">
+        <div>
+          <div class="deal-week-tag">Deal de la semaine</div>
+          <div class="featured-deal-title">Ardian acquiert GCF Ingénierie pour 340M€</div>
+          <div class="featured-deal-sub">LBO · Génie civil · Multiple 8,2x EBITDA · Bouclé le 11 mars 2026</div>
+        </div>
+        <div class="featured-deal-right">
+          <div class="featured-amount"><span>€</span>340 M</div>
+          <div class="badge-boucle">● BOUCLÉ</div>
+          <br>
+          <a href="/ma-entreprise.html?id=gcf-ingenierie" class="featured-cta">Voir le détail →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK FILTER BAR -->
+    <div class="quick-filter-bar">
+      <div class="qf-group">
+        <span class="qf-label">Type</span>
+        <button class="qf-btn active" data-qf="type" data-qv="tous">Tous</button>
+        <button class="qf-btn" data-qf="type" data-qv="lbo">LBO</button>
+        <button class="qf-btn" data-qf="type" data-qv="buildup">Build-up</button>
+        <button class="qf-btn" data-qf="type" data-qv="fusion">Fusion</button>
+        <button class="qf-btn" data-qf="type" data-qv="cession">Cession</button>
+      </div>
+      <div class="qf-sep"></div>
+      <div class="qf-group">
+        <span class="qf-label">Statut</span>
+        <button class="qf-btn active" data-qf="statut" data-qv="tous">Tous</button>
+        <button class="qf-btn" data-qf="statut" data-qv="annoncé">Annoncé</button>
+        <button class="qf-btn" data-qf="statut" data-qv="bouclé">Bouclé</button>
+        <button class="qf-btn" data-qf="statut" data-qv="en_cours">En cours</button>
+      </div>
+      <div class="qf-right">
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input type="text" class="search-input" id="searchInput" placeholder="Cible, acquéreur…">
+        </div>
+        <select class="sort-select" id="sortSelect">
+          <option value="date">Date ↓</option>
+          <option value="montant">Montant ↓</option>
+          <option value="multiple">Multiple ↓</option>
+        </select>
+        <div class="view-toggle">
+          <button class="view-btn active" id="tableViewBtn" title="Tableau">≡</button>
+          <button class="view-btn" id="cardViewBtn" title="Cartes">⊞</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS META -->
+    <div class="results-meta">
+      <div>Affichage de <strong id="resultCount">12</strong> opérations</div>
+      <div class="data-disclaimer">Données indicatives</div>
+    </div>
+
+    <!-- TABLE VIEW -->
+    <div class="deals-table-wrap" id="tableView">
+      <table class="deals-table" id="dealsTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Cible</th>
+            <th>Acquéreur</th>
+            <th>Type</th>
+            <th>Secteur</th>
+            <th>Montant</th>
+            <th>EV/EBITDA</th>
+            <th>Géo</th>
+            <th>Statut</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="dealsTableBody"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="empty-state-icon">○</div>
+        <div class="empty-state-text">Aucune opération ne correspond aux filtres sélectionnés.</div>
+      </div>
+    </div>
+
+    <!-- CARDS VIEW -->
+    <div class="deals-cards" id="cardsView"></div>
+
+  </main>
+
+  <!-- RIGHT RAIL -->
+  <aside class="right-rail">
+
+    <div class="rail-section">
+      <div class="rail-title">Multiples de référence</div>
+      <table class="multiples-table">
+        <tr><td class="m-sector">Construction</td><td class="m-range">7–9×</td></tr>
+        <tr><td class="m-sector">Matériaux</td><td class="m-range">10–13×</td></tr>
+        <tr><td class="m-sector">Infrastructures</td><td class="m-range">12–16×</td></tr>
+        <tr><td class="m-sector">Équipements</td><td class="m-range">9–12×</td></tr>
+        <tr><td class="m-sector">ConTech</td><td class="m-range" style="color:var(--text-3);font-size:9px;">n/a (revenus)</td></tr>
+        <tr><td class="m-sector">Promotion</td><td class="m-range">6–8×</td></tr>
+      </table>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Conseilleurs actifs</div>
+      <div class="advisors-ranked" id="advisorsRanked">
+        <div class="advisor-row">
+          <span class="advisor-rank">1.</span>
+          <span class="advisor-name">Rothschild &amp; Co</span>
+          <span class="advisor-mandats">4 mandats</span>
+        </div>
+        <div class="advisor-row">
+          <span class="advisor-rank">2.</span>
+          <span class="advisor-name">Lazard</span>
+          <span class="advisor-mandats">3 mandats</span>
+        </div>
+        <div class="advisor-row">
+          <span class="advisor-rank">3.</span>
+          <span class="advisor-name">Goldman Sachs</span>
+          <span class="advisor-mandats">2 mandats</span>
+        </div>
+        <div class="advisor-row">
+          <span class="advisor-rank">4.</span>
+          <span class="advisor-name">DC Advisory</span>
+          <span class="advisor-mandats">2 mandats</span>
+        </div>
+        <div class="advisor-row">
+          <span class="advisor-rank">5.</span>
+          <span class="advisor-name">BNP Paribas</span>
+          <span class="advisor-mandats">2 mandats</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Volume par secteur</div>
+      <div class="volume-bars" id="volumeBars">
+        <div class="vol-row">
+          <span class="vol-label">Construction</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:100%"></div></div>
+          <span class="vol-count">4</span>
+        </div>
+        <div class="vol-row">
+          <span class="vol-label">Infra</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:100%"></div></div>
+          <span class="vol-count">4</span>
+        </div>
+        <div class="vol-row">
+          <span class="vol-label">Matériaux</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
+          <span class="vol-count">1</span>
+        </div>
+        <div class="vol-row">
+          <span class="vol-label">Équipements</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
+          <span class="vol-count">1</span>
+        </div>
+        <div class="vol-row">
+          <span class="vol-label">Promotion</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:50%"></div></div>
+          <span class="vol-count">2</span>
+        </div>
+        <div class="vol-row">
+          <span class="vol-label">ConTech</span>
+          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
+          <span class="vol-count">1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Derniers bouclés</div>
+      <div class="mini-deals" id="miniDeals"></div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-logo">Bati<span>Analyse</span></div>
+  <div>Les données présentées sont indicatives et ne constituent pas des conseils en investissement.</div>
+  <div>© 2026 BatiAnalyse</div>
+</footer>
+
+<script>
+const deals = [
+  { id:'gcf-ingenierie', date:'2026-03-11', cible:'GCF Ingénierie', acquéreur:'Ardian Infrastructure', secteur:'construction', type:'lbo', statut:'bouclé', montant:340, multiple:8.2, géo:'FR', taille:'mid', conseilleursAcq:['Rothschild & Co','Gide Loyrette Nouel'], conseillersCible:['DC Advisory','Linklaters'], résumé:"Ardian acquiert la majorité du capital de GCF Ingénierie, ETI de génie civil présente dans 8 régions françaises. La cible réalise 210M€ de CA pour 41M€ d'EBITDA 2025. Le deal valorise l'entreprise à 8,2x l'EBITDA, en ligne avec les multiples récents du secteur pour une ETI bien positionnée sur le génie civil industriel." },
+  { id:'vinci-balfour', date:'2026-03-08', cible:'Balfour Beatty Infrastructure Services', acquéreur:'Vinci Construction', secteur:'infrastructure', type:'acquisition', statut:'annoncé', montant:1200, multiple:9.1, géo:'UK', taille:'large', conseilleursAcq:['BNP Paribas','Freshfields'], conseillersCible:['Goldman Sachs','Clifford Chance'], résumé:"Vinci Construction annonce l'acquisition de la division Infrastructure Services de Balfour Beatty au Royaume-Uni pour renforcer son empreinte sur le marché britannique post-Brexit. L'opération doit encore recevoir l'approbation des autorités de concurrence." },
+  { id:'fermacell-sg', date:'2026-02-28', cible:'Fermacell Deutschland', acquéreur:'Saint-Gobain', secteur:'materiaux', type:'acquisition', statut:'bouclé', montant:950, multiple:11.3, géo:'DE', taille:'large', conseilleursAcq:['Société Générale','CMS'], conseillersCible:['Deutsche Bank','Hengeler Mueller'], résumé:"Saint-Gobain finalise l'acquisition du fabricant allemand de plaques de construction haute performance Fermacell, renforçant ainsi sa position sur le segment isolation/cloisons en Europe centrale. L'intégration au pôle High Performance Solutions est prévue sur 18 mois." },
+  { id:'eiffage-a75', date:'2026-02-20', cible:'Concession A75 Sud', acquéreur:'Infrastructure Fund Europe', secteur:'infrastructure', type:'cession', statut:'en_cours', montant:2100, multiple:14.5, géo:'FR', taille:'large', conseilleursAcq:['Lazard','Hogan Lovells'], conseillersCible:['Rothschild & Co','Linklaters'], résumé:"Eiffage explore la cession de sa participation dans la concession autoroutière A75 à un fonds infrastructure européen dans le cadre de sa stratégie de rotation d'actifs. La valorisation indicative ressort à 14,5x l'EBITDA de concession, valorisant les flux de péage long terme." },
+  { id:'legendre-gtm', date:'2026-02-14', cible:'GTM Bâtiment Normandie', acquéreur:'Groupe Legendre', secteur:'construction', type:'buildup', statut:'bouclé', montant:45, multiple:6.8, géo:'FR', taille:'small', conseilleursAcq:['Oaklins France'], conseillersCible:['Financière de Courcelles'], résumé:"Le Groupe Legendre (Rennes) poursuit sa stratégie de croissance externe régionale avec l'acquisition de GTM Bâtiment Normandie, opérateur local de 280 salariés. Cette 4ème acquisition en 18 mois porte le groupe à 1,8Md€ de CA consolidé." },
+  { id:'infravia-meridiam', date:'2026-02-07', cible:'Portef. Concessions Meridiam BTP', acquéreur:'Infravia Capital Partners', secteur:'infrastructure', type:'jv', statut:'annoncé', montant:280, multiple:null, géo:'FR', taille:'mid', conseilleursAcq:['CACIB','Ashurst'], conseillersCible:['Natixis','Gide'], résumé:"Infravia et Meridiam annoncent la création d'une JV portant un portefeuille de 6 concessions de bâtiments publics (hôpitaux, écoles) en PPP. La structure co-investisseur vise un rendement de 7-9% sur la durée des contrats." },
+  { id:'pai-kiloutou', date:'2026-01-28', cible:'Kiloutou (division BTP)', acquéreur:'PAI Partners', secteur:'equipement', type:'lbo', statut:'bouclé', montant:1800, multiple:12.4, géo:'FR', taille:'large', conseilleursAcq:['Morgan Stanley','Latham & Watkins'], conseillersCible:['JP Morgan','Sullivan & Cromwell'], résumé:"PAI Partners finalise le rachat de la division location d'équipements BTP de Kiloutou dans le cadre d'un carve-out stratégique. La division cible réalise 380M€ de CA avec des marges EBITDA supérieures à 30%, portées par la consolidation du marché de la location d'engins." },
+  { id:'spie-cvc', date:'2026-01-20', cible:'Spie Batignolles (filiale)', acquéreur:'CVC Capital Partners', secteur:'construction', type:'lbo', statut:'rumeur', montant:380, multiple:7.9, géo:'FR', taille:'mid', conseilleursAcq:[], conseillersCible:[], résumé:"Plusieurs sources de marché évoquent un intérêt de CVC Capital Partners pour une filiale de construction de Spie dans le cadre d'un possible carve-out. Ni CVC ni Spie n'ont confirmé ces informations. L'opération valoriserait la cible à environ 7,9x l'EBITDA." },
+  { id:'bouygues-techbuild', date:'2026-01-15', cible:'TechBuild AI', acquéreur:'Bouygues Construction', secteur:'contech', type:'acquisition', statut:'bouclé', montant:28, multiple:null, géo:'FR', taille:'small', conseilleursAcq:['KPMG Deals'], conseillersCible:['Cambon Partners'], résumé:"Bouygues Construction acquiert TechBuild AI, startup spécialisée dans la planification de chantier par intelligence artificielle, pour accélérer sa transformation numérique. La startup compte 45 collaborateurs et était valorisée 28M€ lors de son dernier tour de table (Series A)." },
+  { id:'vinci-energies-uk', date:'2026-01-10', cible:'UK Grid Solutions Ltd', acquéreur:'Vinci Energies', secteur:'infrastructure', type:'buildup', statut:'annoncé', montant:560, multiple:10.2, géo:'UK', taille:'mid', conseilleursAcq:['Barclays','Allen & Overy'], conseillersCible:['HSBC','Herbert Smith Freehills'], résumé:"Vinci Energies annonce l'acquisition de UK Grid Solutions, acteur britannique des infrastructures électriques pour les bâtiments industriels et commerciaux. Cette opération s'inscrit dans la stratégie d'internationalisation de Vinci Energies sur les marchés de la transition énergétique." },
+  { id:'kb-residences', date:'2025-12-18', cible:'Résidences Régionales Développement', acquéreur:'Kaufman & Broad', secteur:'promotion', type:'buildup', statut:'bouclé', montant:72, multiple:7.1, géo:'FR', taille:'small', conseilleursAcq:['Société Générale CIB'], conseillersCible:['Natixis Partners'], résumé:"Kaufman & Broad renforce sa présence en région avec l'acquisition de Résidences Régionales Développement, promoteur implanté dans les métropoles de Bordeaux, Nantes et Lyon. L'opération valorise la cible à 7,1x son EBITDA normalisé, carnet de commandes de 280M€ inclus." },
+  { id:'nexity-reorg', date:'2025-12-10', cible:'Nexity Services (filiales)', acquéreur:'Gestion interne / Distressed', secteur:'promotion', type:'cession', statut:'en_cours', montant:null, multiple:null, géo:'FR', taille:'small', conseilleursAcq:['Alantra'], conseillersCible:['Rothschild & Co'], résumé:"Dans le cadre de son plan de transformation, Nexity procède à la cession progressive de plusieurs filiales de services (syndic, property management) pour se recentrer sur la promotion résidentielle. Le processus de cession est supervisé par Rothschild & Co." },
+];
+
+// Active filters state
+const activeFilters = { type: new Set(), secteur: new Set(), taille: new Set(), geo: new Set(), statut: new Set() };
+let quickTypeFilter = 'tous';
+let quickStatutFilter = 'tous';
+let searchQuery = '';
+let sortBy = 'date';
+let viewMode = 'table';
+
+// Taille ranges for sidebar filter
+const tailleMap = { small: [0,50], mid: [50,200], 'mid-large': [200,1000], large: [1000,Infinity] };
+
+function formatDate(d) {
+  const parts = d.split('-');
+  const months = ['jan.','fév.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  return `${parseInt(parts[2])} ${months[parseInt(parts[1])-1]} ${parts[0]}`;
+}
+
+function formatMontant(m) {
+  if (m == null) return '<span class="na">—</span>';
+  if (m >= 1000) return `${(m/1000).toFixed(1)}Md€`;
+  return `${m}M€`;
+}
+
+function formatMultiple(m) {
+  if (m == null) return '<span class="na">n/a</span>';
+  return `${m.toFixed(1)}×`;
+}
+
+function typeBadge(type) {
+  const labels = { lbo:'LBO', buildup:'Build-up', fusion:'Fusion', acquisition:'Acquisition', cession:'Cession', jv:'Joint-venture', ipo:'IPO' };
+  return `<span class="badge-type badge-${type}">${labels[type] || type}</span>`;
+}
+
+function statutBadge(statut) {
+  const map = { 'bouclé':'boucle', 'annoncé':'annonce', 'en_cours':'en-cours', 'rumeur':'rumeur' };
+  const labels = { 'bouclé':'Bouclé', 'annoncé':'Annoncé', 'en_cours':'En cours', 'rumeur':'Rumeur' };
+  return `<span class="badge-statut ${map[statut] || ''}">${labels[statut] || statut}</span>`;
+}
+
+function secteurLabel(s) {
+  const map = { construction:'Construction', materiaux:'Matériaux', promotion:'Promotion', equipement:'Équipements', infrastructure:'Infra', contech:'ConTech' };
+  return map[s] || s;
+}
+
+function getFilteredDeals() {
+  return deals.filter(d => {
+    // Sidebar filters
+    if (activeFilters.type.size > 0 && !activeFilters.type.has(d.type)) return false;
+    if (activeFilters.secteur.size > 0 && !activeFilters.secteur.has(d.secteur)) return false;
+    if (activeFilters.geo.size > 0 && !activeFilters.geo.has(d.géo)) return false;
+    if (activeFilters.statut.size > 0 && !activeFilters.statut.has(d.statut)) return false;
+    if (activeFilters.taille.size > 0) {
+      const matched = [...activeFilters.taille].some(t => {
+        const range = tailleMap[t];
+        if (!range) return false;
+        const m = d.montant || 0;
+        return m >= range[0] && m < range[1];
+      });
+      if (!matched) return false;
+    }
+    // Quick filters
+    if (quickTypeFilter !== 'tous' && d.type !== quickTypeFilter) return false;
+    if (quickStatutFilter !== 'tous' && d.statut !== quickStatutFilter) return false;
+    // Search
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!d.cible.toLowerCase().includes(q) && !d.acquéreur.toLowerCase().includes(q) && !d.secteur.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  }).sort((a, b) => {
+    if (sortBy === 'montant') return (b.montant || 0) - (a.montant || 0);
+    if (sortBy === 'multiple') return (b.multiple || 0) - (a.multiple || 0);
+    return new Date(b.date) - new Date(a.date);
+  });
+}
+
+function renderTable(filtered) {
+  const tbody = document.getElementById('dealsTableBody');
+  const empty = document.getElementById('emptyState');
+  if (filtered.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  tbody.innerHTML = filtered.map((d, i) => `
+    <tr onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i * 0.04}s">
+      <td class="col-date">${formatDate(d.date)}</td>
+      <td class="col-cible">${d.cible}</td>
+      <td class="col-acq">${d.acquéreur}</td>
+      <td>${typeBadge(d.type)}</td>
+      <td style="font-size:12px;color:var(--text-2)">${secteurLabel(d.secteur)}</td>
+      <td class="col-montant">${formatMontant(d.montant)}</td>
+      <td class="col-multiple">${formatMultiple(d.multiple)}</td>
+      <td><span class="geo-flag">${d.géo}</span></td>
+      <td>${statutBadge(d.statut)}</td>
+      <td class="col-action">→</td>
+    </tr>
+  `).join('');
+}
+
+function renderCards(filtered) {
+  const container = document.getElementById('cardsView');
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">○</div><div class="empty-state-text">Aucune opération ne correspond aux filtres sélectionnés.</div></div>';
+    return;
+  }
+  container.innerHTML = filtered.map((d, i) => {
+    const allAdvisors = [...d.conseilleursAcq, ...d.conseillersCible];
+    return `
+    <div class="deal-card" onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i*0.05}s">
+      <div class="card-badges">${typeBadge(d.type)}${statutBadge(d.statut)}</div>
+      <div class="card-cible">${d.cible}</div>
+      <div class="card-acq">Acquis par ${d.acquéreur}</div>
+      <div class="card-tags">
+        <span class="card-tag">${secteurLabel(d.secteur)}</span>
+        <span class="card-tag">${d.géo}</span>
+      </div>
+      <div class="card-financials">
+        <span class="card-amount">${formatMontant(d.montant)}</span>
+        <span class="card-multiple">${formatMultiple(d.multiple)}</span>
+      </div>
+      <div class="card-date">${formatDate(d.date)}</div>
+      ${allAdvisors.length > 0 ? `<div class="card-advisors"><strong>Conseilleurs :</strong> ${allAdvisors.join(', ')}</div>` : ''}
+      <a href="/ma-entreprise.html?id=${d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
+    </div>
+  `}).join('');
+}
+
+function render() {
+  const filtered = getFilteredDeals();
+  document.getElementById('resultCount').textContent = filtered.length;
+  if (viewMode === 'table') {
+    renderTable(filtered);
+  } else {
+    renderCards(filtered);
+  }
+  updateFilterBadge();
+}
+
+function updateFilterBadge() {
+  let count = 0;
+  Object.values(activeFilters).forEach(s => count += s.size);
+  const badge = document.getElementById('filterBadge');
+  badge.textContent = count;
+  badge.classList.toggle('visible', count > 0);
+}
+
+// Mini deals (derniers bouclés)
+function renderMiniDeals() {
+  const boucled = deals.filter(d => d.statut === 'bouclé').slice(0, 3);
+  document.getElementById('miniDeals').innerHTML = boucled.map(d => `
+    <div class="mini-deal" onclick="window.location='/ma-entreprise.html?id=${d.id}'">
+      <div class="mini-deal-cible">${d.cible}</div>
+      <div class="mini-deal-info">${d.acquéreur} · ${formatMontant(d.montant)} · ${formatDate(d.date)}</div>
+    </div>
+  `).join('');
+}
+
+// Event listeners — sidebar filter pills
+document.querySelectorAll('.filter-pills .filter-pill').forEach(pill => {
+  const group = pill.closest('[data-filter]');
+  const filterKey = group.dataset.filter;
+  const value = pill.dataset.value;
+  pill.addEventListener('click', () => {
+    pill.classList.toggle('active');
+    const filterMap = { type: activeFilters.type, secteur: activeFilters.secteur, taille: activeFilters.taille, geo: activeFilters.geo, statut: activeFilters.statut };
+    if (pill.classList.contains('active')) {
+      filterMap[filterKey].add(value);
+    } else {
+      filterMap[filterKey].delete(value);
+    }
+    render();
+  });
+});
+
+// Quick filter bar buttons
+document.querySelectorAll('[data-qf]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filterType = btn.dataset.qf;
+    const value = btn.dataset.qv;
+    document.querySelectorAll(`[data-qf="${filterType}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (filterType === 'type') quickTypeFilter = value;
+    if (filterType === 'statut') quickStatutFilter = value;
+    render();
+  });
+});
+
+// Reset
+document.getElementById('resetFilters').addEventListener('click', () => {
+  Object.values(activeFilters).forEach(s => s.clear());
+  quickTypeFilter = 'tous';
+  quickStatutFilter = 'tous';
+  searchQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.querySelectorAll('.filter-pill.active').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('[data-qf]').forEach(b => {
+    b.classList.remove('active');
+    if (b.dataset.qv === 'tous') b.classList.add('active');
+  });
+  render();
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  render();
+});
+
+// Sort
+document.getElementById('sortSelect').addEventListener('change', e => {
+  sortBy = e.target.value;
+  render();
+});
+
+// View toggle
+document.getElementById('tableViewBtn').addEventListener('click', () => {
+  viewMode = 'table';
+  document.getElementById('tableViewBtn').classList.add('active');
+  document.getElementById('cardViewBtn').classList.remove('active');
+  document.getElementById('tableView').classList.remove('hidden');
+  document.getElementById('cardsView').classList.remove('visible');
+  render();
+});
+
+document.getElementById('cardViewBtn').addEventListener('click', () => {
+  viewMode = 'cards';
+  document.getElementById('cardViewBtn').classList.add('active');
+  document.getElementById('tableViewBtn').classList.remove('active');
+  document.getElementById('tableView').classList.add('hidden');
+  document.getElementById('cardsView').classList.add('visible');
+  render();
+});
+
+// Init
+render();
+renderMiniDeals();
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Blog & Analyses</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080807; --bg: #0c0c0a; --surface: #111110; --surface2: #161614;
+  --border: rgba(201,168,76,0.1); --border-hover: rgba(201,168,76,0.35);
+  --gold: #c9a84c; --gold-dim: rgba(201,168,76,0.15); --gold-glow: rgba(201,168,76,0.06);
+  --text: #e8e4da; --text-2: #a09880; --text-3: #5a5446; --white: #f5f2eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; min-height:100vh; overflow-x:hidden; }
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
+.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo span { color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--gold); }
+.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; border:1px solid var(--gold); color:var(--gold); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
+.nav-cta:hover { background:var(--gold); color:var(--black); }
+
+/* HEADER */
+.page-header { padding:80px 32px 28px; border-bottom:1px solid var(--border); }
+.breadcrumb { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.18em; color:var(--text-3); text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.breadcrumb span { color:var(--gold); }
+.page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(36px,4vw,60px); font-weight:900; line-height:1; letter-spacing:-0.02em; }
+.page-header h1 em { font-style:italic; color:var(--gold); }
+.page-sub { font-size:13px; color:var(--text-2); margin-top:10px; letter-spacing:0.02em; }
+
+/* FILTER BAR */
+.filter-bar { position:sticky; top:56px; z-index:50; background:var(--surface); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.filter-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-3); }
+#catsBar { display:flex; gap:8px; flex-wrap:wrap; flex:1; }
+.cat-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; padding:6px 14px; border:1px solid var(--border); background:transparent; color:var(--text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
+.cat-btn:hover { border-color:var(--gold); color:var(--gold); }
+.cat-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
+.cat-count { font-size:9px; opacity:0.7; }
+.search-wrap { margin-left:auto; position:relative; }
+.search-input { font-family:'DM Mono',monospace; font-size:12px; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:7px 14px 7px 32px; outline:none; width:220px; transition:border-color 0.2s; }
+.search-input:focus { border-color:var(--gold); }
+.search-input::placeholder { color:var(--text-3); }
+.search-icon { position:absolute; left:10px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--text-3); pointer-events:none; }
+
+/* RESULTS META */
+.results-meta { padding:12px 32px; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; justify-content:space-between; border-bottom:1px solid var(--border); }
+.results-meta strong { color:var(--gold); }
+
+/* GRID */
+.posts-container { padding:32px; }
+#postsGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+
+/* CARD */
+.post-card { background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:all 0.2s; animation:cardIn 0.4s ease forwards; opacity:0; overflow:hidden; position:relative; }
+.post-card:hover { border-color:var(--border-hover); background:var(--surface2); }
+.post-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+.post-card:hover::before { transform:scaleX(1); }
+@keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.post-card:nth-child(1) { animation-delay:0.05s; }
+.post-card:nth-child(2) { animation-delay:0.1s; }
+.post-card:nth-child(3) { animation-delay:0.15s; }
+.post-card:nth-child(4) { animation-delay:0.2s; }
+.post-card:nth-child(5) { animation-delay:0.25s; }
+.post-card:nth-child(6) { animation-delay:0.3s; }
+
+.post-card.featured { grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; }
+@media(max-width:768px) { .post-card.featured { grid-column:span 1; display:block; } }
+
+.card-img { height:200px; background:var(--surface2); background-size:cover; background-position:center; }
+.post-card.featured .card-img { height:100%; min-height:260px; }
+.card-img-placeholder { display:flex; align-items:center; justify-content:center; }
+.card-body { padding:24px; display:flex; flex-direction:column; gap:10px; }
+.post-card.featured .card-body { padding:32px; justify-content:center; }
+.card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; }
+.card-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; line-height:1.25; }
+.post-card.featured .card-title { font-size:26px; }
+.card-excerpt { font-size:14px; color:var(--text-2); line-height:1.65; }
+.card-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); display:flex; gap:8px; align-items:center; margin-top:auto; }
+
+/* EMPTY */
+.empty-state { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; padding:80px 32px; text-align:center; }
+.empty-icon { font-size:48px; opacity:0.2; margin-bottom:16px; }
+.empty-title { font-family:'Playfair Display',serif; font-size:24px; color:var(--text-2); margin-bottom:8px; }
+.empty-sub { font-size:13px; color:var(--text-3); }
+
+/* SKELETON */
+.skeleton { pointer-events:none; }
+@keyframes shimmer { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
+.sk-img,.sk-cat,.sk-title,.sk-meta {
+  background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);
+  background-size:800px 100%; animation:shimmer 1.4s infinite;
+  border-radius:2px;
+}
+.sk-img { height:200px; }
+.sk-cat { height:10px; width:80px; margin:24px 24px 0; }
+.sk-title { height:16px; margin:10px 24px 0; }
+.sk-title.sk-short { width:60%; }
+.sk-meta { height:10px; width:120px; margin:10px 24px 24px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma.html">M&A / PE</a></li>
+    <li><a href="#">Macro</a></li>
+    <li><a href="/blog.html" class="active">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">BatiAnalyse <span>/</span> Blog & Analyses</div>
+  <h1>Analyses & <em>Décryptages</em></h1>
+  <p class="page-sub" id="pageSubtitle">Chargement des articles…</p>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Thème</span>
+  <div id="catsBar">
+    <button class="cat-btn active" data-id="">Tous</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" id="searchInput" type="text" placeholder="Rechercher un article…">
+  </div>
+</div>
+
+<div class="results-meta">
+  <span>Affichage de <strong id="resultCount">—</strong> articles</span>
+  <span style="font-size:9px;letter-spacing:0.15em">CONTENU ÉDITORIAL BUILDMALPHA</span>
+</div>
+
+<div class="posts-container">
+  <div id="postsGrid"></div>
+</div>
+
+<script type="module" src="/src/blog.js"></script>
+<script>
+  // Met à jour le sous-titre quand le contenu est chargé
+  const observer = new MutationObserver(() => {
+    const count = document.getElementById('resultCount').textContent
+    if (count !== '—') {
+      document.getElementById('pageSubtitle').textContent =
+        `${count} articles publiés · Contenu éditorial BatiAnalyse`
+    }
+  })
+  observer.observe(document.getElementById('resultCount'), { childList:true })
+</script>
+</body>
+</html>

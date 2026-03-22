@@ -1,5 +1,5 @@
 /**
- * wordpress.js — BuildAlpha
+ * wordpress.js — BatiAnalyse
  * Lecture des articles : Firestore (cache) → fallback WP REST API
  */
 import { db } from './firebase.js'
@@ -27,7 +27,7 @@ function normalizePost(raw) {
     tags: raw.tags ?? [],
     featuredImageUrl: raw._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null,
     featuredImageAlt: raw._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? '',
-    authorName: raw._embedded?.author?.[0]?.name ?? 'BuildAlpha',
+    authorName: raw._embedded?.author?.[0]?.name ?? 'BatiAnalyse',
     readingTime: estimateReadingTime(raw.content?.rendered ?? ''),
     syncedAt: new Date().toISOString(),
   }

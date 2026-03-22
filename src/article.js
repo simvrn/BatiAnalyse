@@ -1,5 +1,5 @@
 /**
- * src/article.js — BuildAlpha
+ * src/article.js — BatiAnalyse
  * Logique de la page article individuel (article.html)
  */
 import { getPost, getPosts } from './wordpress.js'
@@ -30,7 +30,7 @@ function showSkeleton() {
 function renderArticle(post) {
   const title = stripHtml(post.title)
   const date = formatDate(post.date)
-  document.title = `${title} — BuildAlpha`
+  document.title = `${title} — BatiAnalyse`
 
   // Breadcrumb
   document.getElementById('breadcrumbTitle').textContent = title
@@ -40,7 +40,7 @@ function renderArticle(post) {
     <div class="art-cat">${post._categoryName || 'Analyse'}</div>
     <h1 class="art-title">${title}</h1>
     <div class="art-meta">
-      <span class="art-author">${post.authorName || 'BuildAlpha'}</span>
+      <span class="art-author">${post.authorName || 'BatiAnalyse'}</span>
       <span class="art-sep">·</span>
       <span>${date}</span>
       <span class="art-sep">·</span>

@@ -7,6 +7,8 @@
     { "source": "/ma",             "destination": "/ma.html" },
     { "source": "/ma-entreprise",  "destination": "/ma-entreprise.html" },
     { "source": "/macro",          "destination": "/macro.html" },
+    { "source": "/reglementation", "destination": "/reglementation.html" },
+    { "source": "/contech",        "destination": "/contech.html" },
     { "source": "/blog",           "destination": "/blog.html" },
     { "source": "/article",        "destination": "/article.html" }
   ]

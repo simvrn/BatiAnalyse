@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Réglementation BTP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080807;--bg:#0c0c0a;--surface:#111110;--surface2:#161614;
+  --border:rgba(201,168,76,0.1);--border-hover:rgba(201,168,76,0.35);
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.12);--gold-glow:rgba(201,168,76,0.06);
+  --green:#4ade80;--green-dim:rgba(74,222,128,0.1);
+  --red:#f87171;--red-dim:rgba(248,113,113,0.1);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.1);
+  --orange:#fb923c;--orange-dim:rgba(251,146,60,0.1);
+  --text:#e8e4da;--text-2:#a09880;--text-3:#5a5446;--white:#f5f2eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+.page-header{padding:80px 32px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.breadcrumb span{color:var(--gold);}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-sub{font-size:13px;color:var(--text-2);margin-top:10px;}
+.header-stats{display:flex;gap:0;}
+.hstat{text-align:right;padding:0 20px;border-left:1px solid var(--border);}
+.hstat-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);line-height:1;}
+.hstat-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+
+.pulse-band{background:linear-gradient(135deg,#0f0f0c,#1a1408);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:12px 32px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.pulse-item{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:16px;padding:0 24px;border-right:1px solid var(--border);white-space:nowrap;}
+.pulse-item:first-child{padding-left:0;}
+.pulse-item:last-child{border-right:none;}
+.pulse-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulseDot 2s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+
+.main-layout{display:grid;grid-template-columns:240px 1fr 260px;min-height:calc(100vh - 56px);}
+
+.sidebar{border-right:1px solid var(--border);padding:24px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);}
+.sidebar-section{margin-bottom:28px;}
+.sidebar-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-3);padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:10px;}
+.pills-wrap{padding:0 16px;display:flex;flex-wrap:wrap;gap:6px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:5px 12px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;}
+.pill:hover{border-color:var(--gold);color:var(--gold);}
+.pill.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
+
+.content{min-width:0;}
+.tab-bar{position:sticky;top:56px;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;}
+.tab-bar::-webkit-scrollbar{height:0;}
+.tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:16px 20px;background:none;border:none;color:var(--text-3);cursor:pointer;transition:all 0.15s;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab-btn:hover{color:var(--text-2);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-panel{display:none;padding:28px 32px;}
+.tab-panel.active{display:block;}
+
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.section-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;line-height:1.1;margin-bottom:8px;}
+.section-sub{font-size:12px;color:var(--text-3);margin-bottom:24px;}
+
+/* IMPACT GRID */
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.impact-card{background:var(--surface);border:1px solid var(--border);padding:18px;transition:border-color 0.15s;animation:fadeUp 0.4s ease forwards;opacity:0;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.impact-card:hover{border-color:var(--border-hover);}
+.impact-icon{font-size:20px;margin-bottom:10px;display:block;}
+.impact-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.impact-val{font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:var(--white);line-height:1;margin-bottom:4px;}
+.impact-sub{font-size:11px;color:var(--text-3);}
+.impact-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 8px;border:1px solid;display:inline-block;margin-top:8px;}
+.impact-badge.majeur{color:var(--red);border-color:rgba(248,113,113,0.3);background:var(--red-dim);}
+.impact-badge.modere{color:var(--orange);border-color:rgba(251,146,60,0.3);background:var(--orange-dim);}
+.impact-badge.mineur{color:var(--green);border-color:rgba(74,222,128,0.3);background:var(--green-dim);}
+
+/* TIMELINE */
+.timeline{position:relative;margin-bottom:28px;}
+.timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:1px;background:var(--border);}
+.timeline-item{display:flex;gap:24px;margin-bottom:24px;position:relative;}
+.timeline-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);flex-shrink:0;margin-top:4px;position:relative;z-index:1;}
+.timeline-dot.active{background:var(--gold);}
+.timeline-dot.future{border-color:var(--text-3);background:var(--bg);}
+.timeline-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);white-space:nowrap;margin-top:2px;min-width:60px;}
+.timeline-content h4{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.timeline-content p{font-size:12px;color:var(--text-2);line-height:1.5;}
+.timeline-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--border);color:var(--text-3);display:inline-block;margin-top:6px;}
+
+/* TABLE */
+.data-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px;}
+.data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);cursor:pointer;white-space:nowrap;}
+.data-table th:hover{color:var(--gold);}
+.data-table td{padding:12px;border-bottom:1px solid rgba(201,168,76,0.05);vertical-align:middle;}
+.data-table tr:hover td{background:rgba(201,168,76,0.02);}
+.td-name{font-weight:600;color:var(--white);}
+.badge-acteur{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 8px;border:1px solid;text-transform:uppercase;}
+.badge-acteur.constructeur{color:var(--blue);border-color:rgba(96,165,250,0.3);background:var(--blue-dim);}
+.badge-acteur.promoteur{color:var(--orange);border-color:rgba(251,146,60,0.3);background:var(--orange-dim);}
+.badge-acteur.materiaux{color:var(--green);border-color:rgba(74,222,128,0.3);background:var(--green-dim);}
+.badge-acteur.renovation{color:var(--gold);border-color:rgba(201,168,76,0.3);background:var(--gold-dim);}
+
+/* AIDE CARDS */
+.aides-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;}
+.aide-card{background:var(--surface);border:1px solid var(--border);padding:20px;transition:border-color 0.15s;}
+.aide-card:hover{border-color:var(--border-hover);}
+.aide-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.aide-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white);}
+.aide-montant{font-family:'DM Mono',monospace;font-size:18px;color:var(--gold);}
+.aide-desc{font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px;}
+.aide-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.aide-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 8px;border:1px solid var(--border);color:var(--text-3);}
+.aide-progress{margin-top:12px;}
+.aide-progress-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
+.aide-bar{height:3px;background:rgba(201,168,76,0.1);border-radius:2px;}
+.aide-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 1s ease;}
+
+/* EDITORIAL */
+.editorial-block{border-left:3px solid var(--gold);background:var(--surface);padding:24px 28px;margin-bottom:28px;}
+.editorial-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.editorial-block p{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:12px;}
+.editorial-block p:last-child{margin-bottom:0;}
+
+/* SCORE CARD */
+.score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;}
+.score-card{background:var(--surface);border:1px solid var(--border);padding:20px;}
+.score-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.score-company{font-size:15px;font-weight:700;}
+.score-note{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--gold);}
+.score-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(201,168,76,0.05);font-size:12px;}
+.score-item:last-child{border-bottom:none;}
+.score-item-label{color:var(--text-2);}
+.score-bar-wrap{display:flex;align-items:center;gap:8px;}
+.score-bar{width:80px;height:4px;background:rgba(201,168,76,0.1);}
+.score-bar-fill{height:100%;background:var(--gold);}
+
+/* RIGHT RAIL */
+.right-rail{border-left:1px solid var(--border);padding:24px 20px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.right-rail::-webkit-scrollbar{width:3px;}
+.right-rail::-webkit-scrollbar-thumb{background:var(--border);}
+.rail-section{margin-bottom:28px;}
+.rail-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.agenda-item{padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.agenda-item:last-child{border-bottom:none;}
+.agenda-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:3px;}
+.agenda-text{font-size:12px;color:var(--text-2);line-height:1.4;}
+.agenda-tag{font-family:'DM Mono',monospace;font-size:9px;padding:1px 6px;border:1px solid var(--border);color:var(--text-3);display:inline-block;margin-top:4px;}
+.alert-item{padding:10px 12px;margin-bottom:8px;border-left:2px solid;font-size:12px;color:var(--text-2);line-height:1.5;}
+.alert-item.rouge{border-color:var(--red);background:var(--red-dim);}
+.alert-item.orange{border-color:var(--orange);background:var(--orange-dim);}
+.alert-item.vert{border-color:var(--green);background:var(--green-dim);}
+.alert-item strong{display:block;margin-bottom:3px;font-size:11px;}
+.alert-item.rouge strong{color:var(--red);}
+.alert-item.orange strong{color:var(--orange);}
+.alert-item.vert strong{color:var(--green);}
+.texte-item{padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.texte-item:last-child{border-bottom:none;}
+.texte-ref{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:3px;}
+.texte-desc{font-size:11px;color:var(--text-2);line-height:1.4;}
+
+/* CHART */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:28px;}
+.chart-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-2);margin-bottom:16px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma.html">M&A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/reglementation.html" class="active">Réglementation</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<div class="page-header">
+  <div>
+    <div class="breadcrumb">BatiAnalyse <span>/</span> Réglementation</div>
+    <h1>Régle&shy;<em>mentation</em></h1>
+    <p class="page-sub">RE2020 · ZAN · MaPrimeRénov · DPE · Taxonomie UE · Impact financier sur les acteurs BTP</p>
+  </div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-val">2025</div>
+      <div class="hstat-label">RE2020 — Phase 2</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--red)">-22%</div>
+      <div class="hstat-label">MaPrimeRénov budget</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">€4,3Md</div>
+      <div class="hstat-label">Coût RE2020 par logement</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--orange)">2031</div>
+      <div class="hstat-label">Objectif ZAN</div>
+    </div>
+  </div>
+</div>
+
+<div class="pulse-band">
+  <div class="pulse-item"><div class="pulse-dot"></div>RE2020 Phase 2 en vigueur depuis le 1er janvier 2025 — seuils carbone renforcés</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>MaPrimeRénov : budget 2026 réduit de 22% à 3,2 Md€ — impact sur la rénovation</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>ZAN : décret d'application publié — artificialisation comptabilisée à partir du 1er jan. 2026</div>
+</div>
+
+<div class="main-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Période</div>
+      <div class="pills-wrap">
+        <button class="pill active">En vigueur</button>
+        <button class="pill">2024–2026</button>
+        <button class="pill">2027+</button>
+        <button class="pill">Tout</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Thème</div>
+      <div class="pills-wrap">
+        <button class="pill active">Tous</button>
+        <button class="pill">Énergie</button>
+        <button class="pill">Foncier</button>
+        <button class="pill">Financement</button>
+        <button class="pill">Carbone</button>
+        <button class="pill">Social</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Acteur impacté</div>
+      <div class="pills-wrap">
+        <button class="pill active">Tous</button>
+        <button class="pill">Constructeurs</button>
+        <button class="pill">Promoteurs</button>
+        <button class="pill">Matériaux</button>
+        <button class="pill">Rénovation</button>
+        <button class="pill">Foncières</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Niveau</div>
+      <div class="pills-wrap">
+        <button class="pill active">Tous</button>
+        <button class="pill">Européen</button>
+        <button class="pill">National</button>
+        <button class="pill">Régional</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="dashboard">Tableau de bord</button>
+      <button class="tab-btn" data-tab="re2020">RE2020 & Énergie</button>
+      <button class="tab-btn" data-tab="zan">ZAN & Foncier</button>
+      <button class="tab-btn" data-tab="aides">Aides & Financement</button>
+      <button class="tab-btn" data-tab="taxonomie">Taxonomie UE</button>
+    </div>
+
+    <!-- TAB 1 — TABLEAU DE BORD -->
+    <div class="tab-panel active" id="tab-dashboard">
+      <div class="section-label">Vue d'ensemble · Impact financier sur les acteurs BTP</div>
+      <div class="section-title">Régle&shy;<em style="font-style:italic;color:var(--gold)">mentation</em></div>
+      <p class="section-sub">Suivi des principaux textes réglementaires en vigueur et à venir. Impact financier estimé par acteur.</p>
+
+      <div class="impact-grid" id="impactGrid"></div>
+
+      <!-- Timeline réglementaire -->
+      <div class="section-label" style="margin-top:8px">Calendrier réglementaire 2024–2028</div>
+      <div class="section-title" style="font-size:20px;margin-bottom:20px">Jalons <em style="font-style:italic;color:var(--gold)">clés</em></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-date">Jan. 2025</div>
+          <div class="timeline-content">
+            <h4>RE2020 Phase 2 — Seuils carbone renforcés</h4>
+            <p>Le seuil d'émissions de carbone pour les maisons individuelles passe de 14 à 12 kg CO₂ éq/m². Surcoût estimé à +3–5% sur le coût de construction.</p>
+            <span class="timeline-tag">Constructeurs · Promoteurs</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-date">Avr. 2025</div>
+          <div class="timeline-content">
+            <h4>DPE collectif obligatoire — Copropriétés +200 lots</h4>
+            <p>Extension du diagnostic aux copropriétés de plus de 200 lots. Obligation de travaux pour les classes F et G. Marché estimé à 180 000 copropriétés concernées.</p>
+            <span class="timeline-tag">Rénovation · Foncières</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-date">Jan. 2026</div>
+          <div class="timeline-content">
+            <h4>ZAN — Comptabilisation artificialisation nette</h4>
+            <p>Début de la comptabilisation officielle de l'artificialisation nette dans les PLU. Impact direct sur les capacités de construction en zones périurbaines.</p>
+            <span class="timeline-tag">Promoteurs · Constructeurs</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-date">Mar. 2026</div>
+          <div class="timeline-content">
+            <h4>MaPrimeRénov 2026 — Nouveau barème</h4>
+            <p>Réduction du budget à 3,2 Md€ (-22%) et recentrage sur les ménages modestes et les rénovations globales (BBC Rénovation). Impact négatif sur les acteurs de la rénovation mono-geste.</p>
+            <span class="timeline-tag">Rénovation · Matériaux isolation</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">Jan. 2028</div>
+          <div class="timeline-content">
+            <h4>RE2020 Phase 3 — Seuils les plus stricts</h4>
+            <p>Alignement complet sur les objectifs carbone bas. Seuil à 4 kg CO₂ éq/m² pour les bâtiments résidentiels collectifs. Obligation de recours aux biosourcés ou aux bétons décarbonés.</p>
+            <span class="timeline-tag">Matériaux · Constructeurs · Promoteurs</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future"></div>
+          <div class="timeline-date">2031</div>
+          <div class="timeline-content">
+            <h4>ZAN — Premier bilan décennal</h4>
+            <p>Réduction de 50% du rythme d'artificialisation par rapport à la décennie 2011–2021. Objectif zéro artificialisation nette en 2050.</p>
+            <span class="timeline-tag">Foncier · Aménagement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse BatiAnalyse — Impact réglementaire sur les marges</div>
+        <p>L'accumulation des contraintes réglementaires pèse directement sur la rentabilité des opérateurs BTP. Notre modélisation indique que le passage de la RE2020 Phase 1 à Phase 3 (2020–2028) représente un surcoût cumulé de +8 à +12% sur le coût de revient des constructions résidentielles neuves. Ce surcoût est partiellement absorbé par les avancées technologiques (bétons bas-carbone, isolation biosourcée) mais il creuse définitivement l'écart entre les grands groupes capables d'investir en R&D et les TPE/PME locales.</p>
+        <p>La conjonction RE2020 Phase 2 + réduction MaPrimeRénov + mise en œuvre du ZAN crée un environnement réglementaire particulièrement contraignant en 2025–2026. À court terme, nous restons prudents sur les promoteurs de maisons individuelles et constructivistes sur les acteurs de la rénovation énergétique haute performance (Saint-Gobain, Isover, Rockwool).</p>
+      </div>
+    </div>
+
+    <!-- TAB 2 — RE2020 -->
+    <div class="tab-panel" id="tab-re2020">
+      <div class="section-label">Réglementation Environnementale 2020 — Analyse financière</div>
+      <div class="section-title">RE2020 & <em style="font-style:italic;color:var(--gold)">Énergie</em></div>
+      <p class="section-sub">Impact par acteur, surcoûts de construction, opportunités matériaux. Phases 1 à 3 (2021–2028).</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Acteur / Segment</th>
+            <th>Impact RE2020</th>
+            <th>Surcoût estimé</th>
+            <th>Opportunité</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Vinci Construction</td><td>Mise à niveau process béton bas-carbone</td><td style="color:var(--orange)">+4–6%</td><td>Leader bas-carbone, avantage concurrentiel</td><td><span class="badge-acteur constructeur">Constructeur</span></td></tr>
+          <tr><td class="td-name">Eiffage Construction</td><td>Programme E+C- déjà intégré</td><td style="color:var(--green)">+2–3%</td><td>Avance sur la concurrence Phase 3</td><td><span class="badge-acteur constructeur">Constructeur</span></td></tr>
+          <tr><td class="td-name">Nexity</td><td>Renchérissement des programmes neufs</td><td style="color:var(--red)">+7–10%</td><td>Repositionnement haut de gamme éco</td><td><span class="badge-acteur promoteur">Promoteur</span></td></tr>
+          <tr><td class="td-name">Kaufman & Broad</td><td>Surcoût sur maisons individuelles (+MI)</td><td style="color:var(--red)">+8–12%</td><td>Différenciation qualité</td><td><span class="badge-acteur promoteur">Promoteur</span></td></tr>
+          <tr><td class="td-name">Saint-Gobain</td><td>Demande accrue isolation & vitrages</td><td style="color:var(--green)">Bénéficiaire</td><td>+15–20% volumes isolation RE2020</td><td><span class="badge-acteur materiaux">Matériaux</span></td></tr>
+          <tr><td class="td-name">Imerys</td><td>Adaptation matériaux brique RT</td><td style="color:var(--orange)">Neutre</td><td>Briques RT2 : marché de niche premium</td><td><span class="badge-acteur materiaux">Matériaux</span></td></tr>
+          <tr><td class="td-name">Maisons France Confort</td><td>Impact maximal — constructeurs MI</td><td style="color:var(--red)">+10–15%</td><td>Faible capacité d'absorption</td><td><span class="badge-acteur constructeur">Constructeur</span></td></tr>
+          <tr><td class="td-name">Bouygues Immobilier</td><td>Portefeuille neuf résidentiel</td><td style="color:var(--red)">+6–9%</td><td>Savoir-faire groupe Bouygues</td><td><span class="badge-acteur promoteur">Promoteur</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="chart-wrap">
+        <div class="chart-title">Surcoût moyen RE2020 par type de bâtiment (% du coût de construction)</div>
+        <svg viewBox="0 0 600 180" width="100%" height="180" preserveAspectRatio="none">
+          <defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.8"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0.3"/></linearGradient></defs>
+          <!-- Grid -->
+          <line x1="60" y1="20" x2="590" y2="20" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="60" y1="60" x2="590" y2="60" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="60" y1="100" x2="590" y2="100" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="60" y1="140" x2="590" y2="140" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <!-- Y labels -->
+          <text x="52" y="23" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">15%</text>
+          <text x="52" y="63" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">10%</text>
+          <text x="52" y="103" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">5%</text>
+          <text x="52" y="143" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">0%</text>
+          <!-- Bars (Phase 1, Phase 2, Phase 3 groupées) -->
+          <!-- Maison ind. -->
+          <rect x="70" y="100" width="30" height="40" fill="#c9a84c" opacity="0.4"/>
+          <rect x="104" y="80" width="30" height="60" fill="#c9a84c" opacity="0.7"/>
+          <rect x="138" y="44" width="30" height="96" fill="url(#barGrad)"/>
+          <!-- Collectif -->
+          <rect x="200" y="112" width="30" height="28" fill="#c9a84c" opacity="0.4"/>
+          <rect x="234" y="96" width="30" height="44" fill="#c9a84c" opacity="0.7"/>
+          <rect x="268" y="72" width="30" height="68" fill="url(#barGrad)"/>
+          <!-- Bureaux -->
+          <rect x="330" y="116" width="30" height="24" fill="#c9a84c" opacity="0.4"/>
+          <rect x="364" y="100" width="30" height="40" fill="#c9a84c" opacity="0.7"/>
+          <rect x="398" y="80" width="30" height="60" fill="url(#barGrad)"/>
+          <!-- Industriel -->
+          <rect x="460" y="128" width="30" height="12" fill="#c9a84c" opacity="0.4"/>
+          <rect x="494" y="120" width="30" height="20" fill="#c9a84c" opacity="0.7"/>
+          <rect x="528" y="108" width="30" height="32" fill="url(#barGrad)"/>
+          <!-- X labels -->
+          <text x="119" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Maison ind.</text>
+          <text x="249" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Collectif</text>
+          <text x="379" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Bureaux</text>
+          <text x="509" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Industriel</text>
+          <!-- Legend -->
+          <rect x="70" y="168" width="10" height="6" fill="#c9a84c" opacity="0.4"/>
+          <text x="85" y="174" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Phase 1</text>
+          <rect x="130" y="168" width="10" height="6" fill="#c9a84c" opacity="0.7"/>
+          <text x="145" y="174" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Phase 2</text>
+          <rect x="190" y="168" width="10" height="6" fill="#c9a84c"/>
+          <text x="205" y="174" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Phase 3 (2028)</text>
+        </svg>
+      </div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — Gagnants et perdants de la RE2020</div>
+        <p>La RE2020 crée une fracture nette entre les industriels du matériau (bénéficiaires structurels de la montée en gamme thermique) et les opérateurs de promotion/construction (victimes directes du renchérissement). Saint-Gobain est le grand gagnant de cette réglementation avec un positionnement idéal sur l'isolation, les vitrages à haute performance et les mortiers spéciaux. Lafarge (Holcim) accélère sur ses bétons bas-carbone (ECOPact) pour capter la demande Phase 3.</p>
+        <p>À l'inverse, les constructeurs de maisons individuelles subissent le choc le plus violent : +10 à +15% sur le coût de revient, dans un contexte déjà fragilisé par la crise du logement neuf. Nexity et Kaufman & Broad peuvent répercuter une partie de la hausse sur les prix de vente, mais au risque de réduire encore une demande solvable en recul.</p>
+      </div>
+    </div>
+
+    <!-- TAB 3 — ZAN -->
+    <div class="tab-panel" id="tab-zan">
+      <div class="section-label">Zéro Artificialisation Nette — Impact marché foncier</div>
+      <div class="section-title">ZAN & <em style="font-style:italic;color:var(--gold)">Foncier</em></div>
+      <p class="section-sub">Loi Climat & Résilience 2021 — Objectif : réduction de 50% de l'artificialisation nette d'ici 2031, ZAN en 2050.</p>
+
+      <div class="impact-grid">
+        <div class="impact-card" style="animation-delay:0s">
+          <span class="impact-icon">📐</span>
+          <div class="impact-label">Artificialisation 2011–2021</div>
+          <div class="impact-val">25 700 ha/an</div>
+          <div class="impact-sub">Rythme moyen à réduire de moitié</div>
+          <span class="impact-badge majeur">Contrainte forte</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.08s">
+          <span class="impact-icon">🎯</span>
+          <div class="impact-label">Objectif 2031</div>
+          <div class="impact-val">12 850 ha/an</div>
+          <div class="impact-sub">Maximum autorisé par décennie</div>
+          <span class="impact-badge modere">Objectif intermédiaire</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.16s">
+          <span class="impact-icon">📈</span>
+          <div class="impact-label">Hausse prix foncier UU</div>
+          <div class="impact-val">+18–35%</div>
+          <div class="impact-sub">Zones tendues depuis 2022</div>
+          <span class="impact-badge majeur">Impact promoteurs</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.24s">
+          <span class="impact-icon">🏙️</span>
+          <div class="impact-label">Densification urbaine</div>
+          <div class="impact-val">+40%</div>
+          <div class="impact-sub">Permis de surélévation accordés</div>
+          <span class="impact-badge mineur">Opportunité</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.32s">
+          <span class="impact-icon">♻️</span>
+          <div class="impact-label">Reconversion friches</div>
+          <div class="impact-val">150 000 ha</div>
+          <div class="impact-sub">Potentiel identifié CEREMA</div>
+          <span class="impact-badge mineur">Opportunité</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.4s">
+          <span class="impact-icon">📉</span>
+          <div class="impact-label">Logements perdus estimés</div>
+          <div class="impact-val">-80 000/an</div>
+          <div class="impact-sub">Capacité de production impactée</div>
+          <span class="impact-badge majeur">Contrainte systémique</span>
+        </div>
+      </div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — ZAN : raréfaction foncière et mutations du marché</div>
+        <p>Le ZAN représente la transformation la plus profonde du marché foncier depuis 50 ans. En contraignant l'étalement urbain, il force un changement radical de modèle pour les promoteurs et aménageurs : de la construction sur terrain vierge à la réhabilitation, la densification et la reconversion de friches industrielles. Les grands groupes (Vinci Immobilier, Nexity, Icade) sont mieux positionnés que les opérateurs régionaux pour absorber cette mutation : ils ont les fonds propres pour acquérir des friches complexes et les équipes techniques pour gérer les dépollutions.</p>
+        <p>Les SCPI et foncières cotées exposées à la logistique et aux ZAC en périphérie sont les plus vulnérables. À l'inverse, les acteurs spécialisés dans la réhabilitation lourde (groupes Altarea, Gecina) bénéficient d'une prime de rareté sur les opérations de centre-ville densifiées.</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Acteur</th>
+            <th>Exposition ZAN</th>
+            <th>Stratégie d'adaptation</th>
+            <th>Impact estimé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Nexity</td><td>40% du pipeline en périurbain</td><td>Pivot vers réhabilitation et friches</td><td style="color:var(--red)">Négatif court terme</td></tr>
+          <tr><td class="td-name">Kaufman & Broad</td><td>Fort : 60% maisons individuelles</td><td>Diversification collectif dense</td><td style="color:var(--red)">Impact majeur</td></tr>
+          <tr><td class="td-name">Altarea</td><td>Faible : centré villes</td><td>Position naturellement adaptée</td><td style="color:var(--green)">Positif relatif</td></tr>
+          <tr><td class="td-name">Icade</td><td>Modéré : parcs tertiaires</td><td>Reconversion parcs en mixed-use</td><td style="color:var(--orange)">Neutre à positif</td></tr>
+          <tr><td class="td-name">Vinci Immobilier</td><td>Diversifié</td><td>Expertise friches & réhabilitation</td><td style="color:var(--green)">Résilient</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 4 — AIDES -->
+    <div class="tab-panel" id="tab-aides">
+      <div class="section-label">Dispositifs d'aide & financement — État des lieux 2026</div>
+      <div class="section-title">Aides & <em style="font-style:italic;color:var(--gold)">Financement</em></div>
+      <p class="section-sub">MaPrimeRénov, PTZ, CEE, Éco-PTZ — Budget, conditions d'éligibilité et impact sur les acteurs BTP.</p>
+
+      <div class="aides-grid" id="aidesGrid"></div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — Réduction des aides : qui perd, qui gagne ?</div>
+        <p>La réduction du budget MaPrimeRénov à 3,2 Md€ pour 2026 (-22% vs 2025) est un signal négatif fort pour les entreprises de rénovation énergétique mono-geste. Les artisans RGE spécialisés dans l'isolation ou les pompes à chaleur vont subir une contraction de la demande aidée. En revanche, le recentrage vers les rénovations globales (BBC Rénovation) favorise les opérateurs capables de proposer des offres complètes : Engie Home Services, Dalkia (EDF), mais aussi Eiffage Énergie Systèmes.</p>
+        <p>Le PTZ prolongé jusqu'en 2027 dans les zones tendues reste un soutien significatif pour la construction neuve, mais son élargissement récent au collectif et à la réhabilitation change les équilibres. Les constructeurs de logements collectifs en zone A/B1 en bénéficient directement.</p>
+      </div>
+    </div>
+
+    <!-- TAB 5 — TAXONOMIE -->
+    <div class="tab-panel" id="tab-taxonomie">
+      <div class="section-label">Taxonomie européenne — Finance verte & BTP</div>
+      <div class="section-title">Taxonomie <em style="font-style:italic;color:var(--gold)">UE</em></div>
+      <p class="section-sub">Règlement UE 2020/852 — Critères d'alignement pour les activités de construction. Impact sur le financement et la valorisation des acteurs cotés.</p>
+
+      <div class="impact-grid">
+        <div class="impact-card" style="animation-delay:0s">
+          <span class="impact-icon">🌱</span>
+          <div class="impact-label">Activités alignées BTP</div>
+          <div class="impact-val">6</div>
+          <div class="impact-sub">Activités éligibles Taxonomie</div>
+          <span class="impact-badge mineur">Opportunité ESG</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.08s">
+          <span class="impact-icon">💶</span>
+          <div class="impact-label">Obligations vertes BTP France</div>
+          <div class="impact-val">€12,4Md</div>
+          <div class="impact-sub">Émises en 2024–2025</div>
+          <span class="impact-badge mineur">Financement favorable</span>
+        </div>
+        <div class="impact-card" style="animation-delay:0.16s">
+          <span class="impact-icon">📊</span>
+          <div class="impact-label">% CA aligné — Vinci</div>
+          <div class="impact-val">34%</div>
+          <div class="impact-sub">Estimation consolidée 2025</div>
+          <span class="impact-badge modere">En progression</span>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Entreprise</th>
+            <th>% CA Aligné</th>
+            <th>% CapEx aligné</th>
+            <th>Objectif 2030</th>
+            <th>Note ESG</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Vinci</td><td style="color:var(--green)">34%</td><td style="color:var(--green)">41%</td><td>60%</td><td style="color:var(--gold)">A–</td></tr>
+          <tr><td class="td-name">Eiffage</td><td style="color:var(--green)">29%</td><td style="color:var(--green)">36%</td><td>55%</td><td style="color:var(--gold)">A–</td></tr>
+          <tr><td class="td-name">Bouygues</td><td style="color:var(--orange)">22%</td><td style="color:var(--orange)">28%</td><td>45%</td><td style="color:var(--orange)">B+</td></tr>
+          <tr><td class="td-name">Saint-Gobain</td><td style="color:var(--green)">48%</td><td style="color:var(--green)">55%</td><td>70%</td><td style="color:var(--green)">A</td></tr>
+          <tr><td class="td-name">Nexity</td><td style="color:var(--orange)">18%</td><td style="color:var(--orange)">24%</td><td>40%</td><td style="color:var(--orange)">B</td></tr>
+          <tr><td class="td-name">Icade</td><td style="color:var(--green)">38%</td><td style="color:var(--green)">44%</td><td>65%</td><td style="color:var(--gold)">A–</td></tr>
+        </tbody>
+      </table>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — Taxonomie et coût du capital</div>
+        <p>L'alignement sur la Taxonomie européenne devient progressivement un critère différenciant dans l'accès au financement. Les grands groupes BTP cotés (Vinci, Eiffage, Saint-Gobain) émettent des obligations vertes avec un greenium de 5–10 pb, soit une économie annuelle de 15–30 M€ pour un encours de 3 Md€. Sur le long terme, c'est la valorisation boursière qui sera impactée : les fonds ESG surpondèrent les acteurs les mieux alignés.</p>
+        <p>Le risque réglementaire à surveiller est le niveau d'exigence croissant des critères techniques de la Taxonomie (DNSH — Do No Significant Harm). La Commission européenne devrait relever les seuils de performance en 2026, excluant potentiellement des activités aujourd'hui considérées comme alignées.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT RAIL -->
+  <aside class="right-rail">
+    <div class="rail-section">
+      <div class="rail-title">Agenda législatif</div>
+      <div class="agenda-item">
+        <div class="agenda-date">Avr. 2026</div>
+        <div class="agenda-text">Publication décret d'application RE2020 Phase 2 — précisions techniques biosourcés</div>
+        <span class="agenda-tag">RE2020</span>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-date">Juin 2026</div>
+        <div class="agenda-text">Rapport annuel Observatoire de l'artificialisation — premier bilan ZAN</div>
+        <span class="agenda-tag">ZAN</span>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-date">Sep. 2026</div>
+        <div class="agenda-text">Révision directive EPBD (Performance énergétique des bâtiments) — transposition FR</div>
+        <span class="agenda-tag">UE · Énergie</span>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-date">Oct. 2026</div>
+        <div class="agenda-text">PLF 2027 — Budget MaPrimeRénov et PTZ pour 2027</div>
+        <span class="agenda-tag">Financement</span>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-date">Jan. 2027</div>
+        <div class="agenda-text">DPE collectif obligatoire — Copropriétés 51–200 lots</div>
+        <span class="agenda-tag">DPE · Rénovation</span>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Alertes réglementaires</div>
+      <div class="alert-item rouge">
+        <strong>MaPrimeRénov — Réduction budget</strong>
+        Budget 2026 : 3,2 Md€ contre 4,1 Md€ en 2025. Risque de ralentissement de la demande de rénovation mono-geste au T1–T2 2026.
+      </div>
+      <div class="alert-item orange">
+        <strong>ZAN — Blocages PLU</strong>
+        Plus de 1 200 communes n'ont pas encore modifié leur PLU. Risque de contentieux et blocage des permis de construire en 2026.
+      </div>
+      <div class="alert-item orange">
+        <strong>RE2020 Phase 2 — Biosourcés</strong>
+        Les certifications Acermi pour biosourcés sont en rupture de capacité. Délais allongés (+3 mois) pour la conformité des dossiers.
+      </div>
+      <div class="alert-item vert">
+        <strong>PTZ élargi — Opportunité</strong>
+        Extension du PTZ aux logements anciens à réhabiliter en zone B2/C — potentiel +25 000 opérations supplémentaires en 2026.
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Textes récents</div>
+      <div class="texte-item">
+        <div class="texte-ref">Décret 2025-84 · 28 jan. 2025</div>
+        <div class="texte-desc">RE2020 — Seuils carbone Phase 2 maisons individuelles et logements collectifs</div>
+      </div>
+      <div class="texte-item">
+        <div class="texte-ref">Arrêté 12 fév. 2025</div>
+        <div class="texte-desc">Modalités de calcul de l'artificialisation nette dans les documents d'urbanisme</div>
+      </div>
+      <div class="texte-item">
+        <div class="texte-ref">Circulaire DHUP · Mar. 2026</div>
+        <div class="texte-desc">MaPrimeRénov 2026 — Nouveau barème et conditions d'éligibilité BBC Rénovation</div>
+      </div>
+      <div class="texte-item">
+        <div class="texte-ref">Règl. UE 2024/1991</div>
+        <div class="texte-desc">Nature Restoration Law — Obligations de renaturation applicables aux ZAC et opérations d'aménagement</div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- /main-layout -->
+
+<script>
+const impactData = [
+  { icon:'🏗️', label:'Constructeurs neuf', val:'–8 à –12%', sub:'Marge nette impactée (RE2020)', badge:'majeur', delay:0 },
+  { icon:'🏢', label:'Promoteurs résidentiels', val:'–5 à –9%', sub:'Rentabilité programme VEFA', badge:'majeur', delay:0.06 },
+  { icon:'🔩', label:'Matériaux isolation', val:'+12 à +20%', sub:'Volumes demande (opportunité)', badge:'mineur', delay:0.12 },
+  { icon:'🌿', label:'Rénovation globale', val:'+8 à +15%', sub:'Marché MaPrimeRénov BBC', badge:'mineur', delay:0.18 },
+  { icon:'📐', label:'Foncier périurbain', val:'–25 à –40%', sub:'Valeur foncière ZAC périphérie', badge:'majeur', delay:0.24 },
+  { icon:'💶', label:'Coût financement vert', val:'–5 à –10pb', sub:'Greenium obligations Taxonomie', badge:'mineur', delay:0.3 },
+];
+
+const aidesData = [
+  { name:'MaPrimeRénov 2026', montant:'3,2 Md€', desc:'Aide à la rénovation énergétique des logements. Recentrée sur les ménages modestes et les rénovations globales (BBC Rénovation). Fin des aides mono-geste pour ménages aisés.', tags:['Rénovation','Ménages modestes','BBC'], budget_consomme:58, target:'Rénovation' },
+  { name:'PTZ (Prêt à Taux Zéro)', montant:'Exonéré', desc:'Prolongé jusqu\'en 2027 dans les zones A/B1. Élargi au logement ancien à réhabiliter en zones B2/C depuis jan. 2025. Bénéfice estimé : 25 000 € en moyenne par ménage.', tags:['Neuf','Réhabilitation','Zones tendues'], budget_consomme:72, target:'Promotion' },
+  { name:'CEE (Certificats Économie Énergie)', montant:'~2,5 Md€/an', desc:'Obligation des fournisseurs d\'énergie à financer des travaux d\'économies d\'énergie. Mécanisme pérenne, non soumis aux arbitrages budgétaires annuels. Stabilité pour les acteurs de la rénovation.', tags:['Rénovation','Isolation','Chauffage'], budget_consomme:85, target:'Rénovation' },
+  { name:'Éco-PTZ', montant:'50 000 € max', desc:'Prêt sans intérêt pour financer les travaux de rénovation énergétique. Élargi aux copropriétés depuis 2019. Plafond relevé à 50 000 € pour les rénovations globales en 2026.', tags:['Rénovation globale','Copropriétés','Sans intérêt'], budget_consomme:42, target:'Rénovation' },
+];
+
+function renderImpact() {
+  document.getElementById('impactGrid').innerHTML = impactData.map(d => `
+    <div class="impact-card" style="animation-delay:${d.delay}s">
+      <span class="impact-icon">${d.icon}</span>
+      <div class="impact-label">${d.label}</div>
+      <div class="impact-val">${d.val}</div>
+      <div class="impact-sub">${d.sub}</div>
+      <span class="impact-badge ${d.badge}">${d.badge === 'mineur' ? 'Opportunité' : d.badge === 'modere' ? 'Modéré' : 'Impact majeur'}</span>
+    </div>
+  `).join('');
+}
+
+function renderAides() {
+  document.getElementById('aidesGrid').innerHTML = aidesData.map(d => `
+    <div class="aide-card">
+      <div class="aide-header">
+        <div class="aide-name">${d.name}</div>
+        <div class="aide-montant">${d.montant}</div>
+      </div>
+      <div class="aide-desc">${d.desc}</div>
+      <div class="aide-meta">${d.tags.map(t => `<span class="aide-tag">${t}</span>`).join('')}</div>
+      <div class="aide-progress">
+        <div class="aide-progress-label"><span>Utilisation budget 2026</span><span>${d.budget_consomme}%</span></div>
+        <div class="aide-bar"><div class="aide-bar-fill" style="width:${d.budget_consomme}%"></div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+renderImpact();
+renderAides();
+</script>
+</body>
+</html>

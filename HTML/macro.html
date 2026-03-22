@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Macro & Conjoncture BTP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080807;--bg:#0c0c0a;--surface:#111110;--surface2:#161614;
+  --border:rgba(201,168,76,0.1);--border-hover:rgba(201,168,76,0.35);
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.15);--gold-glow:rgba(201,168,76,0.06);
+  --green:#4ade80;--green-dim:rgba(74,222,128,0.12);
+  --red:#f87171;--red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);
+  --text:#e8e4da;--text-2:#a09880;--text-3:#5a5446;--white:#f5f2eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.5;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+/* PAGE HEADER */
+.page-header{padding:80px 32px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.breadcrumb span{color:var(--gold);}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-sub{font-size:13px;color:var(--text-2);margin-top:10px;letter-spacing:0.02em;}
+.header-stats{display:flex;gap:0;}
+.hstat{text-align:right;padding:0 20px;border-left:1px solid var(--border);}
+.hstat-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);line-height:1;}
+.hstat-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+
+/* PULSE BAND */
+.pulse-band{background:linear-gradient(135deg,#0f0f0c,#1a1408);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:12px 32px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.pulse-item{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:16px;padding:0 24px;border-right:1px solid var(--border);white-space:nowrap;}
+.pulse-item:first-child{padding-left:0;}
+.pulse-item:last-child{border-right:none;}
+.pulse-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulseDot 2s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+
+/* MAIN LAYOUT */
+.main-layout{display:grid;grid-template-columns:240px 1fr 260px;min-height:calc(100vh - 56px);}
+
+/* SIDEBAR */
+.sidebar{border-right:1px solid var(--border);padding:24px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);}
+.sidebar-section{margin-bottom:28px;}
+.sidebar-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-3);padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.filter-count{background:var(--gold);color:var(--black);font-size:9px;padding:1px 6px;display:none;}
+.filter-count.visible{display:inline;}
+.pills-wrap{padding:0 16px;display:flex;flex-wrap:wrap;gap:6px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:5px 12px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;}
+.pill:hover{border-color:var(--gold);color:var(--gold);}
+.pill.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
+.pill.favorable.active{background:var(--green);color:var(--black);border-color:var(--green);}
+.pill.neutre.active{background:var(--gold);color:var(--black);}
+.pill.defavorable.active{background:var(--red);color:var(--black);border-color:var(--red);}
+.reset-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--text-3);cursor:pointer;transition:all 0.15s;width:100%;margin-top:8px;text-align:center;}
+.reset-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* CONTENT */
+.content{min-width:0;}
+
+/* TAB BAR */
+.tab-bar{position:sticky;top:56px;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;}
+.tab-bar::-webkit-scrollbar{height:0;}
+.tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:16px 24px;background:none;border:none;color:var(--text-3);cursor:pointer;transition:all 0.15s;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab-btn:hover{color:var(--text-2);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* TAB PANELS */
+.tab-panel{display:none;padding:28px 32px;}
+.tab-panel.active{display:block;}
+
+/* SIGNAL SUMMARY */
+.signal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.signal-box{padding:16px;border:1px solid;}
+.signal-box.favorable{border-color:rgba(74,222,128,0.2);background:var(--green-dim);}
+.signal-box.neutre{border-color:rgba(201,168,76,0.2);background:var(--gold-dim);}
+.signal-box.defavorable{border-color:rgba(248,113,113,0.2);background:var(--red-dim);}
+.signal-box-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
+.signal-box.favorable .signal-box-title{color:var(--green);}
+.signal-box.neutre .signal-box-title{color:var(--gold);}
+.signal-box.defavorable .signal-box-title{color:var(--red);}
+.signal-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.signal-list li{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);}
+.signal-list li::before{content:'·  ';}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;}
+@keyframes kpiIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.kpi-card:hover{border-color:var(--border-hover);}
+.kpi-icon{font-size:16px;margin-bottom:8px;display:block;opacity:0.7;}
+.kpi-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.kpi-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--white);line-height:1;margin-bottom:4px;}
+.kpi-unit{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);}
+.kpi-change{font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;display:inline-block;margin-top:8px;}
+.kpi-change.up{color:var(--green);background:var(--green-dim);}
+.kpi-change.down{color:var(--red);background:var(--red-dim);}
+.kpi-change.good-down{color:var(--green);background:var(--green-dim);}
+.kpi-change.bad-up{color:var(--red);background:var(--red-dim);}
+.kpi-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;float:right;margin-top:8px;}
+.kpi-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
+.kpi-signal.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+.kpi-signal.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
+.kpi-spark{margin-top:10px;}
+.kpi-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3);margin-top:6px;}
+.kpi-note{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);margin-top:3px;}
+
+/* EDITORIAL BLOCK */
+.editorial-block{border-left:3px solid var(--gold);background:var(--surface);padding:24px 28px;margin-top:8px;}
+.editorial-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.editorial-block p{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:12px;}
+.editorial-block p:last-child{margin-bottom:0;}
+
+/* SECTION LABEL */
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.section-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:6px;}
+.section-sub{font-size:13px;color:var(--text-2);margin-bottom:24px;}
+
+/* COMMODITIES TABLE */
+.comm-filters{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.comm-filter-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:5px 14px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;}
+.comm-filter-btn:hover{border-color:var(--gold);color:var(--gold);}
+.comm-filter-btn.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
+
+.data-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+.data-table thead tr{border-bottom:1px solid var(--border);}
+.data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 14px;text-align:left;font-weight:400;cursor:pointer;user-select:none;white-space:nowrap;}
+.data-table th:hover{color:var(--gold);}
+.data-table tbody tr{border-bottom:1px solid rgba(201,168,76,0.05);transition:background 0.12s;animation:rowIn 0.35s ease forwards;opacity:0;}
+@keyframes rowIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
+.data-table tbody tr:hover{background:var(--gold-glow);}
+.data-table td{padding:12px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2);vertical-align:middle;}
+.td-name{color:var(--white);font-size:13px;font-family:'Syne',sans-serif;font-weight:600;}
+.td-current{color:var(--white);font-size:14px;font-weight:500;}
+.change-pos{color:var(--red);}
+.change-neg{color:var(--green);}
+.impact-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
+.impact-badge.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
+.impact-badge.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
+.impact-badge.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+
+/* CHART CONTAINERS */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;}
+.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+
+/* RATES GRID */
+.rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.rate-card{background:var(--surface);border:1px solid var(--border);padding:18px;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;}
+.rate-card:hover{border-color:var(--border-hover);}
+.rate-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
+.rate-val{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--white);line-height:1;margin-bottom:4px;}
+.rate-unit{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);}
+.rate-change{font-family:'DM Mono',monospace;font-size:11px;margin-top:8px;}
+.rate-comment{font-size:12px;color:var(--text-3);margin-top:8px;line-height:1.5;}
+.rate-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;display:inline-block;margin-top:8px;}
+.rate-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
+.rate-signal.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+
+/* ACTIVITY SECTION */
+.activity-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.act-kpi{background:var(--surface);border:1px solid var(--border);padding:16px;text-align:center;}
+.act-kpi-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--white);}
+.act-kpi-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+.act-kpi-change{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);margin-top:4px;}
+
+/* SECTORS TABLE */
+.sector-table td:first-child{color:var(--white);font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
+
+/* INDICES TABLE */
+.index-val{color:var(--gold);}
+
+/* DONUT CHART */
+.donut-wrap{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:center;}
+.donut-legend{display:flex;flex-direction:column;gap:12px;}
+.donut-leg-item{display:flex;align-items:center;gap:10px;}
+.donut-leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.donut-leg-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);}
+.donut-leg-pct{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;margin-left:auto;}
+
+/* ANALYSIS CARDS */
+.analysis-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.analysis-card{border:1px solid var(--border);padding:20px;}
+.analysis-card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;}
+.analysis-card p{font-size:13px;color:var(--text-2);line-height:1.6;}
+
+/* RIGHT RAIL */
+.right-rail{border-left:1px solid var(--border);padding:24px 20px;}
+.rail-section{margin-bottom:28px;}
+.rail-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:14px;}
+.agenda-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.agenda-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);min-width:50px;padding-top:1px;}
+.agenda-name{font-size:12px;color:var(--text-2);line-height:1.4;flex:1;}
+.agenda-dots{font-size:8px;color:var(--gold);margin-top:3px;}
+.bce-watch-meeting{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);margin-bottom:12px;}
+.bce-watch-date{color:var(--gold);}
+.bce-prob-row{margin-bottom:10px;}
+.bce-prob-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
+.bce-prob-bar{height:6px;background:var(--surface2);position:relative;}
+.bce-prob-fill{height:100%;transition:width 0.6s ease;}
+.alert-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.alert-dot.red{background:var(--red);}
+.alert-dot.gold{background:var(--gold);}
+.alert-dot.green{background:var(--green);}
+.alert-content{flex:1;}
+.alert-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);}
+.alert-text{font-size:12px;color:var(--text-2);line-height:1.4;margin-top:2px;}
+
+/* WAGE CHART */
+.wage-chart-group{margin-bottom:12px;}
+.wage-year{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-bottom:4px;}
+.wage-bars{display:flex;flex-direction:column;gap:4px;}
+.wage-bar-row{display:flex;align-items:center;gap:8px;}
+.wage-bar-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);width:80px;}
+.wage-bar-bg{flex:1;height:8px;background:var(--surface2);}
+.wage-bar-fill{height:100%;}
+.wage-bar-val{font-family:'DM Mono',monospace;font-size:10px;width:36px;text-align:right;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma.html">M&A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="/macro.html" class="active">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div>
+    <div class="breadcrumb">BatiAnalyse <span>/</span> Macro & Conjoncture</div>
+    <h1>Macro & <em>Conjoncture</em></h1>
+    <p class="page-sub">Indicateurs économiques BTP · Zone Euro & France · Mis à jour mars 2026</p>
+  </div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--green)">2,50%</div>
+      <div class="hstat-label">Taux BCE ↓ -25pb</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--red)">-14,2%</div>
+      <div class="hstat-label">Mises en chantier</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">+3,8%</div>
+      <div class="hstat-label">Inflation matériaux</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--red)">48,3</div>
+      <div class="hstat-label">PMI Construction</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">7,2 mois</div>
+      <div class="hstat-label">Carnets de commandes</div>
+    </div>
+  </div>
+</div>
+
+<!-- PULSE BAND -->
+<div class="pulse-band">
+  <div class="pulse-item"><div class="pulse-dot"></div>BCE : 3ème baisse consécutive — taux à 2,50% depuis mars 2026</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>Acier en repli de -11,8% sur 12 mois — soulagement pour les constructeurs</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>PMI Construction à 48,3 — 6e mois consécutif en contraction</div>
+</div>
+
+<!-- MAIN -->
+<div class="main-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Période</div>
+      <div class="pills-wrap" id="periodFilter">
+        <button class="pill active" data-val="3m">3M</button>
+        <button class="pill" data-val="6m">6M</button>
+        <button class="pill" data-val="1an">1 an</button>
+        <button class="pill" data-val="3ans">3 ans</button>
+        <button class="pill" data-val="5ans">5 ans</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Catégorie <span class="filter-count" id="catCount"></span></div>
+      <div class="pills-wrap" id="catFilter">
+        <button class="pill active" data-val="tous">Tous</button>
+        <button class="pill" data-val="taux">Taux & Crédit</button>
+        <button class="pill" data-val="matieres">Matières premières</button>
+        <button class="pill" data-val="activite">Activité BTP</button>
+        <button class="pill" data-val="inflation">Inflation & Coûts</button>
+        <button class="pill" data-val="emploi">Emploi</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Géographie</div>
+      <div class="pills-wrap" id="geoFilter">
+        <button class="pill active" data-val="france">France</button>
+        <button class="pill" data-val="eurozone">Zone Euro</button>
+        <button class="pill" data-val="monde">Monde</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Signal</div>
+      <div class="pills-wrap" id="signalFilter">
+        <button class="pill favorable" data-val="favorable">Favorable</button>
+        <button class="pill neutre" data-val="neutre">Neutre</button>
+        <button class="pill defavorable" data-val="defavorable">Défavorable</button>
+      </div>
+    </div>
+    <div style="padding:0 16px;">
+      <button class="reset-btn" onclick="resetFilters()">Réinitialiser les filtres</button>
+    </div>
+    <div class="sidebar-section" style="margin-top:24px;">
+      <div class="sidebar-title">Légende signaux</div>
+      <div style="padding:0 16px;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.6;">
+          <div style="color:var(--green);margin-bottom:4px;">● Favorable</div>
+          <div style="margin-bottom:10px;padding-left:14px;">Indicateur positif pour l'activité ou les marges BTP.</div>
+          <div style="color:var(--gold);margin-bottom:4px;">● Neutre</div>
+          <div style="margin-bottom:10px;padding-left:14px;">Ni positif ni négatif dans le contexte actuel.</div>
+          <div style="color:var(--red);margin-bottom:4px;">● Défavorable</div>
+          <div style="padding-left:14px;">Signal négatif pour le secteur construction.</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <!-- TAB BAR -->
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="dashboard">Tableau de bord</button>
+      <button class="tab-btn" data-tab="matieres">Matières premières</button>
+      <button class="tab-btn" data-tab="taux">Taux & Financement</button>
+      <button class="tab-btn" data-tab="activite">Activité BTP</button>
+      <button class="tab-btn" data-tab="inflation">Inflation & Coûts</button>
+    </div>
+
+    <!-- TAB 1 — DASHBOARD -->
+    <div class="tab-panel active" id="tab-dashboard">
+      <div class="section-label">Synthèse des indicateurs macro — Secteur BTP</div>
+
+      <!-- Signal summary -->
+      <div class="signal-summary">
+        <div class="signal-box favorable">
+          <div class="signal-box-title">4 indicateurs favorables</div>
+          <ul class="signal-list">
+            <li>Taux BCE (-25pb)</li><li>OAT 10 ans (-16pb)</li>
+            <li>Acier HRC (-11,8%)</li><li>Bitume (-18,4%)</li>
+          </ul>
+        </div>
+        <div class="signal-box neutre">
+          <div class="signal-box-title">3 indicateurs neutres</div>
+          <ul class="signal-list">
+            <li>ICC +3,8%</li><li>Inflation matériaux</li><li>Crédit promoteur</li>
+          </ul>
+        </div>
+        <div class="signal-box defavorable">
+          <div class="signal-box-title">5 indicateurs défavorables</div>
+          <ul class="signal-list">
+            <li>Mises en chantier (-14,2%)</li><li>Permis (-9,8%)</li>
+            <li>PMI (48,3)</li><li>Carnets (-1,1M)</li><li>Emploi (-2,1%)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <!-- Editorial -->
+      <div class="editorial-block">
+        <div class="editorial-title">Lecture de marché — Mars 2026</div>
+        <p>La baisse du taux BCE à 2,50% marque le troisième assouplissement consécutif depuis juin 2024 et constitue la principale bonne nouvelle pour le secteur. Elle se traduit mécaniquement par un recul des taux de crédit immobilier sous 3,50%, seuil psychologique important pour la demande de logements neufs. Par ailleurs, l'acier et le bitume continuent leur correction à la baisse, offrant une bouffée d'air aux marges des entreprises de construction qui avaient subi de plein fouet les chocs de 2022-2023.</p>
+        <p>En revanche, les indicateurs d'activité restent préoccupants. Avec seulement 298 400 mises en chantier sur 12 mois glissants, le marché du logement neuf enregistre son niveau le plus bas depuis 2016. Le PMI Construction s'établit à 48,3 pour le sixième mois consécutif en zone de contraction, et les carnets de commandes reculent à 7,2 mois — un niveau insuffisant pour maintenir les plannings de production. La dichotomie entre l'amélioration des conditions de financement et la faiblesse de la demande effective reste le paradoxe central du cycle actuel.</p>
+      </div>
+    </div>
+
+    <!-- TAB 2 — MATIÈRES PREMIÈRES -->
+    <div class="tab-panel" id="tab-matieres">
+      <div class="section-label">Prix des matériaux clés — Impact sur les marges BTP</div>
+      <div class="section-title">Matières <em style="font-style:italic;color:var(--gold)">premières</em></div>
+      <p class="section-sub">Données indicatives. Sources : LME, Euroconstruct, AIMCC. Mise à jour hebdomadaire.</p>
+
+      <div class="comm-filters">
+        <button class="comm-filter-btn active" data-cat="tous">Tous</button>
+        <button class="comm-filter-btn" data-cat="metaux">Métaux</button>
+        <button class="comm-filter-btn" data-cat="beton">Granulats & Béton</button>
+        <button class="comm-filter-btn" data-cat="bois">Bois & Dérivés</button>
+        <button class="comm-filter-btn" data-cat="energie">Énergie & Bitume</button>
+      </div>
+
+      <table class="data-table" id="commTable">
+        <thead>
+          <tr>
+            <th onclick="sortComm('name')">Matériau</th>
+            <th onclick="sortComm('current')">Prix actuel</th>
+            <th onclick="sortComm('c1m')">1 mois</th>
+            <th onclick="sortComm('c3m')">3 mois</th>
+            <th onclick="sortComm('c12m')">12 mois</th>
+            <th>Tendance</th>
+            <th>Impact BTP</th>
+            <th>Évolution 12M</th>
+          </tr>
+        </thead>
+        <tbody id="commBody"></tbody>
+      </table>
+
+      <div class="analysis-cards">
+        <div class="analysis-card">
+          <div class="analysis-card-title">Métaux ferreux — Soulagement confirmé</div>
+          <p>L'acier HRC recule de -11,8% sur 12 mois, effaçant une partie du choc de 2022. Cette détente profite directement aux constructeurs de charpentes métalliques et aux promoteurs de logements collectifs. Les analystes anticipent une stabilisation autour de 650-680 €/t au second semestre 2026.</p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">Bois & aluminium — Tensions persistantes</div>
+          <p>Contrairement aux ferreux, le bois de construction (+5,4% sur 12 mois) et l'aluminium (+6,7%) maintiennent une pression à la hausse. La demande structurelle liée à la construction bois et aux exigences RE2020 soutient les prix, pénalisant les constructeurs de maisons individuelles et les menuisiers.</p>
+        </div>
+      </div>
+
+      <!-- Acier chart -->
+      <div class="chart-wrap">
+        <div class="chart-title">Acier HRC — Évolution 12 mois (€/tonne)</div>
+        <svg id="acierChart" viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
+          <!-- Gridlines -->
+          <line x1="0" y1="20" x2="700" y2="20" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="140" x2="700" y2="140" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <!-- Y labels -->
+          <text x="4" y="18" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">800</text>
+          <text x="4" y="58" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">750</text>
+          <text x="4" y="98" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">700</text>
+          <text x="4" y="138" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">650</text>
+          <!-- Data: 820,800,780,760,745,728,710,700,695,688,685,682 mapped to Y (800-650 range = 150px) -->
+          <!-- y = 140 - ((val-650)/150)*120 -->
+          <defs>
+            <linearGradient id="acierGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120 700,140 36,140" fill="url(#acierGrad)"/>
+          <polyline points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120" stroke="#60a5fa" stroke-width="2" fill="none"/>
+          <!-- X labels -->
+          <text x="22" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">avr'25</text>
+          <text x="86" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mai</text>
+          <text x="150" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juin</text>
+          <text x="214" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juil</text>
+          <text x="278" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">août</text>
+          <text x="342" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">sep</text>
+          <text x="406" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">oct</text>
+          <text x="470" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">nov</text>
+          <text x="534" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">déc</text>
+          <text x="598" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">jan'26</text>
+          <text x="654" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">fév</text>
+          <text x="700" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mar</text>
+          <!-- End point -->
+          <circle cx="700" cy="120" r="4" fill="#60a5fa"/>
+          <text x="686" y="112" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa" text-anchor="middle">682€</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- TAB 3 — TAUX -->
+    <div class="tab-panel" id="tab-taux">
+      <div class="section-label">Impact des taux sur la construction & la promotion immobilière</div>
+      <div class="section-title">Taux & <em style="font-style:italic;color:var(--gold)">Financement</em></div>
+      <p class="section-sub">Sources : BCE, Banque de France, Refinitiv. Données au 14 mars 2026.</p>
+
+      <div class="rates-grid" id="ratesGrid"></div>
+
+      <!-- BCE chart -->
+      <div class="chart-wrap">
+        <div class="chart-title">Taux directeur BCE (dépôt) — Trajectoire 2022-2026</div>
+        <svg viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="bceGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4ade80" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Gridlines -->
+          <line x1="0" y1="18" x2="700" y2="18" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="51" x2="700" y2="51" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="84" x2="700" y2="84" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="117" x2="700" y2="117" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <!-- Y labels -->
+          <text x="2" y="17" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">5%</text>
+          <text x="2" y="50" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">3,5%</text>
+          <text x="2" y="83" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">2%</text>
+          <text x="2" y="116" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">0,5%</text>
+          <!-- Step line data: Q1'22=0%, Q3'22=0.5%, Q4'22=2%, Q1'23=3%, Q2'23=3.5%, Q3'23=4.5%(pic), Q1'24=4.5%, Q2'24=4.25%, Q3'24=3.5%, Q4'24=3%, Q1'25=2.75%, Q3'25=2.75%, Q4'25=2.75%, Q1'26=2.5%
+               y = 130 - (val/5)*110  -->
+          <!-- val→y: 0→130, 0.5→119, 2→86, 3→64, 3.5→53, 4.5→31, 4.25→36, 3.5→53, 3→64, 2.75→69, 2.5→75 -->
+          <!-- x positions for quarters 2022Q1 to 2026Q1 = 17 quarters -->
+          <!-- x step = 700/16 ≈ 44 -->
+          <polygon points="0,130 0,130 44,130 44,119 88,119 88,86 132,86 132,64 176,64 176,53 220,53 220,31 264,31 264,31 308,31 308,36 352,36 352,53 396,53 396,64 440,64 440,69 484,69 484,69 528,69 528,75 700,75 700,130" fill="url(#bceGrad)"/>
+          <polyline points="0,130 44,130 44,119 88,119 88,86 132,86 132,64 176,64 176,53 220,53 220,31 264,31 308,31 308,36 352,36 352,53 396,53 396,64 440,64 440,69 484,69 528,69 528,75 700,75" stroke="#4ade80" stroke-width="2" fill="none"/>
+          <!-- Peak annotation -->
+          <line x1="242" y1="18" x2="242" y2="130" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="248" y="28" font-family="DM Mono,monospace" font-size="9" fill="#c9a84c">Pic: 4,5%</text>
+          <!-- Current annotation -->
+          <circle cx="700" cy="75" r="4" fill="#4ade80"/>
+          <text x="660" y="68" font-family="DM Mono,monospace" font-size="9" fill="#4ade80">2,50%</text>
+          <!-- X labels -->
+          <text x="0" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'22</text>
+          <text x="132" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'23</text>
+          <text x="308" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'24</text>
+          <text x="484" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'25</text>
+          <text x="660" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'26</text>
+        </svg>
+      </div>
+
+      <!-- Impact analysis -->
+      <div class="analysis-cards">
+        <div class="analysis-card">
+          <div class="analysis-card-title">Impact crédit promoteur</div>
+          <p>La baisse du crédit promoteur à 4,20% (vs 5,10% au pic) améliore sensiblement le rendement des opérations VEFA. Pour un programme de 50 logements à 10M€, l'économie annuelle de charge financière dépasse 90 000 €. Insuffisant à lui seul pour relancer la promotion, mais signal positif pour les bilans en cours.</p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">Impact demande logement</div>
+          <p>Le crédit immobilier moyen à 3,48% améliore la capacité d'emprunt des ménages d'environ +8% vs le pic de 2023. Un ménage empruntant 250 000 € sur 20 ans économise désormais ~120 €/mois vs le point haut. La corrélation avec les mises en chantier est décalée de 6 à 9 mois.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4 — ACTIVITÉ -->
+    <div class="tab-panel" id="tab-activite">
+      <div class="section-label">Indicateurs d'activité de la construction en France</div>
+      <div class="section-title">Activité <em style="font-style:italic;color:var(--gold)">BTP</em></div>
+      <p class="section-sub">Sources : SDES, INSEE, S&P Global. Données cumulées 12 mois glissants.</p>
+
+      <div class="activity-kpis">
+        <div class="act-kpi"><div class="act-kpi-val">298 400</div><div class="act-kpi-label">Mises en chantier</div><div class="act-kpi-change">▼ -14,2%</div></div>
+        <div class="act-kpi"><div class="act-kpi-val">342 100</div><div class="act-kpi-label">Permis construire</div><div class="act-kpi-change">▼ -9,8%</div></div>
+        <div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">48,3</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -1,8pt (contraction)</div></div>
+        <div class="act-kpi"><div class="act-kpi-val">7,2 mois</div><div class="act-kpi-label">Carnets commandes</div><div class="act-kpi-change">▼ -1,1 mois</div></div>
+      </div>
+
+      <div class="chart-row">
+        <!-- Mises en chantier bars -->
+        <div class="chart-wrap">
+          <div class="chart-title">Mises en chantier logements — mensuel (milliers)</div>
+          <svg viewBox="0 0 320 130" width="100%" height="130">
+            <!-- Reference line at 30k -->
+            <line x1="0" y1="26" x2="320" y2="26" stroke="rgba(201,168,76,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="2" y="23" font-family="DM Mono,monospace" font-size="7" fill="#c9a84c">Cible 30k</text>
+            <!-- 12 bars: values 28.2,26.4,25.1,24.8,23.9,24.2,25.1,24.6,24.0,23.8,24.9,24.7 -->
+            <!-- y: 110 - (val/35)*100 ; barW=22 -->
+            <rect x="0" y="29" width="22" height="81" fill="rgba(248,113,113,0.5)"/>
+            <rect x="25" y="35" width="22" height="75" fill="rgba(248,113,113,0.5)"/>
+            <rect x="50" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
+            <rect x="75" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
+            <rect x="100" y="42" width="22" height="68" fill="rgba(248,113,113,0.5)"/>
+            <rect x="125" y="41" width="22" height="69" fill="rgba(248,113,113,0.5)"/>
+            <rect x="150" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
+            <rect x="175" y="40" width="22" height="70" fill="rgba(248,113,113,0.5)"/>
+            <rect x="200" y="41" width="22" height="69" fill="rgba(248,113,113,0.5)"/>
+            <rect x="225" y="42" width="22" height="68" fill="rgba(248,113,113,0.5)"/>
+            <rect x="250" y="40" width="22" height="70" fill="rgba(248,113,113,0.6)"/>
+            <rect x="275" y="40" width="22" height="70" fill="rgba(248,113,113,0.6)"/>
+            <text x="11" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">avr</text>
+            <text x="136" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">sep</text>
+            <text x="286" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">mar'26</text>
+          </svg>
+        </div>
+        <!-- PMI line -->
+        <div class="chart-wrap">
+          <div class="chart-title">PMI Construction — mensuel</div>
+          <svg viewBox="0 0 320 130" width="100%" height="130">
+            <!-- 50 line -->
+            <line x1="0" y1="65" x2="320" y2="65" stroke="rgba(201,168,76,0.5)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="2" y="62" font-family="DM Mono,monospace" font-size="7" fill="#c9a84c">50 — Seuil</text>
+            <!-- PMI data: 47.2,47.8,48.1,47.9,48.4,48.6,47.8,48.0,48.3,47.9,48.1,48.3 -->
+            <!-- y: 130 - ((val-44)/10)*100 -->
+            <defs>
+              <linearGradient id="pmiGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f87171" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <polygon points="0,98 29,92 58,89 87,91 116,86 145,84 174,92 203,90 232,87 261,91 290,89 319,87 319,110 0,110" fill="url(#pmiGrad)"/>
+            <polyline points="0,98 29,92 58,89 87,91 116,86 145,84 174,92 203,90 232,87 261,91 290,89 319,87" stroke="#f87171" stroke-width="2" fill="none"/>
+            <circle cx="319" cy="87" r="3" fill="#f87171"/>
+            <text x="295" y="83" font-family="DM Mono,monospace" font-size="8" fill="#f87171">48,3</text>
+            <text x="0" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446">avr'25</text>
+            <text x="270" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446">mar'26</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Segments table -->
+      <div class="section-label" style="margin-top:8px;">Par segment de marché</div>
+      <table class="data-table sector-table">
+        <thead>
+          <tr>
+            <th>Segment</th><th>Volume 12M</th><th>Évol. 12M</th><th>Part marché</th><th>Signal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="animation-delay:0.05s"><td>Résidentiel neuf</td><td class="td-current">298 400 lgts</td><td class="change-pos">▼ -14,2%</td><td>38%</td><td><span class="impact-badge defavorable">Défavorable</span></td></tr>
+          <tr style="animation-delay:0.1s"><td>Résidentiel rénovation</td><td class="td-current">1 200 000 lgts</td><td class="change-pos">▼ -3,1%</td><td>29%</td><td><span class="impact-badge neutre">Neutre</span></td></tr>
+          <tr style="animation-delay:0.15s"><td>Tertiaire (bureaux/commerces)</td><td class="td-current">18,4 M m²</td><td class="change-pos">▼ -8,6%</td><td>14%</td><td><span class="impact-badge defavorable">Défavorable</span></td></tr>
+          <tr style="animation-delay:0.2s"><td>Génie civil & Infrastructures</td><td class="td-current">42,1 Md€</td><td class="change-neg">▲ +2,4%</td><td>12%</td><td><span class="impact-badge favorable">Favorable</span></td></tr>
+          <tr style="animation-delay:0.25s"><td>Industrie & Énergie</td><td class="td-current">8,2 Md€</td><td class="change-neg">▲ +4,1%</td><td>7%</td><td><span class="impact-badge favorable">Favorable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 5 — INFLATION -->
+    <div class="tab-panel" id="tab-inflation">
+      <div class="section-label">Indices de prix et coûts de la construction</div>
+      <div class="section-title">Inflation & <em style="font-style:italic;color:var(--gold)">Coûts</em></div>
+      <p class="section-sub">Sources : INSEE, AIMCC, FFB, FNTP. Indices officiels français.</p>
+
+      <!-- Indices table -->
+      <table class="data-table" style="margin-bottom:28px;">
+        <thead>
+          <tr>
+            <th>Indice</th><th>Valeur</th><th>Base</th><th>Évol. 12M</th><th>Source</th><th>Fréquence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="animation-delay:0.05s"><td class="td-name">ICC — Indice du Coût de la Construction</td><td class="index-val">2 156</td><td class="td-current">1953=100</td><td class="change-pos">▲ +3,8%</td><td>INSEE</td><td>Trimestriel</td></tr>
+          <tr style="animation-delay:0.1s"><td class="td-name">Index BT01 — Bâtiment tous corps d'état</td><td class="index-val">1 284</td><td class="td-current">2010=100</td><td class="change-pos">▲ +4,2%</td><td>INSEE</td><td>Mensuel</td></tr>
+          <tr style="animation-delay:0.15s"><td class="td-name">Index TP01 — Travaux routiers</td><td class="index-val">148,2</td><td class="td-current">2010=100</td><td class="change-pos">▲ +2,9%</td><td>INSEE</td><td>Mensuel</td></tr>
+          <tr style="animation-delay:0.2s"><td class="td-name">Index TP09 — Génie civil</td><td class="index-val">156,4</td><td class="td-current">2010=100</td><td class="change-pos">▲ +3,4%</td><td>INSEE</td><td>Mensuel</td></tr>
+          <tr style="animation-delay:0.25s"><td class="td-name">IPCH France — Inflation générale</td><td class="index-val">1,8%</td><td class="td-current">—</td><td class="change-neg">▼ -0,6pt</td><td>Eurostat</td><td>Mensuel</td></tr>
+          <tr style="animation-delay:0.3s"><td class="td-name">Inflation matériaux BTP spécifique</td><td class="index-val">3,8%</td><td class="td-current">—</td><td class="change-neg">▼ -2,1pt</td><td>AIMCC</td><td>Trimestriel</td></tr>
+        </tbody>
+      </table>
+
+      <div class="chart-row">
+        <!-- Donut -->
+        <div class="chart-wrap">
+          <div class="chart-title">Décomposition du coût de construction — logement collectif 2026</div>
+          <div class="donut-wrap">
+            <svg viewBox="0 0 180 180" width="180" height="180">
+              <!-- Donut segments (42% gold, 31% blue, 18% purple, 9% green) -->
+              <!-- Total circumference of r=70: 2*PI*70 ≈ 439.8 -->
+              <!-- 42% = 184.7, 31% = 136.3, 18% = 79.2, 9% = 39.6 -->
+              <circle cx="90" cy="90" r="70" fill="none" stroke="#c9a84c" stroke-width="28"
+                stroke-dasharray="184.7 255.1" stroke-dashoffset="109.9" transform="rotate(-90 90 90)"/>
+              <circle cx="90" cy="90" r="70" fill="none" stroke="#60a5fa" stroke-width="28"
+                stroke-dasharray="136.3 303.5" stroke-dashoffset="-74.8" transform="rotate(-90 90 90)"/>
+              <circle cx="90" cy="90" r="70" fill="none" stroke="#a78bfa" stroke-width="28"
+                stroke-dasharray="79.2 360.6" stroke-dashoffset="-211.1" transform="rotate(-90 90 90)"/>
+              <circle cx="90" cy="90" r="70" fill="none" stroke="#4ade80" stroke-width="28"
+                stroke-dasharray="39.6 400.2" stroke-dashoffset="-290.3" transform="rotate(-90 90 90)"/>
+              <text x="90" y="86" font-family="DM Mono,monospace" font-size="11" fill="#e8e4da" text-anchor="middle">Coût</text>
+              <text x="90" y="100" font-family="DM Mono,monospace" font-size="11" fill="#e8e4da" text-anchor="middle">construct.</text>
+            </svg>
+            <div class="donut-legend">
+              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#c9a84c"></div><div class="donut-leg-label">Main d'œuvre</div><div class="donut-leg-pct" style="color:#c9a84c">42%</div></div>
+              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#60a5fa"></div><div class="donut-leg-label">Matériaux</div><div class="donut-leg-pct" style="color:#60a5fa">31%</div></div>
+              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#a78bfa"></div><div class="donut-leg-label">Sous-traitance</div><div class="donut-leg-pct" style="color:#a78bfa">18%</div></div>
+              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#4ade80"></div><div class="donut-leg-label">Frais généraux</div><div class="donut-leg-pct" style="color:#4ade80">9%</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wage chart -->
+        <div class="chart-wrap">
+          <div class="chart-title">Hausse des coûts salariaux BTP vs inflation générale (%/an)</div>
+          <div style="padding-top:8px;">
+            <div class="wage-chart-group" style="margin-bottom:20px;">
+              <div class="wage-year">2024</div>
+              <div class="wage-bars">
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--gold)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:62%;background:var(--gold);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--gold)">+3,1%</div></div>
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--blue)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:48%;background:var(--blue);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--blue)">+2,4%</div></div>
+              </div>
+            </div>
+            <div class="wage-chart-group" style="margin-bottom:20px;">
+              <div class="wage-year">2025</div>
+              <div class="wage-bars">
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--gold)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:64%;background:var(--gold);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--gold)">+3,2%</div></div>
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--blue)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:36%;background:var(--blue);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--blue)">+1,8%</div></div>
+              </div>
+            </div>
+            <div class="wage-chart-group">
+              <div class="wage-year" style="color:var(--text-3)">2026e</div>
+              <div class="wage-bars">
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(201,168,76,0.6)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:68%;background:rgba(201,168,76,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(201,168,76,0.7)">+3,4%e</div></div>
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(96,165,250,0.6)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:32%;background:rgba(96,165,250,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(96,165,250,0.7)">+1,6%e</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse BatiAnalyse — Coûts 2026</div>
+        <p>Si les prix des matériaux amorcent une détente bienvenue — notamment l'acier et le bitume — les coûts salariaux BTP continuent de progresser à un rythme supérieur à l'inflation générale (+3,4%e vs +1,6%e). Cette divergence comprime les marges des entreprises de taille intermédiaire, dont les contrats signés en 2022-2023 à des prix figés ne reflètent pas la hausse cumulée des coûts de production.</p>
+        <p>Les grands groupes (Vinci, Eiffage, Bouygues) disposent de clauses de révision de prix plus robustes et d'une capacité de négociation accrue avec leurs sous-traitants. À l'inverse, les ETI et PME du bâtiment subissent l'effet de ciseau complet : coûts main d'œuvre en hausse, prix de vente sous pression dans un marché atone. La FFB estime qu'un quart des entreprises de bâtiment pourraient voir leur marge nette passer sous 1% en 2026.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT RAIL -->
+  <div class="right-rail">
+    <div class="rail-section">
+      <div class="rail-title">Agenda Macro</div>
+      <div class="agenda-item"><div class="agenda-date">19 mar</div><div><div class="agenda-name">PMI Construction Flash (S&P Global)</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">25 mar</div><div><div class="agenda-name">ICC T4 2025 (INSEE)</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">28 mar</div><div><div class="agenda-name">Mises en chantier fév. 2026 (SDES)</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">02 avr</div><div><div class="agenda-name">Réunion BCE — décision taux</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">09 avr</div><div><div class="agenda-name">Permis de construire fév. (SDES)</div><div class="agenda-dots">●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">15 avr</div><div><div class="agenda-name">Index BT01 mars 2026 (INSEE)</div><div class="agenda-dots">●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">22 avr</div><div><div class="agenda-name">Enquête conjoncture BTP (INSEE)</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">30 avr</div><div><div class="agenda-name">PIB T1 2026 Flash (INSEE)</div><div class="agenda-dots">●●</div></div></div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">BCE Watch</div>
+      <div class="bce-watch-meeting">Prochaine réunion : <span class="bce-watch-date">2 avril 2026</span></div>
+      <div class="bce-prob-row">
+        <div class="bce-prob-label"><span>Statu quo 2,50%</span><span style="color:var(--gold)">72%</span></div>
+        <div class="bce-prob-bar"><div class="bce-prob-fill" style="width:72%;background:var(--gold);"></div></div>
+      </div>
+      <div class="bce-prob-row">
+        <div class="bce-prob-label"><span>Baisse -25pb</span><span style="color:var(--green)">28%</span></div>
+        <div class="bce-prob-bar"><div class="bce-prob-fill" style="width:28%;background:var(--green);"></div></div>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:8px;">Source : marchés OIS au 14/03/2026</div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Alertes Récentes</div>
+      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">14 mar</div><div class="alert-text">PMI Services France recule à 47,1 — signal de dégradation élargie</div></div></div>
+      <div class="alert-item"><div class="alert-dot gold"></div><div class="alert-content"><div class="alert-date">11 mar</div><div class="alert-text">Acier : 3ème baisse consécutive — détente confirmée sur les ferreux</div></div></div>
+      <div class="alert-item"><div class="alert-dot green"></div><div class="alert-content"><div class="alert-date">06 mar</div><div class="alert-text">BCE confirme -25pb — 3ème baisse depuis juin 2024</div></div></div>
+      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">04 mar</div><div class="alert-text">Permis de construire : -9,8% sur 12 mois glissants</div></div></div>
+      <div class="alert-item"><div class="alert-dot gold"></div><div class="alert-content"><div class="alert-date">28 fév</div><div class="alert-text">ICC T3 2025 : +3,8% sur un an, en légère décélération</div></div></div>
+    </div>
+  </div>
+
+</div><!-- /main-layout -->
+
+<script>
+// ── DATA ──
+const commodities = [
+  { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', impact:'favorable', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
+  { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', impact:'défavorable', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
+  { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', impact:'favorable', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
+  { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', impact:'défavorable', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
+  { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', impact:'favorable', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
+  { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', impact:'défavorable', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#f87171' },
+];
+
+const kpis = [
+  { icon:'📉', label:'Taux BCE dépôt', val:'2,50%', unit:'depuis 06/03/2026', change:'↓ -25pb', changeClass:'good-down', signal:'favorable', source:'BCE', spark:[4.5,4.5,4.25,3.5,3.0,2.75,2.75,2.75,2.75,2.5], color:'#4ade80' },
+  { icon:'📊', label:'OAT 10 ans France', val:'3,12%', unit:'obligations d\'État', change:'↓ -16pb', changeClass:'good-down', signal:'favorable', source:'Banque de France', spark:[3.5,3.6,3.8,3.4,3.3,3.2,3.18,3.15,3.14,3.12], color:'#4ade80' },
+  { icon:'🏗️', label:'Mises en chantier', val:'298 400', unit:'logements (12M)', change:'▼ -14,2%', changeClass:'down', signal:'défavorable', source:'SDES', spark:[380,365,345,330,320,310,305,302,300,298], color:'#f87171' },
+  { icon:'📋', label:'Permis de construire', val:'342 100', unit:'/an cumul 12M', change:'▼ -9,8%', changeClass:'down', signal:'défavorable', source:'SDES', spark:[400,390,375,368,360,355,350,345,343,342], color:'#f87171' },
+  { icon:'📈', label:'PMI Construction', val:'48,3', unit:'indice (< 50 = contraction)', change:'▼ -1,8pt', changeClass:'down', signal:'défavorable', source:'S&P Global', note:'6e mois consécutif en contraction', spark:[47.2,47.8,48.1,47.9,48.4,48.6,47.8,48.0,48.3,48.3], color:'#f87171' },
+  { icon:'📦', label:'Carnets de commandes', val:'7,2 mois', unit:'durée moyenne', change:'▼ -1,1 mois', changeClass:'down', signal:'défavorable', source:'INSEE', spark:[8.5,8.3,8.1,7.9,7.8,7.6,7.5,7.4,7.3,7.2], color:'#f87171' },
+  { icon:'🔩', label:'Acier HRC', val:'682 €/t', unit:'prix spot', change:'▼ -11,8%', changeClass:'good-down', signal:'favorable', source:'LME', spark:[820,800,780,760,745,728,710,700,695,682], color:'#60a5fa' },
+  { icon:'🛢️', label:'Bitume', val:'348 €/t', unit:'prix marché', change:'▼ -18,4%', changeClass:'good-down', signal:'favorable', source:'Euroconstruct', spark:[430,420,400,390,378,365,358,354,351,348], color:'#60a5fa' },
+  { icon:'⚡', label:'Cuivre', val:'9 240 $/t', unit:'LME spot', change:'▲ +12,3%', changeClass:'bad-up', signal:'défavorable', source:'LME', spark:[8200,8400,8600,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
+  { icon:'🏛️', label:'ICC', val:'2 156', unit:'base 1953=100', change:'▲ +3,8%', changeClass:'up', signal:'neutre', source:'INSEE', spark:[2070,2080,2090,2100,2110,2115,2125,2135,2145,2156], color:'#c9a84c' },
+  { icon:'📐', label:'Inflation matériaux BTP', val:'3,8%', unit:'glissement annuel', change:'▼ -2,1pt', changeClass:'good-down', signal:'neutre', source:'AIMCC', spark:[5.9,5.6,5.2,4.9,4.6,4.4,4.2,4.0,3.9,3.8], color:'#c9a84c' },
+  { icon:'👷', label:'Emploi BTP', val:'1 420 000', unit:'salariés', change:'▼ -2,1%', changeClass:'down', signal:'défavorable', source:'DARES', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#f87171' },
+];
+
+const rates = [
+  { label:'Taux BCE dépôt', val:'2,50', unit:'%', changeBp:-25, trend:'down', signal:'favorable', comment:'3ème baisse consécutive depuis juin 2024', spark:[4.5,4.5,4.25,3.5,3.0,2.75,2.5] },
+  { label:'OAT 10 ans France', val:'3,12', unit:'%', changeBp:-16, trend:'down', signal:'favorable', comment:'Convergence vers la cible 3% des analystes', spark:[3.8,3.6,3.4,3.3,3.2,3.14,3.12] },
+  { label:'EURIBOR 3 mois', val:'2,68', unit:'%', changeBp:-16, trend:'down', signal:'favorable', comment:'Référence crédits à taux variable promoteurs', spark:[4.0,3.7,3.3,3.0,2.85,2.74,2.68] },
+  { label:'Crédit immobilier moy.', val:'3,48', unit:'%', changeBp:-14, trend:'down', signal:'favorable', comment:'Retour sous 3,5% — signal positif pour la demande', spark:[4.2,4.0,3.8,3.65,3.56,3.49,3.48] },
+  { label:'Crédit promoteur (VEFA)', val:'4,20', unit:'%', changeBp:-25, trend:'down', signal:'neutre', comment:'Toujours 70-80pb au-dessus du cycle pré-2022', spark:[5.1,4.9,4.6,4.45,4.38,4.26,4.20] },
+  { label:'Spread OAT/Bund', val:'68', unit:'pb', changeBp:0, trend:'stable', signal:'neutre', comment:'Stable depuis 4 mois, risque politique maîtrisé', spark:[82,78,72,70,68,68,68] },
+];
+
+// ── SPARKLINE ──
+function makeSpark(data, color, w=80, h=24) {
+  const min = Math.min(...data), max = Math.max(...data);
+  const range = max - min || 1;
+  const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
+  const area = pts + ` ${w},${h} 0,${h}`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    <polygon points="${area}" fill="${color}" opacity="0.12"/>
+    <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
+  </svg>`;
+}
+
+// ── KPI GRID ──
+function renderKpis() {
+  const grid = document.getElementById('kpiGrid');
+  grid.innerHTML = kpis.map((k, i) => `
+    <div class="kpi-card" style="animation-delay:${i*0.04}s">
+      <span class="kpi-icon">${k.icon}</span>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-unit">${k.unit}</div>
+      <span class="kpi-signal ${k.signal}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span>
+      <span class="kpi-change ${k.changeClass}">${k.change}</span>
+      ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
+      <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
+      <div class="kpi-source">Source : ${k.source}</div>
+    </div>
+  `).join('');
+}
+
+// ── COMMODITIES TABLE ──
+let commFilter = 'tous';
+let commSort = { col: 'c12m', dir: 1 };
+
+function renderComm() {
+  const data = commodities.filter(c => commFilter === 'tous' || c.cat === commFilter)
+    .sort((a,b) => {
+      const av = typeof a[commSort.col] === 'number' ? a[commSort.col] : a[commSort.col];
+      const bv = typeof b[commSort.col] === 'number' ? b[commSort.col] : b[commSort.col];
+      return (av > bv ? 1 : -1) * commSort.dir;
+    });
+  document.getElementById('commBody').innerHTML = data.map((c, i) => `
+    <tr style="animation-delay:${i*0.05}s">
+      <td class="td-name">${c.name} <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">${c.unit}</span></td>
+      <td class="td-current">${c.current}</td>
+      <td class="${c.c1m < 0 ? 'change-neg' : 'change-pos'}">${c.c1m > 0 ? '+' : ''}${c.c1m}%</td>
+      <td class="${c.c3m < 0 ? 'change-neg' : 'change-pos'}">${c.c3m > 0 ? '+' : ''}${c.c3m}%</td>
+      <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
+      <td style="font-size:16px">${c.trend === 'down' ? '↓' : '↑'}</td>
+      <td><span class="impact-badge ${c.impact === 'favorable' ? 'favorable' : 'defavorable'}">${c.impact}</span></td>
+      <td>${makeSpark(c.spark, c.color)}</td>
+    </tr>
+  `).join('');
+}
+
+function sortComm(col) {
+  commSort = { col, dir: commSort.col === col ? -commSort.dir : -1 };
+  renderComm();
+}
+
+document.querySelectorAll('.comm-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.comm-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    commFilter = btn.dataset.cat;
+    renderComm();
+  });
+});
+
+// ── RATES GRID ──
+function renderRates() {
+  document.getElementById('ratesGrid').innerHTML = rates.map((r,i) => `
+    <div class="rate-card" style="animation-delay:${i*0.06}s">
+      <div class="rate-label">${r.label}</div>
+      <div class="rate-val">${r.val}<span class="rate-unit"> ${r.unit}</span></div>
+      <div class="rate-change" style="color:${r.changeBp < 0 ? 'var(--green)' : r.changeBp > 0 ? 'var(--red)' : 'var(--text-3)'}">
+        ${r.changeBp !== 0 ? (r.changeBp > 0 ? '▲ +' : '▼ ') + Math.abs(r.changeBp) + ' pb' : '→ stable'}
+      </div>
+      <div>${makeSpark(r.spark, r.signal === 'favorable' ? '#4ade80' : '#c9a84c', 100, 24)}</div>
+      <span class="rate-signal ${r.signal}">${r.signal.charAt(0).toUpperCase()+r.signal.slice(1)}</span>
+      <div class="rate-comment">${r.comment}</div>
+    </div>
+  `).join('');
+}
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'taux' && !document.getElementById('ratesGrid').children.length) renderRates();
+  });
+});
+
+// ── SIDEBAR FILTERS (period = single, others = decorative for now) ──
+document.querySelectorAll('#periodFilter .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#periodFilter .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('#geoFilter .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#geoFilter .pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('#catFilter .pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.val === 'tous') {
+      document.querySelectorAll('#catFilter .pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    } else {
+      document.querySelector('#catFilter [data-val="tous"]').classList.remove('active');
+      btn.classList.toggle('active');
+    }
+  });
+});
+document.querySelectorAll('#signalFilter .pill').forEach(btn => {
+  btn.addEventListener('click', () => btn.classList.toggle('active'));
+});
+
+function resetFilters() {
+  document.querySelectorAll('#periodFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('#geoFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('#catFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.querySelectorAll('#signalFilter .pill').forEach(b => b.classList.remove('active'));
+}
+
+// ── INIT ──
+renderKpis();
+renderComm();
+</script>
+</body>
+</html>

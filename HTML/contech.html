@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Innovation & ConTech BTP</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080807;--bg:#0c0c0a;--surface:#111110;--surface2:#161614;
+  --border:rgba(201,168,76,0.1);--border-hover:rgba(201,168,76,0.35);
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.12);
+  --green:#4ade80;--green-dim:rgba(74,222,128,0.1);
+  --red:#f87171;--red-dim:rgba(248,113,113,0.1);
+  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.1);
+  --purple:#a78bfa;--purple-dim:rgba(167,139,250,0.1);
+  --orange:#fb923c;--orange-dim:rgba(251,146,60,0.1);
+  --text:#e8e4da;--text-2:#a09880;--text-3:#5a5446;--white:#f5f2eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.5;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+.page-header{padding:80px 32px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.breadcrumb span{color:var(--gold);}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,58px);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-sub{font-size:13px;color:var(--text-2);margin-top:10px;}
+.header-stats{display:flex;gap:0;}
+.hstat{text-align:right;padding:0 20px;border-left:1px solid var(--border);}
+.hstat-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);line-height:1;}
+.hstat-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
+
+.pulse-band{background:linear-gradient(135deg,#0f0f0c,#1a1408);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:12px 32px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.pulse-item{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:16px;padding:0 24px;border-right:1px solid var(--border);white-space:nowrap;}
+.pulse-item:first-child{padding-left:0;}
+.pulse-item:last-child{border-right:none;}
+.pulse-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulseDot 2s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+
+.main-layout{display:grid;grid-template-columns:240px 1fr 260px;min-height:calc(100vh - 56px);}
+
+.sidebar{border-right:1px solid var(--border);padding:24px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.sidebar::-webkit-scrollbar{width:3px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);}
+.sidebar-section{margin-bottom:28px;}
+.sidebar-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--text-3);padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:10px;}
+.pills-wrap{padding:0 16px;display:flex;flex-wrap:wrap;gap:6px;}
+.pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:5px 12px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;}
+.pill:hover{border-color:var(--gold);color:var(--gold);}
+.pill.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
+
+.content{min-width:0;}
+.tab-bar{position:sticky;top:56px;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;}
+.tab-bar::-webkit-scrollbar{height:0;}
+.tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:16px 20px;background:none;border:none;color:var(--text-3);cursor:pointer;transition:all 0.15s;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab-btn:hover{color:var(--text-2);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-panel{display:none;padding:28px 32px;}
+.tab-panel.active{display:block;}
+
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.section-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;line-height:1.1;margin-bottom:8px;}
+.section-sub{font-size:12px;color:var(--text-3);margin-bottom:24px;}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);padding:18px;transition:border-color 0.15s;animation:fadeUp 0.4s ease forwards;opacity:0;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.kpi-card:hover{border-color:var(--border-hover);}
+.kpi-icon{font-size:20px;margin-bottom:8px;display:block;opacity:0.8;}
+.kpi-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.kpi-val{font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:var(--white);line-height:1;margin-bottom:4px;}
+.kpi-sub{font-size:11px;color:var(--text-3);}
+.kpi-change{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;display:inline-block;margin-top:8px;}
+.kpi-change.up{color:var(--green);background:var(--green-dim);}
+.kpi-change.down{color:var(--red);background:var(--red-dim);}
+
+/* DEAL CARDS */
+.deals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px;}
+.deal-card{background:var(--surface);border:1px solid var(--border);padding:20px;transition:border-color 0.15s;animation:fadeUp 0.4s ease forwards;opacity:0;}
+.deal-card:hover{border-color:var(--border-hover);}
+.deal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.deal-company{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--white);}
+.deal-amount{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--gold);}
+.deal-round{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;padding:2px 8px;border:1px solid;text-transform:uppercase;margin-bottom:10px;display:inline-block;}
+.deal-round.seed{color:var(--green);border-color:rgba(74,222,128,0.3);background:var(--green-dim);}
+.deal-round.serieA{color:var(--blue);border-color:rgba(96,165,250,0.3);background:var(--blue-dim);}
+.deal-round.serieB{color:var(--purple);border-color:rgba(167,139,250,0.3);background:var(--purple-dim);}
+.deal-round.serieC{color:var(--orange);border-color:rgba(251,146,60,0.3);background:var(--orange-dim);}
+.deal-round.growth{color:var(--gold);border-color:rgba(201,168,76,0.3);background:var(--gold-dim);}
+.deal-desc{font-size:12px;color:var(--text-2);line-height:1.5;margin-bottom:10px;}
+.deal-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);display:flex;gap:12px;flex-wrap:wrap;}
+.deal-investors{font-size:11px;color:var(--text-3);margin-top:8px;font-style:italic;}
+
+/* STARTUP TABLE */
+.data-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px;}
+.data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 12px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);white-space:nowrap;}
+.data-table td{padding:12px;border-bottom:1px solid rgba(201,168,76,0.05);vertical-align:middle;}
+.data-table tr:hover td{background:rgba(201,168,76,0.02);}
+.td-name{font-weight:600;color:var(--white);}
+.td-name small{display:block;font-size:10px;font-weight:400;color:var(--text-3);}
+.sector-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 8px;border:1px solid;text-transform:uppercase;}
+.sector-tag.bim{color:var(--blue);border-color:rgba(96,165,250,0.3);background:var(--blue-dim);}
+.sector-tag.ia{color:var(--purple);border-color:rgba(167,139,250,0.3);background:var(--purple-dim);}
+.sector-tag.drone{color:var(--orange);border-color:rgba(251,146,60,0.3);background:var(--orange-dim);}
+.sector-tag.prefab{color:var(--green);border-color:rgba(74,222,128,0.3);background:var(--green-dim);}
+.sector-tag.market{color:var(--gold);border-color:rgba(201,168,76,0.3);background:var(--gold-dim);}
+.sector-tag.robot{color:var(--red);border-color:rgba(248,113,113,0.3);background:var(--red-dim);}
+
+/* ADOPTION BARS */
+.adoption-grid{display:grid;gap:14px;margin-bottom:28px;}
+.adoption-item{display:grid;grid-template-columns:160px 1fr 56px;align-items:center;gap:16px;}
+.adoption-label{font-size:13px;color:var(--text-2);}
+.adoption-bar{height:6px;background:rgba(201,168,76,0.1);border-radius:3px;}
+.adoption-fill{height:100%;border-radius:3px;transition:width 1.2s ease;}
+.adoption-val{font-family:'DM Mono',monospace;font-size:12px;text-align:right;}
+
+/* CHART */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:28px;}
+.chart-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-2);margin-bottom:16px;}
+
+/* EDITORIAL */
+.editorial-block{border-left:3px solid var(--gold);background:var(--surface);padding:24px 28px;margin-bottom:28px;}
+.editorial-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.editorial-block p{font-size:13px;color:var(--text-2);line-height:1.75;margin-bottom:12px;}
+.editorial-block p:last-child{margin-bottom:0;}
+
+/* TECH CARDS */
+.tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:28px;}
+.tech-card{background:var(--surface);border:1px solid var(--border);padding:22px;position:relative;overflow:hidden;transition:border-color 0.15s;}
+.tech-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.3s;}
+.tech-card:hover{border-color:var(--border-hover);}
+.tech-card:hover::before{height:100%;}
+.tech-card-icon{font-size:28px;margin-bottom:12px;display:block;}
+.tech-card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:8px;}
+.tech-card-desc{font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:12px;}
+.tech-card-maturite{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:8px;}
+.maturite-bar{flex:1;height:3px;background:rgba(201,168,76,0.1);}
+.maturite-fill{height:100%;background:var(--gold);}
+
+/* RIGHT RAIL */
+.right-rail{border-left:1px solid var(--border);padding:24px 20px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
+.right-rail::-webkit-scrollbar{width:3px;}
+.right-rail::-webkit-scrollbar-thumb{background:var(--border);}
+.rail-section{margin-bottom:28px;}
+.rail-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.deal-mini{padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.deal-mini:last-child{border-bottom:none;}
+.deal-mini-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;}
+.deal-mini-name{font-size:13px;font-weight:600;color:var(--white);}
+.deal-mini-amount{font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);}
+.deal-mini-desc{font-size:11px;color:var(--text-2);line-height:1.4;}
+.deal-mini-tag{font-family:'DM Mono',monospace;font-size:9px;padding:1px 6px;border:1px solid var(--border);color:var(--text-3);display:inline-block;margin-top:4px;}
+.event-item{padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.event-item:last-child{border-bottom:none;}
+.event-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:3px;}
+.event-text{font-size:12px;color:var(--text-2);line-height:1.4;}
+.watchlist-item{padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.05);display:flex;gap:12px;align-items:flex-start;}
+.watchlist-item:last-child{border-bottom:none;}
+.watchlist-num{font-family:'DM Mono',monospace;font-size:18px;color:rgba(201,168,76,0.25);line-height:1;font-weight:700;min-width:24px;}
+.watchlist-content{flex:1;}
+.watchlist-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px;}
+.watchlist-desc{font-size:11px;color:var(--text-2);line-height:1.4;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma.html">M&A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/contech.html" class="active">ConTech</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<div class="page-header">
+  <div>
+    <div class="breadcrumb">BatiAnalyse <span>/</span> Innovation & ConTech</div>
+    <h1>Innovation &<br><em>ConTech</em></h1>
+    <p class="page-sub">Levées de fonds · BIM · IA chantier · Construction hors-site · PropTech · Robotique</p>
+  </div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-val">€1,8Md</div>
+      <div class="hstat-label">Levées 2025 Europe BTP</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--green)">+34%</div>
+      <div class="hstat-label">Adoption BIM France</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">142</div>
+      <div class="hstat-label">Startups ConTech actives</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val" style="color:var(--purple)">€340M</div>
+      <div class="hstat-label">Méga-deal IA chantier</div>
+    </div>
+  </div>
+</div>
+
+<div class="pulse-band">
+  <div class="pulse-item"><div class="pulse-dot"></div>Wizzcad lève 45 M€ — Series B pour l'IA de gestion de projets BTP</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>Adoption BIM : 68% des grands chantiers en France — record historique</div>
+  <div class="pulse-item"><div class="pulse-dot"></div>Construction hors-site : 12% des logements neufs en 2025, objectif 25% en 2030</div>
+</div>
+
+<div class="main-layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Stade</div>
+      <div class="pills-wrap">
+        <button class="pill active">Tous</button>
+        <button class="pill">Seed</button>
+        <button class="pill">Série A</button>
+        <button class="pill">Série B+</button>
+        <button class="pill">Growth</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Secteur</div>
+      <div class="pills-wrap">
+        <button class="pill active">Tous</button>
+        <button class="pill">BIM & Digital</button>
+        <button class="pill">IA chantier</button>
+        <button class="pill">Hors-site</button>
+        <button class="pill">PropTech</button>
+        <button class="pill">Robotique</button>
+        <button class="pill">Green Tech</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Géographie</div>
+      <div class="pills-wrap">
+        <button class="pill active">Europe</button>
+        <button class="pill">France</button>
+        <button class="pill">US</button>
+        <button class="pill">Global</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Maturité tech</div>
+      <div class="pills-wrap">
+        <button class="pill active">Toutes</button>
+        <button class="pill">R&D</button>
+        <button class="pill">Pilote</button>
+        <button class="pill">Déployé</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="content">
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
+      <button class="tab-btn" data-tab="deals">Levées de fonds</button>
+      <button class="tab-btn" data-tab="bim">BIM & Digital</button>
+      <button class="tab-btn" data-tab="ia">IA & Robotique</button>
+      <button class="tab-btn" data-tab="horssite">Hors-site & Préfab</button>
+    </div>
+
+    <!-- TAB 1 — OVERVIEW -->
+    <div class="tab-panel active" id="tab-overview">
+      <div class="section-label">Panorama de l'innovation BTP — Europe 2025</div>
+      <div class="section-title">Innovation & <em style="font-style:italic;color:var(--gold)">ConTech</em></div>
+      <p class="section-sub">Cartographie des technologies, levées et taux d'adoption dans la filière construction européenne.</p>
+
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <!-- Adoption technologies -->
+      <div class="section-label" style="margin-top:8px">Taux d'adoption — Grands chantiers France (2025)</div>
+      <div class="section-title" style="font-size:20px;margin-bottom:20px">Technologies <em style="font-style:italic;color:var(--gold)">en déploiement</em></div>
+      <div class="adoption-grid" id="adoptionGrid"></div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse BatiAnalyse — La maturité ConTech accélère</div>
+        <p>Le marché ConTech européen a atteint 1,8 Md€ de levées de fonds en 2025, soit une hausse de +28% sur un an. Cette dynamique masque cependant une polarisation croissante : les méga-deals (Série B+) concentrent 70% des montants, tandis que le Seed stagne. Les investisseurs privilégient les acteurs prouvant leur ROI sur des déploiements réels, au détriment des technologies encore en phase laboratoire.</p>
+        <p>Trois tendances structurelles dominent : (1) l'IA de pilotage chantier (Computer Vision, planification prédictive) — moteur de productivité sur des chantiers structurellement sous-productifs ; (2) la construction hors-site industrialisée — réponse à la pénurie de main-d'œuvre et aux exigences RE2020 ; (3) les jumeaux numériques — convergence du BIM avec l'IoT et la data chantier en temps réel. Les grands groupes (Vinci, Eiffage, Bouygues) accélèrent leurs programmes d'investissement et d'acquisition dans ces trois domaines.</p>
+      </div>
+
+      <!-- Chart levées par secteur -->
+      <div class="chart-wrap">
+        <div class="chart-title">Levées de fonds ConTech Europe — Répartition par secteur 2025 (M€)</div>
+        <svg viewBox="0 0 600 180" width="100%" height="180" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a78bfa" stop-opacity="0.85"/><stop offset="100%" stop-color="#a78bfa" stop-opacity="0.3"/></linearGradient>
+            <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60a5fa" stop-opacity="0.85"/><stop offset="100%" stop-color="#60a5fa" stop-opacity="0.3"/></linearGradient>
+            <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4ade80" stop-opacity="0.85"/><stop offset="100%" stop-color="#4ade80" stop-opacity="0.3"/></linearGradient>
+            <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9a84c" stop-opacity="0.85"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0.3"/></linearGradient>
+            <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fb923c" stop-opacity="0.85"/><stop offset="100%" stop-color="#fb923c" stop-opacity="0.3"/></linearGradient>
+          </defs>
+          <!-- Grid -->
+          <line x1="60" y1="20" x2="580" y2="20" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+          <line x1="60" y1="60" x2="580" y2="60" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+          <line x1="60" y1="100" x2="580" y2="100" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+          <line x1="60" y1="140" x2="580" y2="140" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>
+          <!-- Y labels -->
+          <text x="52" y="23" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">600M</text>
+          <text x="52" y="63" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">400M</text>
+          <text x="52" y="103" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">200M</text>
+          <text x="52" y="143" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="end">0</text>
+          <!-- Bars: IA 540M, Hors-site 380M, BIM/Digital 280M, PropTech 340M, Robotique 160M -->
+          <!-- y = 140 - (val/600)*120 -->
+          <rect x="72" y="32" width="68" height="108" fill="url(#g1)"/>
+          <text x="106" y="26" font-family="DM Mono,monospace" font-size="9" fill="#a78bfa" text-anchor="middle">540M</text>
+          <rect x="172" y="64" width="68" height="76" fill="url(#g4)"/>
+          <text x="206" y="58" font-family="DM Mono,monospace" font-size="9" fill="#c9a84c" text-anchor="middle">380M</text>
+          <rect x="272" y="84" width="68" height="56" fill="url(#g2)"/>
+          <text x="306" y="78" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa" text-anchor="middle">280M</text>
+          <rect x="372" y="72" width="68" height="68" fill="url(#g5)"/>
+          <text x="406" y="66" font-family="DM Mono,monospace" font-size="9" fill="#fb923c" text-anchor="middle">340M</text>
+          <rect x="472" y="108" width="68" height="32" fill="url(#g3)"/>
+          <text x="506" y="102" font-family="DM Mono,monospace" font-size="9" fill="#4ade80" text-anchor="middle">160M</text>
+          <!-- X labels -->
+          <text x="106" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">IA chantier</text>
+          <text x="206" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Hors-site</text>
+          <text x="306" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">BIM & Digital</text>
+          <text x="406" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">PropTech</text>
+          <text x="506" y="158" font-family="DM Mono,monospace" font-size="9" fill="#5a5446" text-anchor="middle">Robotique</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- TAB 2 — DEALS -->
+    <div class="tab-panel" id="tab-deals">
+      <div class="section-label">Deals & Levées de fonds — Europe 2024–2025</div>
+      <div class="section-title">Levées de <em style="font-style:italic;color:var(--gold)">fonds</em></div>
+      <p class="section-sub">Principales opérations de financement dans la ConTech et PropTech européenne.</p>
+
+      <div class="deals-grid" id="dealsGrid"></div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — Consolidation et sélectivité croissantes</div>
+        <p>Le marché ConTech entre dans une phase de consolidation après les années de croissance euphorique 2020–2022. Les investisseurs exigent désormais une démonstration de ROI mesurable sur des déploiements réels. Les startups incapables de prouver leur valeur sur au moins 3 grands chantiers voient leur valorisation divisée par 2 à 3 lors des bridge rounds.</p>
+        <p>La dynamique favorable est concentrée sur l'IA de chantier (Computer Vision pour la sécurité, détection des défauts, optimisation des plannings) et la construction hors-site industrialisée. Ces deux segments bénéficient d'une demande captive des grands groupes BTP engagés sur des objectifs de productivité et de qualité imposés par les nouvelles réglementations (RE2020, CSRD).</p>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Startup</th>
+            <th>Secteur</th>
+            <th>Tour</th>
+            <th>Montant</th>
+            <th>Investisseurs principaux</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Wizzcad<small>Gestion BIM cloud</small></td><td><span class="sector-tag bim">BIM</span></td><td>Série B</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€45M</td><td>Serena, Alven, Partech</td><td style="font-family:'DM Mono',monospace;font-size:11px">Oct. 2025</td></tr>
+          <tr><td class="td-name">Elyos Energy<small>Maintenance prédictive IA</small></td><td><span class="sector-tag ia">IA</span></td><td>Série A</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€18M</td><td>BNP Developpement, MAIF Avenir</td><td style="font-family:'DM Mono',monospace;font-size:11px">Sep. 2025</td></tr>
+          <tr><td class="td-name">Mobbot<small>Béton imprimé 3D tunnels</small></td><td><span class="sector-tag prefab">Hors-site</span></td><td>Série A</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€22M</td><td>Swisscom Ventures, Cement Future</td><td style="font-family:'DM Mono',monospace;font-size:11px">Juil. 2025</td></tr>
+          <tr><td class="td-name">Versatile<small>Caméras IA sécurité chantier</small></td><td><span class="sector-tag ia">IA</span></td><td>Série B</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€38M</td><td>Greensofa, Statkraft Ventures</td><td style="font-family:'DM Mono',monospace;font-size:11px">Juin 2025</td></tr>
+          <tr><td class="td-name">Bricks<small>Plateforme gestion locative IA</small></td><td><span class="sector-tag market">PropTech</span></td><td>Série B</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€30M</td><td>Idinvest, Founders Future</td><td style="font-family:'DM Mono',monospace;font-size:11px">Mai 2025</td></tr>
+          <tr><td class="td-name">Sencrop<small>IoT météo agriculture/chantier</small></td><td><span class="sector-tag drone">Drone/IoT</span></td><td>Growth</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€28M</td><td>Capagro, Ring Capital</td><td style="font-family:'DM Mono',monospace;font-size:11px">Avr. 2025</td></tr>
+          <tr><td class="td-name">Hesus<small>Gestion déblais et terres</small></td><td><span class="sector-tag market">Marketplace</span></td><td>Série A</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€12M</td><td>Demeter, BPI France</td><td style="font-family:'DM Mono',monospace;font-size:11px">Mar. 2025</td></tr>
+          <tr><td class="td-name">Buildots<small>IA suivi avancement chantier</small></td><td><span class="sector-tag ia">IA</span></td><td>Série C</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€60M</td><td>Lightspeed, Tiger Global, Tidemark</td><td style="font-family:'DM Mono',monospace;font-size:11px">Fév. 2025</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAB 3 — BIM -->
+    <div class="tab-panel" id="tab-bim">
+      <div class="section-label">Building Information Modeling — État des lieux France 2025</div>
+      <div class="section-title">BIM & <em style="font-style:italic;color:var(--gold)">Digital</em></div>
+      <p class="section-sub">Taux d'adoption, acteurs clés, maturité des outils. Impact sur la productivité et les marges des opérateurs BTP.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" style="animation-delay:0s">
+          <span class="kpi-icon">📐</span>
+          <div class="kpi-label">Taux adoption BIM France</div>
+          <div class="kpi-val">68%</div>
+          <div class="kpi-sub">Grands projets > 50M€</div>
+          <span class="kpi-change up">▲ +34% en 3 ans</span>
+        </div>
+        <div class="kpi-card" style="animation-delay:0.08s">
+          <span class="kpi-icon">💶</span>
+          <div class="kpi-label">Gain productivité BIM</div>
+          <div class="kpi-val">–15%</div>
+          <div class="kpi-sub">Réduction des non-conformités</div>
+          <span class="kpi-change up">Économie moyene /projet</span>
+        </div>
+        <div class="kpi-card" style="animation-delay:0.16s">
+          <span class="kpi-icon">🌐</span>
+          <div class="kpi-label">Marché logiciels BIM</div>
+          <div class="kpi-val">€8,4Md</div>
+          <div class="kpi-sub">Europe 2025</div>
+          <span class="kpi-change up">▲ +18%/an</span>
+        </div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <span class="tech-card-icon">🏢</span>
+          <div class="tech-card-title">Jumeaux numériques</div>
+          <div class="tech-card-desc">Réplique virtuelle en temps réel d'un bâtiment ou chantier, alimentée par des capteurs IoT. Permet la simulation, la maintenance prédictive et l'optimisation énergétique. Déployé sur les grands projets d'infrastructure (Grand Paris Express, Tour La Défense).</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:70%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">70%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">☁️</span>
+          <div class="tech-card-title">BIM collaboratif cloud</div>
+          <div class="tech-card-desc">Plateformes permettant à tous les corps de métier d'intervenir sur un même modèle 3D en simultané. Autodesk BIM 360, Revit, Trimble Connect. Réduction des conflits de conception estimée à -40% sur les grands projets.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:85%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">85%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">📡</span>
+          <div class="tech-card-title">Scan 3D & LiDAR</div>
+          <div class="tech-card-desc">Numérisation en nuage de points de chantiers existants. Essentiel pour la réhabilitation et la mise à jour des maquettes numériques as-built. Coût divisé par 5 en 5 ans grâce aux scanners mobiles intégrés aux smartphones professionnels.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:78%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">78%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">🔗</span>
+          <div class="tech-card-title">OpenBIM & interopérabilité</div>
+          <div class="tech-card-desc">Standard IFC (Industry Foundation Classes) pour l'échange de données entre logiciels hétérogènes. Poussé par la réglementation européenne (EPBD, Directive Taxonomie). Vinci a rendu l'IFC obligatoire sur 100% de ses projets > 20M€ depuis 2024.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:60%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">60%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — BIM : des gains réels mais une adoption à deux vitesses</div>
+        <p>Le BIM est désormais une réalité sur les grands projets mais reste largement absent des chantiers de moins de 5M€, qui représentent pourtant 80% du volume du secteur. La fragmentation du tissu BTP français (85% de TPE/PME) est le principal frein à une adoption généralisée. Les éditeurs comme Autodesk, Trimble et Nemetschek se repositionnent vers des offres SaaS accessibles aux PME (30–100 €/utilisateur/mois vs 5 000–15 000 € historiquement).</p>
+        <p>Pour les investisseurs, le BIM est un enabler technologique mais pas une thèse d'investissement en soi : la valeur se crée dans les applications verticales qui s'y connectent (IA de contrôle qualité, maintenance prédictive, simulation carbone). C'est là que se trouvent les vraies opportunités ConTech des prochaines années.</p>
+      </div>
+    </div>
+
+    <!-- TAB 4 — IA -->
+    <div class="tab-panel" id="tab-ia">
+      <div class="section-label">Intelligence Artificielle & Robotique — BTP 2025</div>
+      <div class="section-title">IA & <em style="font-style:italic;color:var(--gold)">Robotique</em></div>
+      <p class="section-sub">Computer Vision, planification prédictive, robots de chantier. État du déploiement et impact sur la productivité.</p>
+
+      <div class="tech-grid">
+        <div class="tech-card">
+          <span class="tech-card-icon">👁️</span>
+          <div class="tech-card-title">Computer Vision chantier</div>
+          <div class="tech-card-desc">Analyse vidéo en temps réel pour détecter les non-conformités, vérifier les EPI, suivre l'avancement des travaux. ROI démontré : -60% d'incidents sécurité sur les chantiers équipés. Leaders : Buildots, Versatile, Dispatchr.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:65%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">65%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">📅</span>
+          <div class="tech-card-title">Planification prédictive IA</div>
+          <div class="tech-card-desc">Algorithmes d'optimisation des plannings chantier intégrant météo, livraisons, effectifs et contraintes réglementaires. Réduction des dépassements de délai de -25% en moyenne. Vinci et Eiffage ont déployé leurs propres plateformes internes.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:55%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">55%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">🤖</span>
+          <div class="tech-card-title">Robots de construction</div>
+          <div class="tech-card-desc">Bras robotiques pour maçonnerie (SAM100, Hadrian X), robots de peinture, drones de relevé topographique. Productivité x3–x5 sur les tâches répétitives. Coût encore élevé mais rentable sur chantiers > 10 000 m².</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:35%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">35%</span>
+          </div>
+        </div>
+        <div class="tech-card">
+          <span class="tech-card-icon">🧮</span>
+          <div class="tech-card-title">IA de chiffrage & devis</div>
+          <div class="tech-card-desc">Modèles prédictifs pour l'estimation des coûts de construction à partir de plans 2D/3D. Réduction du temps de chiffrage de -70%. Impact fort sur les PME : automatisation d'une tâche chronophage et source d'erreurs. Leaders : Alice Technologies, Togal.AI.</div>
+          <div class="tech-card-maturite">
+            <span>Maturité</span>
+            <div class="maturite-bar"><div class="maturite-fill" style="width:72%"></div></div>
+            <span style="color:var(--gold);font-family:'DM Mono',monospace;font-size:10px">72%</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Startup / Acteur</th>
+            <th>Technologie</th>
+            <th>Clients BTP</th>
+            <th>Levée totale</th>
+            <th>Stade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Buildots<small>Suivi avancement IA</small></td><td><span class="sector-tag ia">Computer Vision</span></td><td>Vinci, Skanska, Bouygues</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€110M</td><td>Série C</td></tr>
+          <tr><td class="td-name">Versatile<small>Sécurité chantier IA</small></td><td><span class="sector-tag ia">IA Sécurité</span></td><td>Eiffage, Ferrovial</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€62M</td><td>Série B</td></tr>
+          <tr><td class="td-name">Alice Technologies<small>Planification IA</small></td><td><span class="sector-tag ia">Planning IA</span></td><td>Kajima, PCL, Mace</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€55M</td><td>Série B</td></tr>
+          <tr><td class="td-name">Dispatchr<small>Gestion sous-traitants IA</small></td><td><span class="sector-tag ia">Opérations IA</span></td><td>Nexity, Bouygues Immo</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€20M</td><td>Série A</td></tr>
+          <tr><td class="td-name">Toggle.AI<small>Conception automatisée</small></td><td><span class="sector-tag bim">GenAI + BIM</span></td><td>WSP, Stantec</td><td style="color:var(--gold);font-family:'DM Mono',monospace">€18M</td><td>Série A</td></tr>
+        </tbody>
+      </table>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — L'IA comme réponse structurelle à la crise de productivité BTP</div>
+        <p>Le BTP est l'un des secteurs les moins productifs de l'économie : la productivité par travailleur n'a progressé que de 1% par an depuis 30 ans, contre 3,6% dans l'industrie manufacturière. L'IA s'attaque à ce déficit structurel en automatisant les tâches les plus chronophages (contrôle qualité, reporting, chiffrage) et en optimisant l'organisation des chantiers.</p>
+        <p>Les grands groupes français ont compris l'enjeu : Vinci a lancé Leonard, son fonds d'innovation doté de 500 M€ sur 10 ans ; Eiffage investit dans sa filiale Léonard (non lié) spécialisée en robotique ; Bouygues Construction a signé 12 partenariats ConTech en 2025. L'acquisition de startups IA est la prochaine étape — nous anticipons 3 à 5 opérations majeures d'ici fin 2027.</p>
+      </div>
+    </div>
+
+    <!-- TAB 5 — HORS-SITE -->
+    <div class="tab-panel" id="tab-horssite">
+      <div class="section-label">Construction hors-site & Préfabrication industrielle</div>
+      <div class="section-title">Hors-site & <em style="font-style:italic;color:var(--gold)">Préfab</em></div>
+      <p class="section-sub">Construction modulaire, impression 3D béton, préfabrication bois. Marchés, acteurs, perspectives 2030.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card" style="animation-delay:0s">
+          <span class="kpi-icon">🏭</span>
+          <div class="kpi-label">Part hors-site logement neuf</div>
+          <div class="kpi-val">12%</div>
+          <div class="kpi-sub">France 2025 (vs 8% en 2022)</div>
+          <span class="kpi-change up">▲ Objectif 25% en 2030</span>
+        </div>
+        <div class="kpi-card" style="animation-delay:0.08s">
+          <span class="kpi-icon">⏱️</span>
+          <div class="kpi-label">Réduction délai chantier</div>
+          <div class="kpi-val">–40%</div>
+          <div class="kpi-sub">Construction modulaire vs. traditionnel</div>
+          <span class="kpi-change up">ROI démontré</span>
+        </div>
+        <div class="kpi-card" style="animation-delay:0.16s">
+          <span class="kpi-icon">🪵</span>
+          <div class="kpi-label">Marché bois-construction</div>
+          <div class="kpi-val">€4,2Md</div>
+          <div class="kpi-sub">France 2025 · +28% sur 3 ans</div>
+          <span class="kpi-change up">▲ RE2020 moteur</span>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Acteur</th>
+            <th>Technologie</th>
+            <th>Capacité (logements/an)</th>
+            <th>Partenariats</th>
+            <th>Avancement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="td-name">Vinci Construction<small>Programme Préfabrication</small></td><td><span class="sector-tag prefab">Modulaire béton</span></td><td>8 000</td><td>Nexity, CDC Habitat</td><td style="color:var(--green)">Déployé</td></tr>
+          <tr><td class="td-name">Eiffage Construction<small>Préfabrication bois CLT</small></td><td><span class="sector-tag prefab">CLT / bois</span></td><td>3 500</td><td>Kaufman & Broad</td><td style="color:var(--green)">Déployé</td></tr>
+          <tr><td class="td-name">Ossabois<small>Constructeur modulaire bois</small></td><td><span class="sector-tag prefab">Modules bois</span></td><td>5 000</td><td>Groupe SNI, In'li</td><td style="color:var(--green)">Déployé</td></tr>
+          <tr><td class="td-name">XtreeE<small>Impression 3D béton</small></td><td><span class="sector-tag ia">Béton 3D</span></td><td>200</td><td>Saint-Gobain, Vinci</td><td style="color:var(--orange)">Pilote</td></tr>
+          <tr><td class="td-name">Mobbot<small>Impression 3D tunnels</small></td><td><span class="sector-tag prefab">Béton imprimé</span></td><td>–</td><td>Bouygues TP, SNCF</td><td style="color:var(--orange)">Pilote</td></tr>
+          <tr><td class="td-name">Alki Technologies<small>Modules acier-bois hybrides</small></td><td><span class="sector-tag prefab">Hybride</span></td><td>1 200</td><td>Grand Paris Aménagement</td><td style="color:var(--blue)">R&D avancée</td></tr>
+        </tbody>
+      </table>
+
+      <div class="editorial-block">
+        <div class="editorial-title">Analyse — Hors-site : le changement de paradigme s'accélère</div>
+        <p>La construction hors-site n'est plus une niche : elle devient une nécessité structurelle face à la pénurie de main-d'œuvre qualifiée (120 000 postes vacants en France), au renchérissement des coûts de chantier et aux exigences RE2020 Phase 3 qui favorisent les matériaux à faible empreinte carbone (bois, CLT). Les constructeurs qui n'ont pas encore développé de capacités propres de préfabrication prennent du retard.</p>
+        <p>L'enjeu financier est réel : le passage à la construction modulaire implique un shift du modèle économique (capex usine, besoin en fonds de roulement plus faible) mais libère une marge opérationnelle supérieure de 3–4 points grâce à la réduction des déchets, des délais et des sinistres. C'est un levier de création de valeur encore sous-estimé par le marché pour Vinci Construction et Eiffage Construction.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT RAIL -->
+  <aside class="right-rail">
+    <div class="rail-section">
+      <div class="rail-title">Deals récents</div>
+      <div class="deal-mini">
+        <div class="deal-mini-header">
+          <div class="deal-mini-name">Buildots</div>
+          <div class="deal-mini-amount">€60M</div>
+        </div>
+        <div class="deal-mini-desc">Série C — IA suivi avancement chantier. Lightspeed, Tiger Global.</div>
+        <span class="deal-mini-tag">Fév. 2025 · IA</span>
+      </div>
+      <div class="deal-mini">
+        <div class="deal-mini-header">
+          <div class="deal-mini-name">Wizzcad</div>
+          <div class="deal-mini-amount">€45M</div>
+        </div>
+        <div class="deal-mini-desc">Série B — BIM collaboratif cloud. Serena, Alven, Partech.</div>
+        <span class="deal-mini-tag">Oct. 2025 · BIM</span>
+      </div>
+      <div class="deal-mini">
+        <div class="deal-mini-header">
+          <div class="deal-mini-name">Versatile</div>
+          <div class="deal-mini-amount">€38M</div>
+        </div>
+        <div class="deal-mini-desc">Série B — Sécurité chantier IA. Greensofa, Statkraft.</div>
+        <span class="deal-mini-tag">Juin 2025 · IA</span>
+      </div>
+      <div class="deal-mini">
+        <div class="deal-mini-header">
+          <div class="deal-mini-name">Mobbot</div>
+          <div class="deal-mini-amount">€22M</div>
+        </div>
+        <div class="deal-mini-desc">Série A — Béton imprimé 3D tunnels. Swisscom Ventures.</div>
+        <span class="deal-mini-tag">Juil. 2025 · Hors-site</span>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Startups à surveiller</div>
+      <div class="watchlist-item">
+        <div class="watchlist-num">01</div>
+        <div class="watchlist-content">
+          <div class="watchlist-name">Dispatchr</div>
+          <div class="watchlist-desc">Gestion sous-traitants IA — expansion Europe prévue Q3 2026</div>
+        </div>
+      </div>
+      <div class="watchlist-item">
+        <div class="watchlist-num">02</div>
+        <div class="watchlist-content">
+          <div class="watchlist-name">Alki Technologies</div>
+          <div class="watchlist-desc">Modules hybrides acier-bois — levée Série A attendue S1 2026</div>
+        </div>
+      </div>
+      <div class="watchlist-item">
+        <div class="watchlist-num">03</div>
+        <div class="watchlist-content">
+          <div class="watchlist-name">Hesus</div>
+          <div class="watchlist-desc">Gestion déblais — potentiel M&A avec un acteur logistique</div>
+        </div>
+      </div>
+      <div class="watchlist-item">
+        <div class="watchlist-num">04</div>
+        <div class="watchlist-content">
+          <div class="watchlist-name">Toggle.AI</div>
+          <div class="watchlist-desc">GenAI + BIM — intégration Autodesk Revit en négociation</div>
+        </div>
+      </div>
+      <div class="watchlist-item">
+        <div class="watchlist-num">05</div>
+        <div class="watchlist-content">
+          <div class="watchlist-name">XtreeE</div>
+          <div class="watchlist-desc">Impression 3D béton — premier immeuble 6 étages Q2 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-section">
+      <div class="rail-title">Agenda événements</div>
+      <div class="event-item">
+        <div class="event-date">22–24 avr. 2026</div>
+        <div class="event-text">BIM World Paris — Parc des Expositions Villepinte</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">12–14 mai 2026</div>
+        <div class="event-text">Construction Tech Summit — Amsterdam</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">9 juin 2026</div>
+        <div class="event-text">PropTech Day Paris — Docks de Paris</div>
+      </div>
+      <div class="event-item">
+        <div class="event-date">16–18 sep. 2026</div>
+        <div class="event-text">Batimat 2026 — Paris Le Bourget</div>
+      </div>
+    </div>
+  </aside>
+
+</div><!-- /main-layout -->
+
+<script>
+const kpiData = [
+  { icon:'💶', label:'Levées ConTech Europe', val:'€1,8Md', sub:'Total 2025', change:'▲ +28%', changeClass:'up', delay:0 },
+  { icon:'🏗️', label:'Startups BTP actives', val:'142', sub:'Europe (dont 38 France)', change:'▲ +22 en 1 an', changeClass:'up', delay:0.06 },
+  { icon:'📐', label:'Adoption BIM grands projets', val:'68%', sub:'Chantiers > 50M€', change:'▲ +34% en 3 ans', changeClass:'up', delay:0.12 },
+  { icon:'🤖', label:'Robots de chantier déployés', val:'2 400', sub:'Europe (drones inclus)', change:'▲ +65%', changeClass:'up', delay:0.18 },
+  { icon:'🪵', label:'Part construction bois', val:'12%', sub:'Logements neufs France', change:'▲ vs 8% en 2022', changeClass:'up', delay:0.24 },
+  { icon:'⏱️', label:'Gain productivité IA chantier', val:'–18%', sub:'Dépassements délais évités', change:'Sur chantiers équipés', changeClass:'up', delay:0.3 },
+];
+
+const adoptionData = [
+  { label:'BIM collaboratif', val:68, color:'#60a5fa' },
+  { label:'Drone topographie', val:82, color:'#fb923c' },
+  { label:'Computer Vision sécurité', val:34, color:'#a78bfa' },
+  { label:'Planification IA', val:28, color:'#c9a84c' },
+  { label:'Impression 3D béton', val:8, color:'#4ade80' },
+  { label:'Robots de maçonnerie', val:6, color:'#f87171' },
+  { label:'Jumeaux numériques', val:22, color:'#60a5fa' },
+  { label:'Construction hors-site', val:12, color:'#4ade80' },
+];
+
+const dealsData = [
+  { company:'Buildots', amount:'€60M', round:'serieC', roundLabel:'Série C', desc:'Plateforme IA de suivi de l\'avancement chantier par Computer Vision. Clients : Vinci, Bouygues, Skanska, PCL.', investors:'Lightspeed, Tiger Global, Tidemark', date:'Fév. 2025', geo:'Israël/Europe', sector:'IA chantier', delay:0 },
+  { company:'Wizzcad', amount:'€45M', round:'serieB', roundLabel:'Série B', desc:'Plateforme BIM cloud collaborative pour les grands projets. Intégration native avec Revit, ArchiCAD, IFC. 250+ clients en France.', investors:'Serena, Alven, Partech', date:'Oct. 2025', geo:'France', sector:'BIM', delay:0.08 },
+  { company:'Versatile', amount:'€38M', round:'serieB', roundLabel:'Série B', desc:'Caméras IA pour la sécurité chantier et le contrôle qualité. Détection EPI, zones interdites, anomalies béton.', investors:'Greensofa, Statkraft Ventures', date:'Juin 2025', geo:'France', sector:'IA sécurité', delay:0.16 },
+  { company:'Bricks', amount:'€30M', round:'serieB', roundLabel:'Série B', desc:'Plateforme de gestion locative IA pour bailleurs institutionnels. Automatisation des états des lieux, quittances, relances.', investors:'Idinvest, Founders Future', date:'Mai 2025', geo:'France', sector:'PropTech', delay:0.24 },
+];
+
+function renderKpis() {
+  document.getElementById('kpiGrid').innerHTML = kpiData.map(k => `
+    <div class="kpi-card" style="animation-delay:${k.delay}s">
+      <span class="kpi-icon">${k.icon}</span>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-sub">${k.sub}</div>
+      <span class="kpi-change ${k.changeClass}">${k.change}</span>
+    </div>
+  `).join('');
+}
+
+function renderAdoption() {
+  document.getElementById('adoptionGrid').innerHTML = adoptionData.map(a => `
+    <div class="adoption-item">
+      <div class="adoption-label">${a.label}</div>
+      <div class="adoption-bar"><div class="adoption-fill" style="width:${a.val}%;background:${a.color}"></div></div>
+      <div class="adoption-val" style="color:${a.color}">${a.val}%</div>
+    </div>
+  `).join('');
+}
+
+function renderDeals() {
+  document.getElementById('dealsGrid').innerHTML = dealsData.map(d => `
+    <div class="deal-card" style="animation-delay:${d.delay}s">
+      <div class="deal-header">
+        <div class="deal-company">${d.company}</div>
+        <div class="deal-amount">${d.amount}</div>
+      </div>
+      <span class="deal-round ${d.round}">${d.roundLabel}</span>
+      <div class="deal-desc">${d.desc}</div>
+      <div class="deal-meta">
+        <span>📅 ${d.date}</span>
+        <span>📍 ${d.geo}</span>
+        <span>🏷️ ${d.sector}</span>
+      </div>
+      <div class="deal-investors">Investisseurs : ${d.investors}</div>
+    </div>
+  `).join('');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+renderKpis();
+renderAdoption();
+renderDeals();
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 /**
- * api/sync.js — BuildAlpha
+ * api/sync.js — BatiAnalyse
  * Synchronisation manuelle : GET /api/sync?secret=<WEBHOOK_SECRET>
  * Utile pour le premier import ou un resync forcé.
  */
@@ -36,7 +36,7 @@ function normalizePost(post) {
     tags: post.tags ?? [],
     featuredImageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null,
     featuredImageAlt: post._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? '',
-    authorName: post._embedded?.author?.[0]?.name ?? 'BuildAlpha',
+    authorName: post._embedded?.author?.[0]?.name ?? 'BatiAnalyse',
     readingTime: Math.max(1, Math.round(words / 200)),
     syncedAt: new Date().toISOString(),
   }

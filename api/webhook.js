@@ -1,5 +1,5 @@
 /**
- * api/webhook.js — BuildAlpha
+ * api/webhook.js — BatiAnalyse
  * Reçoit le webhook WordPress lors d'une publication/modification d'article.
  * Synchronise les articles vers Firestore (cache).
  *
@@ -42,7 +42,7 @@ function normalizePost(post) {
     tags: post.tags ?? [],
     featuredImageUrl: post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null,
     featuredImageAlt: post._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? '',
-    authorName: post._embedded?.author?.[0]?.name ?? 'BuildAlpha',
+    authorName: post._embedded?.author?.[0]?.name ?? 'BatiAnalyse',
     readingTime: Math.max(1, Math.round(words / 200)),
     syncedAt: new Date().toISOString(),
   }
