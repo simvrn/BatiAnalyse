@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuildAlpha — L'intelligence financière du BTP</title>
+<title>BatiAnalyse — L'intelligence financière du BTP</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -358,6 +358,10 @@
     position: relative;
     overflow: hidden;
     transition: background 0.3s;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
 
   .theme-card:hover { background: #111109; }
@@ -743,13 +747,13 @@
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo">Build<span>Alpha</span></a>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
   <ul class="nav-links">
     <li><a href="/">Accueil</a></li>
     <li><a href="/valeurs-cotees.html">Valeurs</a></li>
     <li><a href="/ma.html">M&amp;A</a></li>
     <li><a href="/pe.html">Private Equity</a></li>
-    <li><a href="#">Macro</a></li>
+    <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
@@ -813,24 +817,9 @@
 
 <!-- TICKER -->
 <div class="ticker-bar">
-  <div class="ticker-track">
-    <div class="ticker-item">VINCI <span class="up">▲ +1,24%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">EIFFAGE <span class="up">▲ +0,87%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">BOUYGUES <span class="down">▼ -0,43%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">SAINT-GOBAIN <span class="up">▲ +2,11%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">NEXITY <span class="down">▼ -1,08%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">KAUFMAN & BROAD <span class="up">▲ +0,55%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">IMERYS <span class="down">▼ -0,29%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">LEGRAND <span class="up">▲ +1,63%</span><span class="ticker-sep">|</span></div>
-    <!-- Duplicate for seamless loop -->
-    <div class="ticker-item">VINCI <span class="up">▲ +1,24%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">EIFFAGE <span class="up">▲ +0,87%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">BOUYGUES <span class="down">▼ -0,43%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">SAINT-GOBAIN <span class="up">▲ +2,11%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">NEXITY <span class="down">▼ -1,08%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">KAUFMAN & BROAD <span class="up">▲ +0,55%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">IMERYS <span class="down">▼ -0,29%</span><span class="ticker-sep">|</span></div>
-    <div class="ticker-item">LEGRAND <span class="up">▲ +1,63%</span><span class="ticker-sep">|</span></div>
+  <div class="ticker-track" id="tickerTrack">
+    <!-- Chargement initial statique — remplacé par JS en temps réel -->
+    <div class="ticker-item">Chargement des cours…</div>
   </div>
 </div>
 
@@ -860,95 +849,65 @@
     <div class="section-label">Couverture éditoriale</div>
     <h2>Tout le BTP.<br><em>Analysé en profondeur.</em></h2>
     <div class="themes-grid">
-      <div class="theme-card">
+      <a class="theme-card" href="/valeurs-cotees.html">
         <span class="theme-icon">📈</span>
         <div class="theme-title">Valeurs cotées</div>
         <div class="theme-desc">Analyse des cours, décryptage des résultats, étude des marges et carnets de commandes des grands groupes BTP européens.</div>
         <span class="theme-tag">Vinci · Eiffage · Bouygues · Saint-Gobain</span>
-      </div>
-      <div class="theme-card">
+      </a>
+      <a class="theme-card" href="/ma.html">
         <span class="theme-icon">🏗️</span>
         <div class="theme-title">M&A & Fusions</div>
         <div class="theme-desc">Décryptage des opérations de rapprochement, valorisations, synergies attendues et analyse des deal flows sectoriels.</div>
         <span class="theme-tag">Deal flow · Multiples · Due diligence</span>
-      </div>
-      <div class="theme-card">
+      </a>
+      <a class="theme-card" href="/pe.html">
         <span class="theme-icon">💼</span>
         <div class="theme-title">Private Equity</div>
         <div class="theme-desc">Suivi des fonds actifs dans le BTP, LBO, thèses d'investissement et mouvements de capital dans les ETI de la construction.</div>
         <span class="theme-tag">LBO · Build-up · Infravia · Ardian</span>
-      </div>
-      <div class="theme-card">
+      </a>
+      <a class="theme-card" href="/macro.html">
         <span class="theme-icon">🌍</span>
         <div class="theme-title">Macro & Conjoncture</div>
         <div class="theme-desc">Impact des taux BCE, prix des matériaux, indicateurs de mises en chantier et permis de construire sur les acteurs du secteur.</div>
         <span class="theme-tag">Taux · Matières premières · Inflation</span>
-      </div>
-      <div class="theme-card">
+      </a>
+      <a class="theme-card" href="/reglementation.html">
         <span class="theme-icon">📋</span>
         <div class="theme-title">Réglementation</div>
         <div class="theme-desc">Analyse financière des impacts RE2020, ZAN, MaPrimeRénov et des nouvelles directives européennes sur les acteurs cotés.</div>
         <span class="theme-tag">RE2020 · ZAN · DPE · Taxonomie EU</span>
-      </div>
-      <div class="theme-card">
+      </a>
+      <a class="theme-card" href="/contech.html">
         <span class="theme-icon">🔬</span>
         <div class="theme-title">Innovation & ConTech</div>
         <div class="theme-desc">Levées de fonds des startups BTP, adoption du BIM, construction modulaire et impact des nouvelles technologies sur les marges.</div>
         <span class="theme-tag">Proptech · BIM · Hors-site · IA chantier</span>
-      </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ARTICLES PREVIEW -->
+<!-- BLOG PREVIEW -->
 <section style="padding-top: 0;">
   <div class="container">
-    <div class="section-label">Dernières analyses</div>
-    <h2>Ce que lisent<br>les <em>professionnels</em></h2>
-    <div class="articles-grid">
-      <div class="article-card featured">
-        <svg class="featured-chart" viewBox="0 0 400 180">
-          <polyline points="0,140 60,120 120,130 180,90 240,70 300,50 400,30"
-            stroke="#c9a84c" stroke-width="1.5" fill="none" opacity="0.5"/>
-          <polygon points="0,140 60,120 120,130 180,90 240,70 300,50 400,30 400,180 0,180"
-            fill="#c9a84c" opacity="0.04"/>
-        </svg>
-        <div class="article-category">Analyse valeur · Eiffage</div>
-        <div class="article-title">Eiffage : le segment concessions sous-valorisé par le marché</div>
-        <div class="article-excerpt">Malgré des résultats solides et un carnet de commandes en hausse de 9%, le titre décote de 15% par rapport à ses comparables européens. Décryptage.</div>
-        <div class="article-meta">
-          <span>12 mars 2026</span>
-          <span class="change">▲ +3,2% aujourd'hui</span>
-          <span>8 min de lecture</span>
-        </div>
+    <div class="section-label">Blog</div>
+    <h2>Nos derniers<br><em>articles</em></h2>
+    <div class="articles-grid" id="blogPreview">
+      <!-- Squelettes de chargement -->
+      <div class="article-card featured" style="min-height:480px;background:linear-gradient(180deg,#0f0f0c 0%,#1a1208 100%);">
+        <div style="width:60%;height:12px;background:rgba(201,168,76,0.08);margin-bottom:16px;border-radius:2px"></div>
+        <div style="width:85%;height:28px;background:rgba(201,168,76,0.06);margin-bottom:12px;border-radius:2px"></div>
+        <div style="width:100%;height:10px;background:rgba(201,168,76,0.05);margin-bottom:6px;border-radius:2px"></div>
+        <div style="width:80%;height:10px;background:rgba(201,168,76,0.05);border-radius:2px"></div>
       </div>
-      <div class="article-card">
-        <div class="article-category">M&A · Deal</div>
-        <div class="article-title">Ardian rachète une ETI de génie civil pour 340M€</div>
-        <div class="article-excerpt">Analyse des multiples et de la thèse d'investissement du fonds dans la consolidation régionale.</div>
-        <div class="article-meta">
-          <span>11 mars 2026</span>
-          <span>5 min</span>
-        </div>
-      </div>
-      <div class="article-card">
-        <div class="article-category">Macro · Matériaux</div>
-        <div class="article-title">Acier : la correction de -12% pèse sur les marges des constructeurs</div>
-        <div class="article-excerpt">Qui sont les vrais gagnants d'un acier moins cher ? Le point sur les stratégies de couverture.</div>
-        <div class="article-meta">
-          <span>10 mars 2026</span>
-          <span class="change neg">▼ -12% sur 3 mois</span>
-        </div>
-      </div>
-      <div class="article-card">
-        <div class="article-category">Réglementation · RE2020</div>
-        <div class="article-title">RE2020 : Saint-Gobain confirme sa position dominante dans l'isolation</div>
-        <div class="article-excerpt">La réglementation thermique joue le rôle d'accélérateur structurel pour les fabricants de matériaux performants.</div>
-        <div class="article-meta">
-          <span>9 mars 2026</span>
-          <span>6 min</span>
-        </div>
-      </div>
+      <div class="article-card"><div style="width:50%;height:10px;background:rgba(201,168,76,0.08);margin-bottom:12px;border-radius:2px"></div><div style="width:90%;height:18px;background:rgba(201,168,76,0.06);border-radius:2px"></div></div>
+      <div class="article-card"><div style="width:50%;height:10px;background:rgba(201,168,76,0.08);margin-bottom:12px;border-radius:2px"></div><div style="width:90%;height:18px;background:rgba(201,168,76,0.06);border-radius:2px"></div></div>
+      <div class="article-card"><div style="width:50%;height:10px;background:rgba(201,168,76,0.08);margin-bottom:12px;border-radius:2px"></div><div style="width:90%;height:18px;background:rgba(201,168,76,0.06);border-radius:2px"></div></div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="/blog.html" class="btn-primary" style="display:inline-block">Voir tous les articles →</a>
     </div>
   </div>
 </section>
@@ -979,14 +938,14 @@
             <div class="step-num">03</div>
             <div class="step-content">
               <h4>Opinion tranchée, assumée</h4>
-              <p>BuildAlpha prend position. Nos lecteurs savent toujours ce que nous pensons et pourquoi.</p>
+              <p>BatiAnalyse prend position. Nos lecteurs savent toujours ce que nous pensons et pourquoi.</p>
             </div>
           </div>
         </div>
       </div>
       <div class="method-quote">
         <blockquote>Le BTP est l'un des secteurs les plus complexes à analyser financièrement. C'est précisément pour ça qu'il méritait un média dédié.</blockquote>
-        <cite>La rédaction BuildAlpha</cite>
+        <cite>La rédaction BatiAnalyse</cite>
       </div>
     </div>
   </div>
@@ -1039,7 +998,7 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <a href="/" class="logo">Build<span>Alpha</span></a>
+        <a href="/" class="logo">Bati<span>Analyse</span></a>
         <p>Le premier média financier exclusivement dédié au secteur de la construction, des matériaux et des infrastructures.</p>
       </div>
       <div class="footer-col">
@@ -1071,11 +1030,112 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 BuildAlpha. Tous droits réservés. Les analyses publiées ne constituent pas des conseils en investissement.</p>
+      <p>© 2026 BatiAnalyse. Tous droits réservés. Les analyses publiées ne constituent pas des conseils en investissement.</p>
       <p style="color: var(--gold); font-family: 'DM Mono', monospace; font-size: 11px;">FR · EN</p>
     </div>
   </div>
 </footer>
 
+<script type="module">
+// ── TICKER EN TEMPS RÉEL ──
+const FALLBACK_QUOTES = [
+  { name:'VINCI', changePercent:1.24, price:null },
+  { name:'EIFFAGE', changePercent:0.87, price:null },
+  { name:'BOUYGUES', changePercent:-0.43, price:null },
+  { name:'SAINT-GOBAIN', changePercent:2.11, price:null },
+  { name:'NEXITY', changePercent:-1.08, price:null },
+  { name:'KAUFMAN & BROAD', changePercent:0.55, price:null },
+  { name:'LEGRAND', changePercent:1.63, price:null },
+  { name:'IMERYS', changePercent:-0.29, price:null },
+]
+
+function buildTickerHTML(quotes) {
+  const items = quotes.map(q => {
+    const pct = typeof q.changePercent === 'number' ? q.changePercent : 0
+    const sign = pct >= 0 ? '▲' : '▼'
+    const cls = pct >= 0 ? 'up' : 'down'
+    const price = q.price ? ` ${q.price.toFixed(2)}€` : ''
+    return `<div class="ticker-item">${q.name}${price} <span class="${cls}">${sign} ${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</span><span class="ticker-sep">|</span></div>`
+  })
+  // Double pour la boucle infinie
+  const html = [...items, ...items].join('')
+  return html
+}
+
+async function loadTicker() {
+  const track = document.getElementById('tickerTrack')
+  try {
+    const res = await fetch('/api/quotes')
+    const data = await res.json()
+    const quotes = (data.quotes && data.quotes.length > 0) ? data.quotes : FALLBACK_QUOTES
+    track.innerHTML = buildTickerHTML(quotes)
+  } catch {
+    track.innerHTML = buildTickerHTML(FALLBACK_QUOTES)
+  }
+}
+
+// ── BLOG PREVIEW ──
+import { getPosts } from '/src/wordpress.js'
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+}
+
+function stripHtml(html) {
+  return html.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim()
+}
+
+async function loadBlogPreview() {
+  const container = document.getElementById('blogPreview')
+  try {
+    const posts = await getPosts({ perPage: 4 })
+    if (!posts || posts.length === 0) {
+      container.innerHTML = '<p style="color:var(--text-muted);font-size:14px">Aucun article disponible pour le moment.</p>'
+      return
+    }
+
+    container.innerHTML = posts.map((post, i) => {
+      const cats = Array.isArray(post.categoryNames) && post.categoryNames.length
+        ? post.categoryNames[0]
+        : (Array.isArray(post.categories) && post.categories[0] ? 'Blog' : 'Analyse')
+      const excerpt = post.excerpt ? stripHtml(post.excerpt).slice(0, 160) + '…' : ''
+      const date = post.date ? formatDate(post.date) : ''
+      const readTime = post.readingTime ? `${post.readingTime} min de lecture` : ''
+      const img = post.featuredImageUrl
+
+      if (i === 0) {
+        return `<div class="article-card featured" onclick="location.href='/article.html?slug=${post.slug}'" style="cursor:pointer;${img ? `background-image:url('${img}');background-size:cover;background-position:center;` : 'background:linear-gradient(180deg,#0f0f0c 0%,#1a1208 100%);'}">
+          ${img ? '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,8,0.3) 0%,rgba(10,10,8,0.92) 60%);"></div>' : ''}
+          <div style="position:relative">
+            <div class="article-category">${cats}</div>
+            <div class="article-title">${post.title}</div>
+            ${excerpt ? `<div class="article-excerpt">${excerpt}</div>` : ''}
+            <div class="article-meta">
+              ${date ? `<span>${date}</span>` : ''}
+              ${readTime ? `<span>${readTime}</span>` : ''}
+            </div>
+          </div>
+        </div>`
+      }
+
+      return `<div class="article-card" onclick="location.href='/article.html?slug=${post.slug}'" style="cursor:pointer">
+        <div class="article-category">${cats}</div>
+        <div class="article-title">${post.title}</div>
+        ${excerpt ? `<div class="article-excerpt">${excerpt}</div>` : ''}
+        <div class="article-meta">
+          ${date ? `<span>${date}</span>` : ''}
+          ${readTime ? `<span>${readTime}</span>` : ''}
+        </div>
+      </div>`
+    }).join('')
+  } catch (e) {
+    console.warn('Blog preview error:', e)
+    container.innerHTML = '<p style="color:var(--text-muted);font-size:14px">Articles non disponibles.</p>'
+  }
+}
+
+loadTicker()
+loadBlogPreview()
+</script>
 </body>
 </html>
