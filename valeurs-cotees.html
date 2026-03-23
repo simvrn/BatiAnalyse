@@ -743,8 +743,8 @@ function renderTable(data) {
         <span class="td-name">${s.name}</span>
         <span class="td-sector-badge">${s.secteur} · ${s.pays}</span>
       </div></td>
-      <td><span class="td-price">${s.price.toFixed(2)} €</span></td>
-      <td><span class="td-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span></td>
+      <td><span class="td-price" data-ticker="${s.ticker}">${s.price.toFixed(2)} €</span></td>
+      <td><span class="td-change ${up?'up':'down'}" data-ticker-change="${s.ticker}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span></td>
       <td>${spark}</td>
       <td><span class="td-num">${s.cap} Md€</span></td>
       <td><span class="td-num">${s.pe}x</span></td>
@@ -770,8 +770,8 @@ function renderCards(data) {
       <div class="card-sector">${s.secteur} · ${s.pays}</div>
       <div class="card-chart">${spark}</div>
       <div class="card-price-row">
-        <span class="card-price">${s.price.toFixed(2)} €</span>
-        <span class="card-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span>
+        <span class="card-price" data-ticker="${s.ticker}">${s.price.toFixed(2)} €</span>
+        <span class="card-change ${up?'up':'down'}" data-ticker-change="${s.ticker}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span>
       </div>
       <div class="card-meta">
         <div class="card-meta-item">
@@ -961,68 +961,74 @@ function showApiStatus(state, msg) {
   if (state === 'ok') setTimeout(() => badge && badge.remove(), 5000)
 }
 
-// Correspondance symbole Finnhub → id stock dans le tableau
-const FINNHUB_MAP = {
-  'SU.PA':   'schneider',
-  'DG.PA':   'vinci',
-  'SGO.PA':  'saint-gobain',
-  'LR.PA':   'legrand',
-  'EN.PA':   'bouygues',
-  'FGR.PA':  'eiffage',
-  'SPIE.PA': 'spie',
-}
-
-// ── COURS EN TEMPS RÉEL via /api/bourse (Finnhub) ──
+// ── COURS EN TEMPS RÉEL — injection via data-ticker ──
 async function loadLiveQuotes() {
   try {
     const response = await fetch('/api/bourse')
     const result   = await response.json()
 
     if (!result.success || !result.data) {
-      showApiStatus('error', 'API: ' + (result.message || 'réponse vide'))
+      showApiStatus('error', result.message || 'Réponse vide')
       setTimeout(loadLiveQuotes, 300000)
       return
     }
 
     let updated = 0
+
     Object.entries(result.data).forEach(([symbol, quote]) => {
-      const id = FINNHUB_MAP[symbol]
-      if (!id || !quote.price || quote.price === 0) return
+      if (!quote.price || quote.price === 0) return
 
-      const stock = stocks.find(s => s.id === id)
-      if (!stock) return
+      const price  = quote.price
+      const change = quote.percent_change ?? 0
+      const up     = change >= 0
 
-      stock.price  = Math.round(quote.price * 100) / 100
-      stock.change = Math.round((quote.percent_change ?? 0) * 100) / 100
-      updated++
+      // 1. Mettre à jour les éléments du tableau / cards via data-ticker
+      document.querySelectorAll(`[data-ticker="${symbol}"]`).forEach(el => {
+        el.textContent = price.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+      })
 
-      // Mettre à jour le cours affiché dans la hero featured
-      const featured = stocks.find(x => x.signal === 'buy') || stocks[0]
-      if (stock.id === featured.id) {
-        const fp = document.querySelector('.featured-price')
-        const fc = document.querySelector('.featured-change')
-        if (fp) fp.textContent = `${stock.price.toFixed(2)} €`
-        if (fc) {
-          const up = stock.change >= 0
-          fc.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${stock.change.toFixed(2)}%`
-          fc.style.color     = up ? 'var(--green)' : 'var(--red)'
-          fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
-        }
+      document.querySelectorAll(`[data-ticker-change="${symbol}"]`).forEach(el => {
+        el.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${change.toFixed(2)}%`
+        el.style.color = up ? 'var(--green)' : 'var(--red)'
+        el.className   = el.className.replace(/\bup\b|\bdown\b/g, '') + (up ? ' up' : ' down')
+      })
+
+      // 2. Mettre à jour le stock en mémoire pour la cohérence du tri/filtre
+      const stock = stocks.find(s => s.ticker === symbol)
+      if (stock) {
+        stock.price  = Math.round(price * 100) / 100
+        stock.change = Math.round(change * 100) / 100
       }
+
+      updated++
     })
 
+    // 3. Mettre à jour la hero featured (premier stock signal buy)
+    const featured = stocks.find(s => s.signal === 'buy') || stocks[0]
+    if (featured && result.data[featured.ticker]) {
+      const q  = result.data[featured.ticker]
+      const up = (q.percent_change ?? 0) >= 0
+      const fp = document.querySelector('.featured-price')
+      const fc = document.querySelector('.featured-change')
+      if (fp) fp.textContent = q.price.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+      if (fc) {
+        fc.textContent      = `${up ? '▲' : '▼'} ${up ? '+' : ''}${(q.percent_change ?? 0).toFixed(2)}%`
+        fc.style.color      = up ? 'var(--green)' : 'var(--red)'
+        fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
+      }
+    }
+
     if (updated > 0) {
-      render()
       showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
     } else {
-      showApiStatus('error', 'Marchés fermés ou données indisponibles')
+      showApiStatus('error', 'Données indisponibles')
     }
 
   } catch (e) {
     showApiStatus('error', 'Erreur: ' + e.message)
   }
 
-  setTimeout(loadLiveQuotes, 300000) // refresh 5 min (aligné sur cache Vercel)
+  setTimeout(loadLiveQuotes, 300000) // refresh 5 min
 }
 
 loadLiveQuotes()
