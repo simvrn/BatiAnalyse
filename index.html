@@ -1051,36 +1051,46 @@
 </footer>
 
 <script>
-// ── TICKER EN TEMPS RÉEL — script indépendant (pas de module import) ──
-function buildTickerHTML(quotes) {
-  const items = quotes.map(q => {
-    const pct = typeof q.changePercent === 'number' ? q.changePercent : 0
-    const sign = pct >= 0 ? '▲' : '▼'
-    const cls  = pct >= 0 ? 'up' : 'down'
-    const price = q.price ? ` ${q.price.toFixed(2)}€` : ''
-    return `<div class="ticker-item">${q.name}${price} <span class="${cls}">${sign} ${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%</span><span class="ticker-sep">|</span></div>`
-  })
-  return [...items, ...items].join('')
+// ── TICKER EN TEMPS RÉEL — données depuis /api/bourse (Google Sheets) ──
+
+const TICKER_NAMES = {
+  'SU.PA':   'SCHNEIDER',
+  'DG.PA':   'VINCI',
+  'SGO.PA':  'SAINT-GOBAIN',
+  'LR.PA':   'LEGRAND',
+  'EN.PA':   'BOUYGUES',
+  'FGR.PA':  'EIFFAGE',
+  'SPIE.PA': 'SPIE',
+  'CS.PA':   'AXA',
+  'NXI.PA':  'NEXITY',
+  'KOF.PA':  'KAUFMAN',
+  'NK.PA':   'IMERYS',
+  'VCT.PA':  'VICAT',
+  'BA.PA':   'BASSAC',
 }
 
 async function loadTicker() {
   try {
-    const r = await fetch('/api/quotes')
+    const r = await fetch('/api/bourse')
     if (!r.ok) throw new Error('HTTP ' + r.status)
-    const data = await r.json()
-    if (data.quotes && data.quotes.length > 0) {
-      document.getElementById('tickerTrack').innerHTML = buildTickerHTML(data.quotes)
-    } else if (data.marketClosed) {
-      // Marché fermé : afficher un message dans le ticker
-      const track = document.getElementById('tickerTrack')
-      const msg = '<div class="ticker-item">MARCHÉS FERMÉS<span class="ticker-sep">|</span></div>'
-        + '<div class="ticker-item">Euronext Paris · Lun–Ven 9h–17h30<span class="ticker-sep">|</span></div>'
-      track.innerHTML = msg + msg // double pour boucle infinie
+    const result = await r.json()
+
+    if (result.success && result.data && Object.keys(result.data).length > 0) {
+      const items = Object.entries(result.data).map(([symbol, q]) => {
+        const name   = TICKER_NAMES[symbol] || symbol
+        const pct    = q.percent_change ?? 0
+        const up     = pct >= 0
+        const cls    = up ? 'up' : 'down'
+        const sign   = up ? '▲' : '▼'
+        const pctStr = (up ? '+' : '') + pct.toFixed(2) + '%'
+        return `<div class="ticker-item">${name} <span class="${cls}">${sign} ${pctStr}</span><span class="ticker-sep">|</span></div>`
+      })
+      document.getElementById('tickerTrack').innerHTML = [...items, ...items].join('')
     }
   } catch (e) {
     console.warn('[Ticker] Erreur:', e.message)
   }
-  setTimeout(loadTicker, 1800000)
+  setTimeout(loadTicker, 300000) // refresh 5 min
 }
 loadTicker()
 </script>
