@@ -1,28 +1,28 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Cours boursiers BTP via Twelve Data — 1 seul appel batch pour tout le site.
- * Cache Vercel Edge 30 min → max 48 appels/jour × 12 crédits = 576/800 (plan free).
+ * Cours boursiers BTP via Financial Modeling Prep (nouveau endpoint /stable/quote).
+ * Cache Vercel Edge 30 min → max 48 appels/jour (plan free = 250/jour).
  *
- * Env requis : TWELVEDATA_API_KEY (gratuit sur twelvedata.com)
+ * Env requis : API_FMP_Bourse (Vercel > Settings > Environment Variables)
  * GET /api/quotes
- * GET /api/quotes?debug=1  → réponse brute Twelve Data pour diagnostic
+ * GET /api/quotes?debug=1  → réponse brute FMP pour diagnostic
  */
 
 export const config = { runtime: 'edge' }
 
 const STOCKS = [
-  { symbol: 'VIE',  name: 'VINCI',           id: 'vinci' },
-  { symbol: 'FGR',  name: 'EIFFAGE',         id: 'eiffage' },
-  { symbol: 'EN',   name: 'BOUYGUES',        id: 'bouygues' },
-  { symbol: 'SGO',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
-  { symbol: 'NXI',  name: 'NEXITY',          id: 'nexity' },
-  { symbol: 'KOF',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
-  { symbol: 'LR',   name: 'LEGRAND',         id: 'legrand' },
-  { symbol: 'NK',   name: 'IMERYS',          id: 'imerys' },
-  { symbol: 'VCT',  name: 'VICAT',           id: 'vicat' },
-  { symbol: 'BA',   name: 'BASSAC',          id: 'bassac' },
-  { symbol: 'SPIE', name: 'SPIE',            id: 'spie' },
-  { symbol: 'SU',   name: 'SCHNEIDER',       id: 'schneider' },
+  { symbol: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
+  { symbol: 'FGR.PA',  name: 'EIFFAGE',         id: 'eiffage' },
+  { symbol: 'EN.PA',   name: 'BOUYGUES',        id: 'bouygues' },
+  { symbol: 'SGO.PA',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
+  { symbol: 'NXI.PA',  name: 'NEXITY',          id: 'nexity' },
+  { symbol: 'KOF.PA',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
+  { symbol: 'LR.PA',   name: 'LEGRAND',         id: 'legrand' },
+  { symbol: 'NK.PA',   name: 'IMERYS',          id: 'imerys' },
+  { symbol: 'VCT.PA',  name: 'VICAT',           id: 'vicat' },
+  { symbol: 'BA.PA',   name: 'BASSAC',          id: 'bassac' },
+  { symbol: 'SPIE.PA', name: 'SPIE',            id: 'spie' },
+  { symbol: 'SU.PA',   name: 'SCHNEIDER',       id: 'schneider' },
 ]
 
 export default async function handler(req) {
@@ -36,38 +36,43 @@ export default async function handler(req) {
 
   if (req.method === 'OPTIONS') return new Response(null, { status: 200, headers })
 
-  const apiKey = process.env.TWELVEDATA_API_KEY
+  const apiKey = process.env.API_FMP_Bourse
   if (!apiKey) {
     return new Response(JSON.stringify({
-      error: 'TWELVEDATA_API_KEY manquant — ajoute-la dans Vercel > Settings > Environment Variables',
+      error: 'API_FMP_Bourse manquant — ajoute-la dans Vercel > Settings > Environment Variables',
       quotes: [],
     }), { status: 500, headers })
   }
 
   try {
     const symbols = STOCKS.map(s => s.symbol).join(',')
-    const url = `https://api.twelvedata.com/quote?symbol=${symbols}&exchange=XPAR&apikey=${apiKey}`
+    // Nouveau endpoint FMP (l'ancien /api/v3/quote/ est supprimé sur le plan gratuit)
+    const url = `https://financialmodelingprep.com/stable/quote?symbol=${symbols}&apikey=${apiKey}`
 
     const r = await fetch(url)
-    if (!r.ok) throw new Error(`Twelve Data HTTP ${r.status}`)
+    if (!r.ok) throw new Error(`FMP HTTP ${r.status}`)
 
     const data = await r.json()
 
-    // Mode debug : retourner la réponse brute pour diagnostic
+    // Mode debug : retourner la réponse brute FMP
     if (debug) {
       return new Response(JSON.stringify({ debug: data }, null, 2), { status: 200, headers })
     }
 
-    // Twelve Data retourne { VIE: {...}, FGR: {...}, ... } pour un batch
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error('FMP: réponse vide ou invalide — ' + JSON.stringify(data).slice(0, 150))
+    }
+
+    const bySymbol = {}
+    data.forEach(q => { bySymbol[q.symbol] = q })
+
     const quotes = STOCKS.map(s => {
-      const q = data[s.symbol]
-      if (!q || q.status === 'error' || !q.close) return null
+      const q = bySymbol[s.symbol]
+      if (!q || !q.price) return null
 
-      const price     = parseFloat(q.close)
-      const prevClose = parseFloat(q.previous_close)
+      const price     = parseFloat(q.price)
+      const prevClose = parseFloat(q.previousClose)
       if (isNaN(price) || isNaN(prevClose) || prevClose === 0) return null
-
-      const changePct = ((price - prevClose) / prevClose) * 100
 
       return {
         id:            s.id,
@@ -75,19 +80,15 @@ export default async function handler(req) {
         name:          s.name,
         price:         Math.round(price * 100) / 100,
         change:        Math.round((price - prevClose) * 100) / 100,
-        changePercent: Math.round(changePct * 100) / 100,
+        changePercent: Math.round(parseFloat(q.changesPercentage) * 100) / 100,
         prevClose:     Math.round(prevClose * 100) / 100,
-        currency:      q.currency ?? 'EUR',
-        isOpen:        q.is_market_open ?? null,
+        currency:      'EUR',
+        isOpen:        q.isActivelyTrading ?? null,
       }
     }).filter(Boolean)
 
     if (quotes.length === 0) {
-      // Twelve Data retourne des données même marché fermé — si vide, erreur de symboles
-      return new Response(JSON.stringify({
-        error: 'Aucune cotation retournée — vérifie les symboles ou la clé API',
-        quotes: [],
-      }), { status: 502, headers })
+      throw new Error('Aucune cotation mappée — symboles FMP reçus : ' + Object.keys(bySymbol).join(', '))
     }
 
     return new Response(JSON.stringify({
