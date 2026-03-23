@@ -961,56 +961,68 @@ function showApiStatus(state, msg) {
   if (state === 'ok') setTimeout(() => badge && badge.remove(), 5000)
 }
 
-// ── COURS EN TEMPS RÉEL ──
+// Correspondance symbole Finnhub → id stock dans le tableau
+const FINNHUB_MAP = {
+  'SU.PA':   'schneider',
+  'DG.PA':   'vinci',
+  'SGO.PA':  'saint-gobain',
+  'LR.PA':   'legrand',
+  'EN.PA':   'bouygues',
+  'FGR.PA':  'eiffage',
+  'SPIE.PA': 'spie',
+}
+
+// ── COURS EN TEMPS RÉEL via /api/bourse (Finnhub) ──
 async function loadLiveQuotes() {
   try {
-    const res  = await fetch('/api/quotes')
-    const data = await res.json()
+    const response = await fetch('/api/bourse')
+    const result   = await response.json()
 
-    if (!data.quotes || data.quotes.length === 0) {
-      if (data.marketClosed) {
-        showApiStatus('error', 'Marchés fermés — cours du dernier jour ouvré')
-      } else {
-        showApiStatus('error', 'API: ' + (data.error || 'réponse vide'))
-      }
-      setTimeout(loadLiveQuotes, 1800000)
+    if (!result.success || !result.data) {
+      showApiStatus('error', 'API: ' + (result.message || 'réponse vide'))
+      setTimeout(loadLiveQuotes, 300000)
       return
     }
 
-    // Map id → cotation live
-    const liveMap = {}
-    data.quotes.forEach(q => { liveMap[q.id] = q })
-
     let updated = 0
-    stocks.forEach(s => {
-      const live = liveMap[s.id]
-      if (!live) return
-      s.price  = live.price
-      s.change = live.changePercent
+    Object.entries(result.data).forEach(([symbol, quote]) => {
+      const id = FINNHUB_MAP[symbol]
+      if (!id || !quote.price || quote.price === 0) return
+
+      const stock = stocks.find(s => s.id === id)
+      if (!stock) return
+
+      stock.price  = Math.round(quote.price * 100) / 100
+      stock.change = Math.round((quote.percent_change ?? 0) * 100) / 100
       updated++
+
       // Mettre à jour le cours affiché dans la hero featured
       const featured = stocks.find(x => x.signal === 'buy') || stocks[0]
-      if (s.id === featured.id) {
+      if (stock.id === featured.id) {
         const fp = document.querySelector('.featured-price')
         const fc = document.querySelector('.featured-change')
-        if (fp) fp.textContent = `${live.price.toFixed(2)} €`
+        if (fp) fp.textContent = `${stock.price.toFixed(2)} €`
         if (fc) {
-          const up = live.changePercent >= 0
-          fc.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${live.changePercent.toFixed(2)}%`
-          fc.style.color = up ? 'var(--green)' : 'var(--red)'
+          const up = stock.change >= 0
+          fc.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${stock.change.toFixed(2)}%`
+          fc.style.color     = up ? 'var(--green)' : 'var(--red)'
           fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
         }
       }
     })
 
-    render()
-    showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
+    if (updated > 0) {
+      render()
+      showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
+    } else {
+      showApiStatus('error', 'Marchés fermés ou données indisponibles')
+    }
 
   } catch (e) {
     showApiStatus('error', 'Erreur: ' + e.message)
   }
 
-  setTimeout(loadLiveQuotes, 1800000) // refresh 30 min
+  setTimeout(loadLiveQuotes, 300000) // refresh 5 min (aligné sur cache Vercel)
 }
 
 loadLiveQuotes()
