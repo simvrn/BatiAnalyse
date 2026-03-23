@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "firebase": "^12.10.0",
-    "firebase-admin": "^13.7.0",
-    "yahoo-finance2": "^3.13.2"
+    "firebase-admin": "^13.7.0"
   }
 }
