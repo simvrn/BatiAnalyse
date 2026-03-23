@@ -1,28 +1,26 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Cours boursiers BTP via Financial Modeling Prep (nouveau endpoint /stable/quote).
- * Cache Vercel Edge 30 min → max 48 appels/jour (plan free = 250/jour).
- *
- * Env requis : API_FMP_Bourse (Vercel > Settings > Environment Variables)
+ * Cours boursiers BTP via Yahoo Finance — Edge Runtime (Cloudflare, pas AWS).
+ * Cache 30 min. Aucune clé API requise.
  * GET /api/quotes
- * GET /api/quotes?debug=1  → réponse brute FMP pour diagnostic
+ * GET /api/quotes?debug=1
  */
 
 export const config = { runtime: 'edge' }
 
-const STOCKS = [
-  { symbol: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
-  { symbol: 'FGR.PA',  name: 'EIFFAGE',         id: 'eiffage' },
-  { symbol: 'EN.PA',   name: 'BOUYGUES',        id: 'bouygues' },
-  { symbol: 'SGO.PA',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
-  { symbol: 'NXI.PA',  name: 'NEXITY',          id: 'nexity' },
-  { symbol: 'KOF.PA',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
-  { symbol: 'LR.PA',   name: 'LEGRAND',         id: 'legrand' },
-  { symbol: 'NK.PA',   name: 'IMERYS',          id: 'imerys' },
-  { symbol: 'VCT.PA',  name: 'VICAT',           id: 'vicat' },
-  { symbol: 'BA.PA',   name: 'BASSAC',          id: 'bassac' },
-  { symbol: 'SPIE.PA', name: 'SPIE',            id: 'spie' },
-  { symbol: 'SU.PA',   name: 'SCHNEIDER',       id: 'schneider' },
+const SYMBOLS = [
+  { yf: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
+  { yf: 'FGR.PA',  name: 'EIFFAGE',         id: 'eiffage' },
+  { yf: 'EN.PA',   name: 'BOUYGUES',        id: 'bouygues' },
+  { yf: 'SGO.PA',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
+  { yf: 'NXI.PA',  name: 'NEXITY',          id: 'nexity' },
+  { yf: 'KOF.PA',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
+  { yf: 'LR.PA',   name: 'LEGRAND',         id: 'legrand' },
+  { yf: 'NK.PA',   name: 'IMERYS',          id: 'imerys' },
+  { yf: 'VCT.PA',  name: 'VICAT',           id: 'vicat' },
+  { yf: 'BA.PA',   name: 'BASSAC',          id: 'bassac' },
+  { yf: 'SPIE.PA', name: 'SPIE',            id: 'spie' },
+  { yf: 'SU.PA',   name: 'SCHNEIDER',       id: 'schneider' },
 ]
 
 export default async function handler(req) {
@@ -36,59 +34,59 @@ export default async function handler(req) {
 
   if (req.method === 'OPTIONS') return new Response(null, { status: 200, headers })
 
-  const apiKey = process.env.API_FMP_Bourse
-  if (!apiKey) {
-    return new Response(JSON.stringify({
-      error: 'API_FMP_Bourse manquant — ajoute-la dans Vercel > Settings > Environment Variables',
-      quotes: [],
-    }), { status: 500, headers })
-  }
-
   try {
-    const symbols = STOCKS.map(s => s.symbol).join(',')
-    // Nouveau endpoint FMP (l'ancien /api/v3/quote/ est supprimé sur le plan gratuit)
-    const url = `https://financialmodelingprep.com/stable/quote?symbol=${symbols}&apikey=${apiKey}`
+    const tickers = SYMBOLS.map(s => s.yf).join(',')
+    const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${tickers}&fields=regularMarketPrice,regularMarketChangePercent,regularMarketChange,regularMarketPreviousClose,currency,marketState`
 
-    const r = await fetch(url)
-    if (!r.ok) throw new Error(`FMP HTTP ${r.status}`)
+    const r = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8',
+        'Referer': 'https://finance.yahoo.com/',
+        'Origin': 'https://finance.yahoo.com',
+      },
+    })
+
+    if (!r.ok) throw new Error(`Yahoo Finance HTTP ${r.status}`)
 
     const data = await r.json()
 
-    // Mode debug : retourner la réponse brute FMP
     if (debug) {
       return new Response(JSON.stringify({ debug: data }, null, 2), { status: 200, headers })
     }
 
-    if (!Array.isArray(data) || data.length === 0) {
-      throw new Error('FMP: réponse vide ou invalide — ' + JSON.stringify(data).slice(0, 150))
+    const results = data?.quoteResponse?.result
+    if (!Array.isArray(results) || results.length === 0) {
+      throw new Error('Yahoo Finance: réponse vide — ' + JSON.stringify(data).slice(0, 200))
     }
 
     const bySymbol = {}
-    data.forEach(q => { bySymbol[q.symbol] = q })
+    results.forEach(q => { bySymbol[q.symbol] = q })
 
-    const quotes = STOCKS.map(s => {
-      const q = bySymbol[s.symbol]
-      if (!q || !q.price) return null
+    const quotes = SYMBOLS.map(s => {
+      const q = bySymbol[s.yf]
+      if (!q || !q.regularMarketPrice) return null
 
-      const price     = parseFloat(q.price)
-      const prevClose = parseFloat(q.previousClose)
-      if (isNaN(price) || isNaN(prevClose) || prevClose === 0) return null
+      const price     = q.regularMarketPrice
+      const prevClose = q.regularMarketPreviousClose ?? price
+      const changePct = q.regularMarketChangePercent ?? 0
 
       return {
         id:            s.id,
-        symbol:        s.symbol,
+        symbol:        s.yf,
         name:          s.name,
         price:         Math.round(price * 100) / 100,
-        change:        Math.round((price - prevClose) * 100) / 100,
-        changePercent: Math.round(parseFloat(q.changesPercentage) * 100) / 100,
+        change:        Math.round((q.regularMarketChange ?? 0) * 100) / 100,
+        changePercent: Math.round(changePct * 100) / 100,
         prevClose:     Math.round(prevClose * 100) / 100,
-        currency:      'EUR',
-        isOpen:        q.isActivelyTrading ?? null,
+        currency:      q.currency ?? 'EUR',
+        isOpen:        q.marketState === 'REGULAR',
       }
     }).filter(Boolean)
 
     if (quotes.length === 0) {
-      throw new Error('Aucune cotation mappée — symboles FMP reçus : ' + Object.keys(bySymbol).join(', '))
+      throw new Error('Aucune cotation — symboles reçus : ' + Object.keys(bySymbol).join(', '))
     }
 
     return new Response(JSON.stringify({
