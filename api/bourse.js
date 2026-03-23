@@ -1,9 +1,4 @@
-// Test ultra-simple yahoo-finance2 — équivalent du app/api/bourse/route.js Next.js
-// Pas d'Edge Runtime — Node.js pur
-
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const yahooFinance = require('yahoo-finance2').default
+import yahooFinance from 'yahoo-finance2'
 
 export default async function handler(req, res) {
   try {
