@@ -746,8 +746,8 @@ function renderTable(data) {
       <td><span class="td-price" data-ticker="${s.ticker}">${s.price.toFixed(2)} €</span></td>
       <td><span class="td-change ${up?'up':'down'}" data-ticker-change="${s.ticker}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span></td>
       <td>${spark}</td>
-      <td><span class="td-num">${s.cap} Md€</span></td>
-      <td><span class="td-num">${s.pe}x</span></td>
+      <td><span class="td-num" data-ticker-cap="${s.ticker}">${s.cap} Md€</span></td>
+      <td><span class="td-num" data-ticker-per="${s.ticker}">${s.pe}x</span></td>
       <td><span class="td-num">${s.marge}</span></td>
       <td><span class="td-signal ${s.signal}">${signalLabel(s.signal)}</span></td>
       <td><span class="td-action">Analyse →</span></td>
@@ -776,11 +776,11 @@ function renderCards(data) {
       <div class="card-meta">
         <div class="card-meta-item">
           <div class="card-meta-label">Cap.</div>
-          <div class="card-meta-val">${s.cap} Md€</div>
+          <div class="card-meta-val" data-ticker-cap="${s.ticker}">${s.cap} Md€</div>
         </div>
         <div class="card-meta-item">
           <div class="card-meta-label">P/E</div>
-          <div class="card-meta-val">${s.pe}x</div>
+          <div class="card-meta-val" data-ticker-per="${s.ticker}">${s.pe}x</div>
         </div>
         <div class="card-meta-item">
           <div class="card-meta-label">Marge</div>
@@ -991,6 +991,27 @@ async function loadLiveQuotes() {
         el.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${change.toFixed(2)}%`
         el.style.color = up ? 'var(--green)' : 'var(--red)'
         el.className   = el.className.replace(/\bup\b|\bdown\b/g, '') + (up ? ' up' : ' down')
+      })
+
+      // Cap. boursière : valeur en euros bruts → convertir en Md€
+      document.querySelectorAll(`[data-ticker-cap="${symbol}"]`).forEach(el => {
+        if (quote.cap !== null && quote.cap !== undefined) {
+          const mdVal = quote.cap / 1e9
+          el.textContent = mdVal.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' Md€'
+        } else {
+          el.textContent = '—'
+        }
+      })
+
+      // PER : nombre ou texte "Négatif"
+      document.querySelectorAll(`[data-ticker-per="${symbol}"]`).forEach(el => {
+        if (quote.per === null || quote.per === undefined) {
+          el.textContent = '—'
+        } else if (quote.per === 'Négatif') {
+          el.textContent = 'Négatif'
+        } else {
+          el.textContent = Number(quote.per).toFixed(1) + 'x'
+        }
       })
 
       // 2. Mettre à jour le stock en mémoire pour la cohérence du tri/filtre
