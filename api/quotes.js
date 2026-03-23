@@ -1,108 +1,102 @@
 /**
  * api/quotes.js — BatiAnalyse
- * Cours boursiers BTP via Stooq — gratuit, sans clé API.
- * Requêtes individuelles en parallèle (batch non supporté par Stooq CSV).
- * Cache Vercel Edge 30 min.
+ * Cours boursiers BTP via Twelve Data — 1 seul appel batch pour tout le site.
+ * Cache Vercel Edge 30 min → max 48 appels/jour × 12 crédits = 576/800 (plan free).
  *
- * Aucune variable d'environnement requise.
+ * Env requis : TWELVEDATA_API_KEY (gratuit sur twelvedata.com)
  * GET /api/quotes
+ * GET /api/quotes?debug=1  → réponse brute Twelve Data pour diagnostic
  */
 
+export const config = { runtime: 'edge' }
+
 const STOCKS = [
-  { symbol: 'vie.pa',  name: 'VINCI',           id: 'vinci' },
-  { symbol: 'fgr.pa',  name: 'EIFFAGE',         id: 'eiffage' },
-  { symbol: 'en.pa',   name: 'BOUYGUES',        id: 'bouygues' },
-  { symbol: 'sgo.pa',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
-  { symbol: 'nxi.pa',  name: 'NEXITY',          id: 'nexity' },
-  { symbol: 'kof.pa',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
-  { symbol: 'lr.pa',   name: 'LEGRAND',         id: 'legrand' },
-  { symbol: 'nk.pa',   name: 'IMERYS',          id: 'imerys' },
-  { symbol: 'vct.pa',  name: 'VICAT',           id: 'vicat' },
-  { symbol: 'ba.pa',   name: 'BASSAC',          id: 'bassac' },
-  { symbol: 'spie.pa', name: 'SPIE',            id: 'spie' },
-  { symbol: 'su.pa',   name: 'SCHNEIDER',       id: 'schneider' },
+  { symbol: 'VIE',  name: 'VINCI',           id: 'vinci' },
+  { symbol: 'FGR',  name: 'EIFFAGE',         id: 'eiffage' },
+  { symbol: 'EN',   name: 'BOUYGUES',        id: 'bouygues' },
+  { symbol: 'SGO',  name: 'SAINT-GOBAIN',    id: 'saint-gobain' },
+  { symbol: 'NXI',  name: 'NEXITY',          id: 'nexity' },
+  { symbol: 'KOF',  name: 'KAUFMAN & BROAD', id: 'kaufman' },
+  { symbol: 'LR',   name: 'LEGRAND',         id: 'legrand' },
+  { symbol: 'NK',   name: 'IMERYS',          id: 'imerys' },
+  { symbol: 'VCT',  name: 'VICAT',           id: 'vicat' },
+  { symbol: 'BA',   name: 'BASSAC',          id: 'bassac' },
+  { symbol: 'SPIE', name: 'SPIE',            id: 'spie' },
+  { symbol: 'SU',   name: 'SCHNEIDER',       id: 'schneider' },
 ]
 
-// Fetche un seul symbole Stooq → { price, changePercent } ou null
-async function fetchOne(symbol) {
-  try {
-    // f = s(symbol) d2(date) t2(time) o(open) h(high) l(low) c(close) v(volume) p(%chg)
-    const url = `https://stooq.com/q/l/?s=${symbol}&f=sd2t2ohlcvp&h&e=csv`
-    const r = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; BatiAnalyse/1.0)' },
-      signal: AbortSignal.timeout(8000),
-    })
-    if (!r.ok) return null
+export default async function handler(req) {
+  const debug = (req.url || '').includes('debug=1')
 
-    const csv = await r.text()
-    const lines = csv.trim().split('\n')
-    if (lines.length < 2) return null
-
-    // Ligne de données : Symbol,Date,Time,Open,High,Low,Close,Volume,%Change
-    const cols = lines[1].split(',').map(c => c.trim())
-    if (cols.length < 7) return null
-
-    const close = parseFloat(cols[6])
-    const pct   = parseFloat(cols[8])
-
-    if (isNaN(close) || close <= 0) return null // N/D = marché fermé ou symbole inconnu
-
-    return {
-      price:         Math.round(close * 100) / 100,
-      changePercent: isNaN(pct) ? 0 : Math.round(pct * 100) / 100,
-    }
-  } catch {
-    return null
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+    'Cache-Control': 's-maxage=1800, stale-while-revalidate=300',
   }
-}
 
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=300')
+  if (req.method === 'OPTIONS') return new Response(null, { status: 200, headers })
 
-  if (req.method === 'OPTIONS') return res.status(200).end()
+  const apiKey = process.env.TWELVEDATA_API_KEY
+  if (!apiKey) {
+    return new Response(JSON.stringify({
+      error: 'TWELVEDATA_API_KEY manquant — ajoute-la dans Vercel > Settings > Environment Variables',
+      quotes: [],
+    }), { status: 500, headers })
+  }
 
   try {
-    // 12 requêtes en parallèle — Stooq ne supporte pas le batch CSV
-    const results = await Promise.all(STOCKS.map(s => fetchOne(s.symbol)))
+    const symbols = STOCKS.map(s => s.symbol).join(',')
+    const url = `https://api.twelvedata.com/quote?symbol=${symbols}&exchange=XPAR&apikey=${apiKey}`
 
-    const quotes = STOCKS.map((s, i) => {
-      const q = results[i]
-      if (!q) return null
+    const r = await fetch(url)
+    if (!r.ok) throw new Error(`Twelve Data HTTP ${r.status}`)
 
-      const prevClose = q.changePercent !== 0
-        ? q.price / (1 + q.changePercent / 100)
-        : q.price
+    const data = await r.json()
+
+    // Mode debug : retourner la réponse brute pour diagnostic
+    if (debug) {
+      return new Response(JSON.stringify({ debug: data }, null, 2), { status: 200, headers })
+    }
+
+    // Twelve Data retourne { VIE: {...}, FGR: {...}, ... } pour un batch
+    const quotes = STOCKS.map(s => {
+      const q = data[s.symbol]
+      if (!q || q.status === 'error' || !q.close) return null
+
+      const price     = parseFloat(q.close)
+      const prevClose = parseFloat(q.previous_close)
+      if (isNaN(price) || isNaN(prevClose) || prevClose === 0) return null
+
+      const changePct = ((price - prevClose) / prevClose) * 100
 
       return {
         id:            s.id,
         symbol:        s.symbol,
         name:          s.name,
-        price:         q.price,
-        change:        Math.round((q.price - prevClose) * 100) / 100,
-        changePercent: q.changePercent,
+        price:         Math.round(price * 100) / 100,
+        change:        Math.round((price - prevClose) * 100) / 100,
+        changePercent: Math.round(changePct * 100) / 100,
         prevClose:     Math.round(prevClose * 100) / 100,
-        currency:      'EUR',
-        isOpen:        null,
+        currency:      q.currency ?? 'EUR',
+        isOpen:        q.is_market_open ?? null,
       }
     }).filter(Boolean)
 
-    console.log('[Quotes] OK —', quotes.length, '/', STOCKS.length, 'cotations')
-
     if (quotes.length === 0) {
-      return res.status(200).json({
+      // Twelve Data retourne des données même marché fermé — si vide, erreur de symboles
+      return new Response(JSON.stringify({
+        error: 'Aucune cotation retournée — vérifie les symboles ou la clé API',
         quotes: [],
-        count: 0,
-        marketClosed: true,
-        message: 'Marchés fermés — données disponibles en semaine 9h–17h30',
-        timestamp: new Date().toISOString(),
-      })
+      }), { status: 502, headers })
     }
 
-    return res.status(200).json({ quotes, count: quotes.length, timestamp: new Date().toISOString() })
+    return new Response(JSON.stringify({
+      quotes,
+      count: quotes.length,
+      timestamp: new Date().toISOString(),
+    }), { status: 200, headers })
 
   } catch (error) {
-    console.error('[Quotes] ERREUR:', error.message)
-    return res.status(502).json({ error: error.message, quotes: [] })
+    return new Response(JSON.stringify({ error: error.message, quotes: [] }), { status: 502, headers })
   }
 }
