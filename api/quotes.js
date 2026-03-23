@@ -9,7 +9,9 @@
  * GET /api/quotes?debug=1
  */
 
-import yahooFinance from 'yahoo-finance2'
+import _yf from 'yahoo-finance2'
+// yahoo-finance2 est CJS — dans un projet "type:module" l'import peut être wrappé
+const yahooFinance = _yf.default ?? _yf
 
 const STOCKS = [
   { yf: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
