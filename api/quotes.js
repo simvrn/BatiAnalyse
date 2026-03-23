@@ -9,9 +9,7 @@
  * GET /api/quotes?debug=1
  */
 
-import _yf from 'yahoo-finance2'
-// yahoo-finance2 est CJS — dans un projet "type:module" l'import peut être wrappé
-const yahooFinance = _yf.default ?? _yf
+// Import dynamique — résout le problème CJS/ESM dans Vercel serverless
 
 const STOCKS = [
   { yf: 'VIE.PA',  name: 'VINCI',           id: 'vinci' },
@@ -38,6 +36,8 @@ export default async function handler(req, res) {
   const debug = (req.url || '').includes('debug=1')
 
   try {
+    const { default: yahooFinance } = await import('yahoo-finance2')
+
     // Requêtes parallèles — si une action échoue, les autres continuent
     const results = await Promise.all(
       STOCKS.map(s =>

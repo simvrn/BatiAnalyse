@@ -1,7 +1,6 @@
-import yahooFinance from 'yahoo-finance2'
-
 export default async function handler(req, res) {
   try {
+    const { default: yahooFinance } = await import('yahoo-finance2')
     const data = await yahooFinance.quote('CS.PA')
 
     return res.status(200).json({
