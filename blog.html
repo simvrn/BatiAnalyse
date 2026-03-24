@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BatiAnalyse — Blog & Analyses</title>
+<title>BatiAnalyse — Analyses & Décryptages</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -19,6 +19,7 @@ body::after {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.4;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
 }
+
 /* NAV */
 nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
 .logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
@@ -40,9 +41,9 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 
 /* FILTER BAR */
 .filter-bar { position:sticky; top:56px; z-index:50; background:var(--surface); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-.filter-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-3); }
+.filter-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-3); white-space:nowrap; }
 #catsBar { display:flex; gap:8px; flex-wrap:wrap; flex:1; }
-.cat-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; padding:6px 14px; border:1px solid var(--border); background:transparent; color:var(--text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; }
+.cat-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; padding:6px 14px; border:1px solid var(--border); background:transparent; color:var(--text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
 .cat-btn:hover { border-color:var(--gold); color:var(--gold); }
 .cat-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
 .cat-count { font-size:9px; opacity:0.7; }
@@ -66,46 +67,42 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 .post-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
 .post-card:hover::before { transform:scaleX(1); }
 @keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-.post-card:nth-child(1) { animation-delay:0.05s; }
-.post-card:nth-child(2) { animation-delay:0.1s; }
-.post-card:nth-child(3) { animation-delay:0.15s; }
-.post-card:nth-child(4) { animation-delay:0.2s; }
-.post-card:nth-child(5) { animation-delay:0.25s; }
-.post-card:nth-child(6) { animation-delay:0.3s; }
 
 .post-card.featured { grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; }
 @media(max-width:768px) { .post-card.featured { grid-column:span 1; display:block; } }
 
 .card-img { height:200px; background:var(--surface2); background-size:cover; background-position:center; }
 .post-card.featured .card-img { height:100%; min-height:260px; }
-.card-img-placeholder { display:flex; align-items:center; justify-content:center; }
+
 .card-body { padding:24px; display:flex; flex-direction:column; gap:10px; }
 .post-card.featured .card-body { padding:32px; justify-content:center; }
-.card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; font-weight:600; }
+.card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:600; }
 .card-title { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; line-height:1.25; }
 .post-card.featured .card-title { font-size:26px; }
-.card-excerpt { font-size:14px; color:var(--text-2); line-height:1.65; }
-.card-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); display:flex; gap:8px; align-items:center; margin-top:auto; }
+.card-excerpt { font-size:13px; color:var(--text-2); line-height:1.65; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.card-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); display:flex; gap:8px; align-items:center; margin-top:auto; padding-top:12px; }
+.card-read-time { color:var(--gold); }
 
-/* EMPTY */
+/* EMPTY / ERROR */
 .empty-state { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; padding:80px 32px; text-align:center; }
 .empty-icon { font-size:48px; opacity:0.2; margin-bottom:16px; }
 .empty-title { font-family:'Playfair Display',serif; font-size:24px; color:var(--text-2); margin-bottom:8px; }
 .empty-sub { font-size:13px; color:var(--text-3); }
 
 /* SKELETON */
-.skeleton { pointer-events:none; }
 @keyframes shimmer { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
-.sk-img,.sk-cat,.sk-title,.sk-meta {
-  background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);
-  background-size:800px 100%; animation:shimmer 1.4s infinite;
-  border-radius:2px;
-}
+.sk { background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%); background-size:800px 100%; animation:shimmer 1.4s infinite; border-radius:2px; }
 .sk-img { height:200px; }
-.sk-cat { height:10px; width:80px; margin:24px 24px 0; }
-.sk-title { height:16px; margin:10px 24px 0; }
-.sk-title.sk-short { width:60%; }
-.sk-meta { height:10px; width:120px; margin:10px 24px 24px; }
+.sk-cat { height:9px; width:70px; margin:20px 24px 0; }
+.sk-title { height:15px; margin:10px 24px 0; }
+.sk-title.short { width:60%; }
+.sk-meta { height:9px; width:110px; margin:10px 24px 22px; }
+
+/* LOAD MORE */
+.load-more-wrap { text-align:center; margin-top:40px; }
+.load-more-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:14px 36px; border:1px solid var(--gold); color:var(--gold); background:none; cursor:pointer; transition:all 0.2s; }
+.load-more-btn:hover { background:var(--gold); color:var(--black); }
+.load-more-btn:disabled { opacity:0.3; cursor:default; }
 </style>
 </head>
 <body>
@@ -115,15 +112,16 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
   <ul class="nav-links">
     <li><a href="/">Accueil</a></li>
     <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <li><a href="/ma.html">M&A / PE</a></li>
-    <li><a href="#">Macro</a></li>
+    <li><a href="/ma.html">M&amp;A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html" class="active">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
 </nav>
 
 <div class="page-header">
-  <div class="breadcrumb">BatiAnalyse <span>/</span> Blog & Analyses</div>
+  <div class="breadcrumb">BatiAnalyse <span>/</span> Analyses</div>
   <h1>Analyses & <em>Décryptages</em></h1>
   <p class="page-sub" id="pageSubtitle">Chargement des articles…</p>
 </div>
@@ -141,24 +139,213 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 
 <div class="results-meta">
   <span>Affichage de <strong id="resultCount">—</strong> articles</span>
-  <span style="font-size:9px;letter-spacing:0.15em">CONTENU ÉDITORIAL BUILDMALPHA</span>
+  <span style="font-size:9px;letter-spacing:0.15em">CONTENU ÉDITORIAL · BATIANALYSE</span>
 </div>
 
 <div class="posts-container">
   <div id="postsGrid"></div>
 </div>
+<div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+  <button class="load-more-btn" id="loadMoreBtn">Charger plus d'articles</button>
+</div>
 
-<script type="module" src="/src/blog.js"></script>
 <script>
-  // Met à jour le sous-titre quand le contenu est chargé
-  const observer = new MutationObserver(() => {
-    const count = document.getElementById('resultCount').textContent
-    if (count !== '—') {
-      document.getElementById('pageSubtitle').textContent =
-        `${count} articles publiés · Contenu éditorial BatiAnalyse`
+const WP_BASE = 'https://batianalyste.fr/wp-json/wp/v2'
+const PER_PAGE = 12
+
+let allPosts   = []      // tous les posts chargés
+let currentCat = ''      // id catégorie actif ('' = tous)
+let currentSearch = ''
+let currentPage   = 1
+let totalPages    = 1
+let loading       = false
+
+// ── INIT ──
+async function init() {
+  showSkeletons()
+  await Promise.all([loadCategories(), loadPosts(1, true)])
+}
+
+// ── CATÉGORIES ──
+async function loadCategories() {
+  try {
+    const res  = await fetch(`${WP_BASE}/categories?per_page=20&hide_empty=true`)
+    const cats = await res.json()
+    if (!Array.isArray(cats) || cats.length === 0) return
+    const bar = document.getElementById('catsBar')
+    cats.sort((a,b) => b.count - a.count).forEach(cat => {
+      const btn = document.createElement('button')
+      btn.className = 'cat-btn'
+      btn.dataset.id = cat.id
+      btn.innerHTML = `${cat.name} <span class="cat-count">${cat.count}</span>`
+      btn.addEventListener('click', () => filterByCat(cat.id))
+      bar.appendChild(btn)
+    })
+  } catch(e) { /* catégories non critiques */ }
+}
+
+// ── CHARGEMENT POSTS ──
+async function loadPosts(page = 1, reset = false) {
+  if (loading) return
+  loading = true
+
+  try {
+    let url = `${WP_BASE}/posts?per_page=${PER_PAGE}&page=${page}&_embed`
+    if (currentCat)    url += `&categories=${currentCat}`
+    if (currentSearch) url += `&search=${encodeURIComponent(currentSearch)}`
+
+    const res  = await fetch(url)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+
+    totalPages = parseInt(res.headers.get('X-WP-TotalPages') || '1')
+    const total = parseInt(res.headers.get('X-WP-Total') || '0')
+    const posts = await res.json()
+
+    if (reset) {
+      allPosts = posts
+      currentPage = 1
+    } else {
+      allPosts = [...allPosts, ...posts]
+      currentPage = page
     }
+
+    renderPosts(reset)
+    document.getElementById('resultCount').textContent = total || allPosts.length
+    document.getElementById('pageSubtitle').textContent =
+      `${total || allPosts.length} articles publiés · Contenu éditorial BatiAnalyse`
+
+    const wrap = document.getElementById('loadMoreWrap')
+    wrap.style.display = currentPage < totalPages ? 'block' : 'none'
+
+  } catch(e) {
+    document.getElementById('postsGrid').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Articles indisponibles</div>
+        <div class="empty-sub">Impossible de charger les articles pour le moment.</div>
+      </div>`
+    document.getElementById('resultCount').textContent = '0'
+  }
+
+  loading = false
+}
+
+// ── RENDER ──
+function renderPosts(reset) {
+  const grid = document.getElementById('postsGrid')
+  if (reset) grid.innerHTML = ''
+
+  if (allPosts.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Aucun article trouvé</div>
+        <div class="empty-sub">Essayez un autre thème ou modifiez votre recherche.</div>
+      </div>`
+    return
+  }
+
+  const startIndex = reset ? 0 : allPosts.length - PER_PAGE
+  const newPosts = reset ? allPosts : allPosts.slice(startIndex)
+
+  newPosts.forEach((post, idx) => {
+    const isFeatured = reset && idx === 0
+    const title    = post.title?.rendered || 'Sans titre'
+    const excerpt  = (post.excerpt?.rendered || '').replace(/<[^>]+>/g,'').replace(/&[^;]+;/g,' ').trim()
+    const link     = post.link || '#'
+    const img      = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+    const date     = post.date
+      ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+      : ''
+    const cat      = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
+    const catColor = post._embedded?.['wp:term']?.[0]?.[0]?.slug || ''
+
+    // estimation temps de lecture
+    const wordCount = (post.content?.rendered || '').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
+    const readTime  = Math.max(1, Math.round(wordCount / 200))
+
+    const card = document.createElement('div')
+    card.className = `post-card${isFeatured ? ' featured' : ''}`
+    card.style.animationDelay = `${(reset ? idx : idx % PER_PAGE) * 0.04}s`
+    card.onclick = () => location.href = link
+
+    if (isFeatured) {
+      card.innerHTML = `
+        <div class="card-img" style="${img ? `background-image:url('${img}')` : ''}"></div>
+        <div class="card-body">
+          <div class="card-cat">${cat}</div>
+          <div class="card-title">${title}</div>
+          <div class="card-excerpt">${excerpt}</div>
+          <div class="card-meta">
+            ${date ? `<span>${date}</span>` : ''}
+            <span class="card-read-time">${readTime} min de lecture</span>
+          </div>
+        </div>`
+    } else {
+      card.innerHTML = `
+        ${img ? `<div class="card-img" style="background-image:url('${img}')"></div>` : ''}
+        <div class="card-body">
+          <div class="card-cat">${cat}</div>
+          <div class="card-title">${title}</div>
+          <div class="card-excerpt">${excerpt}</div>
+          <div class="card-meta">
+            ${date ? `<span>${date}</span>` : ''}
+            <span class="card-read-time">${readTime} min</span>
+          </div>
+        </div>`
+    }
+
+    grid.appendChild(card)
   })
-  observer.observe(document.getElementById('resultCount'), { childList:true })
+}
+
+// ── FILTRES ──
+function filterByCat(catId) {
+  currentCat = catId
+  currentSearch = ''
+  document.getElementById('searchInput').value = ''
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.dataset.id == catId))
+  showSkeletons()
+  loadPosts(1, true)
+}
+
+// filtre "Tous"
+document.querySelector('.cat-btn[data-id=""]').addEventListener('click', () => filterByCat(''))
+
+// recherche avec debounce
+let searchTimer
+document.getElementById('searchInput').addEventListener('input', e => {
+  clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    currentSearch = e.target.value.trim()
+    currentCat = ''
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'))
+    document.querySelector('.cat-btn[data-id=""]').classList.add('active')
+    showSkeletons()
+    loadPosts(1, true)
+  }, 400)
+})
+
+// charger plus
+document.getElementById('loadMoreBtn').addEventListener('click', () => {
+  loadPosts(currentPage + 1, false)
+})
+
+// ── SKELETONS ──
+function showSkeletons() {
+  const grid = document.getElementById('postsGrid')
+  grid.innerHTML = Array.from({length: 6}).map(() => `
+    <div class="post-card skeleton">
+      <div class="sk sk-img"></div>
+      <div class="sk sk-cat"></div>
+      <div class="sk sk-title"></div>
+      <div class="sk sk-title short"></div>
+      <div class="sk sk-meta"></div>
+    </div>`).join('')
+  document.getElementById('loadMoreWrap').style.display = 'none'
+}
+
+init()
 </script>
 </body>
 </html>
