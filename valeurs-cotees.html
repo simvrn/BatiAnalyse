@@ -451,7 +451,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
     <li><a href="/ma.html">M&amp;A</a></li>
     <li><a href="/pe.html">Private Equity</a></li>
-    <li><a href="#">Macro</a></li>
+    <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
@@ -462,24 +462,20 @@ h1 em { font-style:italic; color:var(--gold); }
   <div class="page-header-left">
     <div class="page-breadcrumb">BatiAnalyse <span>/</span> Valeurs Cotées</div>
     <h1>Valeurs <em>BTP</em><br>& Construction</h1>
-    <p class="page-sub">47 entreprises cotées · Mis à jour vendredi 13 mars 2026, 17h35 CET</p>
+    <p class="page-sub" id="pageSubtitle"><span id="stockCount">14</span> entreprises cotées · Chargement en cours…</p>
   </div>
   <div class="header-stats">
     <div class="hstat">
-      <div class="hstat-val" style="color:var(--green)">+0,84%</div>
+      <div class="hstat-val" id="statIndexBTP" style="color:var(--green)">—</div>
       <div class="hstat-label">Indice BTP jour</div>
     </div>
     <div class="hstat">
-      <div class="hstat-val">31</div>
+      <div class="hstat-val" id="statHausse">—</div>
       <div class="hstat-label">En hausse</div>
     </div>
     <div class="hstat">
-      <div class="hstat-val" style="color:var(--red)">14</div>
+      <div class="hstat-val" id="statBaisse" style="color:var(--red)">—</div>
       <div class="hstat-label">En baisse</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-val">€2,1T</div>
-      <div class="hstat-label">Capitalisation</div>
     </div>
   </div>
 </div>
@@ -487,28 +483,10 @@ h1 em { font-style:italic; color:var(--gold); }
 <!-- FILTERS -->
 <div class="filters-bar">
   <div class="filter-group">
-    <span class="filter-label">Secteur</span>
-    <button class="filter-btn active" data-filter="secteur" data-val="tous">Tous</button>
-    <button class="filter-btn" data-filter="secteur" data-val="construction">Construction</button>
-    <button class="filter-btn" data-filter="secteur" data-val="materiaux">Matériaux</button>
-    <button class="filter-btn" data-filter="secteur" data-val="promotion">Promotion</button>
-    <button class="filter-btn" data-filter="secteur" data-val="equipement">Équipements</button>
-    <button class="filter-btn" data-filter="secteur" data-val="infrastructure">Infra</button>
-  </div>
-  <div class="filter-sep"></div>
-  <div class="filter-group">
     <span class="filter-label">Perf</span>
-    <button class="filter-btn" data-filter="perf" data-val="tous">Toutes</button>
+    <button class="filter-btn active" data-filter="perf" data-val="tous">Toutes</button>
     <button class="filter-btn" data-filter="perf" data-val="up">↑ Hausse</button>
     <button class="filter-btn" data-filter="perf" data-val="down">↓ Baisse</button>
-  </div>
-  <div class="filter-sep"></div>
-  <div class="filter-group">
-    <span class="filter-label">Signal</span>
-    <button class="filter-btn" data-filter="signal" data-val="tous">Tous</button>
-    <button class="filter-btn" data-filter="signal" data-val="buy">Acheter</button>
-    <button class="filter-btn" data-filter="signal" data-val="hold">Conserver</button>
-    <button class="filter-btn" data-filter="signal" data-val="watch">Surveiller</button>
   </div>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
@@ -1040,6 +1018,37 @@ async function loadLiveQuotes() {
     }
 
     if (updated > 0) {
+      // Compter hausse / baisse sur les stocks qui ont des données live
+      let hausse = 0, baisse = 0, totalChange = 0, countChange = 0
+      stocks.forEach(s => {
+        if (result.data[s.ticker]) {
+          const c = result.data[s.ticker].percent_change ?? 0
+          if (c > 0) hausse++
+          else if (c < 0) baisse++
+          totalChange += c
+          countChange++
+        }
+      })
+
+      // Mettre à jour les stats du header
+      const elH = document.getElementById('statHausse')
+      const elB = document.getElementById('statBaisse')
+      const elI = document.getElementById('statIndexBTP')
+      if (elH) { elH.textContent = hausse; elH.style.color = hausse > 0 ? 'var(--green)' : '' }
+      if (elB) elB.textContent = baisse
+      if (elI && countChange > 0) {
+        const avg = totalChange / countChange
+        elI.textContent = (avg >= 0 ? '+' : '') + avg.toFixed(2) + '%'
+        elI.style.color = avg >= 0 ? 'var(--green)' : 'var(--red)'
+      }
+
+      // Mettre à jour la date de mise à jour dans le sous-titre
+      const now = new Date()
+      const dateStr = now.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+      const timeStr = now.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) + ' CET'
+      const subtitle = document.getElementById('pageSubtitle')
+      if (subtitle) subtitle.innerHTML = `<span id="stockCount">${stocks.length}</span> entreprises cotées · Mis à jour ${dateStr}, ${timeStr}`
+
       showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
     } else {
       showApiStatus('error', 'Données indisponibles')
@@ -1051,6 +1060,9 @@ async function loadLiveQuotes() {
 
   setTimeout(loadLiveQuotes, 300000) // refresh 5 min
 }
+
+// Initialiser le compteur d'entreprises dès le chargement
+document.getElementById('stockCount').textContent = stocks.length
 
 loadLiveQuotes()
 </script>
