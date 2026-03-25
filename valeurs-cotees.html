@@ -440,6 +440,26 @@ h1 em { font-style:italic; color:var(--gold); }
 /* hidden utility */
 .hidden { display:none !important; }
 
+/* ── SECTION ARTICLES (preview catégorie) ── */
+.section-articles { margin-top:40px; padding-top:32px; border-top:1px solid var(--border); }
+.section-articles-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.section-articles-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); }
+.section-articles-more { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--text-3); text-decoration:none; transition:color 0.15s; }
+.section-articles-more:hover { color:var(--gold); }
+.section-articles-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px; }
+.sa-card { background:var(--surface); border:1px solid var(--border); padding:18px; cursor:pointer; transition:border-color 0.2s; position:relative; overflow:hidden; }
+.sa-card:hover { border-color:var(--border-hover); }
+.sa-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+.sa-card:hover::before { transform:scaleX(1); }
+.sa-card-img { width:100%; height:120px; object-fit:cover; display:block; margin-bottom:12px; }
+.sa-card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.sa-card-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; line-height:1.3; color:var(--text); margin-bottom:8px; }
+.sa-card-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); }
+
+/* skeletons articles */
+@keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+.sk { background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%); background-size:800px 100%; animation:shimmer 1.4s infinite; border-radius:2px; }
+
 /* ── BLOG BAND ── */
 .blog-card {
   background: var(--surface);
@@ -633,6 +653,15 @@ h1 em { font-style:italic; color:var(--gold); }
       <div class="empty-icon">◎</div>
       <div class="empty-title">Aucune valeur trouvée</div>
       <div class="empty-sub">Modifiez vos filtres ou votre recherche</div>
+    </div>
+
+    <!-- ARTICLES VALEURS (catégorie 7) -->
+    <div class="section-articles">
+      <div class="section-articles-header">
+        <span class="section-articles-label">Dernières analyses · Valeurs cotées</span>
+        <a href="/blog.html" class="section-articles-more">Voir tout →</a>
+      </div>
+      <div class="section-articles-grid" id="articlesValeurs"></div>
     </div>
 
   </main>
@@ -1070,6 +1099,69 @@ async function loadLiveQuotes() {
 
 // Initialiser le compteur d'entreprises dès le chargement
 document.getElementById('stockCount').textContent = stocks.length
+
+// ═══════════════════════════════════════════════════════
+// CONFIG SECTIONS WORDPRESS — ajouter une entrée par section
+// ═══════════════════════════════════════════════════════
+const WP_SECTIONS = {
+  analyses: 'https://batianalyste.fr/wp-json/wp/v2/posts',              // flux principal
+  valeurs:  'https://batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
+  // ma:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=X',
+  // macro: 'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
+  // pe:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Z',
+}
+// ═══════════════════════════════════════════════════════
+
+// Rendu d'une card article compacte (partageable entre sections)
+function renderSectionCard(post) {
+  const title = post.title?.rendered || 'Sans titre'
+  const link  = post.link || '#'
+  const img   = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+  const date  = post.date
+    ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' })
+    : ''
+  const cat   = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
+
+  return `<div class="sa-card" onclick="location.href='${link}'">
+    ${img ? `<img class="sa-card-img" src="${img}" alt="">` : ''}
+    <div class="sa-card-cat">${cat}</div>
+    <div class="sa-card-title">${title}</div>
+    <div class="sa-card-date">${date}</div>
+  </div>`
+}
+
+// Fonction générique : charge les articles d'une section et les injecte dans un container
+async function fetchSectionArticles(sectionKey, containerId, limit = 4) {
+  const container = document.getElementById(containerId)
+  if (!container) return
+
+  const baseUrl = WP_SECTIONS[sectionKey]
+  if (!baseUrl) return
+
+  // Squelettes pendant le chargement
+  container.innerHTML = Array.from({ length: limit }).map(() => `
+    <div class="sa-card">
+      <div class="sk" style="height:120px;margin-bottom:12px"></div>
+      <div class="sk" style="height:9px;width:60px;margin-bottom:8px"></div>
+      <div class="sk" style="height:13px;margin-bottom:4px"></div>
+      <div class="sk" style="height:13px;width:70%"></div>
+    </div>`).join('')
+
+  try {
+    const sep = baseUrl.includes('?') ? '&' : '?'
+    const url = `${baseUrl}${sep}per_page=${limit}&_embed&orderby=date&order=desc`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const posts = await res.json()
+    if (!posts.length) { container.closest('.section-articles').style.display = 'none'; return }
+    container.innerHTML = posts.map(renderSectionCard).join('')
+  } catch(e) {
+    container.closest('.section-articles').style.display = 'none'
+  }
+}
+
+// Chargement des articles de la section Valeurs
+fetchSectionArticles('valeurs', 'articlesValeurs', 4)
 
 loadLiveQuotes()
 </script>
