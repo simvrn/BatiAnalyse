@@ -266,7 +266,7 @@ function renderPosts(reset) {
     const isFeatured = reset && idx === 0
     const title    = post.title?.rendered || 'Sans titre'
     const excerpt  = (post.excerpt?.rendered || '').replace(/<[^>]+>/g,'').replace(/&[^;]+;/g,' ').trim()
-    const link     = post.link || '#'
+    const link     = `/article.html?id=${post.id}`
     const img      = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
     const date     = post.date
       ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })

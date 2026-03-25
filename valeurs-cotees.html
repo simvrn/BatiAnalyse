@@ -1115,7 +1115,7 @@ const WP_SECTIONS = {
 // Rendu d'une card article compacte (partageable entre sections)
 function renderSectionCard(post) {
   const title = post.title?.rendered || 'Sans titre'
-  const link  = post.link || '#'
+  const link  = `/article.html?id=${post.id}`
   const img   = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
   const date  = post.date
     ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' })

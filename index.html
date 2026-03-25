@@ -1101,8 +1101,8 @@ async function loadBlogPreview() {
       const rawExcerpt = post.excerpt?.rendered || ''
       const excerpt = rawExcerpt.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim().slice(0, 160) + '…'
 
-      // Lien de l'article
-      const link = post.link || '#'
+      // Lien interne headless (jamais le lien WordPress)
+      const link = `/article.html?id=${post.id}`
 
       // Image mise en avant (optionnelle)
       const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null

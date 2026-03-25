@@ -186,6 +186,133 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
   </div>
 </div>
 
-<script type="module" src="/src/article.js"></script>
+<script>
+const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
+
+// ── Lecture de l'ID dans l'URL (?id=123) ──
+const params = new URLSearchParams(location.search)
+const postId = parseInt(params.get('id'))
+
+if (!postId) {
+  showNotFound('Aucun article spécifié.')
+} else {
+  loadArticle(postId)
+}
+
+// ── Afficher les squelettes de chargement ──
+function showSkeletons() {
+  document.getElementById('articleHeader').innerHTML = `
+    <div class="sk-cat"></div>
+    <div class="sk-h1"></div>
+    <div class="sk-h1 sk-short"></div>
+    <div class="sk-meta"></div>`
+  document.getElementById('articleContent').innerHTML = Array.from({length:6}).map((_,i) =>
+    `<div class="sk-p${i===2||i===5?' sk-short':''}"></div>`
+  ).join('')
+}
+
+// ── Chargement et rendu de l'article ──
+async function loadArticle(id) {
+  showSkeletons()
+  try {
+    const res = await fetch(`${WP_API}/posts/${id}?_embed`)
+    if (res.status === 404) { showNotFound('Article introuvable.'); return }
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const post = await res.json()
+    renderArticle(post)
+  } catch(e) {
+    showNotFound('Impossible de charger cet article.')
+  }
+}
+
+function renderArticle(post) {
+  const title    = post.title?.rendered   || 'Sans titre'
+  const content  = post.content?.rendered || ''
+  const date     = post.date
+    ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+    : ''
+  const cat      = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
+  const catId    = post._embedded?.['wp:term']?.[0]?.[0]?.id   || null
+  const img      = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+  const authorName = post._embedded?.author?.[0]?.name || 'BatiAnalyse'
+
+  // Estimation du temps de lecture
+  const wordCount = content.replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
+  const readTime  = Math.max(1, Math.round(wordCount / 200))
+
+  // Mise à jour du <title> de la page
+  document.title = `${title} — BatiAnalyse`
+
+  // Breadcrumb
+  document.getElementById('breadcrumbTitle').textContent = title
+
+  // Header
+  document.getElementById('articleHeader').innerHTML = `
+    <div class="art-cat">${cat}</div>
+    <h1 class="art-title">${title}</h1>
+    <div class="art-meta">
+      <span class="art-author">${authorName}</span>
+      <span class="art-sep">·</span>
+      <span>${date}</span>
+      <span class="art-sep">·</span>
+      <span>${readTime} min de lecture</span>
+    </div>`
+
+  // Image à la une
+  if (img) {
+    const wrap = document.getElementById('featuredImageWrap')
+    wrap.style.display = 'block'
+    wrap.innerHTML = `<img class="featured-img" src="${img}" alt="${title}">`
+  }
+
+  // Contenu HTML WordPress (nettoyé des liens internes WP)
+  const sanitized = content.replace(
+    /href="https:\/\/batianalyste\.fr\/(?!wp-content)[^"]*"/g,
+    'href="#" onclick="return false"'
+  )
+  document.getElementById('articleContent').innerHTML = sanitized
+
+  // Articles liés (même catégorie, hors article courant)
+  if (catId) loadRelated(catId, post.id)
+}
+
+// ── Articles liés ──
+async function loadRelated(catId, excludeId) {
+  try {
+    const res   = await fetch(`${WP_API}/posts?categories=${catId}&exclude=${excludeId}&per_page=3&_embed&orderby=date&order=desc`)
+    const posts = await res.json()
+    if (!Array.isArray(posts) || posts.length === 0) return
+
+    const section = document.getElementById('relatedSection')
+    const grid    = document.getElementById('relatedGrid')
+    section.style.display = 'block'
+
+    grid.innerHTML = posts.map(p => {
+      const pImg   = p._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+      const pCat   = p._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
+      const pDate  = p.date ? new Date(p.date).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' }) : ''
+      const pTitle = p.title?.rendered || 'Sans titre'
+      return `<div class="related-card" onclick="location.href='/article.html?id=${p.id}'">
+        <div class="related-img ${pImg ? '' : 'related-img-ph'}" style="${pImg ? `background-image:url('${pImg}')` : ''}"></div>
+        <div class="related-cat">${pCat}</div>
+        <div class="related-title">${pTitle}</div>
+        <div class="related-date">${pDate}</div>
+      </div>`
+    }).join('')
+  } catch(e) { /* articles liés non critiques */ }
+}
+
+// ── Page 404 interne ──
+function showNotFound(msg) {
+  document.getElementById('articleHeader').innerHTML = ''
+  document.getElementById('articleContent').innerHTML = `
+    <div class="not-found">
+      <div class="nf-icon">◎</div>
+      <div class="nf-title">Article non trouvé</div>
+      <div class="nf-sub">${msg}</div>
+      <a href="/blog.html" class="nf-back">← Retour aux analyses</a>
+    </div>`
+}
+</script>
 </body>
 </html>
