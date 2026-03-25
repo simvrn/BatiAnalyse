@@ -880,13 +880,14 @@ function sidebarFilter(val) {
 }
 
 // ── MODAL ──
+const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
+
 function openModal(id) {
   const s = stocks.find(x => x.id===id);
   if(!s) return;
   const up = s.change >= 0;
   const trend = randomTrend(up);
 
-  // big chart
   const w=680, h=120;
   const pts = trend.map((v,i) => `${i*(w/(trend.length-1))},${h-(v/100)*h}`).join(' ');
   const area = pts + ` ${w},${h} 0,${h}`;
@@ -914,7 +915,6 @@ function openModal(id) {
         <div class="modal-price">${s.price.toFixed(2)} €</div>
         <div class="modal-change ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}% aujourd'hui</div>
         <div class="modal-ytd" style="color:${s.ytd>=0?'var(--green)':'var(--red)'}">YTD : ${s.ytd>=0?'+':''}${s.ytd}%</div>
-        <div style="margin-left:auto"><span class="td-signal ${s.signal}" style="font-size:11px">${signalLabel(s.signal)}</span></div>
       </div>
       <div class="modal-chart-area">
         <div class="modal-chart-label">Évolution du cours — 3 mois</div>
@@ -929,19 +929,76 @@ function openModal(id) {
       <div class="modal-section-title">Présentation</div>
       <div class="modal-desc">${s.desc}</div>
       <div class="modal-section-title">Analyses récentes</div>
-      <div class="modal-articles">
-        ${s.articles.map(a=>`<div class="modal-article">
-          <div><div class="modal-article-title">${a}</div><div class="modal-article-meta">BatiAnalyse · Mars 2026 · 6 min de lecture</div></div>
-          <span class="modal-article-arrow">→</span>
-        </div>`).join('')}
+      <div id="modalArticlesList">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${[1,2,3].map(()=>`<div style="height:48px;background:var(--surface2);border-radius:2px;
+            background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);
+            background-size:800px 100%;animation:shimmer 1.4s infinite"></div>`).join('')}
+        </div>
       </div>
       <div class="modal-actions">
         <button class="modal-btn primary" onclick="location.href='/entreprise.html?slug=${s.id}'">Voir toutes les analyses →</button>
         <button class="modal-btn ghost" onclick="closeModal()">Fermer</button>
       </div>
     </div>`;
+
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
+
+  // Chargement async des vrais articles WP après ouverture de la modale
+  loadModalArticles(s.id, s.name)
+}
+
+async function loadModalArticles(companyId, companyName) {
+  const container = document.getElementById('modalArticlesList')
+  if (!container) return
+
+  try {
+    // Recherche du tag par slug puis par nom
+    let tagId = null
+    const r1 = await fetch(`${WP_API}/tags?slug=${encodeURIComponent(companyId)}&per_page=1`)
+    if (r1.ok) {
+      const t1 = await r1.json()
+      if (t1.length) tagId = t1[0].id
+    }
+    if (!tagId) {
+      const r2 = await fetch(`${WP_API}/tags?search=${encodeURIComponent(companyName)}&per_page=5`)
+      if (r2.ok) {
+        const t2 = await r2.json()
+        const match = t2.find(t =>
+          t.name.toLowerCase() === companyName.toLowerCase() ||
+          t.slug.toLowerCase() === companyId.toLowerCase()
+        )
+        if (match) tagId = match.id
+        else if (t2.length) tagId = t2[0].id
+      }
+    }
+
+    if (!tagId) { container.innerHTML = '<p style="font-size:12px;color:var(--text-3)">Aucun tag WordPress trouvé pour cette entreprise.</p>'; return }
+
+    const res = await fetch(`${WP_API}/posts?tags=${tagId}&per_page=5&_embed&orderby=date&order=desc`)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const posts = await res.json()
+
+    if (!posts.length) { container.innerHTML = '<p style="font-size:12px;color:var(--text-3)">Aucun article publié pour cette entreprise.</p>'; return }
+
+    container.innerHTML = `<div class="modal-articles">${posts.map(p => {
+      const title = p.title?.rendered || 'Sans titre'
+      const date  = p.date ? new Date(p.date).toLocaleDateString('fr-FR', {day:'numeric', month:'short', year:'numeric'}) : ''
+      const words = (p.content?.rendered||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
+      const read  = Math.max(1, Math.round(words/200))
+      return `<div class="modal-article" onclick="location.href='/article.html?id=${p.id}';closeModal()">
+        <div>
+          <div class="modal-article-title">${title}</div>
+          <div class="modal-article-meta">${date}${date?' · ':''}${read} min de lecture</div>
+        </div>
+        <span class="modal-article-arrow">→</span>
+      </div>`
+    }).join('')}</div>`
+
+  } catch(e) {
+    if (container) container.innerHTML = '<p style="font-size:12px;color:var(--text-3)">Impossible de charger les articles.</p>'
+  }
 }
 
 function closeModal() {
