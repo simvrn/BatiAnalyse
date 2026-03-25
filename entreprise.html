@@ -165,18 +165,14 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 
 <script>
 // ═══════════════════════════════════════════════════════
-// CONFIG ENTREPRISES — pour chaque entreprise :
-//   slug    : identifiant dans l'URL (?slug=vinci)
-//   tagId   : ID du tag WordPress (à renseigner)
-//   ticker  : symbole boursier
-//   name    : nom affiché
-//   secteur : secteur d'activité
-//   desc    : description courte
-//   kpis    : métriques clés
+// CONFIG ENTREPRISES
+// tagSlug = slug du tag tel qu'il existe dans WordPress
+//           (ex: si le tag s'appelle "Vinci", le slug est "vinci")
+// Le tagId est résolu automatiquement au chargement de la page.
 // ═══════════════════════════════════════════════════════
 const COMPANIES = {
   vinci: {
-    tagId:   null,            // ← REMPLACER par l'ID du tag WordPress "Vinci"
+    tagSlug: 'vinci',         // slug du tag WordPress — résolution automatique
     ticker:  'DG.PA',
     name:    'Vinci',
     secteur: 'Construction & Concessions',
@@ -189,7 +185,7 @@ const COMPANIES = {
     ],
   },
   eiffage: {
-    tagId:   null,            // ← REMPLACER par l'ID du tag WordPress "Eiffage"
+    tagSlug: 'eiffage',
     ticker:  'FGR.PA',
     name:    'Eiffage',
     secteur: 'Construction & Concessions',
@@ -201,17 +197,16 @@ const COMPANIES = {
       { label:'Carnet cmd.',    val:'24 Md€'  },
     ],
   },
-  // ── Ajouter les autres entreprises ici au fur et à mesure ──
-  // bouygues:    { tagId: null, ticker: 'EN.PA',   name: 'Bouygues',          ... },
-  // saintgobain: { tagId: null, ticker: 'SGO.PA',  name: 'Saint-Gobain',      ... },
-  // schneider:   { tagId: null, ticker: 'SU.PA',   name: 'Schneider Electric',... },
+  // ── Pour ajouter une entreprise : copier un bloc, changer slug + tagSlug ──
+  // bouygues:    { tagSlug: 'bouygues',     ticker: 'EN.PA',  name: 'Bouygues', ... },
+  // saintgobain: { tagSlug: 'saint-gobain', ticker: 'SGO.PA', name: 'Saint-Gobain', ... },
 }
 // ═══════════════════════════════════════════════════════
 
-const WP_API    = 'https://batianalyste.fr/wp-json/wp/v2'
-const params    = new URLSearchParams(location.search)
-const slug      = params.get('slug') || ''
-const company   = COMPANIES[slug]
+const WP_API  = 'https://batianalyste.fr/wp-json/wp/v2'
+const params  = new URLSearchParams(location.search)
+const slug    = params.get('slug') || ''
+const company = COMPANIES[slug]
 
 // ── Init ──
 if (!company) {
@@ -245,29 +240,51 @@ function renderCompanyHeader() {
   document.getElementById('aboutContent').textContent = company.desc
 }
 
+// ── Résolution automatique du tagId depuis le slug WordPress ──
+async function resolveTagId(tagSlug) {
+  // 1. Essai par slug exact
+  const r1 = await fetch(`${WP_API}/tags?slug=${encodeURIComponent(tagSlug)}&per_page=1`)
+  if (r1.ok) {
+    const tags = await r1.json()
+    if (tags.length) return tags[0].id
+  }
+  // 2. Fallback : recherche textuelle (couvre les slugs avec accents ou variantes)
+  const r2 = await fetch(`${WP_API}/tags?search=${encodeURIComponent(tagSlug)}&per_page=5`)
+  if (r2.ok) {
+    const tags = await r2.json()
+    // On cherche la correspondance la plus proche sur le nom
+    const match = tags.find(t =>
+      t.name.toLowerCase()  === tagSlug.toLowerCase() ||
+      t.slug.toLowerCase()  === tagSlug.toLowerCase()
+    )
+    if (match) return match.id
+    if (tags.length) return tags[0].id   // prend le premier si pas de correspondance exacte
+  }
+  return null
+}
+
 // ── Chargement des articles par tag ──
 async function loadArticles() {
   const grid = document.getElementById('articlesGrid')
+  showSkeletons(grid)
 
-  // Avertissement si le tag n'est pas encore configuré
-  if (!company.tagId) {
+  // Résolution automatique de l'ID du tag
+  const tagId = await resolveTagId(company.tagSlug)
+
+  if (!tagId) {
     grid.innerHTML = `
-      <div class="tag-missing" style="grid-column:1/-1">
-        <div class="tag-missing-icon">⚙</div>
-        <div class="tag-missing-text">
-          <strong>Tag WordPress non configuré</strong><br>
-          Renseigne l'ID du tag "${company.name}" dans <code>COMPANIES.${slug}.tagId</code> pour afficher les articles.
-        </div>
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Tag introuvable</div>
+        <div class="empty-sub">Aucun tag WordPress nommé "<strong>${company.tagSlug}</strong>" n'a été trouvé.<br>
+        Vérifie que l'étiquette existe bien sur <a href="https://batianalyste.fr/wp-admin/edit-tags.php?taxonomy=post_tag" target="_blank" style="color:var(--gold)">batianalyste.fr/wp-admin</a>.</div>
       </div>`
     document.getElementById('artCount').textContent = '0'
     return
   }
 
-  // Squelettes
-  showSkeletons(grid)
-
   try {
-    const res = await fetch(`${WP_API}/posts?tags=${company.tagId}&per_page=20&_embed&orderby=date&order=desc`)
+    const res = await fetch(`${WP_API}/posts?tags=${tagId}&per_page=20&_embed&orderby=date&order=desc`)
     if (!res.ok) throw new Error('HTTP ' + res.status)
     const posts = await res.json()
     const total = res.headers.get('X-WP-Total') || posts.length
