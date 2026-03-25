@@ -936,8 +936,7 @@ function openModal(id) {
         </div>`).join('')}
       </div>
       <div class="modal-actions">
-        <button class="modal-btn primary">Lire l'analyse complète</button>
-        <button class="modal-btn ghost">Ajouter au suivi</button>
+        <button class="modal-btn primary" onclick="location.href='/entreprise.html?slug=${s.id}'">Voir toutes les analyses →</button>
         <button class="modal-btn ghost" onclick="closeModal()">Fermer</button>
       </div>
     </div>`;

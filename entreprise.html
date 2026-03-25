@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Entreprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080807; --bg: #0c0c0a; --surface: #111110; --surface2: #161614;
+  --border: rgba(201,168,76,0.1); --border-hover: rgba(201,168,76,0.35);
+  --gold: #c9a84c; --gold-dim: rgba(201,168,76,0.15); --gold-glow: rgba(201,168,76,0.06);
+  --green: #4ade80; --green-dim: rgba(74,222,128,0.12);
+  --red: #f87171;   --red-dim:  rgba(248,113,113,0.12);
+  --text: #e8e4da; --text-2: #a09880; --text-3: #5a5446; --white: #f5f2eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; min-height:100vh; overflow-x:hidden; }
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
+.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo span { color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-family:'Syne',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--gold); }
+.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; border:1px solid var(--gold); color:var(--gold); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
+.nav-cta:hover { background:var(--gold); color:var(--black); }
+
+/* BREADCRUMB */
+.breadcrumb-bar { padding:72px 32px 0; }
+.breadcrumb { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; color:var(--text-3); display:flex; align-items:center; gap:10px; }
+.breadcrumb a { color:var(--text-3); text-decoration:none; transition:color 0.15s; }
+.breadcrumb a:hover { color:var(--gold); }
+.breadcrumb .sep { opacity:0.4; }
+
+/* COMPANY HEADER */
+.company-header { padding:32px 32px 0; border-bottom:1px solid var(--border); }
+.company-header-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr auto; gap:32px; align-items:end; padding-bottom:28px; }
+.company-tag { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.company-name { font-family:'Playfair Display',serif; font-size:clamp(36px,5vw,64px); font-weight:900; line-height:1; letter-spacing:-0.02em; margin-bottom:10px; }
+.company-sub { font-size:13px; color:var(--text-2); line-height:1.6; max-width:560px; }
+.company-kpis { display:flex; gap:0; }
+.kpi { padding:16px 24px; border-left:1px solid var(--border); text-align:right; }
+.kpi:first-child { border-left:none; }
+.kpi-val { font-family:'DM Mono',monospace; font-size:20px; font-weight:500; color:var(--gold); line-height:1; }
+.kpi-label { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-3); margin-top:4px; }
+
+/* TABS */
+.tabs-bar { padding:0 32px; border-bottom:1px solid var(--border); background:var(--surface); display:flex; gap:0; }
+.tab-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; padding:16px 24px; background:none; border:none; color:var(--text-3); cursor:pointer; transition:all 0.15s; border-bottom:2px solid transparent; margin-bottom:-1px; }
+.tab-btn:hover { color:var(--text-2); }
+.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
+
+/* CONTENT */
+.page-content { max-width:1200px; margin:0 auto; padding:40px 32px 80px; }
+
+/* ARTICLES GRID */
+.articles-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.articles-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); }
+.articles-count { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); }
+.articles-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+
+/* ARTICLE CARD */
+.art-card { background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:all 0.2s; overflow:hidden; position:relative; animation:cardIn 0.4s ease forwards; opacity:0; }
+.art-card:hover { border-color:var(--border-hover); background:var(--surface2); }
+.art-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+.art-card:hover::before { transform:scaleX(1); }
+@keyframes cardIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.art-card-img { height:180px; background:var(--surface2); background-size:cover; background-position:center; }
+.art-card-body { padding:20px; }
+.art-card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+.art-card-title { font-family:'Playfair Display',serif; font-size:17px; font-weight:700; line-height:1.3; margin-bottom:10px; }
+.art-card-excerpt { font-size:13px; color:var(--text-2); line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-bottom:14px; }
+.art-card-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); }
+
+/* FEATURED CARD (first article) */
+.art-card.featured { grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; }
+@media(max-width:768px) { .art-card.featured { grid-column:span 1; display:block; } }
+.art-card.featured .art-card-img { height:100%; min-height:240px; }
+.art-card.featured .art-card-body { padding:28px; display:flex; flex-direction:column; justify-content:center; }
+.art-card.featured .art-card-title { font-size:24px; }
+
+/* EMPTY / ERROR */
+.empty-state { padding:60px 0; text-align:center; }
+.empty-icon { font-size:40px; opacity:0.15; margin-bottom:16px; }
+.empty-title { font-family:'Playfair Display',serif; font-size:22px; color:var(--text-2); margin-bottom:8px; }
+.empty-sub { font-size:13px; color:var(--text-3); }
+
+/* SKELETONS */
+@keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+.sk { background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%); background-size:800px 100%; animation:shimmer 1.4s infinite; border-radius:2px; }
+
+/* TAG MANQUANT */
+.tag-missing { background:var(--surface); border:1px solid var(--gold-dim); padding:20px 24px; margin-bottom:32px; display:flex; align-items:center; gap:16px; }
+.tag-missing-icon { font-size:20px; opacity:0.6; }
+.tag-missing-text { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-2); line-height:1.6; }
+.tag-missing-text strong { color:var(--gold); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
+    <li><a href="/ma.html">M&amp;A</a></li>
+    <li><a href="/pe.html">Private Equity</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+</nav>
+
+<div class="breadcrumb-bar">
+  <div class="breadcrumb">
+    <a href="/">Accueil</a>
+    <span class="sep">/</span>
+    <a href="/valeurs-cotees.html">Valeurs</a>
+    <span class="sep">/</span>
+    <span id="breadcrumbName">Entreprise</span>
+  </div>
+</div>
+
+<div class="company-header">
+  <div class="company-header-inner">
+    <div>
+      <div class="company-tag" id="companyTicker">—</div>
+      <div class="company-name" id="companyName">Chargement…</div>
+      <div class="company-sub" id="companySub"></div>
+    </div>
+    <div class="company-kpis" id="companyKpis"></div>
+  </div>
+</div>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" data-tab="articles">Analyses publiées</button>
+  <button class="tab-btn" data-tab="about">Présentation</button>
+</div>
+
+<div class="page-content">
+
+  <!-- TAB : articles -->
+  <div id="tabArticles">
+    <div class="articles-header">
+      <span class="articles-label">Articles · <span id="companyLabel">—</span></span>
+      <span class="articles-count"><strong id="artCount">—</strong> articles</span>
+    </div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </div>
+
+  <!-- TAB : présentation -->
+  <div id="tabAbout" style="display:none">
+    <div id="aboutContent" style="font-size:15px;line-height:1.8;color:var(--text-2);max-width:720px"></div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIG ENTREPRISES — pour chaque entreprise :
+//   slug    : identifiant dans l'URL (?slug=vinci)
+//   tagId   : ID du tag WordPress (à renseigner)
+//   ticker  : symbole boursier
+//   name    : nom affiché
+//   secteur : secteur d'activité
+//   desc    : description courte
+//   kpis    : métriques clés
+// ═══════════════════════════════════════════════════════
+const COMPANIES = {
+  vinci: {
+    tagId:   null,            // ← REMPLACER par l'ID du tag WordPress "Vinci"
+    ticker:  'DG.PA',
+    name:    'Vinci',
+    secteur: 'Construction & Concessions',
+    desc:    'Leader mondial du BTP et des concessions, Vinci opère via deux pôles complémentaires : les métiers de la construction (Vinci Construction, Eurovia, Vinci Energies) et les concessions (autoroutes ESCOTA, ASF). La diversification géographique et la récurrence des revenus de concession constituent des atouts structurels majeurs.',
+    kpis:    [
+      { label:'Cap. boursière', val:'42,1 Md€' },
+      { label:'P/E',            val:'14,2x'    },
+      { label:'Marge EBIT',     val:'6,8%'     },
+      { label:'Carnet cmd.',    val:'64 Md€'   },
+    ],
+  },
+  eiffage: {
+    tagId:   null,            // ← REMPLACER par l'ID du tag WordPress "Eiffage"
+    ticker:  'FGR.PA',
+    name:    'Eiffage',
+    secteur: 'Construction & Concessions',
+    desc:    'Eiffage est l\'un des leaders européens du BTP et des concessions, positionné sur la construction, le génie civil, l\'énergie et les concessions autoroutières (APRR/AREA).',
+    kpis:    [
+      { label:'Cap. boursière', val:'7,8 Md€' },
+      { label:'P/E',            val:'11,8x'   },
+      { label:'Marge EBIT',     val:'6,4%'    },
+      { label:'Carnet cmd.',    val:'24 Md€'  },
+    ],
+  },
+  // ── Ajouter les autres entreprises ici au fur et à mesure ──
+  // bouygues:    { tagId: null, ticker: 'EN.PA',   name: 'Bouygues',          ... },
+  // saintgobain: { tagId: null, ticker: 'SGO.PA',  name: 'Saint-Gobain',      ... },
+  // schneider:   { tagId: null, ticker: 'SU.PA',   name: 'Schneider Electric',... },
+}
+// ═══════════════════════════════════════════════════════
+
+const WP_API    = 'https://batianalyste.fr/wp-json/wp/v2'
+const params    = new URLSearchParams(location.search)
+const slug      = params.get('slug') || ''
+const company   = COMPANIES[slug]
+
+// ── Init ──
+if (!company) {
+  document.getElementById('companyName').textContent = 'Entreprise introuvable'
+  document.getElementById('articlesGrid').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon">◎</div>
+      <div class="empty-title">Page introuvable</div>
+      <div class="empty-sub">Cette entreprise n'est pas encore référencée.<br><a href="/valeurs-cotees.html" style="color:var(--gold)">← Retour aux valeurs</a></div>
+    </div>`
+} else {
+  renderCompanyHeader()
+  loadArticles()
+}
+
+// ── Header entreprise ──
+function renderCompanyHeader() {
+  document.title = `${company.name} — BatiAnalyse`
+  document.getElementById('breadcrumbName').textContent  = company.name
+  document.getElementById('companyLabel').textContent    = company.name
+  document.getElementById('companyTicker').textContent   = `${company.ticker} · ${company.secteur}`
+  document.getElementById('companyName').textContent     = company.name
+  document.getElementById('companySub').textContent      = company.desc
+
+  document.getElementById('companyKpis').innerHTML = company.kpis.map(k => `
+    <div class="kpi">
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-label">${k.label}</div>
+    </div>`).join('')
+
+  document.getElementById('aboutContent').textContent = company.desc
+}
+
+// ── Chargement des articles par tag ──
+async function loadArticles() {
+  const grid = document.getElementById('articlesGrid')
+
+  // Avertissement si le tag n'est pas encore configuré
+  if (!company.tagId) {
+    grid.innerHTML = `
+      <div class="tag-missing" style="grid-column:1/-1">
+        <div class="tag-missing-icon">⚙</div>
+        <div class="tag-missing-text">
+          <strong>Tag WordPress non configuré</strong><br>
+          Renseigne l'ID du tag "${company.name}" dans <code>COMPANIES.${slug}.tagId</code> pour afficher les articles.
+        </div>
+      </div>`
+    document.getElementById('artCount').textContent = '0'
+    return
+  }
+
+  // Squelettes
+  showSkeletons(grid)
+
+  try {
+    const res = await fetch(`${WP_API}/posts?tags=${company.tagId}&per_page=20&_embed&orderby=date&order=desc`)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const posts = await res.json()
+    const total = res.headers.get('X-WP-Total') || posts.length
+
+    document.getElementById('artCount').textContent = total
+
+    if (!posts.length) {
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-icon">◎</div>
+          <div class="empty-title">Aucun article</div>
+          <div class="empty-sub">Aucun article tagué "${company.name}" pour l'instant.</div>
+        </div>`
+      return
+    }
+
+    grid.innerHTML = posts.map((post, i) => renderCard(post, i === 0)).join('')
+
+  } catch(e) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Erreur de chargement</div>
+        <div class="empty-sub">${e.message}</div>
+      </div>`
+  }
+}
+
+// ── Rendu d'une carte article ──
+function renderCard(post, featured = false) {
+  const title   = post.title?.rendered || 'Sans titre'
+  const excerpt = (post.excerpt?.rendered || '').replace(/<[^>]+>/g,'').replace(/&[^;]+;/g,' ').trim()
+  const link    = `/article.html?id=${post.id}`
+  const img     = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+  const date    = post.date
+    ? new Date(post.date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+    : ''
+  const cat     = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
+  const words   = (post.content?.rendered || '').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
+  const readTime = Math.max(1, Math.round(words / 200))
+
+  const delay = `animation-delay:${featured ? 0 : 0.04}s`
+
+  if (featured) {
+    return `<div class="art-card featured" onclick="location.href='${link}'" style="${delay}">
+      <div class="art-card-img" style="${img ? `background-image:url('${img}')` : ''}"></div>
+      <div class="art-card-body">
+        <div class="art-card-cat">${cat}</div>
+        <div class="art-card-title">${title}</div>
+        <div class="art-card-excerpt">${excerpt}</div>
+        <div class="art-card-meta">${date} · ${readTime} min de lecture</div>
+      </div>
+    </div>`
+  }
+
+  return `<div class="art-card" onclick="location.href='${link}'" style="${delay}">
+    ${img ? `<div class="art-card-img" style="background-image:url('${img}')"></div>` : ''}
+    <div class="art-card-body">
+      <div class="art-card-cat">${cat}</div>
+      <div class="art-card-title">${title}</div>
+      <div class="art-card-excerpt">${excerpt}</div>
+      <div class="art-card-meta">${date} · ${readTime} min</div>
+    </div>
+  </div>`
+}
+
+// ── Squelettes ──
+function showSkeletons(grid) {
+  grid.innerHTML = Array.from({length:6}).map(() => `
+    <div class="art-card">
+      <div class="sk" style="height:180px"></div>
+      <div class="art-card-body">
+        <div class="sk" style="height:9px;width:70px;margin-bottom:10px"></div>
+        <div class="sk" style="height:15px;margin-bottom:6px"></div>
+        <div class="sk" style="height:15px;width:80%;margin-bottom:12px"></div>
+        <div class="sk" style="height:9px;width:120px"></div>
+      </div>
+    </div>`).join('')
+}
+
+// ── Tabs ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+    btn.classList.add('active')
+    document.getElementById('tabArticles').style.display = btn.dataset.tab === 'articles' ? '' : 'none'
+    document.getElementById('tabAbout').style.display    = btn.dataset.tab === 'about'    ? '' : 'none'
+  })
+})
+
+// ── Live quotes (cours en temps réel depuis Google Sheets) ──
+async function loadLivePrice() {
+  if (!company) return
+  try {
+    const r    = await fetch('/api/bourse')
+    const data = await r.json()
+    const q    = data?.data?.[company.ticker]
+    if (!q?.price) return
+    const up   = (q.percent_change ?? 0) >= 0
+    const kpis = document.getElementById('companyKpis')
+    // Mettre à jour le 1er KPI avec le cours live
+    const firstKpi = kpis.querySelector('.kpi')
+    if (firstKpi) {
+      firstKpi.innerHTML = `
+        <div class="kpi-val">${q.price.toLocaleString('fr-FR',{minimumFractionDigits:2})} €
+          <span style="font-size:13px;color:${up?'var(--green)':'var(--red)'}">${up?'▲':'▼'} ${(q.percent_change??0).toFixed(2)}%</span>
+        </div>
+        <div class="kpi-label">Cours live</div>`
+    }
+  } catch(e) { /* cours non critiques */ }
+}
+loadLivePrice()
+</script>
+</body>
+</html>
