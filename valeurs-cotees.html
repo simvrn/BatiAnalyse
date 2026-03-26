@@ -274,7 +274,7 @@ h1 em { font-style:italic; color:var(--gold); }
 
 .td-action {
   font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em;
-  color:var(--text-3); white-space:nowrap;
+  color:var(--text-3); white-space:nowrap; text-decoration:none; display:inline-block;
 }
 .td-action:hover { color:var(--gold); }
 
@@ -766,7 +766,7 @@ function renderTable(data) {
       <td><span class="td-num" data-ticker-cap="${s.ticker}">${s.cap} Md€</span></td>
       <td><span class="td-num" data-ticker-per="${s.ticker}">${s.pe}x</span></td>
       <td><span class="td-num">${s.marge}</span></td>
-      <td><span class="td-action">Analyse →</span></td>
+      <td><a class="td-action" href="/entreprise.html?slug=${s.id}" onclick="event.stopPropagation()">Analyse →</a></td>
     </tr>`;
   }).join('');
 }
