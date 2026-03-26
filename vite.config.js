@@ -15,6 +15,7 @@ export default defineConfig({
         contech: resolve(__dirname, 'contech.html'),
         blog: resolve(__dirname, 'blog.html'),
         article: resolve(__dirname, 'article.html'),
+        entreprise: resolve(__dirname, 'entreprise.html'),
       },
     },
   },

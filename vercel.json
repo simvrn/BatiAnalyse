@@ -10,6 +10,7 @@
     { "source": "/reglementation", "destination": "/reglementation.html" },
     { "source": "/contech",        "destination": "/contech.html" },
     { "source": "/blog",           "destination": "/blog.html" },
-    { "source": "/article",        "destination": "/article.html" }
+    { "source": "/article",        "destination": "/article.html" },
+    { "source": "/entreprise",     "destination": "/entreprise.html" }
   ]
 }
