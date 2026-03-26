@@ -136,7 +136,7 @@ h1 em { font-style:italic; color:var(--gold); }
 /* ── 3-COL LAYOUT ── */
 .three-col {
   display:grid;
-  grid-template-columns: 280px 1fr 260px;
+  grid-template-columns: 280px 1fr;
   min-height: calc(100vh - 56px);
   align-items:start;
 }
@@ -531,32 +531,15 @@ h1 em { font-style:italic; color:var(--gold); }
     </div>
     <div class="header-stats">
       <div class="hstat">
-        <div class="hstat-val">€14,2Md</div>
-        <div class="hstat-label">Volume YTD</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val">23</div>
+        <div class="hstat-val" id="hstatAnnonces">—</div>
         <div class="hstat-label">Deals annoncés</div>
       </div>
       <div class="hstat">
-        <div class="hstat-val">18</div>
+        <div class="hstat-val" id="hstatBoucles">—</div>
         <div class="hstat-label">Deals bouclés</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val">8,4x</div>
-        <div class="hstat-label">Multiple médian</div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- MARKET PULSE BAND -->
-<div class="pulse-band">
-  <div class="pulse-item">Deal flow <strong>+34%</strong> vs 2025</div>
-  <div class="pulse-sep">·</div>
-  <div class="pulse-item">Secteur le plus actif : <strong>Construction</strong></div>
-  <div class="pulse-sep">·</div>
-  <div class="pulse-item">PE : <strong>67%</strong> des opérations</div>
 </div>
 
 <!-- 3-COL LAYOUT -->
@@ -649,41 +632,6 @@ h1 em { font-style:italic; color:var(--gold); }
       </div>
     </div>
 
-    <!-- QUICK FILTER BAR -->
-    <div class="quick-filter-bar">
-      <div class="qf-group">
-        <span class="qf-label">Type</span>
-        <button class="qf-btn active" data-qf="type" data-qv="tous">Tous</button>
-        <button class="qf-btn" data-qf="type" data-qv="lbo">LBO</button>
-        <button class="qf-btn" data-qf="type" data-qv="buildup">Build-up</button>
-        <button class="qf-btn" data-qf="type" data-qv="fusion">Fusion</button>
-        <button class="qf-btn" data-qf="type" data-qv="cession">Cession</button>
-      </div>
-      <div class="qf-sep"></div>
-      <div class="qf-group">
-        <span class="qf-label">Statut</span>
-        <button class="qf-btn active" data-qf="statut" data-qv="tous">Tous</button>
-        <button class="qf-btn" data-qf="statut" data-qv="annoncé">Annoncé</button>
-        <button class="qf-btn" data-qf="statut" data-qv="bouclé">Bouclé</button>
-        <button class="qf-btn" data-qf="statut" data-qv="en_cours">En cours</button>
-      </div>
-      <div class="qf-right">
-        <div class="search-wrap">
-          <span class="search-icon">⌕</span>
-          <input type="text" class="search-input" id="searchInput" placeholder="Cible, acquéreur…">
-        </div>
-        <select class="sort-select" id="sortSelect">
-          <option value="date">Date ↓</option>
-          <option value="montant">Montant ↓</option>
-          <option value="multiple">Multiple ↓</option>
-        </select>
-        <div class="view-toggle">
-          <button class="view-btn active" id="tableViewBtn" title="Tableau">≡</button>
-          <button class="view-btn" id="cardViewBtn" title="Cartes">⊞</button>
-        </div>
-      </div>
-    </div>
-
     <!-- RESULTS META -->
     <div class="results-meta">
       <div>Affichage de <strong id="resultCount">12</strong> opérations</div>
@@ -720,94 +668,6 @@ h1 em { font-style:italic; color:var(--gold); }
 
   </main>
 
-  <!-- RIGHT RAIL -->
-  <aside class="right-rail">
-
-    <div class="rail-section">
-      <div class="rail-title">Multiples de référence</div>
-      <table class="multiples-table">
-        <tr><td class="m-sector">Construction</td><td class="m-range">7–9×</td></tr>
-        <tr><td class="m-sector">Matériaux</td><td class="m-range">10–13×</td></tr>
-        <tr><td class="m-sector">Infrastructures</td><td class="m-range">12–16×</td></tr>
-        <tr><td class="m-sector">Équipements</td><td class="m-range">9–12×</td></tr>
-        <tr><td class="m-sector">ConTech</td><td class="m-range" style="color:var(--text-3);font-size:9px;">n/a (revenus)</td></tr>
-        <tr><td class="m-sector">Promotion</td><td class="m-range">6–8×</td></tr>
-      </table>
-    </div>
-
-    <div class="rail-section">
-      <div class="rail-title">Conseilleurs actifs</div>
-      <div class="advisors-ranked" id="advisorsRanked">
-        <div class="advisor-row">
-          <span class="advisor-rank">1.</span>
-          <span class="advisor-name">Rothschild &amp; Co</span>
-          <span class="advisor-mandats">4 mandats</span>
-        </div>
-        <div class="advisor-row">
-          <span class="advisor-rank">2.</span>
-          <span class="advisor-name">Lazard</span>
-          <span class="advisor-mandats">3 mandats</span>
-        </div>
-        <div class="advisor-row">
-          <span class="advisor-rank">3.</span>
-          <span class="advisor-name">Goldman Sachs</span>
-          <span class="advisor-mandats">2 mandats</span>
-        </div>
-        <div class="advisor-row">
-          <span class="advisor-rank">4.</span>
-          <span class="advisor-name">DC Advisory</span>
-          <span class="advisor-mandats">2 mandats</span>
-        </div>
-        <div class="advisor-row">
-          <span class="advisor-rank">5.</span>
-          <span class="advisor-name">BNP Paribas</span>
-          <span class="advisor-mandats">2 mandats</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="rail-section">
-      <div class="rail-title">Volume par secteur</div>
-      <div class="volume-bars" id="volumeBars">
-        <div class="vol-row">
-          <span class="vol-label">Construction</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:100%"></div></div>
-          <span class="vol-count">4</span>
-        </div>
-        <div class="vol-row">
-          <span class="vol-label">Infra</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:100%"></div></div>
-          <span class="vol-count">4</span>
-        </div>
-        <div class="vol-row">
-          <span class="vol-label">Matériaux</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
-          <span class="vol-count">1</span>
-        </div>
-        <div class="vol-row">
-          <span class="vol-label">Équipements</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
-          <span class="vol-count">1</span>
-        </div>
-        <div class="vol-row">
-          <span class="vol-label">Promotion</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:50%"></div></div>
-          <span class="vol-count">2</span>
-        </div>
-        <div class="vol-row">
-          <span class="vol-label">ConTech</span>
-          <div class="vol-bar-wrap"><div class="vol-bar" style="width:25%"></div></div>
-          <span class="vol-count">1</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="rail-section">
-      <div class="rail-title">Derniers bouclés</div>
-      <div class="mini-deals" id="miniDeals"></div>
-    </div>
-
-  </aside>
 </div>
 
 <!-- FOOTER -->
@@ -820,17 +680,6 @@ h1 em { font-style:italic; color:var(--gold); }
 <script>
 const deals = [
   { id:'gcf-ingenierie', date:'2026-03-11', cible:'GCF Ingénierie', acquéreur:'Ardian Infrastructure', secteur:'construction', type:'lbo', statut:'bouclé', montant:340, multiple:8.2, géo:'FR', taille:'mid', conseilleursAcq:['Rothschild & Co','Gide Loyrette Nouel'], conseillersCible:['DC Advisory','Linklaters'], résumé:"Ardian acquiert la majorité du capital de GCF Ingénierie, ETI de génie civil présente dans 8 régions françaises. La cible réalise 210M€ de CA pour 41M€ d'EBITDA 2025. Le deal valorise l'entreprise à 8,2x l'EBITDA, en ligne avec les multiples récents du secteur pour une ETI bien positionnée sur le génie civil industriel." },
-  { id:'vinci-balfour', date:'2026-03-08', cible:'Balfour Beatty Infrastructure Services', acquéreur:'Vinci Construction', secteur:'infrastructure', type:'acquisition', statut:'annoncé', montant:1200, multiple:9.1, géo:'UK', taille:'large', conseilleursAcq:['BNP Paribas','Freshfields'], conseillersCible:['Goldman Sachs','Clifford Chance'], résumé:"Vinci Construction annonce l'acquisition de la division Infrastructure Services de Balfour Beatty au Royaume-Uni pour renforcer son empreinte sur le marché britannique post-Brexit. L'opération doit encore recevoir l'approbation des autorités de concurrence." },
-  { id:'fermacell-sg', date:'2026-02-28', cible:'Fermacell Deutschland', acquéreur:'Saint-Gobain', secteur:'materiaux', type:'acquisition', statut:'bouclé', montant:950, multiple:11.3, géo:'DE', taille:'large', conseilleursAcq:['Société Générale','CMS'], conseillersCible:['Deutsche Bank','Hengeler Mueller'], résumé:"Saint-Gobain finalise l'acquisition du fabricant allemand de plaques de construction haute performance Fermacell, renforçant ainsi sa position sur le segment isolation/cloisons en Europe centrale. L'intégration au pôle High Performance Solutions est prévue sur 18 mois." },
-  { id:'eiffage-a75', date:'2026-02-20', cible:'Concession A75 Sud', acquéreur:'Infrastructure Fund Europe', secteur:'infrastructure', type:'cession', statut:'en_cours', montant:2100, multiple:14.5, géo:'FR', taille:'large', conseilleursAcq:['Lazard','Hogan Lovells'], conseillersCible:['Rothschild & Co','Linklaters'], résumé:"Eiffage explore la cession de sa participation dans la concession autoroutière A75 à un fonds infrastructure européen dans le cadre de sa stratégie de rotation d'actifs. La valorisation indicative ressort à 14,5x l'EBITDA de concession, valorisant les flux de péage long terme." },
-  { id:'legendre-gtm', date:'2026-02-14', cible:'GTM Bâtiment Normandie', acquéreur:'Groupe Legendre', secteur:'construction', type:'buildup', statut:'bouclé', montant:45, multiple:6.8, géo:'FR', taille:'small', conseilleursAcq:['Oaklins France'], conseillersCible:['Financière de Courcelles'], résumé:"Le Groupe Legendre (Rennes) poursuit sa stratégie de croissance externe régionale avec l'acquisition de GTM Bâtiment Normandie, opérateur local de 280 salariés. Cette 4ème acquisition en 18 mois porte le groupe à 1,8Md€ de CA consolidé." },
-  { id:'infravia-meridiam', date:'2026-02-07', cible:'Portef. Concessions Meridiam BTP', acquéreur:'Infravia Capital Partners', secteur:'infrastructure', type:'jv', statut:'annoncé', montant:280, multiple:null, géo:'FR', taille:'mid', conseilleursAcq:['CACIB','Ashurst'], conseillersCible:['Natixis','Gide'], résumé:"Infravia et Meridiam annoncent la création d'une JV portant un portefeuille de 6 concessions de bâtiments publics (hôpitaux, écoles) en PPP. La structure co-investisseur vise un rendement de 7-9% sur la durée des contrats." },
-  { id:'pai-kiloutou', date:'2026-01-28', cible:'Kiloutou (division BTP)', acquéreur:'PAI Partners', secteur:'equipement', type:'lbo', statut:'bouclé', montant:1800, multiple:12.4, géo:'FR', taille:'large', conseilleursAcq:['Morgan Stanley','Latham & Watkins'], conseillersCible:['JP Morgan','Sullivan & Cromwell'], résumé:"PAI Partners finalise le rachat de la division location d'équipements BTP de Kiloutou dans le cadre d'un carve-out stratégique. La division cible réalise 380M€ de CA avec des marges EBITDA supérieures à 30%, portées par la consolidation du marché de la location d'engins." },
-  { id:'spie-cvc', date:'2026-01-20', cible:'Spie Batignolles (filiale)', acquéreur:'CVC Capital Partners', secteur:'construction', type:'lbo', statut:'rumeur', montant:380, multiple:7.9, géo:'FR', taille:'mid', conseilleursAcq:[], conseillersCible:[], résumé:"Plusieurs sources de marché évoquent un intérêt de CVC Capital Partners pour une filiale de construction de Spie dans le cadre d'un possible carve-out. Ni CVC ni Spie n'ont confirmé ces informations. L'opération valoriserait la cible à environ 7,9x l'EBITDA." },
-  { id:'bouygues-techbuild', date:'2026-01-15', cible:'TechBuild AI', acquéreur:'Bouygues Construction', secteur:'contech', type:'acquisition', statut:'bouclé', montant:28, multiple:null, géo:'FR', taille:'small', conseilleursAcq:['KPMG Deals'], conseillersCible:['Cambon Partners'], résumé:"Bouygues Construction acquiert TechBuild AI, startup spécialisée dans la planification de chantier par intelligence artificielle, pour accélérer sa transformation numérique. La startup compte 45 collaborateurs et était valorisée 28M€ lors de son dernier tour de table (Series A)." },
-  { id:'vinci-energies-uk', date:'2026-01-10', cible:'UK Grid Solutions Ltd', acquéreur:'Vinci Energies', secteur:'infrastructure', type:'buildup', statut:'annoncé', montant:560, multiple:10.2, géo:'UK', taille:'mid', conseilleursAcq:['Barclays','Allen & Overy'], conseillersCible:['HSBC','Herbert Smith Freehills'], résumé:"Vinci Energies annonce l'acquisition de UK Grid Solutions, acteur britannique des infrastructures électriques pour les bâtiments industriels et commerciaux. Cette opération s'inscrit dans la stratégie d'internationalisation de Vinci Energies sur les marchés de la transition énergétique." },
-  { id:'kb-residences', date:'2025-12-18', cible:'Résidences Régionales Développement', acquéreur:'Kaufman & Broad', secteur:'promotion', type:'buildup', statut:'bouclé', montant:72, multiple:7.1, géo:'FR', taille:'small', conseilleursAcq:['Société Générale CIB'], conseillersCible:['Natixis Partners'], résumé:"Kaufman & Broad renforce sa présence en région avec l'acquisition de Résidences Régionales Développement, promoteur implanté dans les métropoles de Bordeaux, Nantes et Lyon. L'opération valorise la cible à 7,1x son EBITDA normalisé, carnet de commandes de 280M€ inclus." },
-  { id:'nexity-reorg', date:'2025-12-10', cible:'Nexity Services (filiales)', acquéreur:'Gestion interne / Distressed', secteur:'promotion', type:'cession', statut:'en_cours', montant:null, multiple:null, géo:'FR', taille:'small', conseilleursAcq:['Alantra'], conseillersCible:['Rothschild & Co'], résumé:"Dans le cadre de son plan de transformation, Nexity procède à la cession progressive de plusieurs filiales de services (syndic, property management) pour se recentrer sur la promotion résidentielle. Le processus de cession est supervisé par Rothschild & Co." },
 ];
 
 // Active filters state
@@ -981,17 +830,6 @@ function updateFilterBadge() {
   badge.classList.toggle('visible', count > 0);
 }
 
-// Mini deals (derniers bouclés)
-function renderMiniDeals() {
-  const boucled = deals.filter(d => d.statut === 'bouclé').slice(0, 3);
-  document.getElementById('miniDeals').innerHTML = boucled.map(d => `
-    <div class="mini-deal" onclick="window.location='/ma-entreprise.html?id=${d.id}'">
-      <div class="mini-deal-cible">${d.cible}</div>
-      <div class="mini-deal-info">${d.acquéreur} · ${formatMontant(d.montant)} · ${formatDate(d.date)}</div>
-    </div>
-  `).join('');
-}
-
 // Event listeners — sidebar filter pills
 document.querySelectorAll('.filter-pills .filter-pill').forEach(pill => {
   const group = pill.closest('[data-filter]');
@@ -1009,68 +847,21 @@ document.querySelectorAll('.filter-pills .filter-pill').forEach(pill => {
   });
 });
 
-// Quick filter bar buttons
-document.querySelectorAll('[data-qf]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const filterType = btn.dataset.qf;
-    const value = btn.dataset.qv;
-    document.querySelectorAll(`[data-qf="${filterType}"]`).forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    if (filterType === 'type') quickTypeFilter = value;
-    if (filterType === 'statut') quickStatutFilter = value;
-    render();
-  });
-});
-
 // Reset
 document.getElementById('resetFilters').addEventListener('click', () => {
   Object.values(activeFilters).forEach(s => s.clear());
-  quickTypeFilter = 'tous';
-  quickStatutFilter = 'tous';
   searchQuery = '';
-  document.getElementById('searchInput').value = '';
   document.querySelectorAll('.filter-pill.active').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('[data-qf]').forEach(b => {
-    b.classList.remove('active');
-    if (b.dataset.qv === 'tous') b.classList.add('active');
-  });
-  render();
-});
-
-// Search
-document.getElementById('searchInput').addEventListener('input', e => {
-  searchQuery = e.target.value.trim();
-  render();
-});
-
-// Sort
-document.getElementById('sortSelect').addEventListener('change', e => {
-  sortBy = e.target.value;
-  render();
-});
-
-// View toggle
-document.getElementById('tableViewBtn').addEventListener('click', () => {
-  viewMode = 'table';
-  document.getElementById('tableViewBtn').classList.add('active');
-  document.getElementById('cardViewBtn').classList.remove('active');
-  document.getElementById('tableView').classList.remove('hidden');
-  document.getElementById('cardsView').classList.remove('visible');
-  render();
-});
-
-document.getElementById('cardViewBtn').addEventListener('click', () => {
-  viewMode = 'cards';
-  document.getElementById('cardViewBtn').classList.add('active');
-  document.getElementById('tableViewBtn').classList.remove('active');
-  document.getElementById('tableView').classList.add('hidden');
-  document.getElementById('cardsView').classList.add('visible');
   render();
 });
 
 // Init
+function renderHeaderStats() {
+  document.getElementById('hstatAnnonces').textContent = deals.filter(d => d.statut === 'annoncé').length;
+  document.getElementById('hstatBoucles').textContent = deals.filter(d => d.statut === 'bouclé').length;
+}
+renderHeaderStats();
 render();
-renderMiniDeals();
 </script>
 </body>
 </html>
