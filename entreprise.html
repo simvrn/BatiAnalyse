@@ -242,16 +242,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 </div>
 
 <div class="tabs-bar">
-  <button class="tab-btn active" data-tab="articles">Analyses publiées</button>
-  <button class="tab-btn" data-tab="overview">Vue d'ensemble</button>
+  <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
   <button class="tab-btn" data-tab="finances">Données financières</button>
+  <button class="tab-btn" data-tab="articles">Analyses publiées</button>
   <button class="tab-btn" data-tab="news">Actualités</button>
 </div>
 
 <div class="page-wrap">
 
   <!-- ── TAB : ARTICLES ── -->
-  <div id="tabArticles">
+  <div id="tabArticles" style="display:none">
     <div class="articles-header">
       <span class="articles-label">Analyses · <span id="companyLabel">—</span></span>
       <span class="articles-count"><strong id="artCount">—</strong> articles</span>
@@ -260,7 +260,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   </div>
 
   <!-- ── TAB : VUE D'ENSEMBLE ── -->
-  <div id="tabOverview" style="display:none">
+  <div id="tabOverview">
     <div class="two-col">
 
       <!-- MAIN COLUMN -->
@@ -661,6 +661,7 @@ if (!company) {
   renderNews()
   loadArticles()
   loadLivePrice()
+  requestAnimationFrame(() => setTimeout(animateBars, 120))
 }
 
 // ── HEADER ──
@@ -937,11 +938,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
     btn.classList.add('active')
-    document.getElementById('tabArticles').style.display = 'none'
-    document.getElementById('tabOverview').style.display = 'none'
-    document.getElementById('tabFinances').style.display = 'none'
-    document.getElementById('tabNews').style.display     = 'none'
-    const map = { articles:'tabArticles', overview:'tabOverview', finances:'tabFinances', news:'tabNews' }
+    document.getElementById('tabOverview').style.display  = 'none'
+    document.getElementById('tabFinances').style.display  = 'none'
+    document.getElementById('tabArticles').style.display  = 'none'
+    document.getElementById('tabNews').style.display      = 'none'
+    const map = { overview:'tabOverview', finances:'tabFinances', articles:'tabArticles', news:'tabNews' }
     document.getElementById(map[btn.dataset.tab]).style.display = ''
     if (btn.dataset.tab === 'overview') requestAnimationFrame(() => setTimeout(animateBars, 80))
   })
