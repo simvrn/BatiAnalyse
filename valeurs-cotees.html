@@ -608,15 +608,15 @@ h1 em { font-style:italic; color:var(--gold); }
 
     <div class="sidebar-section">
       <div class="sidebar-title">Par pays</div>
-      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+      <div class="sidebar-item" onclick="sidebarFilterPays('FR')">
         <span class="sidebar-item-name">🇫🇷 France</span>
         <span class="sidebar-item-count">12</span>
       </div>
-      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+      <div class="sidebar-item" onclick="sidebarFilterPays('GB')">
         <span class="sidebar-item-name">🇬🇧 Royaume-Uni</span>
         <span class="sidebar-item-count">1</span>
       </div>
-      <div class="sidebar-item" onclick="sidebarFilter('tous')">
+      <div class="sidebar-item" onclick="sidebarFilterPays('BE')">
         <span class="sidebar-item-name">🇧🇪 Belgique</span>
         <span class="sidebar-item-count">1</span>
       </div>
@@ -692,7 +692,7 @@ const stocks = [
 ];
 
 // ── STATE ──
-let currentFilters = { secteur:'tous', perf:'tous', signal:'tous' };
+let currentFilters = { secteur:'tous', perf:'tous', signal:'tous', pays:'tous' };
 let currentSearch = '';
 let currentSort = 'cap';
 let currentView = 'table';
@@ -717,6 +717,7 @@ function randomTrend(up) {
 function getFiltered() {
   return stocks.filter(s => {
     if(currentFilters.secteur !== 'tous' && s.secteur !== currentFilters.secteur) return false;
+    if(currentFilters.pays !== 'tous' && s.pays !== currentFilters.pays) return false;
     if(currentFilters.perf === 'up' && s.change <= 0) return false;
     if(currentFilters.perf === 'down' && s.change >= 0) return false;
     if(currentFilters.signal !== 'tous' && s.signal !== currentFilters.signal) return false;
@@ -876,6 +877,18 @@ function sidebarFilter(val) {
   const btn = document.querySelector(`[data-filter="secteur"][data-val="${val}"]`);
   if(btn) btn.classList.add('active');
   currentFilters.secteur = val;
+  currentFilters.pays = 'tous';
+  render();
+}
+
+function sidebarFilterPays(val) {
+  document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  currentFilters.pays = val;
+  currentFilters.secteur = 'tous';
+  document.querySelectorAll('[data-filter="secteur"]').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`[data-filter="secteur"][data-val="tous"]`);
+  if(btn) btn.classList.add('active');
   render();
 }
 
@@ -1110,16 +1123,13 @@ async function loadLiveQuotes() {
     }
 
     if (updated > 0) {
-      // Compter hausse / baisse sur les stocks qui ont des données live
+      // Compter hausse / baisse sur TOUS les stocks (y compris ceux sans ticker live)
       let hausse = 0, baisse = 0, totalChange = 0, countChange = 0
       stocks.forEach(s => {
-        if (result.data[s.ticker]) {
-          const c = result.data[s.ticker].percent_change ?? 0
-          if (c > 0) hausse++
-          else if (c < 0) baisse++
-          totalChange += c
-          countChange++
-        }
+        const c = result.data[s.ticker] ? (result.data[s.ticker].percent_change ?? 0) : s.change
+        if (c > 0) hausse++
+        else if (c < 0) baisse++
+        if (result.data[s.ticker]) { totalChange += c; countChange++ }
       })
 
       // Mettre à jour les stats du header
