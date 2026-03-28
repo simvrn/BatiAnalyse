@@ -703,10 +703,9 @@ h1 em { font-style:italic; color:var(--gold); }
             <th onclick="sortTable('name')">Entreprise</th>
             <th onclick="sortTable('price')">Cours</th>
             <th onclick="sortTable('change')">Variation</th>
-            <th>Évolution 3M</th>
+            <th>Évolution 1 an</th>
             <th onclick="sortTable('cap')">Cap. (Md€)</th>
             <th>P/E</th>
-            <th>Marge EBIT</th>
           </tr>
         </thead>
         <tbody id="stocksTableBody"></tbody>
@@ -764,7 +763,7 @@ const stocks = [
 stocks.forEach(s => { if (s.perf_1an === undefined) s.perf_1an = null })
 
 // ── STATE ──
-let currentFilters = { secteur:'tous', perf:'tous', signal:'tous', pays:'tous' };
+let currentFilters = { secteur:'tous', perf:'tous', pays:'tous' };
 let currentSearch = '';
 let currentSort = 'cap';
 let currentView = 'table';
@@ -792,7 +791,6 @@ function getFiltered() {
     if(currentFilters.pays !== 'tous' && s.pays !== currentFilters.pays) return false;
     if(currentFilters.perf === 'up' && s.change <= 0) return false;
     if(currentFilters.perf === 'down' && s.change >= 0) return false;
-    if(currentFilters.signal !== 'tous' && s.signal !== currentFilters.signal) return false;
     if(currentSearch && !s.name.toLowerCase().includes(currentSearch) && !s.ticker.toLowerCase().includes(currentSearch)) return false;
     return true;
   }).sort((a,b) => {
@@ -819,13 +817,23 @@ function render() {
   else renderCards(data);
 }
 
+function perfMiniChart(s) {
+  const p = s.perf_1an;
+  if (p === null || p === undefined) return '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-3)">—</span>';
+  const color = p >= 0 ? 'var(--green)' : 'var(--red)';
+  const pct   = Math.min(Math.abs(p) / 40 * 100, 100);
+  return `<div style="display:flex;align-items:center;gap:6px;min-width:90px">
+    <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;">
+      <div style="width:${pct}%;height:100%;background:${color};border-radius:2px;"></div>
+    </div>
+    <span style="font-family:'DM Mono',monospace;font-size:10px;color:${color};white-space:nowrap;">${p>=0?'+':''}${p.toFixed(1)}%</span>
+  </div>`;
+}
+
 function renderTable(data) {
   const body = document.getElementById('stocksTableBody');
   body.innerHTML = data.map((s,i) => {
     const up = s.change >= 0;
-    const color = up ? 'var(--green)' : 'var(--red)';
-    const trend = randomTrend(up);
-    const spark = sparkline(trend, up ? '#4ade80' : '#f87171');
     return `<tr onclick="location.href='/entreprise.html?slug=${s.id}'" style="animation-delay:${i*0.04}s;cursor:pointer">
       <td><div class="td-company">
         <span class="td-ticker">${s.ticker}</span>
@@ -834,10 +842,9 @@ function renderTable(data) {
       </div></td>
       <td><span class="td-price" data-ticker="${s.ticker}">${s.price.toFixed(2)} €</span></td>
       <td><span class="td-change ${up?'up':'down'}" data-ticker-change="${s.ticker}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span></td>
-      <td>${spark}</td>
+      <td data-ticker-perf="${s.ticker}">${perfMiniChart(s)}</td>
       <td><span class="td-num" data-ticker-cap="${s.ticker}">${s.cap} Md€</span></td>
       <td><span class="td-num" data-ticker-per="${s.ticker}">${s.pe}x</span></td>
-      <td><span class="td-num">${s.marge}</span></td>
     </tr>`;
   }).join('');
 }
@@ -846,15 +853,15 @@ function renderCards(data) {
   const grid = document.getElementById('cardsView');
   grid.innerHTML = data.map((s,i) => {
     const up = s.change >= 0;
-    const trend = randomTrend(up);
-    const spark = sparkline(trend, up ? '#4ade80' : '#f87171', 240, 50);
+    const p1a = s.perf_1an;
+    const p1aColor = (p1a !== null && p1a !== undefined) ? (p1a >= 0 ? 'var(--green)' : 'var(--red)') : 'var(--text-3)';
+    const p1aStr  = (p1a !== null && p1a !== undefined) ? `${p1a>=0?'+':''}${p1a.toFixed(1)}%` : '—';
     return `<div class="stock-card" onclick="location.href='/entreprise.html?slug=${s.id}'" style="animation-delay:${i*0.05}s;cursor:pointer">
       <div class="card-top">
         <span class="card-ticker">${s.ticker}</span>
       </div>
       <div class="card-name">${s.name}</div>
       <div class="card-sector">${s.secteur} · ${s.pays}</div>
-      <div class="card-chart">${spark}</div>
       <div class="card-price-row">
         <span class="card-price" data-ticker="${s.ticker}">${s.price.toFixed(2)} €</span>
         <span class="card-change ${up?'up':'down'}" data-ticker-change="${s.ticker}">${up?'▲':'▼'} ${Math.abs(s.change).toFixed(2)}%</span>
@@ -869,12 +876,8 @@ function renderCards(data) {
           <div class="card-meta-val" data-ticker-per="${s.ticker}">${s.pe}x</div>
         </div>
         <div class="card-meta-item">
-          <div class="card-meta-label">Marge</div>
-          <div class="card-meta-val">${s.marge}</div>
-        </div>
-        <div class="card-meta-item">
-          <div class="card-meta-label">YTD</div>
-          <div class="card-meta-val" style="color:${s.ytd>=0?'var(--green)':'var(--red)'}">${s.ytd>=0?'+':''}${s.ytd}%</div>
+          <div class="card-meta-label">Perf. 1 an</div>
+          <div class="card-meta-val" data-ticker-perf="${s.ticker}" style="color:${p1aColor}">${p1aStr}</div>
         </div>
       </div>
     </div>`;
@@ -979,7 +982,7 @@ function openModal(id) {
 
   const tvColor = up ? '4ade80' : 'f87171';
   const bigChart = s.tvSymbol
-    ? `<iframe src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=fr&symbol=${encodeURIComponent(s.tvSymbol)}&dateRange=3M&colorTheme=dark&trendLineColor=%23${tvColor}&underLineColor=%23${tvColor}&isTransparent=true&autosize=true" width="100%" height="140" frameborder="0" allowtransparency="true" scrolling="no" style="display:block;border:none"></iframe>`
+    ? `<iframe src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=fr&symbol=${encodeURIComponent(s.tvSymbol)}&dateRange=12M&colorTheme=dark&trendLineColor=%23${tvColor}&underLineColor=%23${tvColor}&isTransparent=true&autosize=true" width="100%" height="140" frameborder="0" allowtransparency="true" scrolling="no" style="display:block;border:none"></iframe>`
     : '';
 
   document.getElementById('modalContent').innerHTML = `
@@ -1184,9 +1187,21 @@ async function loadLiveQuotes() {
       if (stock) {
         stock.price  = Math.round(price * 100) / 100
         stock.change = Math.round(change * 100) / 100
-        if (quote.cap     !== null && quote.cap     !== undefined) stock.cap      = Math.round(quote.cap / 1e9 * 10) / 10
-        if (quote.per     !== null && quote.per     !== undefined) stock.pe       = quote.per
-        if (quote.perf_1an !== null && quote.perf_1an !== undefined) stock.perf_1an = quote.perf_1an
+        if (quote.cap      !== null && quote.cap      !== undefined) stock.cap      = Math.round(quote.cap / 1e9 * 10) / 10
+        if (quote.per      !== null && quote.per      !== undefined) stock.pe       = quote.per
+        if (quote.perf_1an !== null && quote.perf_1an !== undefined) {
+          stock.perf_1an = quote.perf_1an
+          // Mise à jour en place de la cellule Évolution 1 an
+          document.querySelectorAll(`[data-ticker-perf="${symbol}"]`).forEach(el => {
+            el.innerHTML = perfMiniChart(stock)
+            // dans les cartes, c'est un texte simple
+            if (el.tagName !== 'TD') {
+              const p = quote.perf_1an
+              el.textContent = `${p>=0?'+':''}${p.toFixed(1)}%`
+              el.style.color = p >= 0 ? 'var(--green)' : 'var(--red)'
+            }
+          })
+        }
       }
 
       updated++
@@ -1209,6 +1224,12 @@ async function loadLiveQuotes() {
       if (stock) {
         stock.price  = Math.round(fq.price * 100) / 100
         stock.change = Math.round((fq.changePercent ?? 0) * 100) / 100
+        if (stock.perf_1an !== null && stock.perf_1an !== undefined) {
+          document.querySelectorAll(`[data-ticker-perf="${symbol}"]`).forEach(el => {
+            if (el.tagName === 'TD') { el.innerHTML = perfMiniChart(stock) }
+            else { el.textContent = `${stock.perf_1an>=0?'+':''}${stock.perf_1an.toFixed(1)}%`; el.style.color = stock.perf_1an >= 0 ? 'var(--green)' : 'var(--red)' }
+          })
+        }
       }
       updated++
     })

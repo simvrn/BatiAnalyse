@@ -342,12 +342,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           <div class="geo-list" id="geoList"></div>
         </div>
 
-        <!-- PROJECT TYPES -->
-        <div class="sec-block">
-          <div class="sec-title">Types de projets</div>
-          <div class="project-grid" id="projectGrid"></div>
-        </div>
-
         <!-- COMPETITION -->
         <div class="sec-block">
           <div class="sec-title">Positionnement concurrentiel</div>
@@ -718,9 +712,7 @@ function renderHeader() {
   document.getElementById('companySub').textContent     = company.desc
 
   const sig = document.getElementById('companySignal')
-  const signalMap = { buy:'BUY', hold:'HOLD', watch:'WATCH' }
-  sig.textContent = signalMap[company.signal] || ''
-  sig.className   = `company-signal signal-${company.signal}`
+  if (sig) { sig.textContent = ''; sig.className = 'company-signal'; }
 
   document.getElementById('companyKpis').innerHTML = `
     <div class="kpi" id="kpiLivePrice">
@@ -761,10 +753,6 @@ function renderOverview() {
       <div class="geo-bar-wrap"><div class="geo-bar" style="width:0%" data-w="${g.pct}"></div></div>
       <div class="geo-pct">${g.pct}%</div>
     </div>`).join('')
-
-  // Projects
-  document.getElementById('projectGrid').innerHTML = company.projects.map(p => `
-    <div class="project-tag${p.hot?' hot':''}">${p.label}</div>`).join('')
 
   // Competition
   document.getElementById('compList').innerHTML = company.competition.map(c => `
@@ -970,45 +958,59 @@ function setFinCell(id, text) {
 async function loadLivePrice() {
   if (!company) return
   try {
-    const r = await fetch('/api/bourse')
-    const d = await r.json()
+    // Appel parallèle : Google Sheets (données étendues) + Finnhub (prix temps réel)
+    const [bourseRes, quotesRes] = await Promise.all([
+      fetch('/api/bourse'),
+      fetch('/api/quotes')
+    ])
+    const d = await bourseRes.json()
+    const qf = await quotesRes.json()
+
     if (!d.success || !d.data) return
     const q = d.data[company.ticker]
-    if (!q?.price) return
-    const up = (q.percent_change ?? 0) >= 0
+
+    // Prix temps réel : priorité Finnhub
+    const finnhubQ = qf.quotes?.find(x => x.symbol === company.ticker)
+    const livePrice  = (finnhubQ?.price  && finnhubQ.price  !== 0) ? finnhubQ.price  : q?.price
+    const liveChange = finnhubQ?.changePercent !== undefined         ? finnhubQ.changePercent : (q?.percent_change ?? 0)
+
+    if (!livePrice) return
+    const up = liveChange >= 0
 
     // ── Header KPIs ──
     const kpiPrice = document.getElementById('kpiLivePrice')
     if (kpiPrice) kpiPrice.innerHTML = `
-      <div class="kpi-val">${q.price.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</div>
-      <div class="kpi-change" style="color:${up?'var(--green)':'var(--red)'}">${up?'▲':'▼'} ${(q.percent_change??0).toFixed(2)}%</div>
+      <div class="kpi-val">${livePrice.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</div>
+      <div class="kpi-change" style="color:${up?'var(--green)':'var(--red)'}">${up?'▲':'▼'} ${liveChange.toFixed(2)}%</div>
       <div class="kpi-label">Cours</div>`
 
-    if (q.cap !== null && q.cap !== undefined) {
-      const capMd = (q.cap/1e9).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})
-      const el = document.getElementById('kpiCap')
-      if (el) el.textContent = capMd + ' Md€'
-      setFinCell('cap', capMd + ' Md€')
+    if (q) {
+      if (q.cap !== null && q.cap !== undefined) {
+        const capMd = (q.cap/1e9).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})
+        const el = document.getElementById('kpiCap')
+        if (el) el.textContent = capMd + ' Md€'
+        setFinCell('cap', capMd + ' Md€')
+      }
+      if (q.per !== null && q.per !== undefined) {
+        const perStr = q.per === 'Négatif' ? 'Négatif' : Number(q.per).toFixed(1) + 'x'
+        const el = document.getElementById('kpiPE')
+        if (el) el.textContent = perStr
+        setFinCell('per', perStr)
+      }
+
+      // ── Données financières live ──
+      if (q.ca !== null && q.ca !== undefined)
+        setFinCell('ca', q.ca.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+      if (q.ebit !== null && q.ebit !== undefined)
+        setFinCell('ebit', q.ebit.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+      if (q.net !== null && q.net !== undefined)
+        setFinCell('net', q.net.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+      if (q.rendement !== null && q.rendement !== undefined)
+        setFinCell('div', Number(q.rendement).toFixed(1) + ' %')
     }
-    if (q.per !== null && q.per !== undefined) {
-      const perStr = q.per === 'Négatif' ? 'Négatif' : Number(q.per).toFixed(1) + 'x'
-      const el = document.getElementById('kpiPE')
-      if (el) el.textContent = perStr
-      setFinCell('per', perStr)
-    }
-
-    // ── Données financières live ──
-    if (q.ca !== null && q.ca !== undefined)
-      setFinCell('ca', q.ca.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-    if (q.ebit !== null && q.ebit !== undefined)
-      setFinCell('ebit', q.ebit.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-    if (q.net !== null && q.net !== undefined)
-      setFinCell('net', q.net.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-    if (q.rendement !== null && q.rendement !== undefined)
-      setFinCell('div', Number(q.rendement).toFixed(1) + ' %')
 
   } catch(e) {}
   setTimeout(loadLivePrice, 300000)
