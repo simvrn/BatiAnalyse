@@ -397,10 +397,10 @@ const COMPANIES = {
     signal:  'hold',
     desc:    'Leader mondial du BTP et des concessions, Vinci opère via deux pôles complémentaires : les métiers de la construction (Vinci Construction, Eurovia, Vinci Energies) et les concessions autoroutières (ESCOTA, ASF). La diversification géographique et la récurrence des revenus de concession constituent des atouts structurels majeurs.',
     highlights: [
-      'Au 31 décembre 2025, le carnet de commandes du groupe VINCI s\'élève à 69,8 milliards€.',
-      'Concessions = ~40% des revenus mais ~60% du résultat opérationnel',
-      'Présent dans plus de 120 pays avec 280 000 collaborateurs',
-      'Transition vers les énergies renouvelables via Vinci Energies',
+      'Au 31 décembre 2025, le carnet de commandes du groupe s\'élève au niveau record de 69,8 milliards d\'euros.',
+      'Génération d\'un cash-flow libre record de plus de 7 milliards d\'euros en 2025, sécurisant la hausse du dividende.',
+      'Présent dans plus de 120 pays avec plus de 294 000 collaborateurs à travers le monde.',
+      'Les services à l\'énergie (VINCI Energies et Cobra IS) sont le 1er relais de croissance et frôlent désormais 40 % du chiffre d\'affaires.',
     ],
     positioning: [
       { label:'Croissance', val:72, color:'var(--green)' },
@@ -969,10 +969,10 @@ async function loadLivePrice() {
     if (!d.success || !d.data) return
     const q = d.data[company.ticker]
 
-    // Prix temps réel : priorité Finnhub
+    // Prix : priorité Google Sheets, Finnhub uniquement si le sheet n'a pas de prix
     const finnhubQ = qf.quotes?.find(x => x.symbol === company.ticker)
-    const livePrice  = (finnhubQ?.price  && finnhubQ.price  !== 0) ? finnhubQ.price  : q?.price
-    const liveChange = finnhubQ?.changePercent !== undefined         ? finnhubQ.changePercent : (q?.percent_change ?? 0)
+    const livePrice  = (q?.price  && q.price  !== 0) ? q.price  : (finnhubQ?.price  && finnhubQ.price  !== 0 ? finnhubQ.price  : null)
+    const liveChange = (q?.percent_change !== null && q?.percent_change !== undefined) ? q.percent_change : (finnhubQ?.changePercent ?? 0)
 
     if (!livePrice) return
     const up = liveChange >= 0

@@ -1142,10 +1142,10 @@ async function loadLiveQuotes() {
     let updated = 0
 
     Object.entries(result.data).forEach(([symbol, quote]) => {
-      // Priorité Finnhub pour prix et variation ; Google Sheets comme fallback
+      // Priorité Google Sheets ; Finnhub uniquement si le sheet n'a pas de prix
       const finnhub = finnhubMap[symbol]
-      const price  = (finnhub?.price  && finnhub.price  !== 0) ? finnhub.price  : quote.price
-      const change = finnhub?.changePercent !== undefined         ? finnhub.changePercent : (quote.percent_change ?? 0)
+      const price  = (quote.price  && quote.price  !== 0) ? quote.price  : (finnhub?.price  && finnhub.price  !== 0 ? finnhub.price  : null)
+      const change = (quote.percent_change !== null && quote.percent_change !== undefined) ? quote.percent_change : (finnhub?.changePercent ?? 0)
 
       if (!price || price === 0) return
       const up = change >= 0
