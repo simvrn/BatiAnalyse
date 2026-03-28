@@ -809,7 +809,13 @@ function perfMiniChart(s) {
   const p = s.perf_1an;
   if (p === null || p === undefined) return '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-3)">—</span>';
   const color = p >= 0 ? 'var(--green)' : 'var(--red)';
-  return `<span style="font-family:'DM Mono',monospace;font-size:10px;color:${color}">${p>=0?'+':''}${p.toFixed(1)}%</span>`;
+  const pct   = Math.min(Math.abs(p) / 40 * 100, 100);
+  return `<div style="display:flex;align-items:center;gap:6px;min-width:90px">
+    <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;">
+      <div style="width:${pct}%;height:100%;background:${color};border-radius:2px;"></div>
+    </div>
+    <span style="font-family:'DM Mono',monospace;font-size:10px;color:${color};white-space:nowrap;">${p>=0?'+':''}${p.toFixed(1)}%</span>
+  </div>`;
 }
 
 function renderTable(data) {
