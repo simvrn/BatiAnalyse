@@ -203,13 +203,6 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 .sidebar-item.active .sidebar-item-count { background:var(--gold); color:var(--black); }
 
-/* performance bar in sidebar */
-.perf-bar-wrap { padding: 0 20px; margin-top:4px; }
-.perf-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-.perf-name { font-size:11px; color:var(--text-2); width:80px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.perf-bar-bg { flex:1; height:3px; background:var(--surface2); }
-.perf-bar-fill { height:3px; transition:width 0.6s ease; }
-.perf-val { font-family:'DM Mono',monospace; font-size:10px; width:44px; text-align:right; }
 
 /* ── CONTENT ── */
 .content { padding: 24px 32px; }
@@ -670,11 +663,6 @@ h1 em { font-style:italic; color:var(--gold); }
     </div>
 
     <div class="sidebar-section">
-      <div class="sidebar-title">Top 5 — Perf. 1 an</div>
-      <div class="perf-bar-wrap" id="perfBars"></div>
-    </div>
-
-    <div class="sidebar-section">
       <div class="sidebar-title">Par pays</div>
       <div class="sidebar-item" onclick="sidebarFilterPays('FR')">
         <span class="sidebar-item-name">🇫🇷 France</span>
@@ -821,13 +809,7 @@ function perfMiniChart(s) {
   const p = s.perf_1an;
   if (p === null || p === undefined) return '<span style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-3)">—</span>';
   const color = p >= 0 ? 'var(--green)' : 'var(--red)';
-  const pct   = Math.min(Math.abs(p) / 40 * 100, 100);
-  return `<div style="display:flex;align-items:center;gap:6px;min-width:90px">
-    <div style="flex:1;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;">
-      <div style="width:${pct}%;height:100%;background:${color};border-radius:2px;"></div>
-    </div>
-    <span style="font-family:'DM Mono',monospace;font-size:10px;color:${color};white-space:nowrap;">${p>=0?'+':''}${p.toFixed(1)}%</span>
-  </div>`;
+  return `<span style="font-family:'DM Mono',monospace;font-size:10px;color:${color}">${p>=0?'+':''}${p.toFixed(1)}%</span>`;
 }
 
 function renderTable(data) {
@@ -884,26 +866,6 @@ function renderCards(data) {
   }).join('');
 }
 
-// ── PERF BARS (top 5 perf 1 an live) ──
-function renderPerfBars() {
-  const withPerf = stocks.filter(s => s.perf_1an !== null && s.perf_1an !== undefined)
-  if (!withPerf.length) {
-    document.getElementById('perfBars').innerHTML =
-      '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-3);padding:0 20px">Chargement…</div>'
-    return
-  }
-  const sorted = [...withPerf].sort((a, b) => b.perf_1an - a.perf_1an).slice(0, 5)
-  const max = Math.max(...sorted.map(s => Math.abs(s.perf_1an)), 1)
-  document.getElementById('perfBars').innerHTML = sorted.map(s => {
-    const color = s.perf_1an >= 0 ? 'var(--green)' : 'var(--red)'
-    const pct = Math.abs(s.perf_1an) / max * 100
-    return `<div class="perf-row">
-      <span class="perf-name">${s.name}</span>
-      <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:${pct}%;background:${color}"></div></div>
-      <span class="perf-val" style="color:${color}">${s.perf_1an >= 0 ? '+' : ''}${s.perf_1an.toFixed(1)}%</span>
-    </div>`
-  }).join('')
-}
 
 // ── FILTERS LOGIC ──
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1092,25 +1054,8 @@ function closeModalOutside(e) {
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
 
 // ── INIT ──
-renderPerfBars();
 render();
 
-// ── STATUT API (visible en bas à droite) ──
-function showApiStatus(state, msg) {
-  let badge = document.getElementById('apiBadge')
-  if (!badge) {
-    badge = document.createElement('div')
-    badge.id = 'apiBadge'
-    badge.style.cssText = 'position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);padding:8px 16px;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:0.1em;z-index:500;display:flex;align-items:center;gap:8px;border-radius:2px'
-    document.body.appendChild(badge)
-  }
-  const dot = state === 'ok'
-    ? '<span style="width:7px;height:7px;background:var(--green);border-radius:50%;flex-shrink:0"></span>'
-    : '<span style="width:7px;height:7px;background:#f87171;border-radius:50%;flex-shrink:0"></span>'
-  badge.style.color = state === 'ok' ? 'var(--green)' : '#f87171'
-  badge.innerHTML = dot + msg
-  if (state === 'ok') setTimeout(() => badge && badge.remove(), 5000)
-}
 
 // ── COURS EN TEMPS RÉEL — Google Sheets uniquement ──
 async function loadLiveQuotes() {
@@ -1218,16 +1163,11 @@ async function loadLiveQuotes() {
       const sub     = document.getElementById('pageSubtitle')
       if (sub) sub.innerHTML = `<span id="stockCount">${stocks.length}</span> entreprises cotées · Mis à jour ${dateStr}, ${timeStr}`
 
-      renderAll()
-      renderPerfBars()
-      showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
-    } else {
-      showApiStatus('error', 'Aucune donnée reçue du Google Sheet')
+      render()
     }
 
-  } catch (e) {
-    showApiStatus('error', 'Erreur réseau: ' + e.message)
-  }
+  } catch (e) {}
+
 
   setTimeout(loadLiveQuotes, 60000) // refresh toutes les 60 secondes
 }
