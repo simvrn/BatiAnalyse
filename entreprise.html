@@ -452,54 +452,54 @@ const COMPANIES = {
       { name:'Balfour Beatty', ticker:'BALI.L', cap:'2,9 Md€', pe:'12,4x', note:'Infrastructures UK & PPP' },
     ],
     timeline: [
-      { date:'6–7 fév. 2025',  type:'earn', title:'Résultats annuels 2024',     sub:'Publication des résultats complets de l\'année (FY2024) et présentation aux analystes.' },
-      { date:'17 avr. 2025',   type:'ann',  title:'Assemblée Générale (AG)',     sub:'Réunion des actionnaires, vote des résolutions et validation officielle du dividende.' },
-      { date:'24 avr. 2025',   type:'div',  title:'Solde du dividende 2024',     sub:'Versement du solde final de 3,70 € par action (acompte de 1,05 € versé en oct. 2024 — total 4,75 €). Détachement le 22 avril.' },
-      { date:'24 avr. 2025',   type:'earn', title:'Chiffre d\'affaires T1',      sub:'Publication de l\'activité financière du premier trimestre 2025.' },
-      { date:'30 juil. 2025',  type:'earn', title:'Résultats semestriels (S1)',  sub:'Publication des résultats de la première moitié de l\'année 2025 (CA, EBIT, résultat net).' },
-      { date:'23 oct. 2025',   type:'earn', title:'Chiffre d\'affaires T3',      sub:'Publication de l\'activité financière du troisième trimestre 2025.' },
-      { date:'Oct./Nov. 2025', type:'div',  title:'Acompte sur dividende 2025',  sub:'Versement de la première partie du dividende pour l\'année en cours (date exacte annoncée lors des résultats semestriels).' },
+      { date:'5 fév. 2026',       type:'earn', title:'Résultats annuels 2025 ✓', sub:'VINCI annonce un CA record de 74,6 Mds€ et valide l\'augmentation du dividende à 5,00 € par action.', past:true },
+      { date:'Mi-avril 2026',     type:'ann',  title:'Assemblée Générale (AG)',   sub:'Vote définitif des comptes 2025 et du dividende proposé en février.' },
+      { date:'20 avr. 2026',      type:'div',  title:'Détachement du dividende',  sub:'Date limite pour détenir l\'action afin de toucher le solde du dividende 2025.' },
+      { date:'23 avr. 2026',      type:'div',  title:'Paiement solde dividende 2025', sub:'Solde de 3,95 € par action versé (dividende total 5,00 € — acompte de 1,05 € déjà versé le 16 oct. 2025).' },
+      { date:'Fin avr. 2026',     type:'earn', title:'Chiffre d\'affaires T1 2026', sub:'Publication de l\'activité du premier trimestre 2026.' },
+      { date:'Fin juil. 2026',    type:'earn', title:'Résultats semestriels (S1 2026)', sub:'Résultats de la première moitié de 2026 (CA, bénéfices, dette) et annonce du prochain acompte dividende.' },
+      { date:'Fin oct. 2026',     type:'earn', title:'Chiffre d\'affaires T3 2026', sub:'Publication de l\'activité du troisième trimestre 2026.' },
     ],
     finances: {
       year: 'FY 2024E',
       kpis: [
-        { label:'Chiffre d\'affaires', val:'71,2 Md€',  sub:'+4,8% vs N-1',       color:'var(--text)' },
-        { label:'EBIT',                val:'4,8 Md€',   sub:'Marge 6,8%',          color:'var(--gold)' },
-        { label:'Résultat net',        val:'4,1 Md€',   sub:'Marge nette 5,8%',    color:'var(--green)' },
-        { label:'Capitalisation',      val:'— Md€',     sub:'En cours (live)',      color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—x',        sub:'En cours (live)',      color:'var(--text)', live:'per' },
-        { label:'Rendement div.',      val:'3,2%',      sub:'Dividende 2024E',      color:'var(--blue)' },
+        { label:'Chiffre d\'affaires', val:'—',   sub:'Live',  color:'var(--text)',  live:'ca'  },
+        { label:'EBIT',                val:'—',   sub:'Live',  color:'var(--gold)',  live:'ebit'},
+        { label:'Résultat net',        val:'—',   sub:'Live',  color:'var(--green)', live:'net' },
+        { label:'Capitalisation',      val:'—',   sub:'Live',  color:'var(--gold)',  live:'cap' },
+        { label:'P/E ratio',           val:'—',   sub:'Live',  color:'var(--text)',  live:'per' },
+        { label:'Rendement div.',      val:'—',   sub:'Live',  color:'var(--blue)',  live:'div' },
       ],
       accordions: [
         {
-          title:'Dette & Liquidité',
-          rows:[
-            ['Dette nette groupe', '17,8 Md€'],
-            ['dont dette concessions', '12,1 Md€'],
-            ['dont dette construction', '5,7 Md€'],
-            ['Trésorerie & équiv.', '14,2 Md€'],
-            ['Ratio DN/EBITDA', '2,1x'],
-            ['Notation S&P', 'BBB+'],
-          ]
-        },
-        {
           title:'Carnet de commandes',
           rows:[
-            ['Backlog total', '64 Md€'],
-            ['Vinci Construction', '24 Md€'],
-            ['Vinci Energies', '19 Md€'],
-            ['Eurovia', '8 Md€'],
-            ['Couverture (mois)', '11 mois'],
+            ['Backlog total', '69,8 Mds€'],
+            ['VINCI Construction', '34,2 Mds€'],
+            ['Cobra IS', '18,1 Mds€'],
+            ['VINCI Energies', '17,5 Mds€'],
+            ['Couverture', '> 12 mois'],
           ]
         },
         {
           title:'Structure du capital',
           rows:[
-            ['Actions en circulation', '336 M'],
-            ['Flottant', '78,4%'],
-            ['Autocontrôle', '4,2%'],
-            ['Actionnariat salarié', '8,1%'],
-            ['BPI France', '6,0%'],
+            ['Actions en circulation', '581,8 M'],
+            ['Flottant', '85,6%'],
+            ['Actionnariat salarié', '10,0%'],
+            ['Autocontrôle', '4,4%'],
+          ]
+        },
+        {
+          title:'Dette & Liquidité — 31 déc. 2025',
+          rows:[
+            ['Dette nette groupe', '19,1 Md€'],
+            ['dont dette concessions', '~ 21,0 Md€'],
+            ['dont dette construction', 'Excédent de trésorerie'],
+            ['Trésorerie & équiv.', '15,5 Md€'],
+            ['Liquidité totale disponible', '> 22 Md€'],
+            ['Ratio DN / EBITDA', '1,4x'],
+            ['Notation S&P', 'A−'],
           ]
         },
       ]
@@ -569,24 +569,14 @@ const COMPANIES = {
     finances: {
       year: 'FY 2024',
       kpis: [
-        { label:'Chiffre d\'affaires', val:'24,8 Md€', sub:'+5,2% vs N-1',       color:'var(--text)' },
-        { label:'EBIT',                val:'1,6 Md€',  sub:'Marge 6,4%',          color:'var(--gold)' },
-        { label:'Résultat net',        val:'1,1 Md€',  sub:'Marge nette 4,4%',    color:'var(--green)' },
-        { label:'Capitalisation',      val:'— Md€',    sub:'En cours (live)',      color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—x',       sub:'En cours (live)',      color:'var(--text)', live:'per' },
-        { label:'Rendement div.',      val:'3,8%',     sub:'Dividende 2024',       color:'var(--blue)' },
+        { label:'Chiffre d\'affaires', val:'—', sub:'Live', color:'var(--text)',  live:'ca'   },
+        { label:'EBIT',                val:'—', sub:'Live', color:'var(--gold)',  live:'ebit' },
+        { label:'Résultat net',        val:'—', sub:'Live', color:'var(--green)', live:'net' },
+        { label:'Capitalisation',      val:'—', sub:'Live', color:'var(--gold)',  live:'cap'  },
+        { label:'P/E ratio',           val:'—', sub:'Live', color:'var(--text)',  live:'per'  },
+        { label:'Rendement div.',      val:'—', sub:'Live', color:'var(--blue)',  live:'div'  },
       ],
       accordions: [
-        {
-          title:'Dette & Liquidité',
-          rows:[
-            ['Dette nette groupe', '11,2 Md€'],
-            ['dont dette concessions APRR', '8,4 Md€'],
-            ['Trésorerie & équiv.', '5,1 Md€'],
-            ['Ratio DN/EBITDA', '2,3x'],
-            ['Notation Moody\'s', 'Baa2'],
-          ]
-        },
         {
           title:'Carnet de commandes',
           rows:[
@@ -972,6 +962,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 })
 
 // ── LIVE PRICE ──
+function setFinCell(id, text) {
+  const el = document.getElementById('finLive_' + id)
+  if (el) el.textContent = text
+}
+
 async function loadLivePrice() {
   if (!company) return
   try {
@@ -982,6 +977,7 @@ async function loadLivePrice() {
     if (!q?.price) return
     const up = (q.percent_change ?? 0) >= 0
 
+    // ── Header KPIs ──
     const kpiPrice = document.getElementById('kpiLivePrice')
     if (kpiPrice) kpiPrice.innerHTML = `
       <div class="kpi-val">${q.price.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</div>
@@ -992,16 +988,28 @@ async function loadLivePrice() {
       const capMd = (q.cap/1e9).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})
       const el = document.getElementById('kpiCap')
       if (el) el.textContent = capMd + ' Md€'
-      const finCap = document.getElementById('finLive_cap')
-      if (finCap) { finCap.textContent = capMd + ' Md€'; finCap.closest('.fin-cell').querySelector('.fin-sub').textContent = 'Live' }
+      setFinCell('cap', capMd + ' Md€')
     }
     if (q.per !== null && q.per !== undefined) {
       const perStr = q.per === 'Négatif' ? 'Négatif' : Number(q.per).toFixed(1) + 'x'
       const el = document.getElementById('kpiPE')
       if (el) el.textContent = perStr
-      const finPer = document.getElementById('finLive_per')
-      if (finPer) { finPer.textContent = perStr; finPer.closest('.fin-cell').querySelector('.fin-sub').textContent = 'Live' }
+      setFinCell('per', perStr)
     }
+
+    // ── Données financières live ──
+    if (q.ca !== null && q.ca !== undefined)
+      setFinCell('ca', q.ca.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+    if (q.ebit !== null && q.ebit !== undefined)
+      setFinCell('ebit', q.ebit.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+    if (q.net !== null && q.net !== undefined)
+      setFinCell('net', q.net.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
+
+    if (q.rendement !== null && q.rendement !== undefined)
+      setFinCell('div', Number(q.rendement).toFixed(1) + ' %')
+
   } catch(e) {}
   setTimeout(loadLivePrice, 300000)
 }

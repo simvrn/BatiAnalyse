@@ -670,7 +670,7 @@ h1 em { font-style:italic; color:var(--gold); }
     </div>
 
     <div class="sidebar-section">
-      <div class="sidebar-title">Top performers (YTD)</div>
+      <div class="sidebar-title">Top 5 — Perf. 1 an</div>
       <div class="perf-bar-wrap" id="perfBars"></div>
     </div>
 
@@ -759,6 +759,9 @@ const stocks = [
   { id:'saint-gobain-uk', ticker:'BBY.L', tvSymbol:'LSE:BBY', name:'Balfour Beatty', secteur:'construction', pays:'GB', price:412.00, change:1.85, ytd:14.2, cap:2.9, pe:12.4, marge:'3,1%', carnet:'18 Md€', signal:'hold', desc:'Balfour Beatty est l\'un des leaders britanniques du BTP, positionné sur les infrastructures, la construction civile et les PPP. Le groupe bénéficie du grand plan d\'investissement infrastructures du Royaume-Uni post-Brexit. Son portefeuille PPP représente un actif sous-valorisé au bilan qui soutient la valeur fondamentale.', articles:['Balfour Beatty : le plan infra UK comme catalyseur','PPP portfolio — actif caché dans le bilan','Construction UK : qui profite vraiment des 100Md£ d\'investissements ?'] },
   { id:'schneider', ticker:'SU.PA', tvSymbol:'EURONEXT:SU', name:'Schneider Electric', secteur:'equipement', pays:'FR', price:228.50, change:0.72, ytd:18.6, cap:126.0, pe:31.2, marge:'17,8%', carnet:'—', signal:'hold', desc:'Schneider Electric, bien que non exclusivement BTP, est incontournable dans l\'analyse du secteur de l\'efficacité énergétique des bâtiments. Son exposition à la gestion intelligente de l\'énergie, aux data centers et à l\'électrification en fait un bénéficiaire direct de toutes les grandes tendances structurelles du bâtiment durable.', articles:['Schneider Electric : la convergence bâtiment-numérique-énergie','Data centers — la bonne surprise dans les résultats 2025','Premium 31x : la juste valeur d\'un leader de la transition'] },
 ];
+
+// Initialiser perf_1an à null sur chaque stock (sera alimenté par l'API)
+stocks.forEach(s => { if (s.perf_1an === undefined) s.perf_1an = null })
 
 // ── STATE ──
 let currentFilters = { secteur:'tous', perf:'tous', signal:'tous', pays:'tous' };
@@ -878,19 +881,25 @@ function renderCards(data) {
   }).join('');
 }
 
-// ── PERF BARS ──
+// ── PERF BARS (top 5 perf 1 an live) ──
 function renderPerfBars() {
-  const sorted = [...stocks].sort((a,b) => b.ytd - a.ytd).slice(0,6);
-  const max = Math.max(...sorted.map(s=>Math.abs(s.ytd)));
+  const withPerf = stocks.filter(s => s.perf_1an !== null && s.perf_1an !== undefined)
+  if (!withPerf.length) {
+    document.getElementById('perfBars').innerHTML =
+      '<div style="font-family:\'DM Mono\',monospace;font-size:10px;color:var(--text-3);padding:0 20px">Chargement…</div>'
+    return
+  }
+  const sorted = [...withPerf].sort((a, b) => b.perf_1an - a.perf_1an).slice(0, 5)
+  const max = Math.max(...sorted.map(s => Math.abs(s.perf_1an)), 1)
   document.getElementById('perfBars').innerHTML = sorted.map(s => {
-    const color = s.ytd >= 0 ? 'var(--green)' : 'var(--red)';
-    const pct = Math.abs(s.ytd)/max*100;
+    const color = s.perf_1an >= 0 ? 'var(--green)' : 'var(--red)'
+    const pct = Math.abs(s.perf_1an) / max * 100
     return `<div class="perf-row">
       <span class="perf-name">${s.name}</span>
       <div class="perf-bar-bg"><div class="perf-bar-fill" style="width:${pct}%;background:${color}"></div></div>
-      <span class="perf-val" style="color:${color}">${s.ytd>=0?'+':''}${s.ytd}%</span>
-    </div>`;
-  }).join('');
+      <span class="perf-val" style="color:${color}">${s.perf_1an >= 0 ? '+' : ''}${s.perf_1an.toFixed(1)}%</span>
+    </div>`
+  }).join('')
 }
 
 // ── FILTERS LOGIC ──
@@ -1103,23 +1112,40 @@ function showApiStatus(state, msg) {
 // ── COURS EN TEMPS RÉEL — injection via data-ticker ──
 async function loadLiveQuotes() {
   try {
-    const response = await fetch('/api/bourse')
-    const result   = await response.json()
+    // Appel parallèle : Finnhub (prix temps réel) + Google Sheets (données étendues)
+    const [bourseRes, quotesRes] = await Promise.all([
+      fetch('/api/bourse'),
+      fetch('/api/quotes')
+    ])
+    const bourseResult = await bourseRes.json()
+    const quotesResult = await quotesRes.json()
 
-    if (!result.success || !result.data) {
-      showApiStatus('error', result.message || 'Réponse vide')
+    // Construire une map Finnhub : symbol → { price, changePercent }
+    const finnhubMap = {}
+    if (quotesResult.quotes) {
+      quotesResult.quotes.forEach(q => {
+        finnhubMap[q.symbol] = { price: q.price, changePercent: q.changePercent }
+      })
+    }
+
+    if (!bourseResult.success || !bourseResult.data) {
+      showApiStatus('error', bourseResult.message || 'Réponse vide')
       setTimeout(loadLiveQuotes, 300000)
       return
     }
 
+    const result = bourseResult
+
     let updated = 0
 
     Object.entries(result.data).forEach(([symbol, quote]) => {
-      if (!quote.price || quote.price === 0) return
+      // Priorité Finnhub pour prix et variation ; Google Sheets comme fallback
+      const finnhub = finnhubMap[symbol]
+      const price  = (finnhub?.price  && finnhub.price  !== 0) ? finnhub.price  : quote.price
+      const change = finnhub?.changePercent !== undefined         ? finnhub.changePercent : (quote.percent_change ?? 0)
 
-      const price  = quote.price
-      const change = quote.percent_change ?? 0
-      const up     = change >= 0
+      if (!price || price === 0) return
+      const up = change >= 0
 
       // 1. Mettre à jour les éléments du tableau / cards via data-ticker
       document.querySelectorAll(`[data-ticker="${symbol}"]`).forEach(el => {
@@ -1158,25 +1184,52 @@ async function loadLiveQuotes() {
       if (stock) {
         stock.price  = Math.round(price * 100) / 100
         stock.change = Math.round(change * 100) / 100
-        if (quote.cap !== null && quote.cap !== undefined) stock.cap = Math.round(quote.cap / 1e9 * 10) / 10
-        if (quote.per !== null && quote.per !== undefined) stock.pe = quote.per
+        if (quote.cap     !== null && quote.cap     !== undefined) stock.cap      = Math.round(quote.cap / 1e9 * 10) / 10
+        if (quote.per     !== null && quote.per     !== undefined) stock.pe       = quote.per
+        if (quote.perf_1an !== null && quote.perf_1an !== undefined) stock.perf_1an = quote.perf_1an
       }
 
       updated++
     })
 
+    // Mettre à jour aussi les stocks Finnhub non présents dans Google Sheets
+    Object.entries(finnhubMap).forEach(([symbol, fq]) => {
+      if (result.data[symbol]) return // déjà traité ci-dessus
+      if (!fq.price || fq.price === 0) return
+      const up = (fq.changePercent ?? 0) >= 0
+      document.querySelectorAll(`[data-ticker="${symbol}"]`).forEach(el => {
+        el.textContent = fq.price.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+      })
+      document.querySelectorAll(`[data-ticker-change="${symbol}"]`).forEach(el => {
+        el.textContent = `${up ? '▲' : '▼'} ${up ? '+' : ''}${(fq.changePercent ?? 0).toFixed(2)}%`
+        el.style.color = up ? 'var(--green)' : 'var(--red)'
+        el.className   = el.className.replace(/\bup\b|\bdown\b/g, '') + (up ? ' up' : ' down')
+      })
+      const stock = stocks.find(s => s.ticker === symbol)
+      if (stock) {
+        stock.price  = Math.round(fq.price * 100) / 100
+        stock.change = Math.round((fq.changePercent ?? 0) * 100) / 100
+      }
+      updated++
+    })
+
     // 3. Mettre à jour la hero featured (premier stock signal buy)
     const featured = stocks.find(s => s.signal === 'buy') || stocks[0]
-    if (featured && result.data[featured.ticker]) {
-      const q  = result.data[featured.ticker]
-      const up = (q.percent_change ?? 0) >= 0
-      const fp = document.querySelector('.featured-price')
-      const fc = document.querySelector('.featured-change')
-      if (fp) fp.textContent = q.price.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
-      if (fc) {
-        fc.textContent      = `${up ? '▲' : '▼'} ${up ? '+' : ''}${(q.percent_change ?? 0).toFixed(2)}%`
-        fc.style.color      = up ? 'var(--green)' : 'var(--red)'
-        fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
+    if (featured) {
+      const fq  = finnhubMap[featured.ticker]
+      const bq  = result.data[featured.ticker]
+      const fPrice  = (fq?.price && fq.price !== 0) ? fq.price  : bq?.price
+      const fChange = fq?.changePercent !== undefined            ? fq.changePercent : (bq?.percent_change ?? 0)
+      if (fPrice) {
+        const up = fChange >= 0
+        const fp = document.querySelector('.featured-price')
+        const fc = document.querySelector('.featured-change')
+        if (fp) fp.textContent = fPrice.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'
+        if (fc) {
+          fc.textContent      = `${up ? '▲' : '▼'} ${up ? '+' : ''}${fChange.toFixed(2)}%`
+          fc.style.color      = up ? 'var(--green)' : 'var(--red)'
+          fc.style.background = up ? 'var(--green-dim)' : 'var(--red-dim)'
+        }
       }
     }
 
@@ -1184,10 +1237,12 @@ async function loadLiveQuotes() {
       // Compter hausse / baisse sur TOUS les stocks (y compris ceux sans ticker live)
       let hausse = 0, baisse = 0, totalChange = 0, countChange = 0
       stocks.forEach(s => {
-        const c = result.data[s.ticker] ? (result.data[s.ticker].percent_change ?? 0) : s.change
+        const fq = finnhubMap[s.ticker]
+        const bq = result.data[s.ticker]
+        const c  = fq?.changePercent !== undefined ? fq.changePercent : (bq?.percent_change ?? s.change)
         if (c > 0) hausse++
         else if (c < 0) baisse++
-        if (result.data[s.ticker]) { totalChange += c; countChange++ }
+        if (fq || bq) { totalChange += c; countChange++ }
       })
 
       // Mettre à jour les stats du header
@@ -1209,6 +1264,7 @@ async function loadLiveQuotes() {
       const subtitle = document.getElementById('pageSubtitle')
       if (subtitle) subtitle.innerHTML = `<span id="stockCount">${stocks.length}</span> entreprises cotées · Mis à jour ${dateStr}, ${timeStr}`
 
+      renderPerfBars()
       showApiStatus('ok', `COURS EN DIRECT — ${updated} valeurs`)
     } else {
       showApiStatus('error', 'Données indisponibles')
