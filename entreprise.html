@@ -210,7 +210,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/">Accueil</a></li>
     <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
     <li><a href="/ma.html">M&amp;A</a></li>
-    <li><a href="/pe.html">Private Equity</a></li>
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
@@ -268,7 +267,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
         <!-- OVERVIEW -->
         <div class="sec-block">
-          <div class="sec-title">Présentation</div>
           <div class="sec-title">Points clés</div>
           <div class="highlights" id="highlightsList"></div>
         </div>
@@ -349,7 +347,7 @@ const COMPANIES = {
     signal:  'hold',
     desc:    'Leader mondial du BTP et des concessions, Vinci opère via deux pôles complémentaires : les métiers de la construction (Vinci Construction, Eurovia, Vinci Energies) et les concessions autoroutières (ESCOTA, ASF). La diversification géographique et la récurrence des revenus de concession constituent des atouts structurels majeurs.',
     highlights: [
-      'Carnet de commandes record à 64 Md€, visibilité 3+ ans',
+      'Au 31 décembre 2025, le carnet de commandes du groupe VINCI s\'élève à 69,8 milliards€.',
       'Concessions = ~40% des revenus mais ~60% du résultat opérationnel',
       'Présent dans plus de 120 pays avec 280 000 collaborateurs',
       'Transition vers les énergies renouvelables via Vinci Energies',
@@ -391,12 +389,13 @@ const COMPANIES = {
       { name:'Balfour Beatty', ticker:'BALI.L', cap:'2,9 Md€', pe:'12,4x', note:'Infrastructures UK & PPP' },
     ],
     timeline: [
-      { date:'Fév 2025', type:'earn', title:'Résultats annuels 2024', sub:'Publication des résultats complets FY2024' },
-      { date:'Mar 2025', type:'div',  title:'Dividende intérimaire', sub:'0,95 € par action' },
-      { date:'Avr 2025', type:'ann',  title:'AG des actionnaires', sub:'Vote résolutions + dividende ordinaire' },
-      { date:'Juin 2025', type:'div', title:'Solde dividende 2024',  sub:'Versement solde + coupon annuel' },
-      { date:'Jul 2025', type:'earn', title:'Chiffre d\'affaires S1', sub:'Publication CA semestriel' },
-      { date:'Sep 2025', type:'earn', title:'Résultats semestriels', sub:'EBIT, résultat net, backlog S1' },
+      { date:'6–7 fév. 2025',  type:'earn', title:'Résultats annuels 2024',     sub:'Publication des résultats complets de l\'année (FY2024) et présentation aux analystes.' },
+      { date:'17 avr. 2025',   type:'ann',  title:'Assemblée Générale (AG)',     sub:'Réunion des actionnaires, vote des résolutions et validation officielle du dividende.' },
+      { date:'24 avr. 2025',   type:'div',  title:'Solde du dividende 2024',     sub:'Versement du solde final de 3,70 € par action (acompte de 1,05 € versé en oct. 2024 — total 4,75 €). Détachement le 22 avril.' },
+      { date:'24 avr. 2025',   type:'earn', title:'Chiffre d\'affaires T1',      sub:'Publication de l\'activité financière du premier trimestre 2025.' },
+      { date:'30 juil. 2025',  type:'earn', title:'Résultats semestriels (S1)',  sub:'Publication des résultats de la première moitié de l\'année 2025 (CA, EBIT, résultat net).' },
+      { date:'23 oct. 2025',   type:'earn', title:'Chiffre d\'affaires T3',      sub:'Publication de l\'activité financière du troisième trimestre 2025.' },
+      { date:'Oct./Nov. 2025', type:'div',  title:'Acompte sur dividende 2025',  sub:'Versement de la première partie du dividende pour l\'année en cours (date exacte annoncée lors des résultats semestriels).' },
     ],
     finances: {
       year: 'FY 2024E',
@@ -915,7 +914,8 @@ async function loadLivePrice() {
   try {
     const r = await fetch('/api/bourse')
     const d = await r.json()
-    const q = d?.data?.[company.ticker]
+    if (!d.success || !d.data) return
+    const q = d.data[company.ticker]
     if (!q?.price) return
     const up = (q.percent_change ?? 0) >= 0
 
@@ -923,9 +923,9 @@ async function loadLivePrice() {
     if (kpiPrice) kpiPrice.innerHTML = `
       <div class="kpi-val">${q.price.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</div>
       <div class="kpi-change" style="color:${up?'var(--green)':'var(--red)'}">${up?'▲':'▼'} ${(q.percent_change??0).toFixed(2)}%</div>
-      <div class="kpi-label">Cours live</div>`
+      <div class="kpi-label">Cours</div>`
 
-    if (q.cap) {
+    if (q.cap !== null && q.cap !== undefined) {
       const capMd = (q.cap/1e9).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})
       const el = document.getElementById('kpiCap')
       if (el) el.textContent = capMd + ' Md€'
@@ -940,6 +940,7 @@ async function loadLivePrice() {
       if (finPer) { finPer.textContent = perStr; finPer.closest('.fin-cell').querySelector('.fin-sub').textContent = 'Live' }
     }
   } catch(e) {}
+  setTimeout(loadLivePrice, 300000)
 }
 </script>
 </body>
