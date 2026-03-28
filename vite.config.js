@@ -16,6 +16,7 @@ export default defineConfig({
         blog: resolve(__dirname, 'blog.html'),
         article: resolve(__dirname, 'article.html'),
         entreprise: resolve(__dirname, 'entreprise.html'),
+        'ma-hub': resolve(__dirname, 'ma-hub.html'),
       },
     },
   },
