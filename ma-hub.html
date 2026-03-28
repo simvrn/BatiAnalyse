@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M&A — BatiAnalyse</title>
+  <meta name="description" content="Analyses, valorisation, stratégies de rachat et de croissance externe dans le secteur BTP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080807;
+      --bg: #0c0c0a;
+      --surface: #111110;
+      --surface2: #161614;
+      --border: rgba(201,168,76,0.1);
+      --gold: #c9a84c;
+      --gold-dim: rgba(201,168,76,0.15);
+      --green: #4ade80;
+      --text: #e8e4da;
+      --text-2: #a09880;
+      --text-3: #5a5446;
+      --white: #f5f2eb;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Noise grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(8,8,7,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      padding: 7px 16px;
+      transition: all 0.15s;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--text-2);
+      transition: all 0.2s;
+    }
+
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      flex-direction: column;
+      background: rgba(8,8,7,0.98);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: var(--gold); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative;
+      z-index: 1;
+      padding: 120px 48px 72px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 24px;
+    }
+    .breadcrumb span { color: var(--gold); }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+    .page-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .page-subtitle {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 580px;
+      margin-bottom: 36px;
+    }
+
+    .header-cta {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .header-cta:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── INTRO ── */
+    .intro-section {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 48px 64px;
+    }
+    .intro-section p {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.8;
+      border-left: 2px solid var(--border);
+      padding-left: 24px;
+    }
+
+    /* ── GRID ── */
+    .grid-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+
+    .grid-section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 20px;
+    }
+
+    .ma-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .ma-card {
+      position: relative;
+      background: var(--surface);
+      padding: 28px;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      min-height: 180px;
+      border-left: 3px solid transparent;
+      transition: background 0.15s, border-left-color 0.15s;
+    }
+    .ma-card:hover {
+      background: var(--surface2);
+      border-left-color: var(--gold);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.25;
+    }
+
+    .badge-soon {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-desc {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-2);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-arrow {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+    .card-arrow svg {
+      width: 18px;
+      height: 18px;
+      color: var(--text-3);
+      transition: color 0.15s, transform 0.15s;
+    }
+    .ma-card:hover .card-arrow svg {
+      color: var(--gold);
+      transform: translateX(3px);
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 36px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .page-footer div {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-3);
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .page-header { padding: 100px 24px 48px; }
+      .intro-section { padding: 0 24px 48px; }
+      .grid-section { padding: 0 0 56px; }
+
+      .ma-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-footer { padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .page-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">Bati<span>Analyse</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+      <li><a href="/ma-hub.html" class="active">M&amp;A</a></li>
+      <li><a href="/macro.html">Macro</a></li>
+      <li><a href="/blog.html">Analyses</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Accès Premium</a>
+    <button class="nav-hamburger" onclick="document.getElementById('navMobileMAHub').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobileMAHub">
+    <a href="/">Accueil</a>
+    <a href="/valeurs-cotees.html">Valeurs</a>
+    <a href="/ma-hub.html">M&amp;A</a>
+    <a href="/macro.html">Macro</a>
+    <a href="/blog.html">Analyses</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="breadcrumb">BatiAnalyse / <span>M&amp;A</span></div>
+    <h1 class="page-title">Fusions &amp; <em>Acquisitions</em></h1>
+    <p class="page-subtitle">Analyses, valorisation, stratégies de rachat et de croissance externe dans le secteur BTP</p>
+    <a href="/ma.html" class="header-cta">Voir les opérations récentes →</a>
+  </header>
+
+  <!-- INTRO -->
+  <section class="intro-section">
+    <p>Cette rubrique propose des analyses réelles d'opérations de M&A, des réflexions stratégiques, et des études de cas sur les thématiques de valorisation, rachat, cession et croissance externe dans le secteur de la construction et du BTP.</p>
+  </section>
+
+  <!-- GRID -->
+  <section class="grid-section">
+    <div class="grid-section-label">Thématiques</div>
+    <div class="ma-grid">
+
+      <!-- 1. Fusions & Acquisitions — active -->
+      <a href="/ma.html" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Fusions &amp; Acquisitions</div>
+        </div>
+        <p class="card-desc">Suivi des opérations de rapprochement, rachats et fusions dans le secteur BTP. Multiples, valorisations et deal flow en temps réel.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 2. LBO & Financement — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">LBO &amp; Financement</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Analyse des leveraged buyouts, structuration de la dette et profils LBO dans la construction et les infrastructures.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 3. IPO — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">IPO / Entrée en bourse</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Introductions en bourse, valorisations à l'émission et performances post-IPO des acteurs du BTP cotés.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 4. Expansion internationale — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Expansion internationale</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Stratégies de croissance à l'international, acquisitions cross-border et intégration d'actifs étrangers dans le secteur.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 5. Build-up — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Build-up</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Stratégies de consolidation par acquisitions successives. Analyse des plateformes et de la création de valeur par croissance externe.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 6. Joint-ventures — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Joint-ventures</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Partenariats stratégiques, co-entreprises et alliances dans le BTP. Analyse des structures et des enjeux de gouvernance.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 7. Création de valeur — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Création de valeur</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Analyse de la création de valeur post-acquisition : synergies opérationnelles, optimisation du bilan et retours pour les actionnaires.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 8. Risques & Échecs — bientôt -->
+      <a href="#" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Risques &amp; Échecs</div>
+          <span class="badge-soon">Bientôt</span>
+        </div>
+        <p class="card-desc">Études de cas sur les opérations avortées, les destructions de valeur et les leçons tirées des échecs de M&A dans le secteur.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- 9. Analyse d'entreprise — active -->
+      <a href="/ma.html" class="ma-card">
+        <div class="card-top">
+          <div class="card-title">Analyse d'entreprise</div>
+        </div>
+        <p class="card-desc">Fiches détaillées par entreprise : données financières, positionnement stratégique et analyse M&A opération par opération.</p>
+        <div class="card-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-logo">Bati<span>Analyse</span></div>
+    <div>Les données présentées sont indicatives et ne constituent pas des conseils en investissement.</div>
+    <div>© 2026 BatiAnalyse</div>
+  </footer>
+
+</body>
+</html>
