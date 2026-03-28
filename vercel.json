@@ -5,6 +5,7 @@
   "rewrites": [
     { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" },
     { "source": "/ma",             "destination": "/ma.html" },
+    { "source": "/ma-hub",         "destination": "/ma-hub.html" },
     { "source": "/ma-entreprise",  "destination": "/ma-entreprise.html" },
     { "source": "/macro",          "destination": "/macro.html" },
     { "source": "/reglementation", "destination": "/reglementation.html" },
