@@ -174,6 +174,48 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .watchlist-content{flex:1;}
 .watchlist-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px;}
 .watchlist-desc{font-size:11px;color:var(--text-2);line-height:1.4;}
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
+.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;}
+.nav-mobile a:last-child{border-bottom:none;}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width:768px){
+  .nav-links{display:none !important;}
+  .nav-cta{display:none !important;}
+  .nav-hamburger{display:flex;}
+  nav{padding:0 16px;}
+
+  .page-header{grid-template-columns:1fr;padding:68px 16px 16px;gap:16px;}
+  .header-stats{flex-wrap:wrap;gap:0;}
+  .hstat{padding:6px 10px;text-align:left;}
+  .hstat-val{font-size:16px;}
+
+  .pulse-band{overflow-x:auto;padding:10px 16px;flex-wrap:nowrap;gap:0;}
+  .pulse-item{flex-shrink:0;padding:0 16px;}
+
+  .main-layout{grid-template-columns:1fr;}
+
+  .sidebar{position:relative;top:auto;height:auto;border-right:none;border-bottom:1px solid var(--border);padding:16px 0;display:none;}
+
+  .tab-panel{padding:20px 16px;}
+
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .deals-grid{grid-template-columns:1fr;}
+  .tech-grid{grid-template-columns:1fr;}
+  .adoption-item{grid-template-columns:120px 1fr 48px;}
+
+  .right-rail{position:relative;top:auto;height:auto;display:none;}
+}
+
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr;}
+  .adoption-item{grid-template-columns:100px 1fr 40px;}
+}
 </style>
 </head>
 <body>
@@ -189,7 +231,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileContech').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobileContech">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/ma.html">M&amp;A</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/contech.html">ConTech</a>
+  <a href="/blog.html">Analyses</a>
+</div>
 
 <div class="page-header">
   <div>

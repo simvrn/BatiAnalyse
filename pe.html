@@ -674,6 +674,51 @@ h1 em { font-style:italic; color:var(--gold); }
   .modal-kpis { grid-template-columns: repeat(2,1fr); }
   .benchmarks-grid { grid-template-columns: 1fr; }
 }
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
+.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; }
+.nav-mobile a:last-child { border-bottom:none; }
+
+@media (max-width: 768px) {
+  .nav-links { display:none !important; }
+  .nav-cta { display:none !important; }
+  .nav-hamburger { display:flex; }
+  nav { padding: 0 16px; }
+
+  .page-header { padding: 68px 16px 0; }
+  .page-header-inner { grid-template-columns: 1fr; gap: 16px; }
+
+  h1 { font-size: clamp(28px, 7vw, 42px); }
+
+  .pulse-band { overflow-x: auto; padding: 10px 16px; }
+
+  .filters-sidebar { display: none; }
+
+  .tab-bar { padding: 0 16px; overflow-x: auto; }
+  .tab-btn { padding: 12px 14px; font-size: 10px; }
+
+  .funds-grid { padding: 16px; gap: 12px; }
+
+  .fund-kpis { grid-template-columns: 1fr 1fr; }
+
+  .portfolio-filter-bar { top: 56px; padding: 8px 16px; }
+  .portfolio-table-wrap { overflow-x: auto; }
+  .portfolio-table th, .portfolio-table td { padding: 8px 10px; }
+
+  .pe-tx-table-wrap { overflow-x: auto; }
+
+  .right-rail { display: none; }
+
+  .page-footer { flex-direction: column; gap: 12px; padding: 24px 16px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .fund-kpis { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -690,7 +735,18 @@ h1 em { font-style:italic; color:var(--gold); }
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobilePE').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobilePE">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/ma.html">M&amp;A</a>
+  <a href="/pe.html">Private Equity</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
 
 <!-- PAGE HEADER -->
 <div class="page-header">

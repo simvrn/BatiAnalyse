@@ -504,6 +504,66 @@ h1 em { font-style:italic; color:var(--gold); }
   font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em;
   padding:2px 6px; background:var(--surface2); color:var(--text-2); border:1px solid var(--border);
 }
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
+.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; }
+.nav-mobile a:last-child { border-bottom:none; }
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 768px) {
+  .nav-links { display:none !important; }
+  .nav-cta { display:none !important; }
+  .nav-hamburger { display:flex; }
+  nav { padding: 0 16px; }
+
+  .page-header { padding: 68px 16px 0; }
+  .page-header-inner { grid-template-columns: 1fr; gap: 16px; }
+  .header-stats { flex-wrap: wrap; gap: 0; }
+  .hstat { padding: 8px 12px; text-align: left; }
+  .hstat-val { font-size: 18px; }
+
+  h1 { font-size: clamp(28px, 7vw, 42px); }
+
+  .pulse-band { gap: 16px; overflow-x: auto; padding: 10px 16px; flex-wrap: nowrap; }
+  .pulse-item { white-space: nowrap; flex-shrink: 0; }
+
+  .three-col { grid-template-columns: 1fr; }
+
+  .filters-sidebar {
+    position: relative;
+    top: auto;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    display: none;
+  }
+
+  .quick-filter-bar { padding: 10px 16px; top: 56px; overflow-x: auto; }
+  .qf-right { margin-left: 0; width: 100%; }
+  .search-input { width: 100%; }
+
+  .main-content { border-right: none; }
+
+  .deals-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .deals-table { font-size: 11px; }
+  .deals-table th, .deals-table td { padding: 8px 8px; white-space: nowrap; }
+
+  .deals-cards { grid-template-columns: 1fr; }
+
+  .featured-deal-inner { flex-direction: column; }
+  .featured-deal-right { text-align: left; }
+
+  .right-rail { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hstat { padding: 6px 10px; }
+}
 </style>
 </head>
 <body>
@@ -519,7 +579,17 @@ h1 em { font-style:italic; color:var(--gold); }
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileMA').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobileMA">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/ma.html">M&amp;A</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
 
 <!-- PAGE HEADER -->
 <div class="page-header">

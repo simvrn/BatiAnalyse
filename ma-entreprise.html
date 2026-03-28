@@ -458,6 +458,51 @@ nav {
 .empty-state { padding:48px 0; text-align:center; }
 .empty-icon { font-size:48px; margin-bottom:16px; opacity:0.2; }
 .empty-text { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-3); }
+
+/* ── HAMBURGER NAV ── */
+.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
+.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; }
+.nav-mobile a:last-child { border-bottom:none; }
+
+/* ── RESPONSIVE MOBILE ── */
+@media (max-width: 768px) {
+  .nav-links { display:none !important; }
+  .nav-cta { display:none !important; }
+  .nav-hamburger { display:flex; }
+  nav { padding: 0 16px; }
+
+  .company-header { padding-top: 56px; }
+  .company-header-inner { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
+  .company-name { font-size: clamp(24px, 7vw, 38px); }
+  .header-kpis { text-align: left; }
+  .header-kpis-amount { font-size: 36px; }
+
+  .tab-bar { padding: 0 16px; overflow-x: auto; }
+  .tab-btn { padding: 14px 14px; font-size: 10px; }
+
+  .tab-content { padding: 24px 16px; }
+
+  .apercu-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .terms-grid { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: 1fr; }
+  .ratios-grid { grid-template-columns: 1fr; }
+
+  .tx-table { font-size: 11px; }
+  .tx-table th, .tx-table td { padding: 8px; white-space: nowrap; }
+
+  .peer-table { font-size: 11px; }
+  .peer-table th, .peer-table td { padding: 8px 10px; }
+
+  .page-footer { flex-direction: column; gap: 12px; padding: 24px 16px; }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -473,7 +518,17 @@ nav {
     <li><a href="#">Secteurs</a></li>
   </ul>
   <a href="#" class="nav-cta">Accès Premium</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileMAE').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="navMobileMAE">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/ma.html">M&amp;A</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
 
 <!-- NOT FOUND STATE (hidden by default) -->
 <div class="not-found" id="notFoundState" style="display:none;">
