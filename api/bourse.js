@@ -1,84 +1,97 @@
 export default async function handler(req, res) {
-  // Lien Google Sheets forcé en TSV (Tab-Separated Values)
-  const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRR2cgRaRml3H3RShMlZyoq_GBd1UNOd5JU0iB2jsHfnXtFtUMT-_-1Vm6z_loyrpXF2d8vvyCT7GX8/pub?output=tsv';
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  if (req.method === 'OPTIONS') return res.status(200).end()
 
-  // Helper : parse un float depuis une cellule (virgule ou point, vide ou #N/A → null)
+  const tsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRR2cgRaRml3H3RShMlZyoq_GBd1UNOd5JU0iB2jsHfnXtFtUMT-_-1Vm6z_loyrpXF2d8vvyCT7GX8/pub?output=tsv'
+
+  // Mapping Google Finance symbols → tickers standard utilisés sur le site
+  const SYMBOL_MAP = {
+    'EPA:SU':   'SU.PA',
+    'EPA:DG':   'DG.PA',
+    'EPA:SGO':  'SGO.PA',
+    'EPA:LR':   'LR.PA',
+    'EPA:EN':   'EN.PA',
+    'EPA:FGR':  'FGR.PA',
+    'EPA:SPIE': 'SPIE.PA',
+    'LON:BALI': 'BBY.L',
+    'LON:BBY':  'BBY.L',
+    'EBR:COFB': 'COFB.BR',
+    'EPA:NK':   'NK.PA',
+    'EPA:VCT':  'VCT.PA',
+    'EPA:NXI':  'NXI.PA',
+    'EPA:KOF':  'KOF.PA',
+    'EPA:BA':   'BA.PA',
+  }
+
+  // Colonnes réelles du Google Sheet (0-indexed) :
+  // 0  : Symbole (format Google Finance, ex. EPA:DG)
+  // 1  : Prix actuel
+  // 2  : Variation % du jour
+  // 3  : Capitalisation boursière (€ bruts)
+  // 4  : P/E ratio (nombre ou "Négatif")
+  // 5  : Plus haut 52 semaines
+  // 6  : Plus bas 52 semaines
+  // 7  : Volume du jour
+  // 8  : BPA / EPS
+  // 9  : Plus bas 1 an (doublon)
+  // 10 : Mini graphique (vide)
+  // 11 : Plus haut 52 sem (doublon)
+  // 12 : Prix il y a 52 semaines
+  // 13 : Performance sur 1 an (%)
+
   function parseNum(str) {
-    if (!str) return null;
-    const s = str.replace(',', '.').trim();
-    if (s === '' || s.startsWith('#')) return null;
-    const v = parseFloat(s);
-    return isNaN(v) ? null : v;
+    if (!str) return null
+    const s = str.replace(',', '.').trim()
+    if (s === '' || s.startsWith('#') || s === '0') return null
+    const v = parseFloat(s)
+    return isNaN(v) ? null : v
+  }
+
+  function parsePER(str) {
+    if (!str) return null
+    const s = str.trim()
+    if (s.toLowerCase() === 'négatif' || s.toLowerCase() === 'negatif') return 'Négatif'
+    if (!s || s.startsWith('#') || s === '0') return null
+    const v = parseFloat(s.replace(',', '.'))
+    return isNaN(v) ? null : v
   }
 
   try {
-    const response = await fetch(tsvUrl);
-    const text = await response.text();
+    const response = await fetch(tsvUrl)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    const text = await response.text()
 
-    const lines = text.split('\n').filter(line => line.trim() !== '');
-    const stockData = {};
-
-    // Colonnes attendues dans le Google Sheet :
-    // A  (0) : Symbole ticker (ex. DG.PA)
-    // B  (1) : Cours (prix actuel)
-    // C  (2) : Variation % du jour
-    // D  (3) : Capitalisation boursière (en €)
-    // E  (4) : P/E ratio (ou "Négatif")
-    // F  (5) : CA annuel (en Md€, ex. 74.6)
-    // G  (6) : EBIT (en Md€)
-    // H  (7) : Résultat net (en Md€)
-    // I  (8) : Rendement dividende (en %, ex. 3.2)
-    // J  (9) : Performance 1 an (en %, ex. -8.4)
+    const lines = text.split('\n').filter(l => l.trim() !== '')
+    const stockData = {}
 
     for (let i = 1; i < lines.length; i++) {
-      const columns = lines[i].split('\t');
-      if (columns.length < 3) continue;
+      const cols = lines[i].split('\t')
+      if (cols.length < 2) continue
 
-      const symbol = columns[0].trim();
-      const price  = parseNum(columns[1]);
-      const change = parseNum(columns[2]);
+      const googleSymbol = cols[0].trim()
+      const ticker = SYMBOL_MAP[googleSymbol]
+      if (!ticker) continue  // symbole inconnu (ex. NASDAQ:AAPL)
 
-      if (!symbol || price === null) continue;
+      const price = parseNum(cols[1])
+      if (!price) continue
 
-      // Colonne D : Capitalisation
-      const cap = parseNum(columns[3]);
-
-      // Colonne E : PER (texte possible "Négatif")
-      let per = null;
-      if (columns[4]) {
-        const perStr = columns[4].trim();
-        if (perStr.toLowerCase() === 'négatif' || perStr.toLowerCase() === 'negatif') {
-          per = 'Négatif';
-        } else {
-          per = parseNum(columns[4]);
-        }
-      }
-
-      // Colonnes financières (F–J)
-      const ca          = parseNum(columns[5]);   // CA en Md€
-      const ebit        = parseNum(columns[6]);   // EBIT en Md€
-      const net         = parseNum(columns[7]);   // Résultat net en Md€
-      const rendement   = parseNum(columns[8]);   // Rendement div. en %
-      const perf_1an    = parseNum(columns[9]);   // Performance 1 an en %
-
-      stockData[symbol] = {
+      stockData[ticker] = {
         price,
-        percent_change: change ?? 0,
-        cap,
-        per,
-        ca,
-        ebit,
-        net,
-        rendement,
-        perf_1an,
-      };
+        percent_change: parseNum(cols[2]) ?? 0,
+        cap:     parseNum(cols[3]),
+        per:     parsePER(cols[4]),
+        high52w: parseNum(cols[5]),
+        low52w:  parseNum(cols[6]),
+        volume:  parseNum(cols[7]),
+        eps:     parseNum(cols[8]),
+        perf_1an: parseNum(cols[13]),
+      }
     }
 
-    // CACHE VERCEL : 5 minutes
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate');
-    res.status(200).json({ success: true, data: stockData });
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120')
+    res.status(200).json({ success: true, data: stockData })
 
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Erreur lecture Google Sheets' });
+    res.status(500).json({ success: false, message: 'Erreur lecture Google Sheets: ' + error.message })
   }
 }

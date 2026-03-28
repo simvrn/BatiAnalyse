@@ -255,7 +255,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   <ul class="nav-links">
     <li><a href="/">Accueil</a></li>
     <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
-    <li><a href="/ma.html">M&amp;A</a></li>
+    <li><a href="/ma-hub.html">M&amp;A</a></li>
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
@@ -267,7 +267,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 <div class="nav-mobile" id="navMobileEnt">
   <a href="/">Accueil</a>
   <a href="/valeurs-cotees.html">Valeurs</a>
-  <a href="/ma.html">M&amp;A</a>
+  <a href="/ma-hub.html">M&amp;A</a>
   <a href="/macro.html">Macro</a>
   <a href="/blog.html">Analyses</a>
 </div>
@@ -958,21 +958,14 @@ function setFinCell(id, text) {
 async function loadLivePrice() {
   if (!company) return
   try {
-    // Appel parallèle : Google Sheets (données étendues) + Finnhub (prix temps réel)
-    const [bourseRes, quotesRes] = await Promise.all([
-      fetch('/api/bourse'),
-      fetch('/api/quotes')
-    ])
+    const bourseRes = await fetch('/api/bourse')
     const d = await bourseRes.json()
-    const qf = await quotesRes.json()
 
     if (!d.success || !d.data) return
     const q = d.data[company.ticker]
 
-    // Prix : priorité Google Sheets, Finnhub uniquement si le sheet n'a pas de prix
-    const finnhubQ = qf.quotes?.find(x => x.symbol === company.ticker)
-    const livePrice  = (q?.price  && q.price  !== 0) ? q.price  : (finnhubQ?.price  && finnhubQ.price  !== 0 ? finnhubQ.price  : null)
-    const liveChange = (q?.percent_change !== null && q?.percent_change !== undefined) ? q.percent_change : (finnhubQ?.changePercent ?? 0)
+    const livePrice  = (q?.price  && q.price  !== 0) ? q.price  : null
+    const liveChange = (q?.percent_change !== null && q?.percent_change !== undefined) ? q.percent_change : 0
 
     if (!livePrice) return
     const up = liveChange >= 0
@@ -998,22 +991,10 @@ async function loadLivePrice() {
         setFinCell('per', perStr)
       }
 
-      // ── Données financières live ──
-      if (q.ca !== null && q.ca !== undefined)
-        setFinCell('ca', q.ca.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-      if (q.ebit !== null && q.ebit !== undefined)
-        setFinCell('ebit', q.ebit.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-      if (q.net !== null && q.net !== undefined)
-        setFinCell('net', q.net.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Md€')
-
-      if (q.rendement !== null && q.rendement !== undefined)
-        setFinCell('div', Number(q.rendement).toFixed(1) + ' %')
     }
 
   } catch(e) {}
-  setTimeout(loadLivePrice, 300000)
+  setTimeout(loadLivePrice, 60000)
 }
 </script>
 </body>
