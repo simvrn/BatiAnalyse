@@ -662,6 +662,99 @@ const COMPANIES = {
     },
     news: [],
   },
+  schneider: {
+    tagSlug: 'schneider',
+    ticker:  'SU.PA',
+    name:    'Schneider Electric',
+    secteur: 'Énergie & Automatisation',
+    pays:    'FR',
+    signal:  '',
+    desc:    'Schneider Electric est un groupe mondial de technologies de l\'énergie positionné sur l\'électrification, l\'automatisation et les logiciels. Son activité est organisée autour de deux grands segments — Energy Management et Industrial Automation — avec une exposition forte aux marchés porteurs des data centers, des bâtiments, de l\'industrie et des infrastructures. Son positionnement repose sur un portefeuille large, une présence mondiale équilibrée, une base logicielle croissante et une forte capacité à transformer la demande structurelle en croissance rentable.',
+    highlights: [
+      'Présent dans plus de 100 pays avec environ 168 000 collaborateurs dans le monde.',
+      'Leader mondial de la gestion de l\'énergie et de l\'automatisation, avec un positionnement fort sur l\'électrification, les data centers et la transition énergétique.',
+      'Croissance record en 2025 : plus de 40 Md€ de chiffre d\'affaires, portée par la digitalisation et la demande en infrastructures électriques.',
+      'Backlog record de 25,4 Md€ fin 2025, soutenant la visibilité de croissance future et confirmant une demande structurellement forte.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:82, color:'var(--green)' },
+      { label:'Rentabilité',  val:76, color:'var(--gold)'  },
+      { label:'Visibilité',   val:84, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Energy Management',    pct:82.5, ca:'33 130 M€', color:'#c9a84c' },
+      { name:'Industrial Automation',pct:17.5, ca:'7 022 M€',  color:'#4ade80' },
+    ],
+    breakdownYear: 'CA 2025 — 40,152 Md€',
+    geo: [
+      { flag:'🌎', name:'Amérique du Nord',  pct:34.6 },
+      { flag:'🌏', name:'Asie-Pacifique',    pct:26.1 },
+      { flag:'🇪🇺', name:'Europe de l\'Ouest',pct:23.2 },
+      { flag:'🌍', name:'Reste du monde',    pct:12.2 },
+    ],
+    competition: [
+      { name:'Siemens',   ticker:'SIE.DE', cap:'~130 Md€', pe:'~18x', note:'Concurrent direct énergie & automation' },
+      { name:'ABB',       ticker:'ABBN.SW',cap:'~95 Md€',  pe:'~22x', note:'Électrification & robotique industrielle' },
+      { name:'Honeywell', ticker:'HON',    cap:'~130 Md€', pe:'~22x', note:'Automation & bâtiments intelligents' },
+      { name:'Legrand',   ticker:'LR.PA',  cap:'~18 Md€',  pe:'~21x', note:'Infrastructures électriques bâtiment' },
+    ],
+    timeline: [
+      { date:'30 avr. 2026', type:'earn', title:'Chiffre d\'affaires T1 2026',           sub:'Publication de l\'activité du premier trimestre 2026.' },
+      { date:'7 mai 2026',   type:'ann',  title:'Assemblée Générale',                    sub:'Vote définitif des comptes 2025 et du dividende proposé.' },
+      { date:'3 juin 2026',  type:'ann',  title:'Conférence CEO — BNP Paribas (Paris)',  sub:'Présentation stratégique lors de la conférence BNP Paribas.' },
+      { date:'16 juin 2026', type:'ann',  title:'J.P. Morgan European Industrials',      sub:'Conférence J.P. Morgan European Industrials Conference.' },
+      { date:'30 juil. 2026',type:'earn', title:'Résultats semestriels 2026',            sub:'Publication des résultats de la première moitié de 2026.' },
+      { date:'29 oct. 2026', type:'earn', title:'Chiffre d\'affaires T3 2026',           sub:'Publication de l\'activité du troisième trimestre 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'40,2 Md€', sub:'FY 2025',  color:'var(--text)'  },
+        { label:'EBIT',                val:'7,2 Md€',  sub:'Marge ~17,8%', color:'var(--gold)' },
+        { label:'Résultat net',        val:'4,2 Md€',  sub:'FY 2025',  color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',        sub:'Live',      color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',        sub:'Live',      color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'1,83 %',   sub:'4,20 € / action', color:'var(--blue)' },
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes (Backlog)',
+          rows: [
+            ['Backlog total fin 2025',      '25,362 Md€'],
+            ['Energy Management',           '21,340 Md€'],
+            ['Industrial Automation',       '4,022 Md€'],
+            ['Évolution Energy Mgmt',       '+21 %'],
+            ['Évolution Industrial Auto.',  '+8 %'],
+            ['Backlog fin 2024',            '21,420 Md€'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation', '577 122 512'],
+            ['Flottant',               '86,3 % (~498,1 M actions)'],
+            ['Actionnariat salarié',   '3,2 % (~18,5 M actions)'],
+            ['Autocontrôle',           '2,5 % (~14,4 M actions)'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette nette',            '13,721 Md€'],
+            ['dont (vs fin 2023)',      '8,147 Md€ un an plus tôt'],
+            ['Trésorerie (cash)',       '4,6 Md€'],
+            ['Facilités engagées dispo','3,5 Md€'],
+            ['Liquidité totale',        '8,1 Md€'],
+            ['Ratio DN / EBITDA',       '~1,59x (indicatif)'],
+            ['Notation S&P',            'A / perspective stable'],
+            ['Notation Moody\'s',       'A2 / perspective stable'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
 }
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
@@ -676,7 +769,6 @@ const STUBS = {
   'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
   'cofinimmo':    { name:'Cofinimmo',          ticker:'COFB.BR', tagSlug:'cofinimmo'    },
   'balfour':      { name:'Balfour Beatty',     ticker:'BBY.L',   tagSlug:'balfour'      },
-  'schneider':    { name:'Schneider Electric', ticker:'SU.PA',   tagSlug:'schneider'    },
 }
 
 const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
