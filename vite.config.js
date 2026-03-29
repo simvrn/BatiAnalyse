@@ -17,6 +17,7 @@ export default defineConfig({
         article: resolve(__dirname, 'article.html'),
         entreprise: resolve(__dirname, 'entreprise.html'),
         'ma-hub': resolve(__dirname, 'ma-hub.html'),
+        lbo: resolve(__dirname, 'lbo.html'),
       },
     },
   },
