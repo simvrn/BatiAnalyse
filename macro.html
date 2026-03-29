@@ -337,72 +337,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   </div>
 </div>
 
-<!-- PULSE BAND -->
-<div class="pulse-band">
-  <div class="pulse-item"><div class="pulse-dot"></div>BCE : 3ème baisse consécutive — taux à 2,50% depuis mars 2026</div>
-  <div class="pulse-item"><div class="pulse-dot"></div>Acier en repli de -11,8% sur 12 mois — soulagement pour les constructeurs</div>
-  <div class="pulse-item"><div class="pulse-dot"></div>PMI Construction à 48,3 — 6e mois consécutif en contraction</div>
-</div>
 
 <!-- MAIN -->
 <div class="main-layout">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Période</div>
-      <div class="pills-wrap" id="periodFilter">
-        <button class="pill active" data-val="3m">3M</button>
-        <button class="pill" data-val="6m">6M</button>
-        <button class="pill" data-val="1an">1 an</button>
-        <button class="pill" data-val="3ans">3 ans</button>
-        <button class="pill" data-val="5ans">5 ans</button>
-      </div>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Catégorie <span class="filter-count" id="catCount"></span></div>
-      <div class="pills-wrap" id="catFilter">
-        <button class="pill active" data-val="tous">Tous</button>
-        <button class="pill" data-val="taux">Taux & Crédit</button>
-        <button class="pill" data-val="matieres">Matières premières</button>
-        <button class="pill" data-val="activite">Activité BTP</button>
-        <button class="pill" data-val="inflation">Inflation & Coûts</button>
-        <button class="pill" data-val="emploi">Emploi</button>
-      </div>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Géographie</div>
-      <div class="pills-wrap" id="geoFilter">
-        <button class="pill active" data-val="france">France</button>
-        <button class="pill" data-val="eurozone">Zone Euro</button>
-        <button class="pill" data-val="monde">Monde</button>
-      </div>
-    </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Signal</div>
-      <div class="pills-wrap" id="signalFilter">
-        <button class="pill favorable" data-val="favorable">Favorable</button>
-        <button class="pill neutre" data-val="neutre">Neutre</button>
-        <button class="pill defavorable" data-val="defavorable">Défavorable</button>
-      </div>
-    </div>
-    <div style="padding:0 16px;">
-      <button class="reset-btn" onclick="resetFilters()">Réinitialiser les filtres</button>
-    </div>
-    <div class="sidebar-section" style="margin-top:24px;">
-      <div class="sidebar-title">Légende signaux</div>
-      <div style="padding:0 16px;">
-        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.6;">
-          <div style="color:var(--green);margin-bottom:4px;">● Favorable</div>
-          <div style="margin-bottom:10px;padding-left:14px;">Indicateur positif pour l'activité ou les marges BTP.</div>
-          <div style="color:var(--gold);margin-bottom:4px;">● Neutre</div>
-          <div style="margin-bottom:10px;padding-left:14px;">Ni positif ni négatif dans le contexte actuel.</div>
-          <div style="color:var(--red);margin-bottom:4px;">● Défavorable</div>
-          <div style="padding-left:14px;">Signal négatif pour le secteur construction.</div>
-        </div>
-      </div>
-    </div>
-  </aside>
+  <!-- SIDEBAR (vide) -->
+  <aside class="sidebar"></aside>
 
   <!-- CONTENT -->
   <div class="content">
@@ -547,59 +487,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
       <div class="rates-grid" id="ratesGrid"></div>
 
-      <!-- BCE chart -->
-      <div class="chart-wrap">
-        <div class="chart-title">Taux directeur BCE (dépôt) — Trajectoire 2022-2026</div>
-        <svg viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="bceGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#4ade80" stop-opacity="0.2"/>
-              <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <!-- Gridlines -->
-          <line x1="0" y1="18" x2="700" y2="18" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="51" x2="700" y2="51" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="84" x2="700" y2="84" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="117" x2="700" y2="117" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <!-- Y labels -->
-          <text x="2" y="17" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">5%</text>
-          <text x="2" y="50" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">3,5%</text>
-          <text x="2" y="83" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">2%</text>
-          <text x="2" y="116" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">0,5%</text>
-          <!-- Step line data: Q1'22=0%, Q3'22=0.5%, Q4'22=2%, Q1'23=3%, Q2'23=3.5%, Q3'23=4.5%(pic), Q1'24=4.5%, Q2'24=4.25%, Q3'24=3.5%, Q4'24=3%, Q1'25=2.75%, Q3'25=2.75%, Q4'25=2.75%, Q1'26=2.5%
-               y = 130 - (val/5)*110  -->
-          <!-- val→y: 0→130, 0.5→119, 2→86, 3→64, 3.5→53, 4.5→31, 4.25→36, 3.5→53, 3→64, 2.75→69, 2.5→75 -->
-          <!-- x positions for quarters 2022Q1 to 2026Q1 = 17 quarters -->
-          <!-- x step = 700/16 ≈ 44 -->
-          <polygon points="0,130 0,130 44,130 44,119 88,119 88,86 132,86 132,64 176,64 176,53 220,53 220,31 264,31 264,31 308,31 308,36 352,36 352,53 396,53 396,64 440,64 440,69 484,69 484,69 528,69 528,75 700,75 700,130" fill="url(#bceGrad)"/>
-          <polyline points="0,130 44,130 44,119 88,119 88,86 132,86 132,64 176,64 176,53 220,53 220,31 264,31 308,31 308,36 352,36 352,53 396,53 396,64 440,64 440,69 484,69 528,69 528,75 700,75" stroke="#4ade80" stroke-width="2" fill="none"/>
-          <!-- Peak annotation -->
-          <line x1="242" y1="18" x2="242" y2="130" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
-          <text x="248" y="28" font-family="DM Mono,monospace" font-size="9" fill="#c9a84c">Pic: 4,5%</text>
-          <!-- Current annotation -->
-          <circle cx="700" cy="75" r="4" fill="#4ade80"/>
-          <text x="660" y="68" font-family="DM Mono,monospace" font-size="9" fill="#4ade80">2,50%</text>
-          <!-- X labels -->
-          <text x="0" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'22</text>
-          <text x="132" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'23</text>
-          <text x="308" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'24</text>
-          <text x="484" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'25</text>
-          <text x="660" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">Q1'26</text>
-        </svg>
-      </div>
-
-      <!-- Impact analysis -->
-      <div class="analysis-cards">
-        <div class="analysis-card">
-          <div class="analysis-card-title">Impact crédit promoteur</div>
-          <p>La baisse du crédit promoteur à 4,20% (vs 5,10% au pic) améliore sensiblement le rendement des opérations VEFA. Pour un programme de 50 logements à 10M€, l'économie annuelle de charge financière dépasse 90 000 €. Insuffisant à lui seul pour relancer la promotion, mais signal positif pour les bilans en cours.</p>
-        </div>
-        <div class="analysis-card">
-          <div class="analysis-card-title">Impact demande logement</div>
-          <p>Le crédit immobilier moyen à 3,48% améliore la capacité d'emprunt des ménages d'environ +8% vs le pic de 2023. Un ménage empruntant 250 000 € sur 20 ans économise désormais ~120 €/mois vs le point haut. La corrélation avec les mises en chantier est décalée de 6 à 9 mois.</p>
-        </div>
-      </div>
     </div>
 
     <!-- TAB 4 — ACTIVITÉ -->
@@ -778,37 +665,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   <div class="right-rail">
     <div class="rail-section">
       <div class="rail-title">Agenda Macro</div>
-      <div class="agenda-item"><div class="agenda-date">19 mar</div><div><div class="agenda-name">PMI Construction Flash (S&P Global)</div><div class="agenda-dots">●●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">25 mar</div><div><div class="agenda-name">ICC T4 2025 (INSEE)</div><div class="agenda-dots">●●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">28 mar</div><div><div class="agenda-name">Mises en chantier fév. 2026 (SDES)</div><div class="agenda-dots">●●●</div></div></div>
       <div class="agenda-item"><div class="agenda-date">02 avr</div><div><div class="agenda-name">Réunion BCE — décision taux</div><div class="agenda-dots">●●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">09 avr</div><div><div class="agenda-name">Permis de construire fév. (SDES)</div><div class="agenda-dots">●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">15 avr</div><div><div class="agenda-name">Index BT01 mars 2026 (INSEE)</div><div class="agenda-dots">●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">22 avr</div><div><div class="agenda-name">Enquête conjoncture BTP (INSEE)</div><div class="agenda-dots">●●●</div></div></div>
-      <div class="agenda-item"><div class="agenda-date">30 avr</div><div><div class="agenda-name">PIB T1 2026 Flash (INSEE)</div><div class="agenda-dots">●●</div></div></div>
-    </div>
-
-    <div class="rail-section">
-      <div class="rail-title">BCE Watch</div>
-      <div class="bce-watch-meeting">Prochaine réunion : <span class="bce-watch-date">2 avril 2026</span></div>
-      <div class="bce-prob-row">
-        <div class="bce-prob-label"><span>Statu quo 2,50%</span><span style="color:var(--gold)">72%</span></div>
-        <div class="bce-prob-bar"><div class="bce-prob-fill" style="width:72%;background:var(--gold);"></div></div>
-      </div>
-      <div class="bce-prob-row">
-        <div class="bce-prob-label"><span>Baisse -25pb</span><span style="color:var(--green)">28%</span></div>
-        <div class="bce-prob-bar"><div class="bce-prob-fill" style="width:28%;background:var(--green);"></div></div>
-      </div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:8px;">Source : marchés OIS au 14/03/2026</div>
     </div>
 
     <div class="rail-section">
       <div class="rail-title">Alertes Récentes</div>
       <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">14 mar</div><div class="alert-text">PMI Services France recule à 47,1 — signal de dégradation élargie</div></div></div>
-      <div class="alert-item"><div class="alert-dot gold"></div><div class="alert-content"><div class="alert-date">11 mar</div><div class="alert-text">Acier : 3ème baisse consécutive — détente confirmée sur les ferreux</div></div></div>
-      <div class="alert-item"><div class="alert-dot green"></div><div class="alert-content"><div class="alert-date">06 mar</div><div class="alert-text">BCE confirme -25pb — 3ème baisse depuis juin 2024</div></div></div>
-      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">04 mar</div><div class="alert-text">Permis de construire : -9,8% sur 12 mois glissants</div></div></div>
-      <div class="alert-item"><div class="alert-dot gold"></div><div class="alert-content"><div class="alert-date">28 fév</div><div class="alert-text">ICC T3 2025 : +3,8% sur un an, en légère décélération</div></div></div>
     </div>
   </div>
 

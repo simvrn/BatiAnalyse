@@ -664,26 +664,55 @@ const COMPANIES = {
   },
 }
 
-// ── Aliasing pour les slugs du tableau principal ──
-COMPANIES['saint-gobain']   = null  // placeholder
-COMPANIES['nexity']         = null
-COMPANIES['kaufman']        = null
-COMPANIES['imerys']         = null
-COMPANIES['legrand']        = null
-COMPANIES['vicat']          = null
-COMPANIES['bassac']         = null
-COMPANIES['spie']           = null
-COMPANIES['bouygues-immo']  = null
-COMPANIES['saint-gobain-uk']= null
-COMPANIES['schneider']      = null
+// ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
+const STUBS = {
+  'saint-gobain': { name:'Saint-Gobain',      ticker:'SGO.PA',  tagSlug:'saint-gobain' },
+  'nexity':       { name:'Nexity',             ticker:'NXI.PA',  tagSlug:'nexity'       },
+  'kaufman':      { name:'Kaufman & Broad',    ticker:'KOF.PA',  tagSlug:'kaufman'      },
+  'imerys':       { name:'Imerys',             ticker:'NK.PA',   tagSlug:'imerys'       },
+  'legrand':      { name:'Legrand',            ticker:'LR.PA',   tagSlug:'legrand'      },
+  'vicat':        { name:'Vicat',              ticker:'VCT.PA',  tagSlug:'vicat'        },
+  'bassac':       { name:'Bassac',             ticker:'BA.PA',   tagSlug:'bassac'       },
+  'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
+  'cofinimmo':    { name:'Cofinimmo',          ticker:'COFB.BR', tagSlug:'cofinimmo'    },
+  'balfour':      { name:'Balfour Beatty',     ticker:'BBY.L',   tagSlug:'balfour'      },
+  'schneider':    { name:'Schneider Electric', ticker:'SU.PA',   tagSlug:'schneider'    },
+}
 
 const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
 const params  = new URLSearchParams(location.search)
 const slug    = params.get('slug') || ''
 const company = COMPANIES[slug]
+const stub    = !company ? STUBS[slug] : null
 
 // ── INIT ──
-if (!company) {
+if (company) {
+  renderHeader()
+  renderOverview()
+  renderFinances()
+  renderNews()
+  loadArticles()
+  loadLivePrice()
+  requestAnimationFrame(() => setTimeout(animateBars, 120))
+} else if (stub) {
+  // Fiche partielle : header + articles uniquement
+  document.title = `${stub.name} — BatiAnalyse`
+  document.getElementById('breadcrumbName').textContent = stub.name
+  document.getElementById('companyName').textContent    = stub.name
+  document.getElementById('companyTicker').textContent  = stub.ticker
+  // Masquer les onglets qui n'ont pas de données
+  document.querySelectorAll('.tab-btn[data-tab="overview"], .tab-btn[data-tab="finances"], .tab-btn[data-tab="news"]')
+    .forEach(btn => btn.style.display = 'none')
+  // Activer directement l'onglet analyses
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
+  const artBtn = document.querySelector('.tab-btn[data-tab="articles"]')
+  const artPanel = document.getElementById('tab-articles')
+  if (artBtn)   { artBtn.classList.add('active'); artBtn.style.display = '' }
+  if (artPanel) artPanel.classList.add('active')
+  loadArticlesForSlug(stub.tagSlug)
+  loadLivePrice()
+} else {
   document.getElementById('companyName').textContent = 'Entreprise introuvable'
   document.getElementById('articlesGrid').innerHTML = `
     <div class="empty-state">
@@ -692,14 +721,6 @@ if (!company) {
       <div class="empty-sub">Cette entreprise n'est pas encore référencée.<br>
         <a href="/valeurs-cotees.html" style="color:var(--gold)">← Retour aux valeurs</a></div>
     </div>`
-} else {
-  renderHeader()
-  renderOverview()
-  renderFinances()
-  renderNews()
-  loadArticles()
-  loadLivePrice()
-  requestAnimationFrame(() => setTimeout(animateBars, 120))
 }
 
 // ── HEADER ──
@@ -853,6 +874,31 @@ async function resolveTagId(tagSlug) {
     if (t.length) return t[0].id
   }
   return null
+}
+
+async function loadArticlesForSlug(tagSlug) {
+  const grid = document.getElementById('articlesGrid')
+  showSkeletons(grid)
+  const tagId = await resolveTagId(tagSlug)
+  if (!tagId) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+      <div class="empty-icon">◎</div>
+      <div class="empty-title">Aucun article</div>
+      <div class="empty-sub">Aucun article publié pour cette entreprise.</div>
+    </div>`
+    document.getElementById('artCount').textContent = '0'
+    return
+  }
+  try {
+    const res   = await fetch(`${WP_API}/posts?tags=${tagId}&per_page=20&_embed&orderby=date&order=desc`)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const posts = await res.json()
+    document.getElementById('artCount').textContent = res.headers.get('X-WP-Total') || posts.length
+    if (!posts.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-title">Aucun article</div></div>`; return }
+    grid.innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
+  } catch(e) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-title">Erreur de chargement</div></div>`
+  }
 }
 
 async function loadArticles() {
