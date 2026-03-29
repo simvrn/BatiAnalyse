@@ -662,6 +662,91 @@ const COMPANIES = {
     },
     news: [],
   },
+  'saint-gobain': {
+    tagSlug: 'saint-gobain',
+    ticker:  'SGO.PA',
+    name:    'Saint-Gobain',
+    secteur: 'Matériaux de construction',
+    pays:    'FR',
+    signal:  '',
+    desc:    'Saint-Gobain conçoit, produit et distribue des matériaux et solutions pour les marchés de la construction et de l\'industrie. Leader mondial de la construction légère et durable, le Groupe est piloté selon quatre grandes régions géographiques depuis juillet 2025. Ses atouts stratégiques sont son modèle multi-local, la densité de son implantation industrielle, la puissance de ses marques locales et une exposition croissante aux segments porteurs comme la rénovation énergétique, les data centers et la chimie de la construction.',
+    highlights: [
+      'Présent dans plus de 80 pays avec environ 162 000 collaborateurs (161 688 au 31 décembre 2025).',
+      'Leader mondial de la construction légère et durable, avec 6,5 Md€ de ventes en chimie de la construction après les acquisitions récentes.',
+      'Résilience opérationnelle en FY 2025 : CA quasi stable à 46,5 Md€, marge d\'exploitation stable à 11,4%, EBITDA de 7,2 Md€.',
+      'Plan "Lead & Grow" : près de 12 Md€ d\'investissements de croissance / acquisitions nettes programmés sur 2026-2030.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:62, color:'var(--green)' },
+      { label:'Rentabilité',  val:72, color:'var(--gold)'  },
+      { label:'Visibilité',   val:58, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Europe du Sud – MOYEN-ORIENT & Afrique', pct:34.6, ca:'16 068 M€', color:'#c9a84c' },
+      { name:'Europe du Nord',                         pct:29.7, ca:'13 783 M€', color:'#4ade80' },
+      { name:'Amériques',                              pct:27.9, ca:'12 957 M€', color:'#60a5fa' },
+      { name:'Asie-Pacifique',                         pct:11.3, ca:'5 256 M€',  color:'#a78bfa' },
+    ],
+    breakdownYear: 'CA 2025 — 46,483 Md€ (segmentation géographique)',
+    geo: [
+      { flag:'🌍', name:'Europe du Sud – MO & Afrique', pct:34.6 },
+      { flag:'🇪🇺', name:'Europe du Nord',               pct:29.7 },
+      { flag:'🌎', name:'Amériques',                     pct:27.9 },
+      { flag:'🌏', name:'Asie-Pacifique',                pct:11.3 },
+    ],
+    competition: [
+      { name:'Kingspan',  ticker:'KRX.IR',  cap:'~12 Md€', pe:'~22x', note:'Isolation & enveloppe du bâtiment' },
+      { name:'Knauf',     ticker:'NC',       cap:'NC',       pe:'NC',   note:'Concurrent direct plaques / mortiers' },
+      { name:'Sika',      ticker:'SIKA.SW',  cap:'~45 Md€', pe:'~30x', note:'Chimie de la construction — concurrent direct post-acquisitions' },
+      { name:'Rockwool',  ticker:'ROCK-B.CO',cap:'~7 Md€',  pe:'~18x', note:'Isolation laine de roche' },
+    ],
+    timeline: [
+      { date:'27 fév. 2026',  type:'earn', title:'Résultats annuels 2025 ✓',          sub:'Réunion d\'information analystes / investisseurs — résultats FY 2025.', past:true },
+      { date:'23 avr. 2026',  type:'earn', title:'CA T1 2026',                         sub:'Publication du chiffre d\'affaires du 1er trimestre 2026.' },
+      { date:'4 juin 2026',   type:'ann',  title:'Assemblée Générale — Salle Pleyel',  sub:'Paris, 15h00, Salle Pleyel. Vote des résolutions et du dividende 2,30 € / action.' },
+      { date:'30 juil. 2026', type:'earn', title:'Résultats semestriels 2026',         sub:'Publication des résultats de la première moitié de l\'exercice 2026.' },
+      { date:'27 oct. 2026',  type:'earn', title:'CA 9 premiers mois 2026',            sub:'Publication de l\'activité des trois premiers trimestres de 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'46,5 Md€', sub:'FY 2025',       color:'var(--text)'  },
+        { label:'EBIT',                val:'5,3 Md€',  sub:'Marge 11,4%',   color:'var(--gold)'  },
+        { label:'Résultat net',        val:'2,9 Md€',  sub:'FY 2025',       color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',        sub:'Live',           color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',        sub:'Live',           color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'3,28 %',   sub:'2,30 € / action',color:'var(--blue)'  },
+      ],
+      accordions: [
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',  '494 824 319'],
+            ['Flottant estimé',         '91,5 %'],
+            ['Actionnariat salarié',    '8,0 % (~70 000 salariés actionnaires)'],
+            ['Autocontrôle',            '0,5 %'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette nette',                  '10 356 M€'],
+            ['dont (vs fin 2024)',            '9 778 M€ un an plus tôt'],
+            ['Trésorerie & équivalents',      '7 582 M€'],
+            ['Autres placements CT',          '150 M€'],
+            ['Liquidité disponible',          '7 732 M€'],
+            ['Ligne crédit syndiquée',        '4 000 M€ (non tirée, mat. déc. 2030)'],
+            ['Liquidité totale pro forma',    '11 732 M€'],
+            ['Ratio DN / EBITDA',             '1,4x'],
+            ['Notation S&P',                  'BBB+ / perspective stable'],
+            ['Notation Moody\'s',             'Baa1 / perspective stable'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
   schneider: {
     tagSlug: 'schneider',
     ticker:  'SU.PA',
@@ -759,7 +844,6 @@ const COMPANIES = {
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
 const STUBS = {
-  'saint-gobain': { name:'Saint-Gobain',      ticker:'SGO.PA',  tagSlug:'saint-gobain' },
   'nexity':       { name:'Nexity',             ticker:'NXI.PA',  tagSlug:'nexity'       },
   'kaufman':      { name:'Kaufman & Broad',    ticker:'KOF.PA',  tagSlug:'kaufman'      },
   'imerys':       { name:'Imerys',             ticker:'NK.PA',   tagSlug:'imerys'       },
