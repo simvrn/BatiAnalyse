@@ -512,73 +512,91 @@ const COMPANIES = {
     secteur: 'Construction & Concessions',
     pays:    'FR',
     signal:  'buy',
-    desc:    'Eiffage est l\'un des leaders européens du BTP et des concessions, positionné sur la construction, le génie civil, l\'énergie et les concessions autoroutières (APRR/AREA). Le groupe affiche un carnet de commandes record et une amélioration continue de ses marges, porté par la montée en puissance de son pôle énergie.',
+    desc:    'Eiffage est un groupe français coté, parmi les leaders européens du BTP et des concessions, actif dans quatre branches : Construction, Infrastructures, Énergie Systèmes et Concessions. Son modèle combine des métiers de travaux et des actifs concessionnels (APRR/AREA), ce qui renforce la récurrence de ses résultats et sa visibilité. Le groupe est fortement ancré en Europe, avec une base salariale majoritairement européenne et un actionnariat salarié structurant. Il bénéficie d\'un positionnement renforcé sur les infrastructures énergétiques, la mobilité et les services à l\'énergie.',
     highlights: [
-      'APRR/AREA : actif concession sous-valorisé, récurrence élevée',
-      'Carnet de commandes à 24 Md€, couverture 10+ mois',
-      'Pôle Énergie & Services en forte croissance (+12% en 2024)',
-      'Décote de valorisation persistante vs Vinci malgré profil similaire',
+      'Présent dans 50 pays avec environ 85 311 salariés à fin 2025 (95,3 % basés en Europe).',
+      'FY 2025 solide : CA de 25,313 Md€ (+8,0 %), ROC de 2,603 Md€ (+5,3 %) et cash-flow libre de 2,105 Md€.',
+      'Carnet de commandes Travaux de 29,9 Md€ (+3 %), avec 14,1 Md€ à exécuter en N+1 — visibilité élevée pluriannuelle.',
+      'Énergie Systèmes, la branche la plus dynamique (+11,8 % en 2025) : acteur de référence des services à l\'énergie en Allemagne avec plus de 1,1 Md€ d\'activité.',
     ],
     positioning: [
-      { label:'Croissance', val:65, color:'var(--green)' },
-      { label:'Rentabilité', val:64, color:'var(--gold)' },
-      { label:'Visibilité', val:78, color:'var(--blue)' },
+      { label:'Croissance',   val:70, color:'var(--green)' },
+      { label:'Rentabilité',  val:68, color:'var(--gold)'  },
+      { label:'Visibilité',   val:82, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Énergie & Services',  pct:32, margin:'5,8%',  color:'#c9a84c' },
-      { name:'Infrastructures',     pct:25, margin:'4,1%',  color:'#a07834' },
-      { name:'Construction',        pct:22, margin:'3,4%',  color:'#7a5a24' },
-      { name:'Concessions APRR',    pct:13, margin:'38,5%', color:'#4ade80' },
-      { name:'Immobilier',          pct:8,  margin:'4,9%',  color:'#60a5fa' },
+      { name:'Infrastructures',  pct:36.3, ca:'9 187 M€',  color:'#c9a84c' },
+      { name:'Énergie Systèmes', pct:31.8, ca:'8 057 M€',  color:'#4ade80' },
+      { name:'Construction',     pct:16.2, ca:'4 091 M€',  color:'#60a5fa' },
+      { name:'Concessions',      pct:15.7, ca:'3 978 M€',  color:'#a78bfa' },
     ],
-    breakdownYear: 'CA 2024',
+    breakdownYear: 'CA 2025 — 25,313 Md€ (segmentation officielle)',
     geo: [
-      { flag:'🇫🇷', name:'France',        pct:72 },
-      { flag:'🌍', name:'Europe hors FR',  pct:18 },
-      { flag:'🌎', name:'International',   pct:10 },
+      { flag:'🇫🇷', name:'France',          pct:64.1 },
+      { flag:'🇪🇺', name:'Europe hors France',pct:32.8 },
+      { flag:'🌍', name:'Hors Europe',        pct:3.1  },
     ],
-    projects: [
-      'Autoroutes APRR','Lignes ferroviaires','Génie civil lourd',
-      'Bâtiments publics','Réseaux d\'énergie','Infrastructures routières',
-      'Transition énergétique','Logements sociaux',
-    ],
-    swot: {
-      strengths:  ['APRR = actif concession exceptionnel','Groupe familial, vision long terme','Marges en amélioration constante'],
-      weaknesses: ['Taille inférieure à Vinci, moins de diversification','Exposition à la France plus concentrée'],
-      opps:       ['Transition énergétique — fort momentum','Rénovation du parc autoroutier français','Croissance internationale'],
-      risks:      ['Renégociation concessions 2031','Pression inflationniste sur les matériaux','Concurrence sur les grands contrats'],
-    },
     competition: [
-      { name:'Vinci',          ticker:'DG.PA',  cap:'42,1 Md€', pe:'14,2x', note:'Leader mondial, modèle similaire' },
-      { name:'Bouygues',       ticker:'EN.PA',  cap:'11,4 Md€', pe:'13,1x', note:'Concurrent construction & telecom' },
-      { name:'NGE',            ticker:'NC',     cap:'NC',       pe:'NC',    note:'Concurrent non coté en France' },
+      { name:'Vinci',    ticker:'DG.PA',  cap:'~42 Md€',  pe:'~14x', note:'Leader mondial concessions & construction' },
+      { name:'Bouygues', ticker:'EN.PA',  cap:'~11 Md€',  pe:'~13x', note:'Concurrent construction & conglomérat' },
+      { name:'ACS Group',ticker:'ACS.MC', cap:'~9 Md€',   pe:'~13x', note:'Leader espagnol, présence mondiale' },
+      { name:'NGE',      ticker:'NC',     cap:'NC',        pe:'NC',   note:'Concurrent non coté en France' },
     ],
     timeline: [
-      { date:'Fév 2025', type:'earn', title:'Résultats annuels 2024', sub:'Publication FY2024 complets' },
-      { date:'Avr 2025', type:'ann',  title:'Assemblée générale', sub:'Vote résolutions annuelles' },
-      { date:'Mai 2025', type:'div',  title:'Dividende 2024', sub:'Versement dividende ordinaire' },
-      { date:'Jul 2025', type:'earn', title:'CA S1 2025', sub:'Chiffre d\'affaires semestriel' },
-      { date:'Sep 2025', type:'earn', title:'Résultats S1 2025', sub:'EBIT et résultat net semestriels' },
+      { date:'25 fév. 2026',  type:'earn', title:'Résultats annuels 2025 ✓',               sub:'Publication des résultats FY 2025 et réunion des analystes.', past:true },
+      { date:'22 avr. 2026',  type:'ann',  title:'Assemblée Générale',                      sub:'Vote des résolutions et du dividende 4,80 € / action.' },
+      { date:'12 mai 2026',   type:'earn', title:'CA T1 2026',                              sub:'Information trimestrielle — chiffre d\'affaires du 1er trimestre 2026.' },
+      { date:'26 août 2026',  type:'earn', title:'Résultats S1 2026',                       sub:'Résultats du 1er semestre 2026 et réunion des analystes.' },
+      { date:'12 nov. 2026',  type:'earn', title:'CA 9 premiers mois 2026',                 sub:'Information trimestrielle — chiffre d\'affaires des trois premiers trimestres.' },
     ],
     finances: {
-      year: 'FY 2024',
+      year: 'FY 2025 — 31 décembre 2025',
       kpis: [
-        { label:'Chiffre d\'affaires', val:'—', sub:'Live', color:'var(--text)',  live:'ca'   },
-        { label:'EBIT',                val:'—', sub:'Live', color:'var(--gold)',  live:'ebit' },
-        { label:'Résultat net',        val:'—', sub:'Live', color:'var(--green)', live:'net' },
-        { label:'Capitalisation',      val:'—', sub:'Live', color:'var(--gold)',  live:'cap'  },
-        { label:'P/E ratio',           val:'—', sub:'Live', color:'var(--text)',  live:'per'  },
-        { label:'Rendement div.',      val:'—', sub:'Live', color:'var(--blue)',  live:'div'  },
+        { label:'Chiffre d\'affaires', val:'25,3 Md€',  sub:'FY 2025 (+8,0%)',   color:'var(--text)'  },
+        { label:'EBIT (ROC)',           val:'2,60 Md€',  sub:'Marge 10,3%',       color:'var(--gold)'  },
+        { label:'Résultat net',         val:'1,02 Md€',  sub:'FY 2025',           color:'var(--green)' },
+        { label:'Capitalisation',       val:'—',          sub:'Live',              color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',            val:'—',          sub:'Live',              color:'var(--text)', live:'per' },
+        { label:'Rendement div.',       val:'≈ 3,7 %',    sub:'4,80 € / action',  color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title:'Carnet de commandes',
-          rows:[
-            ['Backlog total', '24 Md€'],
-            ['Énergie & Services', '9,2 Md€'],
-            ['Infrastructures', '7,8 Md€'],
-            ['Construction', '7,0 Md€'],
-            ['Couverture (mois)', '10 mois'],
+          title: 'Carnet de commandes Travaux — 31 déc. 2025',
+          rows: [
+            ['Backlog total',         '29,9 Md€ (+3% sur un an)'],
+            ['Construction',          '5,6 Md€ (+3%)'],
+            ['Infrastructures',       '15,4 Md€ (+1%)'],
+            ['Énergie Systèmes',      '8,8 Md€ (+7%)'],
+            ['Visibilité N+1',        '14,1 Md€ à exécuter'],
+            ['Visibilité N+2',        '8,0 Md€ à exécuter'],
+            ['Visibilité N+3 et au-delà', '7,7 Md€'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',          '98 000 000'],
+            ['Flottant',                         '72,1 %'],
+            ['Actionnariat salarié total',       '24,9 %'],
+            ['dont FCPE Eiffage Actionnariat',   '18,9 %'],
+            ['dont Sicavas Eiffage 2000',        '3,4 %'],
+            ['dont Salariés directs',            '2,6 %'],
+            ['Autodétention / autocontrôle',     '3,0 %'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette financière nette',                   '8 548 M€'],
+            ['Évolution vs 2024',                        'Baisse de ~0,9 Md€ (génération de cash-flow libre)'],
+            ['Trésorerie & équivalents',                  '5 870 M€'],
+            ['Liquidité Eiffage SA + filiales Travaux',  '5,6 Md€ (dont 3,6 Md€ dispo + 2,0 Md€ ligne non tirée)'],
+            ['Liquidité APRR',                            '3,2 Md€ (dont 1,7 Md€ dispo + 1,5 Md€ ligne non tirée)'],
+            ['Cash-flow libre',                           '2 105 M€'],
+            ['Ratio DN / EBITDA',                         '~1,95x (estimation calculée, non publié)'],
+            ['Notation Eiffage SA (Fitch)',               'F2 court terme'],
+            ['Notation APRR (Fitch)',                     'A / perspective stable'],
+            ['Notation APRR (S&P)',                       'A- / perspective stable'],
           ]
         },
       ]
@@ -840,6 +858,94 @@ const COMPANIES = {
     news: [],
   },
 
+  legrand: {
+    tagSlug: 'legrand',
+    ticker:  'LR.PA',
+    name:    'Legrand',
+    secteur: 'Infrastructures électriques & numériques',
+    pays:    'FR',
+    signal:  '',
+    desc:    'Legrand est un leader mondial des infrastructures électriques et numériques du bâtiment, présent sur les marchés résidentiel, tertiaire et des datacenters. Le groupe propose une large gamme de solutions combinant électrification, digitalisation et connectivité. Sa stratégie repose sur une croissance rentable tirée par l\'innovation et les acquisitions, avec une forte exposition aux tendances structurelles que sont la transition énergétique, l\'intelligence artificielle et les infrastructures de données.',
+    highlights: [
+      'Présent dans près de 90 pays avec environ 39 600 collaborateurs.',
+      'Leader mondial des infrastructures électriques et numériques du bâtiment, avec 26% du CA exposé aux datacenters et 53% des ventes en solutions de transition énergétique & digitale.',
+      'Croissance record en 2025 : +9,6% publié (+13% hors change), portée par les datacenters et 7 acquisitions réalisées dans l\'année.',
+      'Objectif stratégique de 15 Md€ de chiffre d\'affaires à horizon 2030, avec une marge opérationnelle ajustée de 20,7% et un cash flow libre de 1,33 Md€.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:78, color:'var(--green)' },
+      { label:'Rentabilité',  val:82, color:'var(--gold)'  },
+      { label:'Visibilité',   val:72, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Transition énergétique & digitale', pct:53,  ca:'~5 024 M€', color:'#c9a84c' },
+      { name:'Infrastructures électriques essentielles', pct:47, ca:'~4 457 M€', color:'#4ade80' },
+    ],
+    breakdownYear: 'CA 2025 — 9 480,6 M€ (mix d\'offres, indicateurs non-IFRS)',
+    geo: [
+      { flag:'🌎', name:'Amérique du Nord et Centrale', pct:42.2 },
+      { flag:'🇪🇺', name:'Europe',                      pct:38.0 },
+      { flag:'🌏', name:'Asie-Pacifique',               pct:12.6 },
+      { flag:'🌍', name:'Amérique du Sud',              pct:3.7  },
+      { flag:'🌍', name:'Afrique & Moyen-Orient',       pct:3.5  },
+    ],
+    competition: [
+      { name:'Schneider Electric', ticker:'SU.PA',   cap:'~110 Md€', pe:'~27x', note:'Concurrent direct gestion de l\'énergie & bâtiment' },
+      { name:'ABB',                ticker:'ABBN.SW',  cap:'~95 Md€',  pe:'~22x', note:'Électrification & automatisation industrielle' },
+      { name:'Eaton',              ticker:'ETN',      cap:'~80 Md€',  pe:'~25x', note:'Gestion de l\'énergie, datacenters & bâtiment' },
+      { name:'Rexel',              ticker:'RXL.PA',   cap:'~6 Md€',   pe:'~12x', note:'Distribution de matériel électrique' },
+    ],
+    timeline: [
+      { date:'7 mai 2026',   type:'earn', title:'Résultats T1 2026',         sub:'Publication des résultats du premier trimestre 2026.' },
+      { date:'27 mai 2026',  type:'ann',  title:'Assemblée Générale',         sub:'Assemblée générale des actionnaires.' },
+      { date:'29 mai 2026',  type:'div',  title:'Détachement du dividende',   sub:'Détachement du dividende 2025 : 2,38 € / action.' },
+      { date:'2 juin 2026',  type:'div',  title:'Paiement du dividende',      sub:'Versement du dividende aux actionnaires.' },
+      { date:'29 juil. 2026',type:'earn', title:'Résultats S1 2026',          sub:'Publication des résultats du premier semestre 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'9,48 Md€',  sub:'FY 2025',            color:'var(--text)'  },
+        { label:'EBIT',                val:'1,81 Md€',  sub:'Marge opé. ajustée 20,7%', color:'var(--gold)'  },
+        { label:'Résultat net',        val:'1,24 Md€',  sub:'FY 2025',            color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',          sub:'Live',               color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',          sub:'Live',               color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'≈ 1,8 %',    sub:'2,38 € / action',    color:'var(--blue)'  },
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes (Backlog)',
+          rows: [
+            ['Backlog total',   'Donnée non publiée'],
+            ['Note',            'Legrand indique un "carnet de commandes particulièrement prometteur" sur les datacenters, sans chiffrage officiel.'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',  '262 245 733'],
+            ['Flottant estimé',         '≈ 97,0 %'],
+            ['Dirigeants + salariés',   '≈ 3,0 %'],
+            ['Autocontrôle',            '≈ 0,2 %'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette nette',              '4 222,6 M€'],
+            ['Évolution vs 2024',        '+40% lié aux acquisitions (levier maîtrisé)'],
+            ['Trésorerie & équivalents', '2 381,2 M€'],
+            ['Liquidité totale',         '≈ 3,4 Md€ (incluant ligne de crédit non tirée)'],
+            ['Cash flow libre',          '1 330,8 M€ (14,0% du CA)'],
+            ['Ratio DN / EBITDA',        '1,9x'],
+            ['Notation S&P',             'A- / perspective stable'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
 }
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
@@ -847,7 +953,6 @@ const STUBS = {
   'nexity':       { name:'Nexity',             ticker:'NXI.PA',  tagSlug:'nexity'       },
   'kaufman':      { name:'Kaufman & Broad',    ticker:'KOF.PA',  tagSlug:'kaufman'      },
   'imerys':       { name:'Imerys',             ticker:'NK.PA',   tagSlug:'imerys'       },
-  'legrand':      { name:'Legrand',            ticker:'LR.PA',   tagSlug:'legrand'      },
   'vicat':        { name:'Vicat',              ticker:'VCT.PA',  tagSlug:'vicat'        },
   'bassac':       { name:'Bassac',             ticker:'BA.PA',   tagSlug:'bassac'       },
   'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
