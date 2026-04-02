@@ -326,8 +326,9 @@ function renderPosts(reset) {
     card.onclick = () => location.href = link
 
     if (isFeatured) {
+      if (!img) card.style.display = 'block'
       card.innerHTML = `
-        <div class="card-img" style="${img ? `background-image:url('${img}')` : ''}"></div>
+        ${img ? `<div class="card-img" style="background-image:url('${img}')"></div>` : ''}
         <div class="card-body">
           <div class="card-cat">${cat}</div>
           <div class="card-title">${title}</div>
