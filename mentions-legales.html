@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Mentions légales & Politique de confidentialité</title>
+<meta name="robots" content="noindex, follow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080807; --bg:#0c0c0a; --surface:#111110; --surface2:#161614;
+  --border:rgba(201,168,76,0.1); --border-hover:rgba(201,168,76,0.35);
+  --gold:#c9a84c; --gold-dim:rgba(201,168,76,0.15);
+  --text:#e8e4da; --text-2:#a09880; --text-3:#5a5446; --white:#f5f2eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+
+/* LAYOUT */
+.page-wrap{max-width:900px;margin:0 auto;padding:96px 32px 100px;}
+
+/* HERO */
+.page-hero{padding-bottom:40px;border-bottom:1px solid var(--border);margin-bottom:48px;}
+.page-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:12px;}
+.page-sub{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:20px;}
+.page-updated{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:0.1em;}
+
+/* NAV INTERNE */
+.inner-nav{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin-bottom:48px;display:flex;flex-wrap:wrap;gap:10px;}
+.inner-nav a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;padding:6px 14px;border:1px solid var(--border);transition:all 0.15s;}
+.inner-nav a:hover{color:var(--gold);border-color:var(--gold);}
+
+/* SECTIONS */
+.legal-section{margin-bottom:60px;padding-bottom:60px;border-bottom:1px solid var(--border);}
+.legal-section:last-child{border-bottom:none;margin-bottom:0;}
+.section-badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.section-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:24px;color:var(--white);}
+.sub-title{font-size:13px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text);margin:24px 0 10px;}
+p, li{font-size:14px;color:var(--text-2);line-height:1.8;}
+ul, ol{padding-left:20px;display:flex;flex-direction:column;gap:6px;margin:10px 0;}
+.info-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;}
+.info-box p{font-size:13px;}
+.warn-box{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2);border-left:3px solid #f87171;padding:16px 20px;margin:20px 0;}
+.warn-box p{font-size:13px;color:var(--text-2);}
+.warn-box .warn-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#f87171;margin-bottom:8px;}
+.data-table{width:100%;border-collapse:collapse;margin:16px 0;}
+.data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);}
+.data-table td{font-size:12px;color:var(--text-2);padding:10px 14px;border-bottom:1px solid rgba(201,168,76,0.06);vertical-align:top;line-height:1.6;}
+.data-table tr:last-child td{border-bottom:none;}
+
+/* CONTACT BLOCK */
+.contact-block{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:20px 0;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:600px){.contact-block{grid-template-columns:1fr;}}
+.contact-item-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;}
+.contact-item-val{font-size:13px;color:var(--text);}
+.contact-item-val a{color:var(--gold);text-decoration:none;}
+
+/* COOKIES TOGGLE */
+.cookie-pref-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 20px;border:1px solid var(--gold);color:var(--gold);background:none;cursor:pointer;transition:all 0.15s;margin-top:16px;}
+.cookie-pref-btn:hover{background:var(--gold);color:var(--black);}
+
+/* HAMBURGER */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
+.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;}
+
+@media(max-width:768px){
+  .nav-links{display:none !important;}
+  .nav-hamburger{display:flex;}
+  nav{padding:0 16px;}
+  .page-wrap{padding:80px 16px 60px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileLegal').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobileLegal">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
+
+<div class="page-wrap">
+
+  <div class="page-hero">
+    <div class="page-tag">Informations légales</div>
+    <h1 class="page-title">Mentions légales &amp; Données personnelles</h1>
+    <p class="page-sub">Ce document regroupe les mentions légales, les conditions générales d'utilisation, la politique de confidentialité, la politique de gestion des cookies ainsi que l'avertissement financier de BatiAnalyse.</p>
+    <div class="page-updated">Dernière mise à jour : 1er avril 2026</div>
+  </div>
+
+  <!-- NAV INTERNE -->
+  <div class="inner-nav">
+    <a href="#mentions-legales">Mentions légales</a>
+    <a href="#cgu">CGU</a>
+    <a href="#avertissement">Avertissement financier</a>
+    <a href="#confidentialite">Confidentialité &amp; RGPD</a>
+    <a href="#cookies">Cookies</a>
+    <a href="#droits">Vos droits</a>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       1. MENTIONS LÉGALES
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="mentions-legales">
+    <div class="section-badge">Article 6 LCEN</div>
+    <h2 class="section-title">Mentions légales</h2>
+
+    <div class="sub-title">Éditeur du site</div>
+    <div class="contact-block">
+      <div>
+        <div class="contact-item-label">Raison sociale</div>
+        <div class="contact-item-val">[RAISON SOCIALE — À COMPLÉTER]</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Forme juridique</div>
+        <div class="contact-item-val">[FORME JURIDIQUE — À COMPLÉTER]</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Siège social</div>
+        <div class="contact-item-val">[ADRESSE — À COMPLÉTER]</div>
+      </div>
+      <div>
+        <div class="contact-item-label">SIRET</div>
+        <div class="contact-item-val">[SIRET — À COMPLÉTER]</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Directeur de la publication</div>
+        <div class="contact-item-val">[NOM DU DIRECTEUR DE PUBLICATION — À COMPLÉTER]</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Contact</div>
+        <div class="contact-item-val"><a href="mailto:contact@batianalyste.fr">contact@batianalyste.fr</a></div>
+      </div>
+    </div>
+
+    <div class="sub-title">Hébergeur</div>
+    <div class="contact-block">
+      <div>
+        <div class="contact-item-label">Société</div>
+        <div class="contact-item-val">Vercel Inc.</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Adresse</div>
+        <div class="contact-item-val">340 Pine Street, Suite 701, San Francisco, CA 94104, États-Unis</div>
+      </div>
+      <div>
+        <div class="contact-item-label">Site web</div>
+        <div class="contact-item-val"><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></div>
+      </div>
+    </div>
+
+    <div class="sub-title">Propriété intellectuelle</div>
+    <p>L'ensemble des contenus présents sur le site BatiAnalyse (textes, analyses, graphiques, données, mise en page, code source) est protégé par le droit d'auteur et le droit sui generis des bases de données. Toute reproduction, représentation, modification ou diffusion, totale ou partielle, sans autorisation écrite préalable de l'éditeur, est strictement interdite et constituerait une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
+    <p style="margin-top:12px;">Les marques et logos figurant sur le site sont des marques déposées ou non déposées de leur propriétaire respectif. Leur reproduction sans autorisation est interdite.</p>
+
+    <div class="sub-title">Liens hypertextes</div>
+    <p>BatiAnalyse ne peut être tenu responsable du contenu des sites tiers vers lesquels des liens hypertextes peuvent pointer. La mise en place d'un lien vers BatiAnalyse depuis un site tiers nécessite l'autorisation préalable de l'éditeur.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       2. CGU
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="cgu">
+    <div class="section-badge">Conditions d'utilisation</div>
+    <h2 class="section-title">Conditions Générales d'Utilisation</h2>
+
+    <div class="sub-title">Objet</div>
+    <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du site BatiAnalyse, accessible à l'adresse <strong>batianalyste.fr</strong>. L'utilisation du site implique l'acceptation pleine et entière des présentes CGU. BatiAnalyse se réserve le droit de les modifier à tout moment ; les modifications entrent en vigueur dès leur publication.</p>
+
+    <div class="sub-title">Accès au service</div>
+    <p>Le site est accessible gratuitement à tout utilisateur disposant d'un accès à internet. Certains contenus peuvent être réservés aux abonnés. BatiAnalyse se réserve le droit de suspendre, modifier ou interrompre l'accès au site à tout moment, notamment pour des opérations de maintenance.</p>
+
+    <div class="sub-title">Comportement de l'utilisateur</div>
+    <p>L'utilisateur s'engage à :</p>
+    <ul>
+      <li>Ne pas utiliser le site à des fins illicites ou contraires aux présentes CGU.</li>
+      <li>Ne pas scraper, extraire ou reproduire automatiquement les contenus sans autorisation écrite.</li>
+      <li>Ne pas porter atteinte à la sécurité ou à l'intégrité du site ou de ses systèmes informatiques.</li>
+      <li>Ne pas diffuser de contenu préjudiciable, diffamatoire ou portant atteinte aux droits des tiers.</li>
+    </ul>
+
+    <div class="sub-title">Limitation de responsabilité</div>
+    <p>BatiAnalyse s'efforce d'assurer l'exactitude et la mise à jour des informations publiées. Cependant, l'éditeur ne saurait être tenu responsable des erreurs ou omissions, de l'indisponibilité du site, ni de tout dommage résultant de l'utilisation des informations publiées. Les données financières présentées sont à titre informatif uniquement et peuvent ne pas refléter les données les plus récentes.</p>
+
+    <div class="sub-title">Droit applicable — Juridiction compétente</div>
+    <p>Les présentes CGU sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       3. AVERTISSEMENT FINANCIER
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="avertissement">
+    <div class="section-badge">Disclaimer</div>
+    <h2 class="section-title">Avertissement financier</h2>
+
+    <div class="warn-box">
+      <div class="warn-title">Information importante</div>
+      <p>Les contenus publiés sur BatiAnalyse ne constituent pas des conseils en investissement au sens de la Directive MiFID II et du règlement AMF.</p>
+    </div>
+
+    <div class="sub-title">Nature des contenus</div>
+    <p>BatiAnalyse est un média d'analyse et d'information financière dédié au secteur de la construction, des matériaux et des infrastructures. Les analyses, opinions, données chiffrées et commentaires publiés sur ce site sont fournis à titre d'<strong>information générale et journalistique uniquement</strong>. Ils ne constituent pas :</p>
+    <ul>
+      <li>Des conseils personnalisés en investissement, en gestion de patrimoine ou en droit financier.</li>
+      <li>Une incitation à acheter, vendre ou conserver un instrument financier.</li>
+      <li>Une recommandation au sens des articles L.544-1 et suivants du Code monétaire et financier.</li>
+      <li>Une analyse financière au sens réglementaire (BatiAnalyse n'est pas enregistré comme prestataire de services de communication d'analyses financières).</li>
+    </ul>
+
+    <div class="sub-title">Risques inhérents à l'investissement</div>
+    <p>Tout investissement en valeurs mobilières comporte des risques, notamment de perte en capital. Les performances passées ne préjugent pas des performances futures. Les données de marché, cours de bourse et indicateurs financiers présentés sur ce site peuvent être décalés et ne doivent pas être utilisés pour effectuer des transactions.</p>
+
+    <div class="sub-title">Absence de conflit d'intérêts déclaré</div>
+    <p>BatiAnalyse s'engage à signaler tout lien commercial ou financier susceptible d'affecter l'indépendance éditoriale dans les articles concernés. En l'absence de mention contraire, aucun lien commercial n'existe entre BatiAnalyse et les sociétés analysées.</p>
+
+    <div class="sub-title">Sources</div>
+    <p>Les données financières citées proviennent de sources publiques (rapports annuels, communiqués de presse, publications réglementées, Euronext, etc.). BatiAnalyse ne garantit pas leur exhaustivité ni leur exactitude à tout moment.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       4. POLITIQUE DE CONFIDENTIALITÉ
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="confidentialite">
+    <div class="section-badge">RGPD — Règlement UE 2016/679</div>
+    <h2 class="section-title">Politique de confidentialité</h2>
+
+    <div class="info-box">
+      <p>BatiAnalyse s'engage à protéger vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés modifiée.</p>
+    </div>
+
+    <div class="sub-title">Responsable du traitement</div>
+    <p>Le responsable du traitement des données est l'éditeur du site BatiAnalyse, dont les coordonnées figurent à la section Mentions légales ci-dessus. Pour toute question relative à vos données personnelles : <a href="mailto:contact@batianalyste.fr" style="color:var(--gold);">contact@batianalyste.fr</a></p>
+
+    <div class="sub-title">Données collectées et finalités</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Données collectées</th>
+          <th>Finalité</th>
+          <th>Base légale</th>
+          <th>Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Adresse e-mail (newsletter)</td>
+          <td>Envoi de la lettre d'information financière</td>
+          <td>Consentement (art. 6.1.a RGPD)</td>
+          <td>Jusqu'au désabonnement</td>
+        </tr>
+        <tr>
+          <td>Données de navigation (logs serveur)</td>
+          <td>Sécurité, débogage technique</td>
+          <td>Intérêt légitime (art. 6.1.f RGPD)</td>
+          <td>90 jours</td>
+        </tr>
+        <tr>
+          <td>Cookies de mesure d'audience (si activés)</td>
+          <td>Analyse statistique anonymisée du trafic</td>
+          <td>Consentement (art. 6.1.a RGPD)</td>
+          <td>13 mois maximum</td>
+        </tr>
+        <tr>
+          <td>Données de contact (formulaire)</td>
+          <td>Réponse aux demandes entrantes</td>
+          <td>Intérêt légitime (art. 6.1.f RGPD)</td>
+          <td>3 ans</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-title">Destinataires des données</div>
+    <p>Vos données ne sont pas vendues à des tiers. Elles peuvent être transmises à des sous-traitants techniques strictement nécessaires au fonctionnement du service (hébergeur Vercel, prestataire e-mail), liés par des garanties contractuelles conformes au RGPD.</p>
+    <p style="margin-top:8px;">Les données sont hébergées sur des serveurs situés dans l'Espace Économique Européen ou bénéficiant de garanties adéquates (décision d'adéquation ou clauses contractuelles types de la Commission européenne).</p>
+
+    <div class="sub-title">Absence de profilage automatisé</div>
+    <p>BatiAnalyse ne procède à aucune prise de décision automatisée ni à aucun profilage au sens de l'article 22 du RGPD.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       5. POLITIQUE COOKIES
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="cookies">
+    <div class="section-badge">Directive ePrivacy — CNIL</div>
+    <h2 class="section-title">Politique de cookies</h2>
+
+    <p>Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, mobile, tablette) lors de votre visite sur un site web. Conformément aux recommandations de la CNIL, BatiAnalyse vous informe sur les cookies utilisés et vous permet de les paramétrer.</p>
+
+    <div class="sub-title">Cookies strictement nécessaires (exemptés de consentement)</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Cookie</th>
+          <th>Finalité</th>
+          <th>Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code style="font-family:'DM Mono',monospace;font-size:11px;">ba_cookie_consent</code></td>
+          <td>Mémorisation de vos préférences de consentement aux cookies</td>
+          <td>12 mois</td>
+        </tr>
+        <tr>
+          <td>Cookies de session Vercel</td>
+          <td>Sécurité et fonctionnement technique de l'hébergeur</td>
+          <td>Session</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-title">Cookies de mesure d'audience (soumis au consentement)</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Outil</th>
+          <th>Finalité</th>
+          <th>Durée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Statistiques de navigation (si activées)</td>
+          <td>Mesure anonymisée du trafic, pages vues, sources de visite — sans croisement avec des données tierces</td>
+          <td>13 mois max.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-title">Cookies tiers</div>
+    <p>BatiAnalyse peut intégrer des fonctionnalités de services tiers (Google Fonts, API WordPress batianalyste.fr). Ces services peuvent déposer leurs propres cookies soumis à leurs politiques de confidentialité respectives. BatiAnalyse ne contrôle pas ces cookies tiers.</p>
+
+    <div class="sub-title">Gérer vos préférences</div>
+    <p>Vous pouvez à tout moment modifier vos préférences en matière de cookies :</p>
+    <ul>
+      <li>En cliquant sur le bouton ci-dessous pour ouvrir le panneau de préférences.</li>
+      <li>Via les paramètres de votre navigateur (voir documentation de Chrome, Firefox, Safari, Edge).</li>
+      <li>En effaçant les cookies déposés via les paramètres de votre navigateur.</li>
+    </ul>
+    <button class="cookie-pref-btn" onclick="resetCookieConsent()">Gérer mes préférences cookies</button>
+  </section>
+
+  <!-- ═══════════════════════════════════
+       6. DROITS DES UTILISATEURS
+  ════════════════════════════════════ -->
+  <section class="legal-section" id="droits">
+    <div class="section-badge">Articles 15 à 22 RGPD</div>
+    <h2 class="section-title">Vos droits</h2>
+
+    <p>Conformément au RGPD et à la loi Informatique et Libertés, vous disposez des droits suivants sur vos données personnelles :</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Droit</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Accès</strong> (art. 15)</td>
+          <td>Obtenir confirmation que des données vous concernant sont traitées et en obtenir une copie.</td>
+        </tr>
+        <tr>
+          <td><strong>Rectification</strong> (art. 16)</td>
+          <td>Corriger des données inexactes ou incomplètes vous concernant.</td>
+        </tr>
+        <tr>
+          <td><strong>Effacement</strong> (art. 17)</td>
+          <td>Demander la suppression de vos données dans les cas prévus par le RGPD.</td>
+        </tr>
+        <tr>
+          <td><strong>Limitation</strong> (art. 18)</td>
+          <td>Demander la suspension temporaire du traitement de vos données.</td>
+        </tr>
+        <tr>
+          <td><strong>Portabilité</strong> (art. 20)</td>
+          <td>Recevoir vos données dans un format structuré et lisible par machine.</td>
+        </tr>
+        <tr>
+          <td><strong>Opposition</strong> (art. 21)</td>
+          <td>Vous opposer au traitement de vos données fondé sur l'intérêt légitime.</td>
+        </tr>
+        <tr>
+          <td><strong>Retrait du consentement</strong></td>
+          <td>Retirer votre consentement à tout moment sans que cela n'affecte la licéité des traitements antérieurs.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-title">Comment exercer vos droits</div>
+    <p>Pour exercer l'un de ces droits, adressez votre demande par e-mail à <a href="mailto:contact@batianalyste.fr" style="color:var(--gold);">contact@batianalyste.fr</a> en précisant votre identité. Un justificatif d'identité pourra vous être demandé. Nous nous engageons à répondre dans un délai d'un mois à compter de la réception de votre demande.</p>
+
+    <div class="sub-title">Réclamation auprès de la CNIL</div>
+    <p>Si vous estimez que vos droits ne sont pas respectés, vous avez le droit d'introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL) :</p>
+    <div class="info-box">
+      <p><strong>CNIL</strong> — 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07<br>
+      Tél : 01 53 73 22 22 — <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" style="color:var(--gold);">www.cnil.fr</a></p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+function resetCookieConsent() {
+  localStorage.removeItem('ba_cookie_consent');
+  location.reload();
+}
+</script>
+
+</body>
+</html>

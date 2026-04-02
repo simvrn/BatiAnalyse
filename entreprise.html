@@ -946,18 +946,402 @@ const COMPANIES = {
     news: [],
   },
 
+  balfour: {
+    tagSlug: 'balfour',
+    ticker:  'BBY.L',
+    name:    'Balfour Beatty',
+    secteur: 'Construction & Infrastructures',
+    pays:    'GB',
+    signal:  '',
+    desc:    'Balfour Beatty est un groupe international d\'infrastructures qui finance, développe, construit, maintient et exploite des actifs complexes. Il s\'organise autour de trois segments : Construction Services, Support Services et Infrastructure Investments. Principalement implanté au Royaume-Uni, aux États-Unis et à Hong Kong, le groupe se positionne sur des marchés à forte visibilité comme l\'énergie, les transports, la défense et les bâtiments aux États-Unis. Ses principaux atouts sont son expertise de bout en bout, son carnet de commandes record, sa sélectivité contractuelle et un bilan très solide.',
+    highlights: [
+      'Présent au Royaume-Uni, aux États-Unis et à Hong Kong avec environ 27 000 collaborateurs.',
+      'Carnet de commandes record de £22,7 Md à fin FY2025, en hausse de 23% sur un an, porté par l\'énergie (Sizewell C, Net Zero Teesside).',
+      'FY2025 : CA de £10,8 Md (+8%), profit des activités earnings-based +16%, cash net de £1,446 Md — programme de rachat d\'actions 2026 porté à £200m.',
+      'Part de marché estimée à 25% dans la transmission électrique au Royaume-Uni en 2025.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:72, color:'var(--green)' },
+      { label:'Rentabilité',  val:60, color:'var(--gold)'  },
+      { label:'Visibilité',   val:85, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Construction Services', pct:80.9, ca:'£8 711m', color:'#c9a84c' },
+      { name:'Support Services',      pct:13.3, ca:'£1 427m', color:'#4ade80' },
+      { name:'Infrastructure Investments', pct:5.8, ca:'£629m', color:'#60a5fa' },
+    ],
+    breakdownYear: 'CA FY2025 — £10,767 Md (incl. quote-part JV & associates)',
+    geo: [
+      { flag:'🇺🇸', name:'États-Unis',     pct:45.4 },
+      { flag:'🇬🇧', name:'Royaume-Uni',    pct:44.4 },
+      { flag:'🌏', name:'Reste du monde',  pct:10.2 },
+    ],
+    competition: [
+      { name:'Kier Group',   ticker:'KIE.L',  cap:'~1,4 Md£', pe:'~11x', note:'Concurrent direct UK construction & infrastructure' },
+      { name:'Morgan Sindall',ticker:'MGNS.L',cap:'~1,8 Md£', pe:'~13x', note:'Construction & régénération urbaine UK' },
+      { name:'Fluor',        ticker:'FLR',    cap:'~7 Md$',   pe:'~20x', note:'Ingénierie & construction US' },
+      { name:'Skanska',      ticker:'SKA-B.ST',cap:'~7 Md€',  pe:'~15x', note:'Construction & développement nordique' },
+    ],
+    timeline: [
+      { date:'11 mars 2026',  type:'earn', title:'Résultats annuels FY2025 ✓',   sub:'Publication des résultats FY2025 et réunion d\'analystes.', past:true },
+      { date:'7 mai 2026',    type:'ann',  title:'AGM & Trading Update',          sub:'Assemblée générale annuelle et mise à jour trimestrielle.' },
+      { date:'12 août 2026',  type:'earn', title:'Résultats semestriels 2026',    sub:'Publication des résultats du premier semestre 2026.' },
+      { date:'3 déc. 2026',   type:'earn', title:'Trading Update',                sub:'Mise à jour sur l\'activité et les perspectives fin d\'année.' },
+    ],
+    finances: {
+      year: 'FY2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'£10,8 Md', sub:'FY2025 (+8%)',          color:'var(--text)'  },
+        { label:'EBIT',                val:'£284m',    sub:'Statutaire',             color:'var(--gold)'  },
+        { label:'Résultat net',        val:'£264m',    sub:'Statutaire FY2025',      color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',         sub:'Live',                  color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',         sub:'Live',                  color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'≈ 1,9 %',   sub:'14,0p / action (marché)',color:'var(--blue)' },
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes — 31 déc. 2025',
+          rows: [
+            ['Backlog total',          '£22,7 Md (+23% vs £18,4 Md fin 2024)'],
+            ['UK Construction',        '£8,9 Md (39,2% du backlog)'],
+            ['US Construction',        '£7,8 Md (34,4%)'],
+            ['Support Services',       '£4,0 Md (17,6%)'],
+            ['Gammon (Hong Kong)',      '£2,0 Md (8,8%)'],
+            ['Couverture backlog/CA',  '~2,1x le CA FY2025 (calcul analyste)'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions ordinaires en circulation', '~494,0 millions (ordinary shares 50p each)'],
+            ['Flottant',                           'Non communiqué publiquement'],
+            ['Actionnariat salarié',               'Non détaillé dans les publications officielles'],
+            ['Autocontrôle',                       '0% (24,2M actions rachetées et annulées le 24/12/2025)'],
+            ['Principal actionnaire identifié',    'Schroders plc — 5,10%'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Cash net (hors concessions & leases)', '£1 446m'],
+            ['Trésorerie & équivalents',              '£1 792m'],
+            ['RCF confirmée non tirée',               '£450m (mat. 2029)'],
+            ['Ligne bilatérale non tirée',            '£30m'],
+            ['Liquidité totale',                      '£2 272m'],
+            ['Ratio DN / EBITDA',                     'Non publié'],
+            ['Notation crédit',                       'Non publiée'],
+            ['Note',                                  'Rachat d\'actions 2026 porté à £200m — signe de bilan très solide'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
+  cofinimmo: {
+    tagSlug: 'cofinimmo',
+    ticker:  'COFB.BR',
+    name:    'Cofinimmo',
+    secteur: 'Foncière — Immobilier de santé',
+    pays:    'BE',
+    signal:  '',
+    desc:    'Cofinimmo est une foncière cotée belge spécialisée dans l\'acquisition, le développement et la gestion d\'actifs immobiliers locatifs. Son portefeuille est aujourd\'hui majoritairement tourné vers l\'immobilier de santé en Europe, complété par des bureaux et des actifs de réseaux de distribution. Le groupe met en avant un portefeuille défensif, des baux longs (durée résiduelle moyenne 13 ans), un taux d\'occupation de 98,4% et une présence dans 9 pays européens.',
+    highlights: [
+      'Présent dans 9 pays avec environ 150 collaborateurs — portefeuille consolidé de 6,1 Md€.',
+      '77% du portefeuille investi en immobilier de santé, segment le plus défensif et à forte visibilité locative.',
+      'FY 2025 au-dessus des perspectives : EPRA Earnings de 245,6 M€, taux d\'occupation 98,4%, durée résiduelle moyenne des baux 13 ans.',
+      'Profil financier solide : ratio dette/actifs 42,8%, coût moyen de la dette 1,5%, notation BBB/Stable/A-2 (S&P, sous Positive Watch depuis juin 2025).',
+    ],
+    positioning: [
+      { label:'Croissance',   val:48, color:'var(--green)' },
+      { label:'Rentabilité',  val:70, color:'var(--gold)'  },
+      { label:'Visibilité',   val:90, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Immobilier de santé', pct:77, ca:'~4 693 M€ (valeur portefeuille)', color:'#c9a84c' },
+      { name:'Bureaux',             pct:15, ca:'~913 M€',                          color:'#4ade80' },
+      { name:'Réseaux de distribution', pct:8, ca:'~487 M€',                       color:'#60a5fa' },
+    ],
+    breakdownYear: 'Portefeuille consolidé FY2025 — 6,085 Md€ (valeur des actifs)',
+    geo: [
+      { flag:'🇧🇪', name:'Belgique',     pct:47 },
+      { flag:'🇩🇪', name:'Allemagne',    pct:15 },
+      { flag:'🇫🇷', name:'France',       pct:11 },
+      { flag:'🇳🇱', name:'Pays-Bas',     pct:10 },
+      { flag:'🇪🇸', name:'Espagne',      pct:7  },
+      { flag:'🇮🇹', name:'Italie',       pct:4  },
+      { flag:'🇫🇮', name:'Finlande',     pct:3  },
+      { flag:'🇮🇪', name:'Irlande',      pct:2  },
+      { flag:'🇬🇧', name:'Royaume-Uni',  pct:1  },
+    ],
+    competition: [
+      { name:'Aedifica',    ticker:'AED.BR',  cap:'~2,5 Md€', pe:'NC', note:'Foncière belge santé — concurrent direct' },
+      { name:'Icade Santé', ticker:'ICAD.PA', cap:'~1,8 Md€', pe:'NC', note:'Foncière santé française' },
+      { name:'Primary Health Properties', ticker:'PHP.L', cap:'~1,5 Md£', pe:'NC', note:'Foncière santé primaire UK' },
+      { name:'Gecina',      ticker:'GFC.PA',  cap:'~7 Md€',   pe:'NC', note:'Foncière bureaux & résidentiel France' },
+    ],
+    timeline: [
+      { date:'10 avr. 2026',  type:'earn', title:'Universal Registration Document 2025',  sub:'Publication du rapport annuel et du Sustainability Report.' },
+      { date:'22 avr. 2026',  type:'earn', title:'Interim Report — résultats au 31.03.2026', sub:'Résultats du premier trimestre 2026.' },
+      { date:'13 mai 2026',   type:'ann',  title:'Assemblée Générale Ordinaire',           sub:'Vote des résolutions et du dividende brut 5,20 € / action.' },
+      { date:'18 mai 2026',   type:'div',  title:'Ex-date du dividende FY2025',            sub:'Détachement du dividende FY2025.' },
+      { date:'21 mai 2026',   type:'div',  title:'Paiement du dividende FY2025',           sub:'Versement du dividende brut 5,20 € aux actionnaires.' },
+      { date:'23 juil. 2026', type:'earn', title:'Rapport semestriel — résultats au 30.06.2026', sub:'Résultats du premier semestre 2026.' },
+      { date:'23 oct. 2026',  type:'earn', title:'Interim Report — résultats au 30.09.2026', sub:'Résultats des neuf premiers mois 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Gross Rental Income', val:'355 M€',   sub:'FY 2025',                         color:'var(--text)'  },
+        { label:'Résultat opérationnel',val:'287,6 M€', sub:'Avant résultat sur portefeuille', color:'var(--gold)'  },
+        { label:'Résultat net',         val:'213,5 M€', sub:'Part du groupe FY 2025',          color:'var(--green)' },
+        { label:'Capitalisation',       val:'—',         sub:'Live',                            color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',            val:'—',         sub:'Live',                            color:'var(--text)', live:'per' },
+        { label:'Rendement div.',       val:'≈ 6,6 %',   sub:'5,20 € brut / action',           color:'var(--blue)'  },
+      ],
+      accordions: [
+        {
+          title: 'Visibilité locative — FY 2025',
+          rows: [
+            ['EPRA Earnings',                   '245,6 M€'],
+            ['Taux d\'occupation',               '98,4%'],
+            ['Durée résiduelle moyenne des baux','13 ans'],
+            ['Pipeline Finlande',               '~46 M€ identifiés'],
+            ['Pipeline Espagne (cumulé)',        '~520 M€ à terme (exploitation + projets + foncier)'],
+            ['Note',                             'Pas de carnet de commandes industriel — visibilité via baux long terme'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',   '38 096 217'],
+            ['Flottant Euronext',         '100% (définition Euronext)'],
+            ['BlackRock, Inc.',           '5,06%'],
+            ['Autocontrôle',              '0,03% (Cofinimmo Group)'],
+            ['Actionnariat salarié',      'Non publié'],
+            ['Autres actionnaires (<5%)', '94,91%'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette financière brute',       '~2 588 M€ (1 589 M€ NC + 1 000 M€ C)'],
+            ['Trésorerie',                   '23,8 M€'],
+            ['Dette nette estimée',          '~2 564 M€ (reconstitution analyste)'],
+            ['Headroom lignes engagées',     '1 031 M€ (après backup commercial paper)'],
+            ['Liquidité totale estimée',     '~1 805 M€ (tréso + availabilities lignes)'],
+            ['Ratio dette / actifs',         '42,8% (vs 42,6% fin 2024)'],
+            ['Coût moyen de la dette',       '1,5%'],
+            ['Échéances LT 2026 restantes',  '267 M€ (vs 781 M€ début 2025)'],
+            ['Notation S&P',                 'BBB / Stable / A-2 (sous Positive Watch depuis 04.06.2025)'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
+  imerys: {
+    tagSlug: 'imerys',
+    ticker:  'NK.PA',
+    name:    'Imerys',
+    secteur: 'Spécialités minérales — Industrie',
+    pays:    'FR',
+    signal:  'hold',
+    desc:    'Imerys est un groupe français spécialisé dans les spécialités minérales destinées à l\'industrie. Le groupe opère au travers de trois segments : Minéraux de performance, Solutions pour les réfractaires, abrasifs et construction, et Solutions pour la transition énergétique. Son positionnement repose sur des solutions minérales à forte valeur ajoutée, une expertise de formulation et de procédés, ainsi qu\'une présence sur des marchés finaux diversifiés comme la construction, les biens de consommation, l\'automobile et les matériaux pour batteries. En 2025, la société a mis l\'accent sur la discipline prix/coûts, l\'innovation et la réduction structurelle de sa base de coûts via le projet Horizon.',
+    highlights: [
+      'Présent dans 40 pays avec environ 12 300 collaborateurs.',
+      'En FY 2025, le chiffre d\'affaires ressort à 3 384 M€ et l\'EBITDA ajusté à 546 M€, en ligne avec la guidance annuelle, malgré un effet de change défavorable de 22 M€.',
+      'Leader mondial des spécialités minérales, organisé autour de trois pôles : Minéraux de performance, Solutions réfractaires/abrasifs/construction, et Solutions pour la transition énergétique.',
+      'Lancement du projet Horizon, visant 50 à 60 M€ d\'économies annuelles brutes vs la base de coûts 2025 — plus de la moitié attendue dès 2026, plein effet à partir de 2027.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:44, color:'var(--green)' },
+      { label:'Rentabilité',  val:55, color:'var(--gold)'  },
+      { label:'Visibilité',   val:42, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Minéraux de performance',             pct:59.8, ca:'2 022 M€', color:'#c9a84c' },
+      { name:'Réfractaires, abrasifs & construction',pct:33.3, ca:'1 128 M€', color:'#60a5fa' },
+      { name:'Solutions transition énergétique',     pct:7.0,  ca:'238 M€',   color:'#4ade80' },
+    ],
+    breakdownYear: 'CA 2025 — 3 384 M€',
+    geo: [
+      { flag:'🌍', name:'Europe, Moyen-Orient & Afrique', pct:47.8 },
+      { flag:'🌎', name:'Amérique du Nord',               pct:27.6 },
+      { flag:'🌏', name:'Asie',                           pct:19.1 },
+      { flag:'🌎', name:'Amérique du Sud',                pct:5.5  },
+    ],
+    competition: [
+      { name:'Minerals Technologies', ticker:'MTX',    cap:'~1,6 Md$', pe:'~14x', note:'Spécialités minérales — carbonates & PCC' },
+      { name:'Elementis',             ticker:'ELM.L',  cap:'~0,8 Md£', pe:'~12x', note:'Spécialités chimiques & minérales' },
+      { name:'Quarzwerke',            ticker:'NC',     cap:'NC',        pe:'NC',   note:'Spécialités minérales — non coté' },
+      { name:'Sibelco',               ticker:'NC',     cap:'NC',        pe:'NC',   note:'Minéraux industriels — non coté' },
+    ],
+    timeline: [
+      { date:'19 fév. 2026',    type:'earn', title:'Résultats annuels 2025 ✓',       sub:'Publication des résultats FY 2025. CA : 3 384 M€, EBITDA ajusté : 546 M€, RN courant pdG : 146 M€.', past:true },
+      { date:'29 avr. 2026',    type:'earn', title:'Résultats T1 2026',              sub:'Publication des résultats du premier trimestre 2026 à 18h30 CEST.' },
+      { date:'12 mai 2026',     type:'ann',  title:'Assemblée Générale 2026',        sub:'Assemblée générale des actionnaires à 15h00 CEST — vote du dividende proposé de 0,75 € / action.' },
+      { date:'29 juil. 2026',   type:'earn', title:'Résultats S1 2026',             sub:'Publication des résultats du premier semestre 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'3 384 M€',  sub:'FY 2025',                    color:'var(--text)'  },
+        { label:'EBITDA ajusté',       val:'546 M€',    sub:'Marge 16,1%',                color:'var(--gold)'  },
+        { label:'Résultat net courant',val:'146 M€',    sub:'Part du Groupe, courant',     color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',         sub:'Live',                        color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',         sub:'Live',                        color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'≈ 3,6 %',   sub:'0,75 € / action proposé',    color:'var(--blue)'  },
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes',
+          rows: [
+            ['Backlog total',      'Non disponible'],
+            ['Répartition',        'Non disponible'],
+            ['Évolution',          'Non disponible'],
+            ['Visibilité 2026',    'Pas d\'amélioration significative des marchés observée en début 2026 — davantage de visibilité nécessaire avant tout engagement de performance'],
+            ['Note',               'Imerys ne publie pas de carnet de commandes chiffré comparable à celui de groupes de projets ou d\'ingénierie'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',  '84 940 955'],
+            ['GBL (capital)',            '54,7%'],
+            ['GBL (droits de vote)',     '67,9%'],
+            ['Flottant (estimé)',        '~45,3%'],
+            ['Actionnariat salarié',     'Non disponible'],
+            ['Autocontrôle',             'Actions propres confirmées — % non disponible'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette brute',                      '2 210 M€'],
+            ['Trésorerie',                        '819 M€'],
+            ['Dette nette',                       '1 391 M€ (vs 1 275 M€ fin 2024)'],
+            ['Ratio DN / EBITDA ajusté',          '2,5x'],
+            ['Lignes de crédit disponibles',      '960 M€'],
+            ['Liquidité totale',                  '1 779 M€ (tréso + lignes)'],
+            ['Maturité moyenne de la dette',      '4,3 ans (après émission obligataire de 600 M€)'],
+            ['Notation S&P',                      'BBB− / perspective stable'],
+            ['Notation Moody\'s',                 'Baa3 / perspective stable'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
+  vicat: {
+    tagSlug: 'vicat',
+    ticker:  'VCT.PA',
+    name:    'Vicat',
+    secteur: 'Matériaux de construction — Ciment',
+    pays:    'FR',
+    signal:  'hold',
+    desc:    'Vicat est un groupe français de matériaux de construction, coté sur Euronext Paris et majoritairement contrôlé par la famille fondatrice. Il opère principalement dans le ciment, le béton prêt à l\'emploi et les granulats, ainsi que dans des activités complémentaires. Son modèle repose sur une implantation industrielle locale, un portefeuille équilibré entre pays développés et émergents et une discipline financière qui soutient à la fois la rentabilité et le désendettement. Le groupe met également en avant sa stratégie de décarbonation, notamment avec le projet VAIA.',
+    highlights: [
+      'Présent dans 12 pays avec plus de 10 000 collaborateurs.',
+      'En FY 2025, Vicat a réalisé 3 854 M€ de chiffre d\'affaires, 771 M€ d\'EBITDA et 275 M€ de résultat net part du Groupe, avec une marge EBITDA de 20,0%.',
+      'Groupe cimentier français à forte implantation internationale, organisé autour de trois métiers principaux : ciment, béton prêt à l\'emploi et granulats ; en FY 2025, le ciment représente environ 53,1% du chiffre d\'affaires consolidé.',
+      'Le groupe a poursuivi son désendettement en 2025, avec une baisse de la dette nette de 85 M€, un ratio de leverage de 1,49x, et a obtenu au total 340 M€ de subventions sélectionnées pour le projet VAIA.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:52, color:'var(--green)' },
+      { label:'Rentabilité',  val:60, color:'var(--gold)'  },
+      { label:'Visibilité',   val:55, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Ciment',                    pct:53.1, ca:'2 047 M€', color:'#c9a84c' },
+      { name:'Béton & Granulats',         pct:36.9, ca:'1 421 M€', color:'#60a5fa' },
+      { name:'Autres Produits & Services',pct:10.0, ca:'387 M€',   color:'#4ade80' },
+    ],
+    breakdownYear: 'CA 2025 — 3 854 M€',
+    geo: [
+      { flag:'🇫🇷', name:'France',             pct:31.1 },
+      { flag:'🌎', name:'Amériques',            pct:24.5 },
+      { flag:'🌍', name:'Méditerranée',         pct:13.3 },
+      { flag:'🇪🇺', name:'Europe hors France', pct:11.5 },
+      { flag:'🌏', name:'Asie',                 pct:10.2 },
+      { flag:'🌍', name:'Afrique',              pct:9.4  },
+    ],
+    competition: [
+      { name:'Holcim',               ticker:'HOLN.SW', cap:'~55 Md€',  pe:'~15x', note:'Leader mondial du ciment' },
+      { name:'HeidelbergMaterials',  ticker:'HDMG.DE', cap:'~17 Md€',  pe:'~10x', note:'N°2 mondial, présence similaire' },
+      { name:'CRH',                  ticker:'CRH',     cap:'~60 Md€',  pe:'~18x', note:'Leader mondial matériaux de construction' },
+      { name:'Imerys',               ticker:'NK.PA',   cap:'~2,5 Md€', pe:'~12x', note:'Matériaux industriels — France' },
+    ],
+    timeline: [
+      { date:'16 fév. 2026',    type:'earn', title:'Résultats annuels 2025 ✓',           sub:'Publication des résultats FY 2025 après bourse. CA : 3 854 M€, EBITDA : 771 M€, RN pdG : 275 M€.', past:true },
+      { date:'17 fév. 2026',    type:'ann',  title:'Conférence téléphonique FY 2025 ✓',  sub:'Présentation des résultats annuels aux analystes à 15h CET.', past:true },
+      { date:'10 avr. 2026',    type:'ann',  title:'Assemblée Générale Ordinaire',        sub:'Vote des résolutions et du dividende proposé de 2,00 € par action.' },
+      { date:'4 mai 2026',      type:'earn', title:'Chiffre d\'affaires T1 2026',         sub:'Publication de l\'activité du premier trimestre 2026, après bourse.' },
+      { date:'29 juil. 2026',   type:'earn', title:'Résultats semestriels S1 2026',       sub:'Résultats du premier semestre 2026, après bourse.' },
+      { date:'5 nov. 2026',     type:'earn', title:'Chiffre d\'affaires 9 mois 2026',     sub:'Publication de l\'activité des neuf premiers mois 2026, après bourse.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'3 854 M€',  sub:'FY 2025',                color:'var(--text)'  },
+        { label:'EBITDA',              val:'771 M€',     sub:'Marge 20,0%',             color:'var(--gold)'  },
+        { label:'Résultat net pdG',    val:'275 M€',     sub:'FY 2025',                color:'var(--green)' },
+        { label:'Capitalisation',      val:'—',          sub:'Live',                    color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',          sub:'Live',                    color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'2,6 %',      sub:'2,00 € / action',        color:'var(--blue)'  },
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes',
+          rows: [
+            ['Backlog total',      'Non disponible'],
+            ['Répartition',        'Non disponible'],
+            ['Évolution',          'Non disponible'],
+            ['Note',               'Vicat ne publie pas de carnet de commandes consolidé — communication orientée tendances marché et visibilité géographique'],
+          ]
+        },
+        {
+          title: 'Structure du capital — 31 déc. 2025',
+          rows: [
+            ['Actions en circulation',  '44 900 000'],
+            ['Valeur nominale',          '4 €'],
+            ['Capital social',           '179 600 000 €'],
+            ['Parfininco',               '31,95%'],
+            ['Soparfi',                  '26,87%'],
+            ['Merceron-Vicat',           '4,53%'],
+            ['Flottant',                 '34,19%'],
+            ['Actionnariat salarié',     '1,43%'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette brute',                     '1 680 M€'],
+            ['Trésorerie',                       '528 M€'],
+            ['Dette nette',                      '1 151 M€'],
+            ['Baisse de la dette nette vs 2024', '−85 M€'],
+            ['Cash-flow libre',                  '324 M€ (3e année consécutive)'],
+            ['Ratio DN / EBITDA',                '1,49x (vs 1,58x fin 2024)'],
+            ['Lignes confirmées non utilisées',  '877 M€'],
+            ['Liquidité totale estimée',         '~1 405 M€ (tréso + lignes)'],
+            ['Notation crédit',                  'Non disponible'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
 }
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
 const STUBS = {
   'nexity':       { name:'Nexity',             ticker:'NXI.PA',  tagSlug:'nexity'       },
   'kaufman':      { name:'Kaufman & Broad',    ticker:'KOF.PA',  tagSlug:'kaufman'      },
-  'imerys':       { name:'Imerys',             ticker:'NK.PA',   tagSlug:'imerys'       },
-  'vicat':        { name:'Vicat',              ticker:'VCT.PA',  tagSlug:'vicat'        },
   'bassac':       { name:'Bassac',             ticker:'BA.PA',   tagSlug:'bassac'       },
   'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
-  'cofinimmo':    { name:'Cofinimmo',          ticker:'COFB.BR', tagSlug:'cofinimmo'    },
-  'balfour':      { name:'Balfour Beatty',     ticker:'BBY.L',   tagSlug:'balfour'      },
 }
 
 const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
@@ -1324,5 +1708,6 @@ async function loadLivePrice() {
   setTimeout(loadLivePrice, 60000)
 }
 </script>
+<script src="/cookie-banner.js" defer></script>
 </body>
 </html>
