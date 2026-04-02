@@ -1141,6 +1141,98 @@ const COMPANIES = {
     news: [],
   },
 
+  nexity: {
+    tagSlug: 'nexity',
+    ticker:  'NXI.PA',
+    name:    'Nexity',
+    secteur: 'Promotion immobilière & Services',
+    pays:    'FR',
+    signal:  'watch',
+    desc:    'Nexity est un groupe immobilier coté, recentré sur un modèle d\'aménageur-promoteur-exploitant. Son activité repose sur la promotion immobilière résidentielle, la promotion tertiaire et les services immobiliers (exploitation de résidences étudiantes, coworking, distribution). Le groupe est très majoritairement exposé à la France, avec une présence internationale marginale en Europe. Son principal atout reste sa taille sur le résidentiel neuf français (leader avec 13,0% de part de marché) et le redressement progressif de sa structure financière.',
+    highlights: [
+      'Leader du logement neuf en France avec 13,0% de part de marché en 2025 ; leader sur le segment des accédants avec près de 2 600 lots (+19%).',
+      'Périmètre "New Nexity" retrouve une rentabilité opérationnelle positive : ROC de 25 M€ contre −118 M€ en 2024 ; résultat net pdG consolidé à −188 M€ (impacts non-récurrents).',
+      'Bilan assaini : dette nette de 328 M€, liquidité de 588 M€, levier 4,9x — en avance sur la trajectoire bancaire (covenant < 8,5x).',
+      '3 223 collaborateurs au 31 décembre 2025 ; présent principalement en France et marginalement en Allemagne, Belgique, Italie et Suisse.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:42, color:'var(--green)' },
+      { label:'Rentabilité',  val:30, color:'var(--gold)'  },
+      { label:'Visibilité',   val:55, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Promotion',          pct:84.8, ca:'2 393 M€', color:'#c9a84c' },
+      { name:'Services',           pct:15.0, ca:'423 M€',   color:'#60a5fa' },
+      { name:'Autres activités',   pct:0.2,  ca:'5 M€',     color:'#4ade80' },
+    ],
+    breakdownYear: 'CA 2025 — 2 821 M€ (consolidé IFRS)',
+    geo: [
+      { flag:'🇫🇷', name:'France',        pct:97.4 },
+      { flag:'🌍', name:'International',  pct:2.6  },
+    ],
+    competition: [
+      { name:'Kaufman & Broad', ticker:'KOF.PA', cap:'~0,6 Md€', pe:'~10x', note:'Promotion France — marges plus solides' },
+      { name:'Bassac',          ticker:'BA.PA',  cap:'~0,7 Md€', pe:'~7x',  note:'Promotion France + Europe' },
+      { name:'Bouygues Immo',   ticker:'EN.PA',  cap:'NC',       pe:'NC',   note:'Filiale Bouygues — promotion France' },
+      { name:'Vinci Immobilier',ticker:'DG.PA',  cap:'NC',       pe:'NC',   note:'Filiale Vinci — promotion France' },
+    ],
+    timeline: [
+      { date:'25 fév. 2026',   type:'earn', title:'Résultats annuels FY 2025 ✓',  sub:'CA 2 821 M€, ROC New Nexity +25 M€, RN pdG −188 M€. Dette nette : 328 M€. Backlog : 3,9 Md€.', past:true },
+      { date:'23 avr. 2026',   type:'earn', title:'Activité T1 2026',             sub:'Publication de l\'activité du premier trimestre 2026.' },
+      { date:'21 mai 2026',    type:'ann',  title:'Assemblée Générale',           sub:'Vote des résolutions — aucun dividende proposé au titre de FY 2025.' },
+      { date:'23 juil. 2026',  type:'earn', title:'Résultats semestriels S1 2026',sub:'Publication des résultats du premier semestre 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'2 821 M€',  sub:'FY 2025 (consolidé IFRS)',          color:'var(--text)'  },
+        { label:'ROC New Nexity',      val:'+25 M€',    sub:'vs −118 M€ en 2024',                color:'var(--gold)'  },
+        { label:'Résultat net pdG',    val:'−188 M€',   sub:'FY 2025 (impacts non-récurrents)',  color:'var(--red)'   },
+        { label:'Capitalisation',      val:'—',         sub:'Live',                              color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—',         sub:'Live',                              color:'var(--text)', live:'per' },
+        { label:'Dividende FY 2025',   val:'0 €',       sub:'Aucun dividende versé',             color:'var(--text-2)'},
+      ],
+      accordions: [
+        {
+          title: 'Carnet de commandes — 31 déc. 2025',
+          rows: [
+            ['Backlog total',           '3,9 Md€ (vs 4,4 Md€ fin 2024 — −11,4%)'],
+            ['Résidentiel',             '3,8 Md€'],
+            ['Tertiaire',               '63 M€'],
+            ['Variation T4 2025',       '+1% vs 30 sept. 2025 (stable)'],
+            ['Visibilité',              '≈ 1,5 an d\'activité'],
+            ['Sécurisation',            '48% sécurisés par des ventes actées'],
+          ]
+        },
+        {
+          title: 'Structure du capital — base 31 déc. 2024 (dernière répartition officielle publiée)',
+          rows: [
+            ['Actions (31/01/2026)',           '56 129 724'],
+            ['Droits de vote bruts',            '56 129 724'],
+            ['Droits de vote nets',             '55 697 597'],
+            ['Actionnaires stratégiques',       '23,2%'],
+            ['Managers & salariés (+ FCPE)',    '4,7%'],
+            ['Flottant',                        '72,1%'],
+            ['Autocontrôle',                    'Non disponible séparément dans les sources récentes'],
+          ]
+        },
+        {
+          title: 'Dette & Liquidité — 31 déc. 2025',
+          rows: [
+            ['Dette financière nette',          '328 M€ (278 M€ hors impact Angelotti)'],
+            ['Trésorerie nette & autres',        '587 M€'],
+            ['Liquidité totale',                 '588 M€ (dont 475 M€ de RCF non tirée)'],
+            ['Ratio de levier bancaire',         '4,9x (covenant : < 8,5x fin 2025, < 7x fin 2026, ≤ 3,5x fin 2027)'],
+            ['Baisse du BFR',                    '−226 M€ vs 2024'],
+            ['Impact Angelotti sur dette nette', '+50 M€ (dont une partie non cash)'],
+            ['Notation crédit',                  'Non disponible'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
   kaufman: {
     tagSlug: 'kaufman',
     ticker:  'KOF.PA',
@@ -1533,7 +1625,6 @@ const COMPANIES = {
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
 const STUBS = {
-  'nexity':       { name:'Nexity',             ticker:'NXI.PA',  tagSlug:'nexity'       },
   'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
 }
 

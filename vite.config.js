@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
+  publicDir: 'public',
   build: {
     rollupOptions: {
       input: {
@@ -18,6 +19,7 @@ export default defineConfig({
         entreprise: resolve(__dirname, 'entreprise.html'),
         'ma-hub': resolve(__dirname, 'ma-hub.html'),
         lbo: resolve(__dirname, 'lbo.html'),
+        'mentions-legales': resolve(__dirname, 'mentions-legales.html'),
       },
     },
   },
