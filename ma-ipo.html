@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — IPO & Entrée en bourse</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080807; --bg:#0c0c0a; --surface:#111110; --surface2:#161614;
+  --border:rgba(201,168,76,0.1); --border-hover:rgba(201,168,76,0.35);
+  --gold:#c9a84c; --gold-dim:rgba(201,168,76,0.15); --gold-glow:rgba(201,168,76,0.06);
+  --green:#4ade80; --red:#f87171;
+  --text:#e8e4da; --text-2:#a09880; --text-3:#5a5446; --white:#f5f2eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover{background:var(--gold);color:var(--black);}
+
+/* HEADER */
+.page-header{padding:80px 32px 28px;border-bottom:1px solid var(--border);}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.breadcrumb a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--gold);}
+.breadcrumb span{color:var(--gold);}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-sub{font-size:13px;color:var(--text-2);margin-top:10px;letter-spacing:0.02em;}
+
+/* INTRO */
+.lbo-intro{padding:20px 32px;border-bottom:1px solid var(--border);background:var(--gold-glow);}
+.lbo-intro p{font-size:13px;color:var(--text-2);line-height:1.75;max-width:760px;border-left:2px solid var(--gold);padding-left:16px;}
+@media(max-width:768px){.lbo-intro{padding:16px;}}
+
+/* RESULTS META */
+.results-meta{padding:12px 32px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;border-bottom:1px solid var(--border);}
+.results-meta strong{color:var(--gold);}
+
+/* GRID */
+.posts-container{padding:32px;}
+#postsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+
+/* CARD */
+.post-card{background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;animation:cardIn 0.4s ease forwards;opacity:0;overflow:hidden;position:relative;}
+.post-card:hover{border-color:var(--border-hover);background:var(--surface2);}
+.post-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.post-card:hover::before{transform:scaleX(1);}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.post-card.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;}
+@media(max-width:768px){.post-card.featured{grid-column:span 1;display:block;}}
+.card-img{background:var(--surface2);background-size:cover;background-position:center;}
+.post-card.featured .card-img{height:100%;min-height:260px;}
+.post-card.has-thumb{display:grid;grid-template-columns:180px 1fr;}
+.post-card.has-thumb .card-img{height:100%;min-height:130px;}
+@media(max-width:600px){
+  .post-card.has-thumb{grid-template-columns:1fr;}
+  .post-card.has-thumb .card-img{height:180px;}
+}
+.card-body{padding:24px;display:flex;flex-direction:column;gap:10px;}
+.post-card.featured .card-body{padding:32px;justify-content:center;}
+.card-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;}
+.card-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;line-height:1.25;}
+.post-card.featured .card-title{font-size:26px;}
+.card-excerpt{font-size:13px;color:var(--text-2);line-height:1.65;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.card-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:12px;}
+.card-read-time{color:var(--gold);}
+
+/* EMPTY / ERROR */
+.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;padding:80px 32px;text-align:center;}
+.empty-icon{font-size:48px;opacity:0.2;margin-bottom:16px;}
+.empty-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--text-2);margin-bottom:8px;}
+.empty-sub{font-size:13px;color:var(--text-3);}
+
+/* SKELETON */
+@keyframes shimmer{0%{background-position:-400px 0;}100%{background-position:400px 0;}}
+.sk{background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:2px;}
+.sk-img{height:200px;}
+.sk-cat{height:9px;width:70px;margin:20px 24px 0;}
+.sk-title{height:15px;margin:10px 24px 0;}
+.sk-title.short{width:60%;}
+.sk-meta{height:9px;width:110px;margin:10px 24px 22px;}
+
+/* HAMBURGER */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
+.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;}
+.nav-mobile a:last-child{border-bottom:none;}
+
+@media(max-width:768px){
+  .nav-links{display:none !important;}
+  .nav-cta{display:none !important;}
+  .nav-hamburger{display:flex;}
+  nav{padding:0 16px;}
+  .page-header{padding:68px 16px 20px;}
+  .posts-container{padding:20px 16px;}
+  #postsGrid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma-hub" class="active">M&amp;A</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/blog.html">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileMaIpo').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobileMaIpo">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs</a>
+  <a href="/ma-hub">M&amp;A</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
+
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="/">BatiAnalyse</a> <span>/</span>
+    <a href="/ma-hub">M&amp;A</a> <span>/</span>
+    IPO &amp; Entrée en bourse
+  </div>
+  <h1>IPO / <em>Entrée en bourse</em></h1>
+  <p class="page-sub">Introductions en bourse, valorisations à l'émission et performances post-IPO des acteurs du BTP.</p>
+</div>
+
+<div class="lbo-intro">
+  <p>L'introduction en bourse constitue un jalon stratégique majeur pour un groupe : accès aux marchés de capitaux, liquidité pour les actionnaires historiques et renforcement de la notoriété. Dans le BTP, les IPO reflètent souvent un cycle favorable et une ambition de croissance externe accélérée.</p>
+</div>
+
+<div class="results-meta">
+  <span><strong id="resultCount">—</strong> articles publiés</span>
+  <span style="font-size:9px;letter-spacing:0.15em">IPO · M&A · BATIANALYSE</span>
+</div>
+
+<div class="posts-container">
+  <div id="postsGrid"></div>
+</div>
+
+<script>
+const WP_BASE = 'https://batianalyste.fr/wp-json/wp/v2'
+const TAG_SLUG = 'ipo-entree-en-bourse'
+
+async function resolveTagId(slug) {
+  const r1 = await fetch(`${WP_BASE}/tags?slug=${encodeURIComponent(slug)}&per_page=1`)
+  if (r1.ok) { const t = await r1.json(); if (t.length) return t[0].id }
+  const r2 = await fetch(`${WP_BASE}/tags?search=${encodeURIComponent(slug)}&per_page=5`)
+  if (r2.ok) {
+    const t = await r2.json()
+    const m = t.find(x => x.slug.toLowerCase() === slug.toLowerCase())
+    if (m) return m.id
+    if (t.length) return t[0].id
+  }
+  return null
+}
+
+function renderCard(post, featured = false) {
+  const title   = post.title?.rendered || 'Sans titre'
+  const excerpt = (post.excerpt?.rendered || '').replace(/<[^>]+>/g,'').replace(/&[^;]+;/g,' ').trim()
+  const link    = `/article.html?id=${post.id}`
+  const img     = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+  const date    = post.date ? new Date(post.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) : ''
+  const cat     = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'IPO / Entrée en bourse'
+  const words   = (post.content?.rendered||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
+  const read    = Math.max(1, Math.round(words/200))
+  if (featured) return `
+    <div class="post-card featured" onclick="location.href='${link}'" style="${img?'':'display:block'};animation-delay:0s">
+      ${img?`<div class="card-img" style="background-image:url('${img}')"></div>`:''}
+      <div class="card-body">
+        <div class="card-cat">${cat}</div>
+        <div class="card-title">${title}</div>
+        <div class="card-excerpt">${excerpt}</div>
+        <div class="card-meta">${date} <span>·</span> <span class="card-read-time">${read} min</span></div>
+      </div>
+    </div>`
+  return `
+    <div class="post-card${img?' has-thumb':''}" onclick="location.href='${link}'" style="animation-delay:${Math.random()*0.2}s">
+      ${img?`<div class="card-img" style="background-image:url('${img}')"></div>`:''}
+      <div class="card-body">
+        <div class="card-cat">${cat}</div>
+        <div class="card-title">${title}</div>
+        <div class="card-excerpt">${excerpt}</div>
+        <div class="card-meta">${date} <span>·</span> <span class="card-read-time">${read} min</span></div>
+      </div>
+    </div>`
+}
+
+function showSkeletons() {
+  document.getElementById('postsGrid').innerHTML = [0,1,2,3,4,5].map(()=>`
+    <div class="post-card">
+      <div class="sk sk-img"></div>
+      <div class="sk sk-cat"></div>
+      <div class="sk sk-title"></div>
+      <div class="sk sk-title short"></div>
+      <div class="sk sk-meta"></div>
+    </div>`).join('')
+}
+
+async function loadArticles() {
+  showSkeletons()
+  const tagId = await resolveTagId(TAG_SLUG)
+  if (!tagId) {
+    document.getElementById('postsGrid').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Aucun article</div>
+        <div class="empty-sub">Aucun article tagué "IPO / Entrée en bourse" publié pour l'instant.<br>Revenez bientôt.</div>
+      </div>`
+    document.getElementById('resultCount').textContent = '0'
+    return
+  }
+  try {
+    const res   = await fetch(`${WP_BASE}/posts?tags=${tagId}&per_page=20&_embed&orderby=date&order=desc`)
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const posts = await res.json()
+    const total = res.headers.get('X-WP-Total') || posts.length
+    document.getElementById('resultCount').textContent = total
+    if (!posts.length) {
+      document.getElementById('postsGrid').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">◎</div>
+          <div class="empty-title">Aucun article publié</div>
+          <div class="empty-sub">Aucun article tagué "IPO / Entrée en bourse" publié pour l'instant.</div>
+        </div>`
+      return
+    }
+    document.getElementById('postsGrid').innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
+  } catch(e) {
+    document.getElementById('postsGrid').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-title">Erreur de chargement</div>
+        <div class="empty-sub">${e.message}</div>
+      </div>`
+  }
+}
+
+loadArticles()
+</script>
+<script src="/cookie-banner.js" defer></script>
+</body>
+</html>

@@ -14,6 +14,14 @@
     { "source": "/article",        "destination": "/article.html" },
     { "source": "/entreprise",     "destination": "/entreprise.html" },
     { "source": "/lbo",              "destination": "/lbo.html" },
-    { "source": "/mentions-legales", "destination": "/mentions-legales.html" }
+    { "source": "/mentions-legales", "destination": "/mentions-legales.html" },
+    { "source": "/ma-analyse",       "destination": "/ma-analyse.html" },
+    { "source": "/ma-risques",       "destination": "/ma-risques.html" },
+    { "source": "/ma-valeur",        "destination": "/ma-valeur.html" },
+    { "source": "/ma-joint-ventures","destination": "/ma-joint-ventures.html" },
+    { "source": "/ma-build-up",      "destination": "/ma-build-up.html" },
+    { "source": "/ma-deals",         "destination": "/ma-deals.html" },
+    { "source": "/ma-expansion",     "destination": "/ma-expansion.html" },
+    { "source": "/ma-ipo",           "destination": "/ma-ipo.html" }
   ]
 }
