@@ -4,52 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BatiAnalyse — Entreprise</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:#080807; --bg:#0c0c0a; --surface:#111110; --surface2:#161614;
-  --border:rgba(201,168,76,0.1); --border-hover:rgba(201,168,76,0.35);
-  --gold:#c9a84c; --gold-dim:rgba(201,168,76,0.15); --gold-glow:rgba(201,168,76,0.06);
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
   --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
   --red:#f87171; --red-dim:rgba(248,113,113,0.12);
   --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#e8e4da; --text-2:#a09880; --text-3:#5a5446; --white:#f5f2eb;
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0.4;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
 .logo span{color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
-.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
 .nav-links a:hover{color:var(--text);}
 .nav-links a.active{color:var(--gold);}
-.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
-.nav-cta:hover{background:var(--gold);color:var(--black);}
+.nav-cta {font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);border:none;border-radius:6px;color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover { opacity:0.88; }
 
 /* BREADCRUMB */
-.breadcrumb-bar{padding:72px 32px 0;max-width:1280px;margin:0 auto;}
+.breadcrumb-bar{padding:72px 32px 0;max-width:1100px;margin:0 auto;}
 .breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:10px;}
 .breadcrumb a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
 .breadcrumb a:hover{color:var(--gold);}
 
 /* COMPANY HEADER */
 .company-header{padding:20px 32px 0;border-bottom:1px solid var(--border);}
-.company-header-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:24px;}
+.company-header-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:24px;}
 .company-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:12px;}
 .company-signal{font-family:'DM Mono',monospace;font-size:9px;padding:3px 10px;letter-spacing:0.12em;}
 .signal-buy{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.3);}
-.signal-hold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,168,76,0.3);}
+.signal-hold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,155,94,0.3);}
 .signal-watch{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.3);}
-.company-name{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1;letter-spacing:-0.02em;margin-bottom:8px;}
+.company-name{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1;letter-spacing:-0.5px;margin-bottom:8px;}
 .company-sub{font-size:13px;color:var(--text-2);line-height:1.6;max-width:540px;}
 .company-kpis{display:flex;gap:0;flex-shrink:0;}
-.kpi{padding:14px 24px;border-left:1px solid var(--border);text-align:right;min-width:120px;}
+.kpi{padding:14px 24px;border-left:1px solid var(--border);text-align:right;min-width:120px;border-radius:8px;}
 .kpi-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--gold);line-height:1;}
 .kpi-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
 .kpi-change{font-family:'DM Mono',monospace;font-size:11px;margin-top:3px;}
@@ -61,7 +60,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
 
 /* LAYOUT */
-.page-wrap{max-width:1280px;margin:0 auto;padding:40px 32px 100px;}
+.page-wrap{max-width:1100px;margin:0 auto;padding:40px 32px 100px;}
 .two-col{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;}
 @media(max-width:960px){.two-col{grid-template-columns:1fr;}}
 
@@ -72,7 +71,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 /* OVERVIEW */
 .overview-text{font-size:14px;line-height:1.8;color:var(--text-2);margin-bottom:20px;}
 .positioning-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
-.pos-card{background:var(--surface);border:1px solid var(--border);padding:16px 20px;}
+.pos-card{background:var(--surface);border:1px solid var(--border);padding:16px 20px;border-radius:8px;}
 .pos-card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
 .pos-card-val{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
 .pos-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
@@ -104,7 +103,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 /* PROJECT TYPES */
 .project-grid{display:flex;flex-wrap:wrap;gap:8px;}
 .project-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:6px 14px;border:1px solid var(--border);color:var(--text-2);background:var(--surface);}
-.project-tag.hot{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.07);}
+.project-tag.hot{border-color:var(--gold);color:var(--gold);background:rgba(184,155,94,0.07);}
 
 /* STRATEGIC */
 .swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
@@ -155,7 +154,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .tl-date{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--text-3);margin-bottom:3px;}
 .tl-title{font-size:12px;font-weight:600;margin-bottom:2px;}
 .tl-sub{font-size:11px;color:var(--text-3);}
-.tl-type-div{background:var(--gold-dim);border:1px solid rgba(201,168,76,0.3);}
+.tl-type-div{background:var(--gold-dim);border:1px solid rgba(184,155,94,0.3);}
 .tl-dot-div{background:var(--gold);}
 .tl-type-earn{background:var(--blue-dim);border:1px solid rgba(96,165,250,0.3);}
 .tl-dot-earn{background:var(--blue);}
@@ -176,7 +175,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .art-card-img{height:180px;background:var(--surface2);background-size:cover;background-position:center;}
 .art-card-body{padding:20px;}
 .art-card-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.art-card-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px;}
+.art-card-title{font-family:'DM Serif Display',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px;}
 .art-card-excerpt{font-size:13px;color:var(--text-2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:14px;}
 .art-card-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);}
 .art-card.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;}
@@ -188,10 +187,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 /* EMPTY / SKELETONS */
 .empty-state{padding:60px 0;text-align:center;}
 .empty-icon{font-size:40px;opacity:0.15;margin-bottom:16px;}
-.empty-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--text-2);margin-bottom:8px;}
+.empty-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text-2);margin-bottom:8px;}
 .empty-sub{font-size:13px;color:var(--text-3);}
 @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-.sk{background:linear-gradient(90deg,var(--surface2) 25%,var(--surface) 50%,var(--surface2) 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:2px;}
+.sk{background: var(--surface2);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:2px;}
 
 /* NEWS */
 .news-list{display:flex;flex-direction:column;gap:12px;}
@@ -207,7 +206,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
 .nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
 .nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
 .nav-mobile a:last-child{border-bottom:none;}
 
 /* ── RESPONSIVE MOBILE ── */
@@ -409,7 +408,7 @@ const COMPANIES = {
     ],
     segments: [
       { name:'VINCI Construction', pct:42.8, ca:'32 137 M€', color:'#7a5a24' },
-      { name:'VINCI Energies',     pct:28.8, ca:'21 608 M€', color:'#c9a84c' },
+      { name:'VINCI Energies',     pct:28.8, ca:'21 608 M€', color:'#B89B5E' },
       { name:'Concessions',        pct:16.3, ca:'12 219 M€', color:'#4ade80' },
       { name:'Cobra IS',           pct:10.7, ca:'8 004 M€',  color:'#a78bfa' },
       { name:'VINCI Immobilier',   pct:1.5,  ca:'1 105 M€',  color:'#60a5fa' },
@@ -525,7 +524,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:82, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Infrastructures',  pct:36.3, ca:'9 187 M€',  color:'#c9a84c' },
+      { name:'Infrastructures',  pct:36.3, ca:'9 187 M€',  color:'#B89B5E' },
       { name:'Énergie Systèmes', pct:31.8, ca:'8 057 M€',  color:'#4ade80' },
       { name:'Construction',     pct:16.2, ca:'4 091 M€',  color:'#60a5fa' },
       { name:'Concessions',      pct:15.7, ca:'3 978 M€',  color:'#a78bfa' },
@@ -624,7 +623,7 @@ const COMPANIES = {
       { label:'Visibilité', val:60, color:'var(--blue)' },
     ],
     segments: [
-      { name:'Colas',                pct:30, margin:'3,2%',  color:'#c9a84c' },
+      { name:'Colas',                pct:30, margin:'3,2%',  color:'#B89B5E' },
       { name:'Bouygues Telecom',     pct:24, margin:'16,1%', color:'#4ade80' },
       { name:'Bouygues Construction',pct:22, margin:'2,8%',  color:'#a07834' },
       { name:'TF1',                  pct:12, margin:'8,4%',  color:'#60a5fa' },
@@ -700,7 +699,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:58, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Europe du Sud – MOYEN-ORIENT & Afrique', pct:34.6, ca:'16 068 M€', color:'#c9a84c' },
+      { name:'Europe du Sud – MOYEN-ORIENT & Afrique', pct:34.6, ca:'16 068 M€', color:'#B89B5E' },
       { name:'Europe du Nord',                         pct:29.7, ca:'13 783 M€', color:'#4ade80' },
       { name:'Amériques',                              pct:27.9, ca:'12 957 M€', color:'#60a5fa' },
       { name:'Asie-Pacifique',                         pct:11.3, ca:'5 256 M€',  color:'#a78bfa' },
@@ -785,7 +784,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:84, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Energy Management',    pct:82.5, ca:'33 130 M€', color:'#c9a84c' },
+      { name:'Energy Management',    pct:82.5, ca:'33 130 M€', color:'#B89B5E' },
       { name:'Industrial Automation',pct:17.5, ca:'7 022 M€',  color:'#4ade80' },
     ],
     breakdownYear: 'CA 2025 — 40,152 Md€',
@@ -878,7 +877,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:72, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Transition énergétique & digitale', pct:53,  ca:'~5 024 M€', color:'#c9a84c' },
+      { name:'Transition énergétique & digitale', pct:53,  ca:'~5 024 M€', color:'#B89B5E' },
       { name:'Infrastructures électriques essentielles', pct:47, ca:'~4 457 M€', color:'#4ade80' },
     ],
     breakdownYear: 'CA 2025 — 9 480,6 M€ (mix d\'offres, indicateurs non-IFRS)',
@@ -966,7 +965,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:85, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Construction Services', pct:80.9, ca:'£8 711m', color:'#c9a84c' },
+      { name:'Construction Services', pct:80.9, ca:'£8 711m', color:'#B89B5E' },
       { name:'Support Services',      pct:13.3, ca:'£1 427m', color:'#4ade80' },
       { name:'Infrastructure Investments', pct:5.8, ca:'£629m', color:'#60a5fa' },
     ],
@@ -1058,7 +1057,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:90, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Immobilier de santé', pct:77, ca:'~4 693 M€ (valeur portefeuille)', color:'#c9a84c' },
+      { name:'Immobilier de santé', pct:77, ca:'~4 693 M€ (valeur portefeuille)', color:'#B89B5E' },
       { name:'Bureaux',             pct:15, ca:'~913 M€',                          color:'#4ade80' },
       { name:'Réseaux de distribution', pct:8, ca:'~487 M€',                       color:'#60a5fa' },
     ],
@@ -1161,7 +1160,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:55, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Promotion',          pct:84.8, ca:'2 393 M€', color:'#c9a84c' },
+      { name:'Promotion',          pct:84.8, ca:'2 393 M€', color:'#B89B5E' },
       { name:'Services',           pct:15.0, ca:'423 M€',   color:'#60a5fa' },
       { name:'Autres activités',   pct:0.2,  ca:'5 M€',     color:'#4ade80' },
     ],
@@ -1253,7 +1252,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:75, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Logement',          pct:76.7, ca:'870,9 M€', color:'#c9a84c' },
+      { name:'Logement',          pct:76.7, ca:'870,9 M€', color:'#B89B5E' },
       { name:'Tertiaire',         pct:21.9, ca:'248,9 M€', color:'#60a5fa' },
       { name:'Autres activités',  pct:1.4,  ca:'16,2 M€',  color:'#4ade80' },
     ],
@@ -1349,7 +1348,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:72, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Promotion immobilière France',   pct:74.3, ca:'1 105 M€', color:'#c9a84c' },
+      { name:'Promotion immobilière France',   pct:74.3, ca:'1 105 M€', color:'#B89B5E' },
       { name:'Promotion immobilière Étranger', pct:21.0, ca:'313 M€',   color:'#60a5fa' },
       { name:'Autres (ZAPF, Kwerk…)',          pct:4.7,  ca:'70 M€',    color:'#4ade80' },
     ],
@@ -1448,7 +1447,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:42, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Minéraux de performance',             pct:59.8, ca:'2 022 M€', color:'#c9a84c' },
+      { name:'Minéraux de performance',             pct:59.8, ca:'2 022 M€', color:'#B89B5E' },
       { name:'Réfractaires, abrasifs & construction',pct:33.3, ca:'1 128 M€', color:'#60a5fa' },
       { name:'Solutions transition énergétique',     pct:7.0,  ca:'238 M€',   color:'#4ade80' },
     ],
@@ -1542,7 +1541,7 @@ const COMPANIES = {
       { label:'Visibilité',   val:55, color:'var(--blue)'  },
     ],
     segments: [
-      { name:'Ciment',                    pct:53.1, ca:'2 047 M€', color:'#c9a84c' },
+      { name:'Ciment',                    pct:53.1, ca:'2 047 M€', color:'#B89B5E' },
       { name:'Béton & Granulats',         pct:36.9, ca:'1 421 M€', color:'#60a5fa' },
       { name:'Autres Produits & Services',pct:10.0, ca:'387 M€',   color:'#4ade80' },
     ],

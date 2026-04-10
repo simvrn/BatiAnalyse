@@ -4,26 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BatiAnalyse — Détail Deal M&A</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #080807;
-  --bg: #0c0c0a;
-  --surface: #111110;
-  --surface2: #161614;
-  --border: rgba(201,168,76,0.1);
-  --border-hover: rgba(201,168,76,0.35);
-  --gold: #c9a84c;
-  --gold-dim: rgba(201,168,76,0.15);
-  --gold-glow: rgba(201,168,76,0.06);
-  --green: #4ade80;
-  --green-dim: rgba(74,222,128,0.12);
-  --blue: #60a5fa;
-  --blue-dim: rgba(96,165,250,0.12);
-  --text: #e8e4da;
-  --text-2: #a09880;
-  --text-3: #5a5446;
-  --white: #f5f2eb;
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
+  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -32,17 +22,12 @@ html { scroll-behavior:smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-body::after {
-  content:'';
-  position:fixed; inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none; z-index:999; opacity:0.5;
-}
+
 
 /* ── NAV ── */
 nav {
@@ -54,11 +39,11 @@ nav {
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(16px);
 }
-.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
 .logo span { color:var(--gold); }
 .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
 .nav-links a {
-  font-family:'Syne',sans-serif; font-size:12px; font-weight:600;
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
   letter-spacing:0.1em; text-transform:uppercase;
   color:var(--text-2); text-decoration:none; transition:color 0.15s;
 }
@@ -66,11 +51,11 @@ nav {
 .nav-links a.active { color:var(--gold); }
 .nav-cta {
   font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em;
-  padding:8px 20px; border:1px solid var(--gold);
-  color:var(--gold); text-decoration:none; transition:all 0.15s;
+  padding:8px 20px; background:var(--gold);border:none;border-radius:6px;
+  color:var(--bg); text-decoration:none; transition:all 0.15s;
   text-transform:uppercase;
 }
-.nav-cta:hover { background:var(--gold); color:var(--black); }
+.nav-cta:hover { opacity:0.88; }
 
 /* ── NOT FOUND STATE ── */
 .not-found {
@@ -78,7 +63,7 @@ nav {
   flex-direction:column; gap:20px; text-align:center; padding:32px;
 }
 .not-found-icon { font-size:64px; opacity:0.2; }
-.not-found h2 { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; }
+.not-found h2 { font-family:'DM Serif Display',serif; font-size:32px; font-weight:700; }
 .not-found p { font-family:'DM Mono',monospace; font-size:13px; color:var(--text-2); }
 .not-found a { font-family:'DM Mono',monospace; font-size:12px; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:10px 24px; transition:all 0.15s; }
 .not-found a:hover { background:var(--gold); color:var(--black); }
@@ -111,9 +96,9 @@ nav {
 .back-link:hover { color:var(--gold); }
 .company-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
 .company-name {
-  font-family:'Playfair Display',serif;
+  font-family:'DM Serif Display',serif;
   font-size:clamp(28px, 4vw, 48px);
-  font-weight:900; line-height:1.0; letter-spacing:-0.02em;
+  font-weight:900; line-height:1.0; letter-spacing:-0.5px;
   margin-bottom:8px;
 }
 .company-acq {
@@ -133,7 +118,7 @@ nav {
 .header-kpis-amount {
   font-family:'DM Mono',monospace; font-size:48px; font-weight:500;
   color:var(--gold); line-height:1; margin-bottom:6px;
-  letter-spacing:-0.02em;
+  letter-spacing:-0.5px;
 }
 .header-kpis-amount span { font-size:20px; }
 .header-kpis-multiple {
@@ -176,7 +161,7 @@ nav {
 .tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
 
 /* ── TAB CONTENT ── */
-.tab-content { padding:32px 40px; max-width:1200px; }
+.tab-content { padding:32px 40px; max-width:1100px; }
 .tab-panel { display:none; }
 .tab-panel.active { display:block; }
 
@@ -212,7 +197,7 @@ nav {
   background:var(--surface);
 }
 .advisors-table td {
-  padding:10px 12px; border-bottom:1px solid rgba(201,168,76,0.04);
+  padding:10px 12px; border-bottom:1px solid rgba(184,155,94,0.04);
   font-size:13px;
 }
 .advisors-table tr:hover td { background:var(--gold-glow); }
@@ -231,7 +216,7 @@ nav {
   background: linear-gradient(to bottom, var(--gold), transparent);
 }
 .summary-kpis { display:flex; flex-direction:column; gap:0; }
-.summary-kpi { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid rgba(201,168,76,0.06); }
+.summary-kpi { display:flex; justify-content:space-between; padding:9px 0; border-bottom:1px solid rgba(184,155,94,0.06); }
 .summary-kpi:last-child { border-bottom:none; }
 .summary-kpi-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-3); }
 .summary-kpi-value { font-family:'DM Mono',monospace; font-size:13px; font-weight:500; color:var(--text); }
@@ -321,7 +306,7 @@ nav {
   background:var(--surface);
 }
 .tx-table td {
-  padding:12px 14px; border-bottom:1px solid rgba(201,168,76,0.06); font-size:13px;
+  padding:12px 14px; border-bottom:1px solid rgba(184,155,94,0.06); font-size:13px;
 }
 .tx-table tr:hover td { background:var(--gold-glow); }
 
@@ -346,7 +331,7 @@ nav {
   padding:8px 14px; border-bottom:1px solid var(--border); text-align:left;
   background:var(--surface);
 }
-.peer-table td { padding:10px 14px; border-bottom:1px solid rgba(201,168,76,0.06); font-size:12px; }
+.peer-table td { padding:10px 14px; border-bottom:1px solid rgba(184,155,94,0.06); font-size:12px; }
 .peer-table tr.highlighted td { background:var(--gold-dim); }
 .peer-table tr.highlighted .peer-name { color:var(--gold); font-weight:700; }
 .multiple-bar { height:6px; background:var(--border); margin-top:4px; }
@@ -402,10 +387,10 @@ nav {
   font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.12em;
   text-transform:uppercase; padding:3px 8px; border:1px solid var(--border); color:var(--text-3);
 }
-.source-tag.buildalpha { border-color:rgba(201,168,76,0.3); color:var(--gold); background:var(--gold-dim); }
+.source-tag.buildalpha { border-color:rgba(184,155,94,0.3); color:var(--gold); background:var(--gold-dim); }
 .source-tag.officiel { border-color:rgba(96,165,250,0.3); color:var(--blue); background:var(--blue-dim); }
 .article-title-link {
-  font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
+  font-family:'DM Serif Display',serif; font-size:16px; font-weight:700;
   line-height:1.3; margin-bottom:6px; color:var(--text);
   display:block;
 }
@@ -427,7 +412,7 @@ nav {
 }
 .badge-lbo       { background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.25); }
 .badge-buildup   { background:rgba(20,184,166,0.12); color:#2dd4bf; border:1px solid rgba(20,184,166,0.2); }
-.badge-fusion    { background:rgba(201,168,76,0.12); color:var(--gold); border:1px solid rgba(201,168,76,0.2); }
+.badge-fusion    { background:rgba(184,155,94,0.12); color:var(--gold); border:1px solid rgba(184,155,94,0.2); }
 .badge-acquisition { background:rgba(59,130,246,0.12); color:#93c5fd; border:1px solid rgba(59,130,246,0.2); }
 .badge-cession   { background:rgba(249,115,22,0.12); color:#fb923c; border:1px solid rgba(249,115,22,0.2); }
 .badge-jv        { background:rgba(99,102,241,0.12); color:#a5b4fc; border:1px solid rgba(99,102,241,0.2); }
@@ -437,7 +422,7 @@ nav {
   text-transform:uppercase; padding:3px 8px; white-space:nowrap; display:inline-block;
 }
 .badge-statut.boucle    { background:var(--green-dim); color:var(--green); border:1px solid rgba(74,222,128,0.25); }
-.badge-statut.annonce   { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
+.badge-statut.annonce   { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(184,155,94,0.25); }
 .badge-statut.en-cours  { background:var(--blue-dim); color:var(--blue); border:1px solid rgba(96,165,250,0.25); }
 .badge-statut.rumeur    { color:var(--text-3); border:1px dashed rgba(90,84,70,0.5); background:transparent; }
 
@@ -447,7 +432,7 @@ nav {
   font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3);
   display:flex; justify-content:space-between; align-items:center;
 }
-.footer-logo { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--white); }
+.footer-logo { font-family:'DM Serif Display',serif; font-size:16px; font-weight:700; color:var(--white); }
 .footer-logo span { color:var(--gold); }
 
 /* Fade in */
@@ -464,7 +449,7 @@ nav {
 .nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
 .nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
 .nav-mobile.open { display:flex; }
-.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Inter',sans-serif; }
 .nav-mobile a:last-child { border-bottom:none; }
 
 /* ── RESPONSIVE MOBILE ── */
@@ -1061,7 +1046,7 @@ function renderBarChart(data) {
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', startX - 10); line.setAttribute('x2', w - startX + 10);
     line.setAttribute('y1', y); line.setAttribute('y2', y);
-    line.setAttribute('stroke', 'rgba(201,168,76,0.06)'); line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke', 'rgba(184,155,94,0.06)'); line.setAttribute('stroke-width', '1');
     svg.appendChild(line);
     const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     txt.setAttribute('x', startX - 14); txt.setAttribute('y', y + 4);
@@ -1080,14 +1065,14 @@ function renderBarChart(data) {
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     rect.setAttribute('x', x); rect.setAttribute('y', y);
     rect.setAttribute('width', barW); rect.setAttribute('height', barH);
-    rect.setAttribute('fill', i === data.length - 1 ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.25)');
+    rect.setAttribute('fill', i === data.length - 1 ? 'rgba(184,155,94,0.5)' : 'rgba(184,155,94,0.25)');
     rect.setAttribute('rx', '1');
     svg.appendChild(rect);
 
     // Value label
     const valTxt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     valTxt.setAttribute('x', x + barW / 2); valTxt.setAttribute('y', y - 6);
-    valTxt.setAttribute('text-anchor', 'middle'); valTxt.setAttribute('fill', '#c9a84c');
+    valTxt.setAttribute('text-anchor', 'middle'); valTxt.setAttribute('fill', '#B89B5E');
     valTxt.setAttribute('font-family', 'DM Mono, monospace'); valTxt.setAttribute('font-size', '11');
     valTxt.setAttribute('font-weight', '500');
     valTxt.textContent = d.val >= 1000 ? `${(d.val/1000).toFixed(1)}Md` : `${d.val}M`;
@@ -1116,13 +1101,13 @@ function renderBubbleChart(bubbles) {
   const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
   xAxis.setAttribute('x1', padX); xAxis.setAttribute('x2', w - padX);
   xAxis.setAttribute('y1', h - padY); xAxis.setAttribute('y2', h - padY);
-  xAxis.setAttribute('stroke', 'rgba(201,168,76,0.15)'); xAxis.setAttribute('stroke-width', '1');
+  xAxis.setAttribute('stroke', 'rgba(184,155,94,0.15)'); xAxis.setAttribute('stroke-width', '1');
   svg.appendChild(xAxis);
 
   const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
   yAxis.setAttribute('x1', padX); yAxis.setAttribute('x2', padX);
   yAxis.setAttribute('y1', padY); yAxis.setAttribute('y2', h - padY);
-  yAxis.setAttribute('stroke', 'rgba(201,168,76,0.15)'); yAxis.setAttribute('stroke-width', '1');
+  yAxis.setAttribute('stroke', 'rgba(184,155,94,0.15)'); yAxis.setAttribute('stroke-width', '1');
   svg.appendChild(yAxis);
 
   // Axis labels
@@ -1147,15 +1132,15 @@ function renderBubbleChart(bubbles) {
 
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', b.r);
-    circle.setAttribute('fill', b.highlight ? 'rgba(201,168,76,0.3)' : 'rgba(201,168,76,0.1)');
-    circle.setAttribute('stroke', b.highlight ? 'var(--gold)' : 'rgba(201,168,76,0.25)');
+    circle.setAttribute('fill', b.highlight ? 'rgba(184,155,94,0.3)' : 'rgba(184,155,94,0.1)');
+    circle.setAttribute('stroke', b.highlight ? 'var(--gold)' : 'rgba(184,155,94,0.25)');
     circle.setAttribute('stroke-width', b.highlight ? '2' : '1');
     svg.appendChild(circle);
 
     const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     txt.setAttribute('x', cx); txt.setAttribute('y', cy + 3);
     txt.setAttribute('text-anchor', 'middle');
-    txt.setAttribute('fill', b.highlight ? '#c9a84c' : 'rgba(160,152,128,0.8)');
+    txt.setAttribute('fill', b.highlight ? '#B89B5E' : 'rgba(160,152,128,0.8)');
     txt.setAttribute('font-family', 'DM Mono, monospace'); txt.setAttribute('font-size', '9');
     txt.setAttribute('font-weight', b.highlight ? '700' : '400');
     txt.textContent = b.label;

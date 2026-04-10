@@ -4,28 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BatiAnalyse — Private Equity BTP</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black: #080807;
-  --bg: #0c0c0a;
-  --surface: #111110;
-  --surface2: #161614;
-  --border: rgba(201,168,76,0.1);
-  --border-hover: rgba(201,168,76,0.35);
-  --gold: #c9a84c;
-  --gold-dim: rgba(201,168,76,0.15);
-  --gold-glow: rgba(201,168,76,0.06);
-  --green: #4ade80;
-  --green-dim: rgba(74,222,128,0.12);
-  --red: #f87171;
-  --red-dim: rgba(248,113,113,0.12);
-  --blue: #60a5fa;
-  --blue-dim: rgba(96,165,250,0.12);
-  --text: #e8e4da;
-  --text-2: #a09880;
-  --text-3: #5a5446;
-  --white: #f5f2eb;
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
+  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -34,17 +22,12 @@ html { scroll-behavior:smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-body::after {
-  content:'';
-  position:fixed; inset:0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  pointer-events:none; z-index:999; opacity:0.5;
-}
+
 
 /* ── NAV ── */
 nav {
@@ -56,11 +39,11 @@ nav {
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(16px);
 }
-.logo { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
 .logo span { color:var(--gold); }
 .nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
 .nav-links a {
-  font-family:'Syne',sans-serif; font-size:12px; font-weight:600;
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
   letter-spacing:0.1em; text-transform:uppercase;
   color:var(--text-2); text-decoration:none; transition:color 0.15s;
 }
@@ -68,11 +51,11 @@ nav {
 .nav-links a.active { color:var(--gold); }
 .nav-cta {
   font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em;
-  padding:8px 20px; border:1px solid var(--gold);
-  color:var(--gold); text-decoration:none; transition:all 0.15s;
+  padding:8px 20px; background:var(--gold);border:none;border-radius:6px;
+  color:var(--bg); text-decoration:none; transition:all 0.15s;
   text-transform:uppercase;
 }
-.nav-cta:hover { background:var(--gold); color:var(--black); }
+.nav-cta:hover { opacity:0.88; }
 
 /* ── PAGE HEADER ── */
 .page-header {
@@ -93,9 +76,9 @@ nav {
 }
 .page-breadcrumb span { color:var(--gold); }
 h1 {
-  font-family:'Playfair Display',serif;
+  font-family:'DM Serif Display',serif;
   font-size: clamp(36px,4vw,58px);
-  font-weight:900; line-height:1.0; letter-spacing:-0.02em;
+  font-weight:900; line-height:1.0; letter-spacing:-0.5px;
 }
 h1 em { font-style:italic; color:var(--gold); }
 .page-sub {
@@ -114,8 +97,8 @@ h1 em { font-style:italic; color:var(--gold); }
 
 /* ── MARKET PULSE BAND ── */
 .pulse-band {
-  background: linear-gradient(135deg, #0f0f0c 0%, #1a1408 50%, #0f0f0c 100%);
-  border-bottom: 1px solid rgba(201,168,76,0.15);
+  background: var(--surface);
+  border-bottom: 1px solid rgba(184,155,94,0.15);
   padding: 12px 32px;
   display:flex; gap:48px; align-items:center;
 }
@@ -126,11 +109,10 @@ h1 em { font-style:italic; color:var(--gold); }
 .pulse-item::before {
   content:''; display:block; width:6px; height:6px;
   background:var(--gold); border-radius:50%;
-  box-shadow: 0 0 8px var(--gold);
-  animation: pulse-glow 2s ease-in-out infinite;
+  
+  
 }
-@keyframes pulse-glow {
-  0%,100% { opacity:1; }
+
   50% { opacity:0.4; }
 }
 .pulse-item strong { color:var(--gold); }
@@ -180,7 +162,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .filter-pills { display:flex; flex-wrap:wrap; gap:6px; }
 .filter-pill {
   font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.06em;
-  padding:5px 10px; border:1px solid rgba(201,168,76,0.15);
+  padding:5px 10px; border:1px solid rgba(184,155,94,0.15);
   color:var(--text-2); cursor:pointer; transition:all 0.15s;
   background:transparent; user-select:none;
 }
@@ -284,7 +266,7 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 .fund-card-title-area { flex:1; min-width:0; }
 .fund-name {
-  font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
+  font-family:'DM Serif Display',serif; font-size:16px; font-weight:700;
   line-height:1.2; margin-bottom:5px;
 }
 .fund-badges { display:flex; gap:6px; flex-wrap:wrap; }
@@ -398,7 +380,7 @@ h1 em { font-style:italic; color:var(--gold); }
   position:sticky; top:calc(56px + 44px + 40px); z-index:40;
 }
 .portfolio-table td {
-  padding:12px 14px; border-bottom:1px solid rgba(201,168,76,0.06);
+  padding:12px 14px; border-bottom:1px solid rgba(184,155,94,0.06);
   font-size:12px; vertical-align:middle; white-space:nowrap;
 }
 .portfolio-table tr {
@@ -441,10 +423,10 @@ h1 em { font-style:italic; color:var(--gold); }
 .strat-carveout  { background:rgba(251,146,60,0.1); color:#fb923c; border:1px solid rgba(251,146,60,0.18); }
 .strat-greenfield{ background:rgba(52,211,153,0.1); color:#34d399; border:1px solid rgba(52,211,153,0.18); }
 .strat-jvppp     { background:rgba(99,102,241,0.1); color:#a5b4fc; border:1px solid rgba(99,102,241,0.18); }
-.strat-croissance { background:rgba(201,168,76,0.1); color:var(--gold); border:1px solid rgba(201,168,76,0.18); }
+.strat-croissance { background:rgba(184,155,94,0.1); color:var(--gold); border:1px solid rgba(184,155,94,0.18); }
 
 .badge-port-actif   { background:var(--green-dim); color:var(--green); border:1px solid rgba(74,222,128,0.25); }
-.badge-port-annonce { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(201,168,76,0.25); }
+.badge-port-annonce { background:var(--gold-dim); color:var(--gold); border:1px solid rgba(184,155,94,0.25); }
 .badge-port-sorti   { background:var(--red-dim); color:var(--red); border:1px solid rgba(248,113,113,0.25); }
 
 /* ── PE TRANSACTIONS TABLE ── */
@@ -459,7 +441,7 @@ h1 em { font-style:italic; color:var(--gold); }
   text-align:left; white-space:nowrap; background:var(--surface);
 }
 .pe-tx-table td {
-  padding:12px 14px; border-bottom:1px solid rgba(201,168,76,0.06);
+  padding:12px 14px; border-bottom:1px solid rgba(184,155,94,0.06);
   font-size:12px; vertical-align:middle; white-space:nowrap;
 }
 .pe-tx-table tr {
@@ -498,7 +480,7 @@ h1 em { font-style:italic; color:var(--gold); }
   text-align:left; background:var(--surface);
 }
 .benchmark-table td {
-  padding:10px 12px; border-bottom:1px solid rgba(201,168,76,0.05);
+  padding:10px 12px; border-bottom:1px solid rgba(184,155,94,0.05);
   font-family:'DM Mono',monospace; font-size:11px; color:var(--text-2);
   white-space:nowrap;
 }
@@ -537,7 +519,7 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 .fr-raised { font-family:'DM Mono',monospace; font-size:13px; color:var(--white); font-weight:500; }
 .fr-target { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); }
-.fr-progress-wrap { height:3px; background:rgba(201,168,76,0.1); margin-bottom:6px; }
+.fr-progress-wrap { height:3px; background:rgba(184,155,94,0.1); margin-bottom:6px; }
 .fr-progress { height:100%; background:var(--gold); transition:width 0.8s ease; }
 .fr-pct { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); letter-spacing:0.08em; }
 .fr-close { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-3); margin-top:3px; }
@@ -564,7 +546,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .lp-bars { display:flex; flex-direction:column; gap:9px; }
 .lp-row { display:flex; align-items:center; gap:8px; }
 .lp-label { font-size:11px; color:var(--text-2); flex:1; }
-.lp-bar-wrap { width:60px; height:3px; background:rgba(201,168,76,0.08); }
+.lp-bar-wrap { width:60px; height:3px; background:rgba(184,155,94,0.08); }
 .lp-bar { height:100%; background:var(--gold); }
 .lp-pct { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); width:32px; text-align:right; }
 
@@ -601,7 +583,7 @@ h1 em { font-style:italic; color:var(--gold); }
   letter-spacing:0.04em; border:1px solid;
 }
 .modal-header-info { flex:1; }
-.modal-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+.modal-name { font-family:'DM Serif Display',serif; font-size:22px; font-weight:700; margin-bottom:8px; }
 .modal-badges { display:flex; gap:8px; flex-wrap:wrap; }
 .modal-close {
   position:absolute; top:20px; right:20px;
@@ -657,7 +639,7 @@ h1 em { font-style:italic; color:var(--gold); }
   font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3);
   display:flex; justify-content:space-between; align-items:center;
 }
-.footer-logo { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--white); }
+.footer-logo { font-family:'DM Serif Display',serif; font-size:16px; font-weight:700; color:var(--white); }
 .footer-logo span { color:var(--gold); }
 
 /* ── RESPONSIVE ── */
@@ -680,7 +662,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
 .nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
 .nav-mobile.open { display:flex; }
-.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Inter',sans-serif; }
 .nav-mobile a:last-child { border-bottom:none; }
 
 @media (max-width: 768px) {
@@ -803,7 +785,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <div class="filter-section">
       <div class="filter-section-title">Type de fonds</div>
       <div class="filter-pills" data-filter="type">
-        <div class="filter-pill" data-value="buyout" style="--pill-color:#c9a84c">Buyout</div>
+        <div class="filter-pill" data-value="buyout" style="--pill-color:#B89B5E">Buyout</div>
         <div class="filter-pill" data-value="infrastructure" style="--pill-color:#60a5fa">Infrastructure</div>
         <div class="filter-pill" data-value="growth" style="--pill-color:#f472b6">Growth</div>
         <div class="filter-pill" data-value="dette" style="--pill-color:#fbbf24">Dette privée</div>
@@ -937,7 +919,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <div class="tab-panel" id="tab-benchmarks">
       <div class="benchmarks-panel">
         <div style="margin-bottom:20px;">
-          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;">Performance de référence — <em style="color:var(--gold);font-style:italic;">BTP &amp; Infrastructures</em></div>
+          <div style="font-family:'DM Serif Display',serif;font-size:20px;font-weight:700;margin-bottom:4px;">Performance de référence — <em style="color:var(--gold);font-style:italic;">BTP &amp; Infrastructures</em></div>
           <div style="font-size:12px;color:var(--text-2);">Données agrégées · Univers de 113 fonds actifs en Europe · Sources : Preqin, PitchBook, BatiAnalyse Research</div>
         </div>
 
@@ -1134,7 +1116,7 @@ const funds = [
     strategy:'Infrastructures core et core+ en Europe : transport, énergie renouvelable, concessions BTP et télécoms. Horizon d\'investissement long terme, 15–20 ans.',
     contact:'Mathias Burghardt · Managing Director' },
 
-  { id:'pai', name:'PAI Partners', acronym:'PAI', type:'buyout', typeColor:'#c9a84c',
+  { id:'pai', name:'PAI Partners', acronym:'PAI', type:'buyout', typeColor:'#B89B5E',
     aum:'22 Md€', aumVal:22, lastFund:'Fund IX', fundSize:'7,5 Md€', vintage:2023,
     geo:['🇫🇷','🇬🇧','🇩🇪','🇪🇸'], geoZones:['france','europe'],
     secteurs:['equipement','construction'],
@@ -1227,13 +1209,13 @@ const funds = [
 
 const portfolio = [
   { id:'gcf', name:'GCF Ingénierie', fundId:'ardian-infra', fund:'Ardian Infrastructure', fundColor:'#60a5fa', secteur:'construction', pays:'🇫🇷', ca:'210 M€', ebitdaMargin:'19,5%', entryMultiple:'8,2x', entryDate:'03/2026', strategie:'lbo', statut:'actif' },
-  { id:'kiloutou-btp', name:'Kiloutou (div. BTP)', fundId:'pai', fund:'PAI Partners', fundColor:'#c9a84c', secteur:'equipement', pays:'🇫🇷', ca:'380 M€', ebitdaMargin:'31,4%', entryMultiple:'12,4x', entryDate:'01/2026', strategie:'carveout', statut:'actif' },
+  { id:'kiloutou-btp', name:'Kiloutou (div. BTP)', fundId:'pai', fund:'PAI Partners', fundColor:'#B89B5E', secteur:'equipement', pays:'🇫🇷', ca:'380 M€', ebitdaMargin:'31,4%', entryMultiple:'12,4x', entryDate:'01/2026', strategie:'carveout', statut:'actif' },
   { id:'circet', name:'Circet', fundId:'ik-partners', fund:'IK Partners', fundColor:'#fb923c', secteur:'construction', pays:'🇫🇷', ca:'1 200 M€', ebitdaMargin:'8,2%', entryMultiple:'9,8x', entryDate:'06/2021', strategie:'buildup', statut:'actif' },
   { id:'via-invest', name:'Via Invest', fundId:'ardian-infra', fund:'Ardian Infrastructure', fundColor:'#60a5fa', secteur:'infrastructure', pays:'🇧🇪', ca:'480 M€', ebitdaMargin:'38,2%', entryMultiple:'13,1x', entryDate:'09/2020', strategie:'greenfield', statut:'actif' },
   { id:'normalu', name:'Normalu', fundId:'astorg', fund:'Astorg Partners', fundColor:'#6ee7b7', secteur:'materiaux', pays:'🇫🇷', ca:'145 M€', ebitdaMargin:'22,1%', entryMultiple:'10,3x', entryDate:'04/2022', strategie:'buildup', statut:'actif' },
   { id:'cfe-group', name:'CFE Group', fundId:'cobepa', fund:'Cobepa', fundColor:'#c4b5fd', secteur:'construction', pays:'🇧🇪', ca:'3 200 M€', ebitdaMargin:'5,8%', entryMultiple:'7,4x', entryDate:'01/2018', strategie:'croissance', statut:'actif' },
   { id:'ppp-meridiam', name:'Portef. PPP Meridiam', fundId:'infravia', fund:'Infravia Capital Partners', fundColor:'#a78bfa', secteur:'infrastructure', pays:'🇫🇷', ca:'—', ebitdaMargin:'—', entryMultiple:'—', entryDate:'02/2026', strategie:'jvppp', statut:'annoncé' },
-  { id:'alvest', name:'Alvest Group', fundId:'pai', fund:'PAI Partners', fundColor:'#c9a84c', secteur:'equipement', pays:'🇫🇷', ca:'850 M€', ebitdaMargin:'17,3%', entryMultiple:'11,2x', entryDate:'11/2023', strategie:'buildup', statut:'actif' },
+  { id:'alvest', name:'Alvest Group', fundId:'pai', fund:'PAI Partners', fundColor:'#B89B5E', secteur:'equipement', pays:'🇫🇷', ca:'850 M€', ebitdaMargin:'17,3%', entryMultiple:'11,2x', entryDate:'11/2023', strategie:'buildup', statut:'actif' },
   { id:'apleona', name:'Apleona', fundId:'ik-partners', fund:'IK Partners', fundColor:'#fb923c', secteur:'services', pays:'🇩🇪', ca:'2 100 M€', ebitdaMargin:'7,4%', entryMultiple:'9,1x', entryDate:'05/2020', strategie:'lbo', statut:'actif' },
 ];
 
@@ -1274,7 +1256,7 @@ function typeLabel(t) {
 
 function typeBadgeClass(t) {
   const colors = {
-    buyout: 'rgba(201,168,76,0.15)',
+    buyout: 'rgba(184,155,94,0.15)',
     infrastructure: 'rgba(96,165,250,0.15)',
     growth: 'rgba(244,114,182,0.15)',
     dette: 'rgba(251,191,36,0.15)',
@@ -1586,7 +1568,7 @@ function renderChartIrr() {
   const data = [
     { label:'Infrastructure Core',  irr:12.4, color:'#60a5fa' },
     { label:'Infrastructure Core+', irr:15.8, color:'#34d399' },
-    { label:'Buyout mid-cap',        irr:22.1, color:'#c9a84c' },
+    { label:'Buyout mid-cap',        irr:22.1, color:'#B89B5E' },
     { label:'Buyout large-cap',      irr:18.3, color:'#fb923c' },
     { label:'Growth',                irr:19.6, color:'#f472b6' },
     { label:'Dette privée',          irr:9.8,  color:'#fbbf24' },
@@ -1640,12 +1622,12 @@ function renderChartMoic() {
     const barH = (d.count / maxCount) * chartH;
     const y = marginTop + chartH - barH;
     const isHighest = d.count === maxCount;
-    const col = isHighest ? '#c9a84c' : 'rgba(201,168,76,0.4)';
+    const col = isHighest ? '#B89B5E' : 'rgba(184,155,94,0.4)';
 
     html += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" fill="${col}" rx="1"/>`;
     html += `<text x="${x + barW/2}" y="${marginTop + chartH + 14}" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">${d.bin}</text>`;
     if (d.count >= 20) {
-      html += `<text x="${x + barW/2}" y="${y - 4}" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#c9a84c">${d.count}</text>`;
+      html += `<text x="${x + barW/2}" y="${y - 4}" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#B89B5E">${d.count}</text>`;
     }
   });
 
@@ -1662,7 +1644,7 @@ function renderChartDuree() {
 
   const slices = [
     { label:'< 3 ans',  pct:12, color:'#60a5fa' },
-    { label:'3–5 ans',  pct:38, color:'#c9a84c' },
+    { label:'3–5 ans',  pct:38, color:'#B89B5E' },
     { label:'5–7 ans',  pct:35, color:'#34d399' },
     { label:'> 7 ans',  pct:15, color:'#f472b6' },
   ];
@@ -1690,7 +1672,7 @@ function renderChartDuree() {
   // Center label
   html += `<text x="${cx}" y="${cy - 4}" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#a09880">Durée</text>`;
   html += `<text x="${cx}" y="${cy + 10}" text-anchor="middle" font-family="DM Mono,monospace" font-size="10" fill="#a09880">moy.</text>`;
-  html += `<text x="${cx}" y="${cy + 26}" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#c9a84c" font-weight="500">5,2 ans</text>`;
+  html += `<text x="${cx}" y="${cy + 26}" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#B89B5E" font-weight="500">5,2 ans</text>`;
 
   // Legend
   const legendX = 200, legendStartY = 50;
@@ -1728,7 +1710,7 @@ function renderChartMultiples() {
   // Grid lines
   [6,8,10,12,14,16].forEach(v => {
     const y = scaleY(v);
-    html += `<line x1="${marginLeft}" x2="${W - marginRight}" y1="${y}" y2="${y}" stroke="rgba(201,168,76,0.07)" stroke-width="1"/>`;
+    html += `<line x1="${marginLeft}" x2="${W - marginRight}" y1="${y}" y2="${y}" stroke="rgba(184,155,94,0.07)" stroke-width="1"/>`;
     html += `<text x="${marginLeft - 4}" y="${y + 4}" text-anchor="end" font-family="DM Mono,monospace" font-size="8" fill="#5a5446">${v}×</text>`;
   });
 
@@ -1740,22 +1722,22 @@ function renderChartMultiples() {
   // Infra line
   html += `<polyline points="${polyline(infra)}" fill="none" stroke="#60a5fa" stroke-width="2" opacity="0.8" stroke-linejoin="round"/>`;
   // Buyout line
-  html += `<polyline points="${polyline(buyout)}" fill="none" stroke="#c9a84c" stroke-width="2" opacity="0.8" stroke-linejoin="round"/>`;
+  html += `<polyline points="${polyline(buyout)}" fill="none" stroke="#B89B5E" stroke-width="2" opacity="0.8" stroke-linejoin="round"/>`;
 
   // Dots on last points
   const lastBi = buyout.length - 1;
-  html += `<circle cx="${scaleX(lastBi)}" cy="${scaleY(buyout[lastBi])}" r="3" fill="#c9a84c"/>`;
-  html += `<text x="${scaleX(lastBi) + 6}" y="${scaleY(buyout[lastBi]) + 4}" font-family="DM Mono,monospace" font-size="9" fill="#c9a84c">8,4×</text>`;
+  html += `<circle cx="${scaleX(lastBi)}" cy="${scaleY(buyout[lastBi])}" r="3" fill="#B89B5E"/>`;
+  html += `<text x="${scaleX(lastBi) + 6}" y="${scaleY(buyout[lastBi]) + 4}" font-family="DM Mono,monospace" font-size="9" fill="#B89B5E">8,4×</text>`;
   html += `<circle cx="${scaleX(lastBi)}" cy="${scaleY(infra[lastBi])}" r="3" fill="#60a5fa"/>`;
   html += `<text x="${scaleX(lastBi) + 6}" y="${scaleY(infra[lastBi]) + 4}" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa">13,2×</text>`;
 
   // Peak dot
   const peakIdx = 6; // 2021
-  html += `<circle cx="${scaleX(peakIdx)}" cy="${scaleY(buyout[peakIdx])}" r="3" fill="#c9a84c"/>`;
-  html += `<text x="${scaleX(peakIdx)}" y="${scaleY(buyout[peakIdx]) - 6}" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#c9a84c">11,2×</text>`;
+  html += `<circle cx="${scaleX(peakIdx)}" cy="${scaleY(buyout[peakIdx])}" r="3" fill="#B89B5E"/>`;
+  html += `<text x="${scaleX(peakIdx)}" y="${scaleY(buyout[peakIdx]) - 6}" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#B89B5E">11,2×</text>`;
 
   // Legend
-  html += `<rect x="${marginLeft}" y="${marginTop}" width="10" height="3" fill="#c9a84c" opacity="0.8"/>`;
+  html += `<rect x="${marginLeft}" y="${marginTop}" width="10" height="3" fill="#B89B5E" opacity="0.8"/>`;
   html += `<text x="${marginLeft + 14}" y="${marginTop + 6}" font-family="DM Mono,monospace" font-size="9" fill="#a09880">Buyout</text>`;
   html += `<rect x="${marginLeft + 70}" y="${marginTop}" width="10" height="3" fill="#60a5fa" opacity="0.8"/>`;
   html += `<text x="${marginLeft + 84}" y="${marginTop + 6}" font-family="DM Mono,monospace" font-size="9" fill="#a09880">Infrastructure</text>`;

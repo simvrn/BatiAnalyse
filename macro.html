@@ -4,38 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BatiAnalyse — Macro & Conjoncture BTP</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:#080807;--bg:#0c0c0a;--surface:#111110;--surface2:#161614;
-  --border:rgba(201,168,76,0.1);--border-hover:rgba(201,168,76,0.35);
-  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.15);--gold-glow:rgba(201,168,76,0.06);
-  --green:#4ade80;--green-dim:rgba(74,222,128,0.12);
-  --red:#f87171;--red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa;--blue-dim:rgba(96,165,250,0.12);
-  --text:#e8e4da;--text-2:#a09880;--text-3:#5a5446;--white:#f5f2eb;
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
+  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.5;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
 .logo span{color:var(--gold);}
 .nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
-.nav-links a{font-family:'Syne',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
 .nav-links a:hover{color:var(--text);}
 .nav-links a.active{color:var(--gold);}
-.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
-.nav-cta:hover{background:var(--gold);color:var(--black);}
+.nav-cta {font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);border:none;border-radius:6px;color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
+.nav-cta:hover { opacity:0.88; }
 
 /* PAGE HEADER */
 .page-header{padding:80px 32px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;align-items:end;gap:32px;}
 .breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .breadcrumb span{color:var(--gold);}
-.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1;letter-spacing:-0.02em;}
+.page-header h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1;letter-spacing:-0.5px;}
 .page-header h1 em{font-style:italic;color:var(--gold);}
 .page-sub{font-size:13px;color:var(--text-2);margin-top:10px;letter-spacing:0.02em;}
 .header-stats{display:flex;gap:0;}
@@ -44,7 +44,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .hstat-label{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
 
 /* PULSE BAND */
-.pulse-band{background:linear-gradient(135deg,#0f0f0c,#1a1408);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:12px 32px;display:flex;align-items:center;gap:0;overflow:hidden;}
+.pulse-band{background: var(--surface);border-top:1px solid rgba(184,155,94,0.15);border-bottom:1px solid rgba(184,155,94,0.15);padding:12px 32px;display:flex;align-items:center;gap:0;overflow:hidden;}
 .pulse-item{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:16px;padding:0 24px;border-right:1px solid var(--border);white-space:nowrap;}
 .pulse-item:first-child{padding-left:0;}
 .pulse-item:last-child{border-right:none;}
@@ -90,7 +90,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .signal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
 .signal-box{padding:16px;border:1px solid;}
 .signal-box.favorable{border-color:rgba(74,222,128,0.2);background:var(--green-dim);}
-.signal-box.neutre{border-color:rgba(201,168,76,0.2);background:var(--gold-dim);}
+.signal-box.neutre{border-color:rgba(184,155,94,0.2);background:var(--gold-dim);}
 .signal-box.defavorable{border-color:rgba(248,113,113,0.2);background:var(--red-dim);}
 .signal-box-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
 .signal-box.favorable .signal-box-title{color:var(--green);}
@@ -116,7 +116,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .kpi-change.bad-up{color:var(--red);background:var(--red-dim);}
 .kpi-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;float:right;margin-top:8px;}
 .kpi-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
-.kpi-signal.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+.kpi-signal.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 .kpi-signal.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
 .kpi-spark{margin-top:10px;}
 .kpi-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3);margin-top:6px;}
@@ -130,7 +130,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
 /* SECTION LABEL */
 .section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.section-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:6px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:6px;}
 .section-sub{font-size:13px;color:var(--text-2);margin-bottom:24px;}
 
 /* COMMODITIES TABLE */
@@ -143,18 +143,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .data-table thead tr{border-bottom:1px solid var(--border);}
 .data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 14px;text-align:left;font-weight:400;cursor:pointer;user-select:none;white-space:nowrap;}
 .data-table th:hover{color:var(--gold);}
-.data-table tbody tr{border-bottom:1px solid rgba(201,168,76,0.05);transition:background 0.12s;animation:rowIn 0.35s ease forwards;opacity:0;}
+.data-table tbody tr{border-bottom:1px solid rgba(184,155,94,0.05);transition:background 0.12s;animation:rowIn 0.35s ease forwards;opacity:0;}
 @keyframes rowIn{from{opacity:0;transform:translateX(-6px);}to{opacity:1;transform:translateX(0);}}
 .data-table tbody tr:hover{background:var(--gold-glow);}
 .data-table td{padding:12px 14px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2);vertical-align:middle;}
-.td-name{color:var(--white);font-size:13px;font-family:'Syne',sans-serif;font-weight:600;}
+.td-name{color:var(--white);font-size:13px;font-family:'Inter',sans-serif;font-weight:600;}
 .td-current{color:var(--white);font-size:14px;font-weight:500;}
 .change-pos{color:var(--red);}
 .change-neg{color:var(--green);}
 .impact-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
 .impact-badge.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
 .impact-badge.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
-.impact-badge.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+.impact-badge.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* CHART CONTAINERS */
 .chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;}
@@ -172,7 +172,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .rate-comment{font-size:12px;color:var(--text-3);margin-top:8px;line-height:1.5;}
 .rate-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;display:inline-block;margin-top:8px;}
 .rate-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
-.rate-signal.neutre{color:var(--gold);border-color:rgba(201,168,76,0.3);}
+.rate-signal.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* ACTIVITY SECTION */
 .activity-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
@@ -182,7 +182,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .act-kpi-change{font-family:'DM Mono',monospace;font-size:10px;color:var(--red);margin-top:4px;}
 
 /* SECTORS TABLE */
-.sector-table td:first-child{color:var(--white);font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
+.sector-table td:first-child{color:var(--white);font-family:'Inter',sans-serif;font-weight:600;font-size:13px;}
 
 /* INDICES TABLE */
 .index-val{color:var(--gold);}
@@ -198,14 +198,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 /* ANALYSIS CARDS */
 .analysis-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
 .analysis-card{border:1px solid var(--border);padding:20px;}
-.analysis-card-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;}
+.analysis-card-title{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;margin-bottom:10px;}
 .analysis-card p{font-size:13px;color:var(--text-2);line-height:1.6;}
 
 /* RIGHT RAIL */
 .right-rail{border-left:1px solid var(--border);padding:24px 20px;}
 .rail-section{margin-bottom:28px;}
 .rail-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:14px;}
-.agenda-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.agenda-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(184,155,94,0.05);}
 .agenda-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);min-width:50px;padding-top:1px;}
 .agenda-name{font-size:12px;color:var(--text-2);line-height:1.4;flex:1;}
 .agenda-dots{font-size:8px;color:var(--gold);margin-top:3px;}
@@ -215,7 +215,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .bce-prob-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-bottom:4px;display:flex;justify-content:space-between;}
 .bce-prob-bar{height:6px;background:var(--surface2);position:relative;}
 .bce-prob-fill{height:100%;transition:width 0.6s ease;}
-.alert-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.05);}
+.alert-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(184,155,94,0.05);}
 .alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
 .alert-dot.red{background:var(--red);}
 .alert-dot.gold{background:var(--gold);}
@@ -239,7 +239,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
 .nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
 .nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
 .nav-mobile a:last-child{border-bottom:none;}
 
 /* ── RESPONSIVE MOBILE ── */
@@ -440,10 +440,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
         <div class="chart-title">Acier HRC — Évolution 12 mois (€/tonne)</div>
         <svg id="acierChart" viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
           <!-- Gridlines -->
-          <line x1="0" y1="20" x2="700" y2="20" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
-          <line x1="0" y1="140" x2="700" y2="140" stroke="rgba(201,168,76,0.08)" stroke-width="1"/>
+          <line x1="0" y1="20" x2="700" y2="20" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="140" x2="700" y2="140" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
           <!-- Y labels -->
           <text x="4" y="18" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">800</text>
           <text x="4" y="58" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">750</text>
@@ -508,8 +508,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           <div class="chart-title">Mises en chantier logements — mensuel (milliers)</div>
           <svg viewBox="0 0 320 130" width="100%" height="130">
             <!-- Reference line at 30k -->
-            <line x1="0" y1="26" x2="320" y2="26" stroke="rgba(201,168,76,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="2" y="23" font-family="DM Mono,monospace" font-size="7" fill="#c9a84c">Cible 30k</text>
+            <line x1="0" y1="26" x2="320" y2="26" stroke="rgba(184,155,94,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="2" y="23" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E">Cible 30k</text>
             <!-- 12 bars: values 28.2,26.4,25.1,24.8,23.9,24.2,25.1,24.6,24.0,23.8,24.9,24.7 -->
             <!-- y: 110 - (val/35)*100 ; barW=22 -->
             <rect x="0" y="29" width="22" height="81" fill="rgba(248,113,113,0.5)"/>
@@ -534,8 +534,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           <div class="chart-title">PMI Construction — mensuel</div>
           <svg viewBox="0 0 320 130" width="100%" height="130">
             <!-- 50 line -->
-            <line x1="0" y1="65" x2="320" y2="65" stroke="rgba(201,168,76,0.5)" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="2" y="62" font-family="DM Mono,monospace" font-size="7" fill="#c9a84c">50 — Seuil</text>
+            <line x1="0" y1="65" x2="320" y2="65" stroke="rgba(184,155,94,0.5)" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="2" y="62" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E">50 — Seuil</text>
             <!-- PMI data: 47.2,47.8,48.1,47.9,48.4,48.6,47.8,48.0,48.3,47.9,48.1,48.3 -->
             <!-- y: 130 - ((val-44)/10)*100 -->
             <defs>
@@ -604,7 +604,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
               <!-- Donut segments (42% gold, 31% blue, 18% purple, 9% green) -->
               <!-- Total circumference of r=70: 2*PI*70 ≈ 439.8 -->
               <!-- 42% = 184.7, 31% = 136.3, 18% = 79.2, 9% = 39.6 -->
-              <circle cx="90" cy="90" r="70" fill="none" stroke="#c9a84c" stroke-width="28"
+              <circle cx="90" cy="90" r="70" fill="none" stroke="#B89B5E" stroke-width="28"
                 stroke-dasharray="184.7 255.1" stroke-dashoffset="109.9" transform="rotate(-90 90 90)"/>
               <circle cx="90" cy="90" r="70" fill="none" stroke="#60a5fa" stroke-width="28"
                 stroke-dasharray="136.3 303.5" stroke-dashoffset="-74.8" transform="rotate(-90 90 90)"/>
@@ -616,7 +616,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
               <text x="90" y="100" font-family="DM Mono,monospace" font-size="11" fill="#e8e4da" text-anchor="middle">construct.</text>
             </svg>
             <div class="donut-legend">
-              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#c9a84c"></div><div class="donut-leg-label">Main d'œuvre</div><div class="donut-leg-pct" style="color:#c9a84c">42%</div></div>
+              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#B89B5E"></div><div class="donut-leg-label">Main d'œuvre</div><div class="donut-leg-pct" style="color:#B89B5E">42%</div></div>
               <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#60a5fa"></div><div class="donut-leg-label">Matériaux</div><div class="donut-leg-pct" style="color:#60a5fa">31%</div></div>
               <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#a78bfa"></div><div class="donut-leg-label">Sous-traitance</div><div class="donut-leg-pct" style="color:#a78bfa">18%</div></div>
               <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#4ade80"></div><div class="donut-leg-label">Frais généraux</div><div class="donut-leg-pct" style="color:#4ade80">9%</div></div>
@@ -645,7 +645,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
             <div class="wage-chart-group">
               <div class="wage-year" style="color:var(--text-3)">2026e</div>
               <div class="wage-bars">
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(201,168,76,0.6)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:68%;background:rgba(201,168,76,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(201,168,76,0.7)">+3,4%e</div></div>
+                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(184,155,94,0.6)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:68%;background:rgba(184,155,94,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(184,155,94,0.7)">+3,4%e</div></div>
                 <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(96,165,250,0.6)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:32%;background:rgba(96,165,250,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(96,165,250,0.7)">+1,6%e</div></div>
               </div>
             </div>
@@ -697,8 +697,8 @@ const kpis = [
   { icon:'🔩', label:'Acier HRC', val:'682 €/t', unit:'prix spot', change:'▼ -11,8%', changeClass:'good-down', signal:'favorable', source:'LME', spark:[820,800,780,760,745,728,710,700,695,682], color:'#60a5fa' },
   { icon:'🛢️', label:'Bitume', val:'348 €/t', unit:'prix marché', change:'▼ -18,4%', changeClass:'good-down', signal:'favorable', source:'Euroconstruct', spark:[430,420,400,390,378,365,358,354,351,348], color:'#60a5fa' },
   { icon:'⚡', label:'Cuivre', val:'9 240 $/t', unit:'LME spot', change:'▲ +12,3%', changeClass:'bad-up', signal:'défavorable', source:'LME', spark:[8200,8400,8600,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
-  { icon:'🏛️', label:'ICC', val:'2 156', unit:'base 1953=100', change:'▲ +3,8%', changeClass:'up', signal:'neutre', source:'INSEE', spark:[2070,2080,2090,2100,2110,2115,2125,2135,2145,2156], color:'#c9a84c' },
-  { icon:'📐', label:'Inflation matériaux BTP', val:'3,8%', unit:'glissement annuel', change:'▼ -2,1pt', changeClass:'good-down', signal:'neutre', source:'AIMCC', spark:[5.9,5.6,5.2,4.9,4.6,4.4,4.2,4.0,3.9,3.8], color:'#c9a84c' },
+  { icon:'🏛️', label:'ICC', val:'2 156', unit:'base 1953=100', change:'▲ +3,8%', changeClass:'up', signal:'neutre', source:'INSEE', spark:[2070,2080,2090,2100,2110,2115,2125,2135,2145,2156], color:'#B89B5E' },
+  { icon:'📐', label:'Inflation matériaux BTP', val:'3,8%', unit:'glissement annuel', change:'▼ -2,1pt', changeClass:'good-down', signal:'neutre', source:'AIMCC', spark:[5.9,5.6,5.2,4.9,4.6,4.4,4.2,4.0,3.9,3.8], color:'#B89B5E' },
   { icon:'👷', label:'Emploi BTP', val:'1 420 000', unit:'salariés', change:'▼ -2,1%', changeClass:'down', signal:'défavorable', source:'DARES', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#f87171' },
 ];
 
@@ -789,7 +789,7 @@ function renderRates() {
       <div class="rate-change" style="color:${r.changeBp < 0 ? 'var(--green)' : r.changeBp > 0 ? 'var(--red)' : 'var(--text-3)'}">
         ${r.changeBp !== 0 ? (r.changeBp > 0 ? '▲ +' : '▼ ') + Math.abs(r.changeBp) + ' pb' : '→ stable'}
       </div>
-      <div>${makeSpark(r.spark, r.signal === 'favorable' ? '#4ade80' : '#c9a84c', 100, 24)}</div>
+      <div>${makeSpark(r.spark, r.signal === 'favorable' ? '#4ade80' : '#B89B5E', 100, 24)}</div>
       <span class="rate-signal ${r.signal}">${r.signal.charAt(0).toUpperCase()+r.signal.slice(1)}</span>
       <div class="rate-comment">${r.comment}</div>
     </div>
