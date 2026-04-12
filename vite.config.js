@@ -28,6 +28,7 @@ export default defineConfig({
         'ma-deals':          resolve(__dirname, 'ma-deals.html'),
         'ma-expansion':      resolve(__dirname, 'ma-expansion.html'),
         'ma-ipo':            resolve(__dirname, 'ma-ipo.html'),
+        'macro-detail':      resolve(__dirname, 'macro-detail.html'),
       },
     },
   },

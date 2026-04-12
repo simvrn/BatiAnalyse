@@ -22,6 +22,7 @@
     { "source": "/ma-build-up",      "destination": "/ma-build-up.html" },
     { "source": "/ma-deals",         "destination": "/ma-deals.html" },
     { "source": "/ma-expansion",     "destination": "/ma-expansion.html" },
-    { "source": "/ma-ipo",           "destination": "/ma-ipo.html" }
+    { "source": "/ma-ipo",           "destination": "/ma-ipo.html" },
+    { "source": "/macro-detail",     "destination": "/macro-detail.html" }
   ]
 }

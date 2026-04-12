@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse — Indicateur Macro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
+  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+
+/* HEADER */
+.page-header{padding:80px 32px 24px;border-bottom:1px solid var(--border);}
+.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.breadcrumb a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
+.breadcrumb a:hover{color:var(--gold);}
+.breadcrumb span{color:var(--gold);}
+.page-header h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.5vw,48px);font-weight:900;line-height:1.1;letter-spacing:-0.5px;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-sub{font-size:13px;color:var(--text-2);margin-top:10px;letter-spacing:0.02em;}
+
+/* LAYOUT */
+.detail-layout{max-width:960px;margin:0 auto;padding:32px;}
+
+/* CURRENT VALUE CARD */
+.current-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:24px 28px;margin-bottom:32px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;}
+.current-main .current-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.current-main .current-val{font-family:'DM Mono',monospace;font-size:32px;font-weight:600;color:var(--white);}
+.current-main .current-change{font-family:'DM Mono',monospace;font-size:11px;margin-top:4px;}
+.current-sep{width:1px;height:50px;background:var(--border);flex-shrink:0;}
+.current-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);line-height:1.8;}
+.current-meta strong{color:var(--text);font-weight:500;}
+.current-spark{margin-left:auto;}
+
+/* SECTION TITLES */
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:28px;margin-bottom:40px;}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:var(--border);}
+.tl-entry{position:relative;padding:12px 0 20px;border-bottom:1px solid rgba(184,155,94,0.05);}
+.tl-entry:last-child{border-bottom:none;}
+.tl-dot{position:absolute;left:-24px;top:16px;width:10px;height:10px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);}
+.tl-entry:first-child .tl-dot{background:var(--gold);}
+.tl-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:0.1em;margin-bottom:4px;}
+.tl-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:600;color:var(--white);margin-bottom:4px;}
+.tl-note{font-size:13px;color:var(--text-2);line-height:1.5;}
+.tl-source{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:4px;letter-spacing:0.05em;}
+
+/* ARTICLES / CONTENU */
+.content-section{margin-bottom:40px;}
+.content-card{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin-bottom:12px;transition:border-color 0.15s;}
+.content-card:hover{border-color:var(--border-hover);}
+.content-card .cc-date{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);letter-spacing:0.1em;margin-bottom:6px;}
+.content-card .cc-title{font-family:'DM Serif Display',serif;font-size:17px;color:var(--white);margin-bottom:6px;line-height:1.3;}
+.content-card .cc-body{font-size:13px;color:var(--text-2);line-height:1.6;}
+.content-card .cc-body p{margin-bottom:8px;}
+.content-card .cc-body p:last-child{margin-bottom:0;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 24px;color:var(--text-3);font-size:13px;}
+.empty-state .empty-icon{font-size:32px;margin-bottom:12px;}
+
+/* BACK LINK */
+.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);text-decoration:none;transition:color 0.15s;margin-bottom:20px;letter-spacing:0.05em;}
+.back-link:hover{color:var(--gold);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:20px 32px;text-align:center;}
+footer p{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;color:var(--text-3);text-transform:uppercase;}
+footer a{color:var(--gold);text-decoration:none;}
+
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .page-header{padding:72px 16px 20px;}
+  .detail-layout{padding:20px 16px;}
+  .current-card{flex-direction:column;gap:16px;align-items:flex-start;}
+  .current-sep{width:100%;height:1px;}
+  .current-spark{margin-left:0;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees">Valeurs</a></li>
+    <li><a href="/ma-hub">M&A</a></li>
+    <li><a href="/macro" class="active">Macro</a></li>
+    <li><a href="/blog">Analyses</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb"><a href="/">BatiAnalyse</a> <span>/</span> <a href="/macro">Macro</a> <span>/</span> <span id="breadcrumbName">—</span></div>
+  <h1 id="pageTitle">—</h1>
+  <p class="page-sub" id="pageSub">—</p>
+</div>
+
+<div class="detail-layout">
+  <a href="/macro" class="back-link">&larr; Retour Macro & Conjoncture</a>
+
+  <!-- VALEUR ACTUELLE -->
+  <div class="current-card" id="currentCard"></div>
+
+  <!-- HISTORIQUE -->
+  <div class="section-label">Historique des publications</div>
+  <div class="timeline" id="timeline"></div>
+
+  <!-- CONTENU / ARTICLES -->
+  <div class="content-section">
+    <div class="section-label">Notes & Analyses</div>
+    <div id="contentArea"></div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 <a href="/">BatiAnalyse</a> — Indicateurs macro BTP</p>
+</footer>
+
+<script>
+// ── SECTIONS DATA ──
+const SECTIONS = {
+  'taux-bce': {
+    name: 'Taux BCE dépôt',
+    icon: '📉',
+    description: 'Taux directeur de facilité de dépôt de la Banque Centrale Européenne. Référence pour le coût du crédit en zone euro.',
+    currentVal: '2,00%',
+    currentChange: '↓ -50pb vs mars 2026',
+    changeColor: 'var(--green)',
+    signal: 'favorable',
+    source: 'BCE',
+    unit: 'depuis 11/06/2025',
+    spark: [4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0],
+    color: '#4ade80',
+    history: [
+      { date: '11 juin 2025', val: '2,00%', note: 'Baisse de 25pb (de 2,25% à 2,00%). Le taux atteint son plus bas depuis 2022. Cycle de baisse engagé depuis juin 2024.', source: 'BCE — Décision de politique monétaire' },
+      { date: '17 avril 2025', val: '2,25%', note: 'Baisse de 25pb (de 2,50% à 2,25%).', source: 'BCE' },
+      { date: '6 mars 2025', val: '2,50%', note: 'Baisse de 25pb (de 2,75% à 2,50%).', source: 'BCE' },
+    ],
+    articles: []
+  },
+
+  'oat-10ans': {
+    name: 'OAT 10 ans France',
+    icon: '📊',
+    description: 'Rendement de l\'obligation assimilable du Trésor à 10 ans. Référence pour les taux longs immobiliers.',
+    currentVal: '3,74%',
+    currentChange: '↑ +62pb vs janv. 2026',
+    changeColor: 'var(--red)',
+    signal: 'défavorable',
+    source: 'AFT',
+    unit: '10 avril 2026',
+    spark: [3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74],
+    color: '#f87171',
+    history: [
+      { date: '10 avril 2026', val: '3,74%', note: 'Remontée significative des taux longs. Pression accrue sur le financement immobilier et promoteur.', source: 'AFT — Agence France Trésor' },
+    ],
+    articles: []
+  },
+
+  'permis-construire': {
+    name: 'Permis de construire',
+    icon: '📋',
+    description: 'Nombre de logements autorisés à la construction. Indicateur avancé de l\'activité du bâtiment.',
+    currentVal: '33 151',
+    currentChange: '',
+    changeColor: 'var(--text-3)',
+    signal: 'défavorable',
+    source: 'SDES',
+    unit: 'logements — fév. 2026',
+    spark: [38000,37000,36000,35500,35000,34500,34000,33800,33400,33151],
+    color: '#f87171',
+    history: [
+      { date: '31 mars 2026', val: '33 151 logements', note: 'Publication SDES pour février 2026. Poursuite de la tendance baissière des autorisations.', source: 'SDES — Sit@del2' },
+    ],
+    articles: []
+  },
+
+  'icc': {
+    name: 'ICC — Indice du Coût de la Construction',
+    icon: '🏛️',
+    description: 'Indice du Coût de la Construction publié par l\'INSEE. Base 1953 = 100. Référence pour l\'indexation des loyers commerciaux.',
+    currentVal: '2 058',
+    currentChange: '',
+    changeColor: 'var(--text-3)',
+    signal: 'neutre',
+    source: 'INSEE',
+    unit: 'T4 2025 (base 1953=100)',
+    spark: [2100,2110,2115,2120,2115,2100,2090,2075,2065,2058],
+    color: '#B89B5E',
+    history: [
+      { date: '24 mars 2026', val: '2 058', note: 'T4 2025. Publié le 24 mars 2026 par l\'INSEE.', source: 'INSEE' },
+    ],
+    articles: []
+  },
+
+  'bt01': {
+    name: 'Indice BT01',
+    icon: '📐',
+    description: 'Indice national du bâtiment BT01, tous corps d\'état. Base 100 = 2010. Référence pour l\'actualisation des marchés de travaux.',
+    currentVal: '134,7',
+    currentChange: '',
+    changeColor: 'var(--text-3)',
+    signal: 'neutre',
+    source: 'AIMCC / FNTP',
+    unit: 'janv. 2026 (base 100=2010)',
+    spark: [130,131,131.5,132,132.5,133,133.5,134,134.3,134.7],
+    color: '#B89B5E',
+    history: [
+      { date: 'Janvier 2026', val: '134,7', note: 'Indice BT01 base 100 = 2010. Progression régulière.', source: 'AIMCC / FNTP' },
+    ],
+    articles: []
+  },
+
+  'emploi-btp': {
+    name: 'Emploi BTP',
+    icon: '👷',
+    description: 'Évolution de l\'emploi salarié dans le secteur de la construction en France.',
+    currentVal: '-0,2% / trim.',
+    currentChange: '▼ -3 100 sur trim. / -15 800 sur an',
+    changeColor: 'var(--red)',
+    signal: 'défavorable',
+    source: 'INSEE',
+    unit: '-1,0% / an (T4 2025)',
+    spark: [1480,1475,1465,1460,1455,1450,1445,1440,1435,1420],
+    color: '#f87171',
+    history: [
+      { date: '30 janvier 2026', val: '-0,2% / trimestre · -1,0% / an', note: 'T4 2025. -3 100 emplois sur le trimestre, -15 800 sur un an. Poursuite de la dégradation de l\'emploi dans la construction.', source: 'INSEE — Estimations d\'emploi' },
+    ],
+    articles: []
+  },
+
+  'chomage': {
+    name: 'Taux de chômage',
+    icon: '📉',
+    description: 'Taux de chômage au sens du BIT, France hors Mayotte. Indicateur de contexte macroéconomique.',
+    currentVal: '7,9%',
+    currentChange: '',
+    changeColor: 'var(--text-3)',
+    signal: 'neutre',
+    source: 'INSEE',
+    unit: 'BIT — France hors Mayotte (T4 2025)',
+    spark: [7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9],
+    color: '#B89B5E',
+    history: [
+      { date: '10 février 2026', val: '7,9%', note: 'T4 2025. Taux de chômage BIT France hors Mayotte.', source: 'INSEE — Enquête emploi' },
+    ],
+    articles: []
+  },
+
+  'credit-immobilier': {
+    name: 'Crédit immobilier',
+    icon: '🏦',
+    description: 'Taux moyen des crédits immobiliers aux particuliers, production mensuelle et encours. Source Banque de France.',
+    currentVal: '3,23%',
+    currentChange: 'Production : 11,6 Mds\u20AC · Encours +0,8%/an',
+    changeColor: 'var(--text-3)',
+    signal: 'neutre',
+    source: 'Banque de France',
+    unit: 'taux moyen — fév. 2026',
+    spark: [4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23],
+    color: '#B89B5E',
+    history: [
+      { date: 'Février 2026', val: '3,23% · Prod. 11,6 Mds\u20AC', note: 'Taux moyen des crédits immobiliers. Production mensuelle de 11,6 milliards d\'euros. Encours en hausse de +0,8% sur un an.', source: 'Banque de France — Stat Info Crédits' },
+      { date: 'Janvier 2026', val: '3,17%', note: '+8 pb vs décembre 2025 (3,09%). -15 pb sur un an vs janvier 2025 (3,32%).', source: 'Banque de France' },
+    ],
+    articles: []
+  },
+
+  'credit-conso': {
+    name: 'Crédit à la consommation',
+    icon: '💳',
+    description: 'Encours total et évolution des crédits à la consommation en France.',
+    currentVal: '218 Mds\u20AC',
+    currentChange: '\u25B2 +3,1% / an',
+    changeColor: 'var(--text-3)',
+    signal: 'neutre',
+    source: 'BdF / FBF',
+    unit: 'encours total — fév. 2026',
+    spark: [210,211,212,213,214,215,216,217,217.5,218],
+    color: '#B89B5E',
+    history: [
+      { date: 'Février 2026', val: '218 Mds\u20AC · +3,1%/an', note: 'Encours total des crédits à la consommation. Hausse de 3,1% sur un an.', source: 'Banque de France / FBF' },
+    ],
+    articles: []
+  },
+};
+
+// ── SPARKLINE ──
+function makeSpark(data, color, w=200, h=40) {
+  const min = Math.min(...data), max = Math.max(...data);
+  const range = max - min || 1;
+  const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
+  const area = pts + ` ${w},${h} 0,${h}`;
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    <polygon points="${area}" fill="${color}" opacity="0.12"/>
+    <polyline points="${pts}" stroke="${color}" stroke-width="2" fill="none"/>
+  </svg>`;
+}
+
+// ── RENDER ──
+function render() {
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('s');
+  const section = SECTIONS[slug];
+
+  if (!section) {
+    document.getElementById('pageTitle').textContent = 'Section introuvable';
+    document.getElementById('pageSub').textContent = 'Vérifiez l\'URL ou retournez à la page Macro.';
+    document.getElementById('currentCard').style.display = 'none';
+    document.getElementById('timeline').innerHTML = '';
+    document.getElementById('contentArea').innerHTML = '<div class="empty-state"><div class="empty-icon">?</div>Section inconnue.</div>';
+    return;
+  }
+
+  // Title
+  document.title = `BatiAnalyse — ${section.name}`;
+  document.getElementById('breadcrumbName').textContent = section.name;
+  document.getElementById('pageTitle').innerHTML = `${section.icon} ${section.name}`;
+  document.getElementById('pageSub').textContent = section.description;
+
+  // Current card
+  document.getElementById('currentCard').innerHTML = `
+    <div class="current-main">
+      <div class="current-label">Valeur actuelle</div>
+      <div class="current-val">${section.currentVal}</div>
+      ${section.currentChange ? `<div class="current-change" style="color:${section.changeColor}">${section.currentChange}</div>` : ''}
+    </div>
+    <div class="current-sep"></div>
+    <div class="current-meta">
+      <div><strong>Période :</strong> ${section.unit}</div>
+      <div><strong>Signal :</strong> ${section.signal.charAt(0).toUpperCase() + section.signal.slice(1)}</div>
+      <div><strong>Source :</strong> ${section.source}</div>
+    </div>
+    <div class="current-spark">${makeSpark(section.spark, section.color)}</div>
+  `;
+
+  // Timeline
+  const tl = document.getElementById('timeline');
+  if (section.history.length === 0) {
+    tl.innerHTML = '<div class="empty-state"><div class="empty-icon">-</div>Aucun historique disponible.</div>';
+  } else {
+    tl.innerHTML = section.history.map(h => `
+      <div class="tl-entry">
+        <div class="tl-dot"></div>
+        <div class="tl-date">${h.date}</div>
+        <div class="tl-val">${h.val}</div>
+        <div class="tl-note">${h.note}</div>
+        <div class="tl-source">Source : ${h.source}</div>
+      </div>
+    `).join('');
+  }
+
+  // Content / Articles
+  const ca = document.getElementById('contentArea');
+  if (section.articles.length === 0) {
+    ca.innerHTML = `<div class="empty-state"><div class="empty-icon">-</div>Aucune note pour le moment. Les analyses seront ajoutées ici au fil des publications.</div>`;
+  } else {
+    ca.innerHTML = section.articles.map(a => `
+      <div class="content-card">
+        <div class="cc-date">${a.date}</div>
+        <div class="cc-title">${a.title}</div>
+        <div class="cc-body">${a.body}</div>
+      </div>
+    `).join('');
+  }
+}
+
+render();
+</script>
+</body>
+</html>
