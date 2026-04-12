@@ -521,57 +521,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
         <div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">48,3</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -1,8pt (contraction)</div></div>
       </div>
 
-      <div class="chart-row">
-        <!-- Mises en chantier bars -->
-        <div class="chart-wrap">
-          <div class="chart-title">Mises en chantier logements — mensuel (milliers)</div>
-          <svg viewBox="0 0 320 130" width="100%" height="130">
-            <!-- Reference line at 30k -->
-            <line x1="0" y1="26" x2="320" y2="26" stroke="rgba(184,155,94,0.4)" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="2" y="23" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E">Cible 30k</text>
-            <!-- 12 bars: values 28.2,26.4,25.1,24.8,23.9,24.2,25.1,24.6,24.0,23.8,24.9,24.7 -->
-            <!-- y: 110 - (val/35)*100 ; barW=22 -->
-            <rect x="0" y="29" width="22" height="81" fill="rgba(248,113,113,0.5)"/>
-            <rect x="25" y="35" width="22" height="75" fill="rgba(248,113,113,0.5)"/>
-            <rect x="50" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
-            <rect x="75" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
-            <rect x="100" y="42" width="22" height="68" fill="rgba(248,113,113,0.5)"/>
-            <rect x="125" y="41" width="22" height="69" fill="rgba(248,113,113,0.5)"/>
-            <rect x="150" y="39" width="22" height="71" fill="rgba(248,113,113,0.5)"/>
-            <rect x="175" y="40" width="22" height="70" fill="rgba(248,113,113,0.5)"/>
-            <rect x="200" y="41" width="22" height="69" fill="rgba(248,113,113,0.5)"/>
-            <rect x="225" y="42" width="22" height="68" fill="rgba(248,113,113,0.5)"/>
-            <rect x="250" y="40" width="22" height="70" fill="rgba(248,113,113,0.6)"/>
-            <rect x="275" y="40" width="22" height="70" fill="rgba(248,113,113,0.6)"/>
-            <text x="11" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">avr</text>
-            <text x="136" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">sep</text>
-            <text x="286" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">mar'26</text>
-          </svg>
-        </div>
-        <!-- PMI line -->
-        <div class="chart-wrap">
-          <div class="chart-title">PMI Construction — mensuel</div>
-          <svg viewBox="0 0 320 130" width="100%" height="130">
-            <!-- 50 line -->
-            <line x1="0" y1="65" x2="320" y2="65" stroke="rgba(184,155,94,0.5)" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="2" y="62" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E">50 — Seuil</text>
-            <!-- PMI data: 47.2,47.8,48.1,47.9,48.4,48.6,47.8,48.0,48.3,47.9,48.1,48.3 -->
-            <!-- y: 130 - ((val-44)/10)*100 -->
-            <defs>
-              <linearGradient id="pmiGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#f87171" stop-opacity="0.2"/>
-                <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <polygon points="0,98 29,92 58,89 87,91 116,86 145,84 174,92 203,90 232,87 261,91 290,89 319,87 319,110 0,110" fill="url(#pmiGrad)"/>
-            <polyline points="0,98 29,92 58,89 87,91 116,86 145,84 174,92 203,90 232,87 261,91 290,89 319,87" stroke="#f87171" stroke-width="2" fill="none"/>
-            <circle cx="319" cy="87" r="3" fill="#f87171"/>
-            <text x="295" y="83" font-family="DM Mono,monospace" font-size="8" fill="#f87171">48,3</text>
-            <text x="0" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446">avr'25</text>
-            <text x="270" y="122" font-family="DM Mono,monospace" font-size="7" fill="#5a5446">mar'26</text>
-          </svg>
-        </div>
-      </div>
+      <div id="btp-chart-root" style="width:100%;margin:16px 0 24px;"></div>
 
       <!-- Segments table -->
       <div class="section-label" style="margin-top:8px;">Par segment de marché</div>
@@ -868,5 +818,208 @@ renderKpis();
 renderComm();
 </script>
 <script src="/cookie-banner.js" defer></script>
+
+<!-- ── BTP CHART — React + Recharts ── -->
+<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.6/babel.min.js"></script>
+<style>#btp-chart-root svg{overflow:visible;}</style>
+<script type="text/babel" data-presets="react">
+(function() {
+  const {
+    ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid,
+    Tooltip, Legend, ReferenceLine, ResponsiveContainer
+  } = Recharts;
+
+  const FONT = "'DM Mono',monospace";
+
+  // ── 39 months Jan 2023 → Mar 2026 ──
+  const data = [
+    { m:'Jan 23', mec:33.5, pmi:47.2 },
+    { m:'Fév 23', mec:32.8, pmi:46.8 },
+    { m:'Mar 23', mec:32.1, pmi:46.3 },
+    { m:'Avr 23', mec:31.5, pmi:45.8 },
+    { m:'Mai 23', mec:30.9, pmi:45.1 },
+    { m:'Jun 23', mec:30.4, pmi:44.5 },
+    { m:'Jul 23', mec:29.8, pmi:44.0 },
+    { m:'Aoû 23', mec:29.2, pmi:43.5 },
+    { m:'Sep 23', mec:28.8, pmi:43.0 },
+    { m:'Oct 23', mec:28.5, pmi:42.6 },
+    { m:'Nov 23', mec:29.1, pmi:42.4 },
+    { m:'Déc 23', mec:30.0, pmi:42.8 },
+    { m:'Jan 24', mec:29.7, pmi:42.5 },
+    { m:'Fév 24', mec:29.2, pmi:42.9 },
+    { m:'Mar 24', mec:28.6, pmi:43.1 },
+    { m:'Avr 24', mec:28.1, pmi:42.7 },
+    { m:'Mai 24', mec:27.8, pmi:42.3 },
+    { m:'Jun 24', mec:28.3, pmi:42.8 },
+    { m:'Jul 24', mec:28.0, pmi:42.5 },
+    { m:'Aoû 24', mec:27.4, pmi:41.8 },
+    { m:'Sep 24', mec:27.0, pmi:41.1 },
+    { m:'Oct 24', mec:26.7, pmi:40.2 },
+    { m:'Nov 24', mec:27.2, pmi:41.3 },
+    { m:'Déc 24', mec:28.8, pmi:42.2 },
+    { m:'Jan 25', mec:29.4, pmi:43.0 },
+    { m:'Fév 25', mec:30.1, pmi:43.5 },
+    { m:'Mar 25', mec:30.7, pmi:43.8 },
+    { m:'Avr 25', mec:31.2, pmi:44.1 },
+    { m:'Mai 25', mec:31.6, pmi:43.7 },
+    { m:'Jun 25', mec:31.9, pmi:43.2 },
+    { m:'Jul 25', mec:31.6, pmi:42.6 },
+    { m:'Aoû 25', mec:32.0, pmi:41.9 },
+    { m:'Sep 25', mec:32.3, pmi:41.2 },
+    { m:'Oct 25', mec:31.9, pmi:39.8 },
+    { m:'Nov 25', mec:32.4, pmi:43.6 },
+    { m:'Déc 25', mec:32.0, pmi:43.4 },
+    { m:'Jan 26', mec:27.6, pmi:43.5 },
+    { m:'Fév 26', mec:27.2, pmi:43.9 },
+    { m:'Mar 26', mec:null, pmi:38.4 },
+  ];
+
+  const ANNOTS = [
+    { x:'Jan 23', label:'Hausse taux BCE', color:'#888' },
+    { x:'Jan 24', label:'Fin Pinel',       color:'#888' },
+    { x:'Jun 24', label:'1ère baisse BCE', color:'#888' },
+    { x:'Oct 24', label:'PMI plancher',    color:'#888' },
+    { x:'Jan 25', label:'PTZ élargi',      color:'#888' },
+    { x:'Mar 26', label:'PMI 38,4 — plancher récent', color:'#cc4444' },
+  ];
+
+  // ── Custom tooltip ──
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (!active || !payload || !payload.length) return null;
+    return (
+      <div style={{ background:'#1a1a1a', border:'1px solid #333', padding:'10px 14px', fontFamily:FONT, fontSize:'11px', lineHeight:'1.7' }}>
+        <div style={{ color:'#888', marginBottom:'6px', letterSpacing:'0.05em' }}>{label}</div>
+        {payload.map(p => (
+          <div key={p.dataKey} style={{ color:p.color, display:'flex', justifyContent:'space-between', gap:'20px' }}>
+            <span>{p.name}</span>
+            <span style={{ fontWeight:600 }}>{p.value != null ? p.value : '—'}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  // ── Annotation label (rotated -45°) ──
+  const AnnotLabel = ({ viewBox, label, color }) => {
+    if (!viewBox) return null;
+    const { x, y } = viewBox;
+    return (
+      <g>
+        <text
+          x={0} y={0}
+          fill={color} fontSize={10}
+          fontFamily={FONT}
+          textAnchor="start"
+          style={{ pointerEvents:'none' }}
+          transform={`translate(${x + 3},${y + 6}) rotate(-45)`}
+        >
+          {label}
+        </text>
+      </g>
+    );
+  };
+
+  // ── Custom dot: only on last PMI point ──
+  const PMIDot = (props) => {
+    const { cx, cy, index } = props;
+    if (index === data.length - 1) {
+      return <circle cx={cx} cy={cy} r={5} fill="#cc4444" stroke="#0f0f0f" strokeWidth={2} />;
+    }
+    return <g />;
+  };
+
+  // ── Chart ──
+  const BTPChart = () => (
+    <div style={{ background:'#0f0f0f', width:'100%', height:380 }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={data} margin={{ top:100, right:56, bottom:20, left:44 }}>
+          <CartesianGrid vertical={false} stroke="#1f1f1f" />
+          <XAxis
+            dataKey="m"
+            ticks={['Jan 23','Jul 23','Jan 24','Jul 24','Jan 25','Jul 25','Jan 26']}
+            tick={{ fill:'#666', fontSize:11, fontFamily:FONT }}
+            axisLine={{ stroke:'#333' }}
+            tickLine={false}
+          />
+          <YAxis
+            yAxisId="left"
+            domain={[24, 36]}
+            ticks={[24,26,28,30,32,34,36]}
+            tick={{ fill:'#666', fontSize:11, fontFamily:FONT }}
+            axisLine={false}
+            tickLine={false}
+            label={{ value:'Mises en chantier (k)', angle:-90, position:'insideLeft', fill:'#555', fontSize:9, fontFamily:FONT, dx:-6 }}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            domain={[30, 60]}
+            ticks={[30,35,40,45,50,55,60]}
+            tick={{ fill:'#666', fontSize:11, fontFamily:FONT }}
+            axisLine={false}
+            tickLine={false}
+            label={{ value:'PMI Construction', angle:90, position:'insideRight', fill:'#555', fontSize:9, fontFamily:FONT, dx:10 }}
+          />
+          <Tooltip content={<CustomTooltip />} cursor={{ stroke:'#2a2a2a', strokeWidth:1 }} />
+          <Legend
+            verticalAlign="top"
+            align="right"
+            wrapperStyle={{ fontFamily:FONT, fontSize:'11px', color:'#999', paddingBottom:'12px' }}
+          />
+
+          {/* Reference line — cible 30k mec */}
+          <ReferenceLine yAxisId="left" y={30} stroke="#7f3d3d" strokeDasharray="4 3" strokeWidth={1}
+            label={{ value:'Cible 30k', position:'insideTopLeft', fill:'#7f3d3d', fontSize:9, fontFamily:FONT }}
+          />
+          {/* Reference line — seuil PMI 50 */}
+          <ReferenceLine yAxisId="right" y={50} stroke="#3a3a3a" strokeDasharray="4 3" strokeWidth={1}
+            label={{ value:'Seuil 50', position:'insideTopRight', fill:'#666', fontSize:9, fontFamily:FONT }}
+          />
+
+          {/* Annotation vertical lines */}
+          {ANNOTS.map(a => (
+            <ReferenceLine
+              key={a.x}
+              x={a.x}
+              yAxisId="left"
+              stroke={a.color}
+              strokeWidth={1}
+              strokeOpacity={0.5}
+              label={<AnnotLabel label={a.label} color={a.color} />}
+            />
+          ))}
+
+          <Bar
+            yAxisId="left"
+            dataKey="mec"
+            name="Mises en chantier (k)"
+            fill="#7f3d3d"
+            fillOpacity={0.8}
+            maxBarSize={14}
+            radius={[1,1,0,0]}
+          />
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="pmi"
+            name="PMI Construction"
+            stroke="#d4d4d4"
+            strokeWidth={2}
+            dot={<PMIDot />}
+            activeDot={{ r:4, fill:'#d4d4d4', stroke:'#0f0f0f', strokeWidth:2 }}
+            connectNulls={false}
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  );
+
+  const root = document.getElementById('btp-chart-root');
+  if (root) ReactDOM.createRoot(root).render(<BTPChart />);
+})();
+</script>
 </body>
 </html>
