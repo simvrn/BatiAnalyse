@@ -101,15 +101,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .signal-list li::before{content:'·  ';}
 
 /* KPI GRID */
-.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
-.kpi-card{background:var(--surface);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;grid-auto-rows:1fr;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);padding:18px;position:relative;overflow:hidden;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;display:flex;flex-direction:column;cursor:pointer;}
 @keyframes kpiIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .kpi-card:hover{border-color:var(--border-hover);}
 .kpi-icon{font-size:16px;margin-bottom:8px;display:block;opacity:0.7;}
 .kpi-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
 .kpi-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--white);line-height:1;margin-bottom:4px;}
 .kpi-unit{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);}
-.kpi-change{font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;display:inline-block;margin-top:8px;}
+.kpi-change{font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;display:inline-block;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .kpi-change.up{color:var(--green);background:var(--green-dim);}
 .kpi-change.down{color:var(--red);background:var(--red-dim);}
 .kpi-change.good-down{color:var(--green);background:var(--green-dim);}
@@ -118,9 +118,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .kpi-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
 .kpi-signal.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 .kpi-signal.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
-.kpi-spark{margin-top:10px;}
+.kpi-spark{margin-top:auto;padding-top:10px;}
 .kpi-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3);margin-top:6px;}
 .kpi-note{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);margin-top:3px;}
+
+/* KPI MODAL */
+.kpi-modal-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.78);backdrop-filter:blur(6px);align-items:center;justify-content:center;overflow-y:auto;padding:24px;}
+.kpi-modal-overlay.open{display:flex;}
+.kpi-modal-panel{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--gold);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;padding:36px 32px 32px;animation:kpiIn 0.2s ease;}
+.kpi-modal-panel::-webkit-scrollbar{width:3px;}
+.kpi-modal-panel::-webkit-scrollbar-thumb{background:var(--border);}
+.kpi-modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1;transition:color 0.15s;}
+.kpi-modal-close:hover{color:var(--white);}
+.modal-section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin:24px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.modal-current{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;background:var(--surface2);border:1px solid var(--border);padding:16px 20px;margin-bottom:4px;}
+.modal-current-main .mcm-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;}
+.modal-current-main .mcm-val{font-family:'DM Mono',monospace;font-size:26px;font-weight:600;color:var(--white);line-height:1;}
+.modal-current-main .mcm-change{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);margin-top:4px;}
+.modal-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);line-height:1.9;}
+.modal-meta strong{color:var(--text);}
+.modal-tl{position:relative;padding-left:24px;}
+.modal-tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;background:var(--border);}
+.modal-tl-entry{position:relative;padding:10px 0 18px;}
+.modal-tl-dot{position:absolute;left:-21px;top:14px;width:9px;height:9px;border-radius:50%;border:2px solid var(--gold);background:var(--bg);}
+.modal-tl-entry:first-child .modal-tl-dot{background:var(--gold);}
+.modal-tl-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:3px;}
+.modal-tl-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px;}
+.modal-tl-note{font-size:12px;color:var(--text-2);line-height:1.5;}
+.modal-tl-src{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:3px;}
 
 /* EDITORIAL BLOCK */
 .editorial-block{border-left:3px solid var(--gold);background:var(--surface);padding:24px 28px;margin-top:8px;}
@@ -311,7 +336,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   <div>
     <div class="breadcrumb">BatiAnalyse <span>/</span> Macro & Conjoncture</div>
     <h1>Macro & <em>Conjoncture</em></h1>
-    <p class="page-sub">Indicateurs économiques BTP · Zone Euro & France · Mis à jour 10 avril 2026</p>
+    <p class="page-sub">Indicateurs économiques BTP · Zone Euro & France · Mis à jour 10 Avril 2026</p>
   </div>
   <div class="header-stats">
     <div class="hstat">
@@ -483,7 +508,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <div class="tab-panel" id="tab-taux">
       <div class="section-label">Impact des taux sur la construction & la promotion immobilière</div>
       <div class="section-title">Taux & <em style="font-style:italic;color:var(--gold)">Financement</em></div>
-      <p class="section-sub">Sources : BCE, Banque de France, Observatoire Crédit Logement. Crédit immobilier mis à jour — données Banque de France, février 2026.</p>
+      <p class="section-sub">Sources : BCE, Banque de France, Observatoire Crédit Logement. Crédit immobilier mis à jour — données Banque de France, Février 2026.</p>
 
       <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:12px 16px;margin-bottom:16px;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
         <div>
@@ -639,12 +664,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
     <div class="rail-section">
       <div class="rail-title">Dernières actualités</div>
-      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">10 avr</div><div class="alert-text">OAT 10 ans : 3,74% — AFT. Remontée des taux longs.</div></div></div>
-      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">31 mar</div><div class="alert-text">Permis de construire : 33 151 logements — fév. 2026 (SDES)</div></div></div>
-      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">24 mar</div><div class="alert-text">ICC T4 2025 : 2 058 — base 1953=100 (INSEE)</div></div></div>
-      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">fév</div><div class="alert-text">Crédit immo BdF : 3,23%, production 11,6 Mds€ — encours +0,8%/an</div></div></div>
-      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">10 fév</div><div class="alert-text">Taux chômage T4 2025 : 7,9% BIT hors Mayotte (INSEE)</div></div></div>
-      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">30 jan</div><div class="alert-text">Emploi BTP T4 2025 : -0,2%/trim., -1,0%/an — -15 800 sur l'an (INSEE)</div></div></div>
+      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">10 Avril 2026</div><div class="alert-text">OAT 10 ans : 3,74% — AFT. Remontée des taux longs.</div></div></div>
+      <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">31 Mars 2026</div><div class="alert-text">Permis de construire : 33 151 logements — Février 2026 (SDES)</div></div></div>
+      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">24 Mars 2026</div><div class="alert-text">ICC T4 2025 : 2 058 — base 1953=100 (INSEE)</div></div></div>
+      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">Février 2026</div><div class="alert-text">Crédit immo BdF : 3,23%, production 11,6 Mds€ — encours +0,8%/an</div></div></div>
+      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">10 Février 2026</div><div class="alert-text">Taux chômage T4 2025 : 7,9% BIT hors Mayotte (INSEE)</div></div></div>
+      <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">30 Janvier 2026</div><div class="alert-text">Emploi BTP T4 2025 : -0,2%/trim., -1,0%/an — -15 800 sur l'an (INSEE)</div></div></div>
     </div>
   </div>
 
@@ -662,23 +687,147 @@ const commodities = [
 ];
 
 const kpis = [
-  { slug:'taux-bce', icon:'📉', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11/06/2025', change:'↓ -50pb vs mars 2026', changeClass:'good-down', signal:'favorable', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#4ade80' },
-  { slug:'oat-10ans', icon:'📊', label:'OAT 10 ans France', val:'3,74%', unit:'10 avril 2026', change:'↑ +62pb vs janv. 2026', changeClass:'up', signal:'défavorable', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#f87171' },
-  { slug:'permis-construire', icon:'📋', label:'Permis de construire', val:'33 151', unit:'logements — fév. 2026', change:'', changeClass:'down', signal:'défavorable', source:'SDES, 31 mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#f87171' },
-  { slug:'icc', icon:'🏛️', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', signal:'neutre', source:'INSEE, 24 mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
-  { slug:'bt01', icon:'📐', label:'Indice BT01', val:'134,7', unit:'janv. 2026 (base 100=2010)', change:'', changeClass:'', signal:'neutre', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
-  { slug:'emploi-btp', icon:'👷', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an (T4 2025)', change:'▼ -3 100 sur trim. / -15 800 sur an', changeClass:'down', signal:'défavorable', source:'INSEE, 30 jan. 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#f87171' },
-  { slug:'chomage', icon:'📉', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte (T4 2025)', change:'', changeClass:'', signal:'neutre', source:'INSEE, 10 fév. 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
-  { slug:'credit-immobilier', icon:'🏦', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — fév. 2026', change:'Production : 11,6 Mds€ · Encours +0,8%/an', changeClass:'', signal:'neutre', source:'BdF, fév. 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
-  { slug:'credit-conso', icon:'💳', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — fév. 2026', change:'▲ +3,1% / an', changeClass:'up', signal:'neutre', source:'BdF / FBF, fév. 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
+  { slug:'taux-bce', icon:'📉', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11 Juin 2025', change:'↓ -50pb vs Mars 2026', changeClass:'good-down', signal:'favorable', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#4ade80' },
+  { slug:'oat-10ans', icon:'📊', label:'OAT 10 ans France', val:'3,74%', unit:'10 Avril 2026', change:'↑ +62pb vs Janvier 2026', changeClass:'up', signal:'défavorable', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#f87171' },
+  { slug:'permis-construire', icon:'📋', label:'Permis de construire', val:'33 151', unit:'logements — Février 2026', change:'', changeClass:'down', signal:'défavorable', source:'SDES, 31 Mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#f87171' },
+  { slug:'icc', icon:'🏛️', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', signal:'neutre', source:'INSEE, 24 Mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
+  { slug:'bt01', icon:'📐', label:'Indice BT01', val:'134,7', unit:'Janvier 2026 (base 100=2010)', change:'', changeClass:'', signal:'neutre', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
+  { slug:'emploi-btp', icon:'👷', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an — T4 2025', change:'▼ -3 100 trim. / -15 800 an', changeClass:'down', signal:'défavorable', source:'INSEE, 30 Janvier 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#f87171' },
+  { slug:'chomage', icon:'📉', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte, T4 2025', change:'', changeClass:'', signal:'neutre', source:'INSEE, 10 Février 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
+  { slug:'credit-immobilier', icon:'🏦', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — Février 2026', change:'Prod. 11,6 Mds€ · Encours +0,8%/an', changeClass:'', signal:'neutre', source:'BdF, Février 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
+  { slug:'credit-conso', icon:'💳', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — Février 2026', change:'▲ +3,1% / an', changeClass:'up', signal:'neutre', source:'BdF / FBF, Février 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
 ];
 
 const rates = [
-  { label:'Taux BCE dépôt', val:'2,00', unit:'%', changeBp:-50, trend:'down', signal:'favorable', comment:'Depuis le 11 juin 2025. Cycle de baisse BCE — taux à leur plus bas depuis 2022.', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0] },
-  { label:'OAT 10 ans France', val:'3,74', unit:'%', changeBp:+62, trend:'up', signal:'défavorable', comment:'10 avril 2026 — AFT. Remontée des taux longs, pression sur le financement immobilier.', spark:[3.8,3.6,3.4,3.2,3.14,3.12,3.30,3.55,3.74] },
-  { label:'Observatoire Crédit Logement', val:'3,25', unit:'%', changeBp:+8, trend:'up', signal:'neutre', comment:'Taux moyen crédits accordés — fév. 2026. Légère remontée après le plancher de fin 2025.', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.23,3.25] },
-  { label:'Crédit entreprises construction', val:'3,53', unit:'%', changeBp:0, trend:'stable', signal:'neutre', comment:'Taux nouveaux crédits — jan. 2026 (BdF). Encours total : −0,5%/an. Immobilier : +4,7%/an.', spark:[4.5,4.3,4.1,3.9,3.75,3.65,3.58,3.55,3.53] },
+  { label:'Taux BCE dépôt', val:'2,00', unit:'%', changeBp:-50, trend:'down', signal:'favorable', comment:'Depuis le 11 Juin 2025. Cycle de baisse BCE — taux à leur plus bas depuis 2022.', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0] },
+  { label:'OAT 10 ans France', val:'3,74', unit:'%', changeBp:+62, trend:'up', signal:'défavorable', comment:'10 Avril 2026 — AFT. Remontée des taux longs, pression sur le financement immobilier.', spark:[3.8,3.6,3.4,3.2,3.14,3.12,3.30,3.55,3.74] },
+  { label:'Observatoire Crédit Logement', val:'3,25', unit:'%', changeBp:+8, trend:'up', signal:'neutre', comment:'Taux moyen crédits accordés — Février 2026. Légère remontée après le plancher de fin 2025.', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.23,3.25] },
+  { label:'Crédit entreprises construction', val:'3,53', unit:'%', changeBp:0, trend:'stable', signal:'neutre', comment:'Taux nouveaux crédits — Janvier 2026 (BdF). Encours total : −0,5%/an. Immobilier : +4,7%/an.', spark:[4.5,4.3,4.1,3.9,3.75,3.65,3.58,3.55,3.53] },
 ];
+
+// ── SECTIONS DETAIL DATA ──
+const SECTIONS = {
+  'taux-bce': {
+    name:'Taux BCE dépôt', icon:'📉',
+    desc:'Taux directeur de facilité de dépôt de la Banque Centrale Européenne. Référence pour le coût du crédit en zone euro.',
+    history:[
+      { date:'11 Juin 2025', val:'2,00%', note:'Baisse de 25pb (de 2,25% à 2,00%). Taux au plus bas depuis fin 2022. Le cycle de détente monétaire reste actif.', src:'BCE — Décision de politique monétaire' },
+      { date:'17 Avril 2025', val:'2,25%', note:'Baisse de 25pb (de 2,50% à 2,25%).', src:'BCE' },
+      { date:'06 Mars 2025', val:'2,50%', note:'Baisse de 25pb (de 2,75% à 2,50%). 3ème baisse consécutive.', src:'BCE' },
+    ]
+  },
+  'oat-10ans': {
+    name:'OAT 10 ans France', icon:'📊',
+    desc:'Rendement de l\'obligation assimilable du Trésor à 10 ans. Baromètre des taux longs et du coût du financement immobilier à long terme.',
+    history:[
+      { date:'10 Avril 2026', val:'3,74%', note:'Remontée significative des taux longs français. Écart croissant avec la BCE (spread). Pression directe sur les taux immobiliers et le financement promoteur.', src:'AFT — Agence France Trésor' },
+      { date:'Janvier 2026', val:'~3,12%', note:'Point bas relatif début 2026 avant la remontée d\'avril.', src:'AFT' },
+    ]
+  },
+  'permis-construire': {
+    name:'Permis de construire', icon:'📋',
+    desc:'Nombre de logements autorisés à la construction. Indicateur avancé de l\'activité du bâtiment résidentiel. Publication mensuelle SDES (Sit@del2).',
+    history:[
+      { date:'31 Mars 2026', val:'33 151 logements', note:'Données Février 2026 publiées par le SDES. Poursuite de la tendance baissière des autorisations, illustrant la dépression durable du marché du neuf.', src:'SDES — Sit@del2' },
+    ]
+  },
+  'icc': {
+    name:'ICC — Indice du Coût de la Construction', icon:'🏛️',
+    desc:'Publié par l\'INSEE, base 1953=100. Utilisé pour l\'indexation des loyers commerciaux (baux 3-6-9). Publication trimestrielle.',
+    history:[
+      { date:'24 Mars 2026', val:'2 058', note:'T4 2025. Légère détente de l\'indice sur le trimestre. En baisse par rapport au pic de 2 156 observé précédemment.', src:'INSEE' },
+    ]
+  },
+  'bt01': {
+    name:'Indice BT01 — Tous corps d\'état', icon:'📐',
+    desc:'Indice national du bâtiment, base 100=2010. Référence pour l\'actualisation des marchés de travaux et des devis. Publié mensuellement par l\'AIMCC / FNTP.',
+    history:[
+      { date:'Janvier 2026', val:'134,7', note:'Progression régulière. Représente une hausse de +34,7% depuis 2010.', src:'AIMCC / FNTP' },
+    ]
+  },
+  'emploi-btp': {
+    name:'Emploi BTP', icon:'👷',
+    desc:'Emploi salarié dans la construction en France. Indicateur de tension sectorielle et de santé économique du BTP.',
+    history:[
+      { date:'30 Janvier 2026', val:'-0,2% / trim. · -1,0% / an', note:'T4 2025. -3 100 emplois sur le trimestre, -15 800 sur un an. La contraction se poursuit, reflet direct de la baisse d\'activité dans le neuf.', src:'INSEE — Estimations d\'emploi' },
+    ]
+  },
+  'chomage': {
+    name:'Taux de chômage', icon:'📉',
+    desc:'Taux de chômage au sens du BIT, France hors Mayotte. Contexte macroéconomique général, influençant la demande de logement.',
+    history:[
+      { date:'10 Février 2026', val:'7,9%', note:'T4 2025. Légère remontée par rapport aux trimestres précédents. France hors Mayotte, périmètre BIT.', src:'INSEE — Enquête Emploi' },
+    ]
+  },
+  'credit-immobilier': {
+    name:'Crédit immobilier (BdF)', icon:'🏦',
+    desc:'Taux moyen des crédits immobiliers aux particuliers et production mensuelle. Source officielle Banque de France.',
+    history:[
+      { date:'Février 2026', val:'3,23% · Prod. 11,6 Mds€', note:'Taux moyen de la production de crédits immobiliers. Production mensuelle de 11,6 milliards d\'euros. Encours total en hausse de +0,8% sur un an.', src:'Banque de France — Stat Info Crédits' },
+      { date:'Janvier 2026', val:'3,17%', note:'+8pb vs Décembre 2025 (3,09%). -15pb sur un an vs Janvier 2025 (3,32%).', src:'Banque de France' },
+    ]
+  },
+  'credit-conso': {
+    name:'Crédit à la consommation', icon:'💳',
+    desc:'Encours total et évolution des crédits à la consommation en France. Indicateur de la confiance des ménages et de la consommation.',
+    history:[
+      { date:'Février 2026', val:'218 Mds€ · +3,1%/an', note:'Encours total des crédits à la consommation en hausse de 3,1% sur un an. Signal de dynamisme de la consommation malgré le contexte de taux.', src:'Banque de France / FBF' },
+    ]
+  },
+};
+
+// ── MODAL ──
+function openKpiModal(slug) {
+  const s = SECTIONS[slug];
+  const k = kpis.find(x => x.slug === slug);
+  if (!s || !k) return;
+
+  const histHtml = s.history.map(h => `
+    <div class="modal-tl-entry">
+      <div class="modal-tl-dot"></div>
+      <div class="modal-tl-date">${h.date}</div>
+      <div class="modal-tl-val">${h.val}</div>
+      <div class="modal-tl-note">${h.note}</div>
+      <div class="modal-tl-src">Source : ${h.src}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('kpi-modal-content').innerHTML = `
+    <div style="margin-bottom:4px;">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;">Indicateur macro — BatiAnalyse</div>
+      <div style="font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:6px;">${s.icon} ${s.name}</div>
+      <div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:16px;">${s.desc}</div>
+    </div>
+    <div class="modal-current">
+      <div class="modal-current-main">
+        <div class="mcm-label">Valeur actuelle</div>
+        <div class="mcm-val">${k.val}</div>
+        ${k.change ? `<div class="mcm-change">${k.change}</div>` : ''}
+      </div>
+      <div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>
+      <div class="modal-meta">
+        <div><strong>Période :</strong> ${k.unit}</div>
+        <div><strong>Signal :</strong> <span style="color:${k.signal==='favorable'?'var(--green)':k.signal==='défavorable'?'var(--red)':'var(--gold)'}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span></div>
+        <div><strong>Source :</strong> ${k.source}</div>
+      </div>
+      <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40)}</div>
+    </div>
+    <div class="modal-section-label">Historique des publications</div>
+    <div class="modal-tl">${histHtml}</div>
+    <div class="modal-section-label">Notes & Analyses</div>
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);padding:16px;border:1px solid var(--border);text-align:center;">Les analyses associées à cet indicateur apparaîtront ici.</div>
+  `;
+
+  document.getElementById('kpi-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeKpiModal() {
+  document.getElementById('kpi-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModal(); });
 
 // ── SPARKLINE ──
 function makeSpark(data, color, w=80, h=24) {
@@ -696,19 +845,17 @@ function makeSpark(data, color, w=80, h=24) {
 function renderKpis() {
   const grid = document.getElementById('kpiGrid');
   grid.innerHTML = kpis.map((k, i) => `
-    <a href="/macro-detail?s=${k.slug}" class="kpi-card-link" style="text-decoration:none;color:inherit;">
-      <div class="kpi-card" style="animation-delay:${i*0.04}s">
-        <span class="kpi-icon">${k.icon}</span>
-        <div class="kpi-label">${k.label}</div>
-        <div class="kpi-val">${k.val}</div>
-        <div class="kpi-unit">${k.unit}</div>
-        <span class="kpi-signal ${k.signal}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span>
-        <span class="kpi-change ${k.changeClass}">${k.change}</span>
-        ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
-        <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
-        <div class="kpi-source">Source : ${k.source}</div>
-      </div>
-    </a>
+    <div class="kpi-card" style="animation-delay:${i*0.04}s" onclick="openKpiModal('${k.slug}')">
+      <span class="kpi-icon">${k.icon}</span>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-val">${k.val}</div>
+      <div class="kpi-unit">${k.unit}</div>
+      <span class="kpi-signal ${k.signal}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span>
+      ${k.change ? `<span class="kpi-change ${k.changeClass}">${k.change}</span>` : ''}
+      ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
+      <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
+      <div class="kpi-source">Source : ${k.source}</div>
+    </div>
   `).join('');
 }
 
@@ -817,6 +964,14 @@ function resetFilters() {
 renderKpis();
 renderComm();
 </script>
+<!-- ── KPI MODAL OVERLAY ── -->
+<div id="kpi-modal-overlay" class="kpi-modal-overlay" onclick="if(event.target===this)closeKpiModal()">
+  <div class="kpi-modal-panel" id="kpi-modal-panel">
+    <button class="kpi-modal-close" onclick="closeKpiModal()" title="Fermer">&times;</button>
+    <div id="kpi-modal-content"></div>
+  </div>
+</div>
+
 <script src="/cookie-banner.js" defer></script>
 
 <!-- ── BTP CHART — React + Recharts ── -->
