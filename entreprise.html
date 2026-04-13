@@ -1627,7 +1627,7 @@ const STUBS = {
   'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
 }
 
-const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
+const WP_API = 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2'
 const params  = new URLSearchParams(location.search)
 const slug    = params.get('slug') || ''
 const company = COMPANIES[slug]
@@ -1858,7 +1858,7 @@ async function loadArticles() {
       <div class="empty-icon">◎</div>
       <div class="empty-title">Tag introuvable</div>
       <div class="empty-sub">Aucun tag WordPress "<strong>${company.tagSlug}</strong>" trouvé.<br>
-        <a href="https://batianalyste.fr/wp-admin/edit-tags.php?taxonomy=post_tag" target="_blank" style="color:var(--gold)">Créer le tag →</a></div>
+        <a href="https://wp-adminclaudecanouche.batianalyste.fr/wp-admin/edit-tags.php?taxonomy=post_tag" target="_blank" style="color:var(--gold)">Créer le tag →</a></div>
     </div>`
     document.getElementById('artCount').textContent = '0'
     return

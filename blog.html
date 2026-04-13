@@ -203,15 +203,15 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 // CONFIG SECTIONS WORDPRESS — ajouter une entrée par section
 // ═══════════════════════════════════════════════════════
 const WP_SECTIONS = {
-  analyses: 'https://batianalyste.fr/wp-json/wp/v2/posts',             // flux principal — tous les articles
-  valeurs:  'https://batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
-  // ma:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=X',
-  // macro: 'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
-  // pe:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Z',
+  analyses: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts',             // flux principal — tous les articles
+  valeurs:  'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
+  // ma:    'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=X',
+  // macro: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
+  // pe:    'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=Z',
 }
 // ═══════════════════════════════════════════════════════
 
-const WP_BASE = 'https://batianalyste.fr/wp-json/wp/v2'
+const WP_BASE = 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2'
 const PER_PAGE = 12
 
 let allPosts      = []

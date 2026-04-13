@@ -927,7 +927,7 @@ function sidebarFilterPays(val) {
 }
 
 // ── MODAL ──
-const WP_API = 'https://batianalyste.fr/wp-json/wp/v2'
+const WP_API = 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2'
 
 function openModal(id) {
   const s = stocks.find(x => x.id===id);
@@ -1171,11 +1171,11 @@ document.getElementById('stockCount').textContent = stocks.length
 // CONFIG SECTIONS WORDPRESS — ajouter une entrée par section
 // ═══════════════════════════════════════════════════════
 const WP_SECTIONS = {
-  analyses: 'https://batianalyste.fr/wp-json/wp/v2/posts',              // flux principal
-  valeurs:  'https://batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
-  // ma:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=X',
-  // macro: 'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
-  // pe:    'https://batianalyste.fr/wp-json/wp/v2/posts?categories=Z',
+  analyses: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts',              // flux principal
+  valeurs:  'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
+  // ma:    'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=X',
+  // macro: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
+  // pe:    'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=Z',
 }
 // ═══════════════════════════════════════════════════════
 
