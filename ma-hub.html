@@ -65,12 +65,12 @@
     .nav-links {
       display: flex;
       list-style: none;
-      gap: 32px;
+      gap: 28px;
     }
     .nav-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-2);
@@ -82,13 +82,15 @@
 
     .nav-cta {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--bg);
       text-decoration: none;
-      border: 1px solid var(--gold);
-      padding: 7px 16px;
+      background: var(--gold);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 20px;
       transition: all 0.15s;
     }
     .nav-cta:hover { opacity:0.88; }
@@ -485,44 +487,6 @@
         </div>
       </a>
 
-      <!-- 7. Création de valeur -->
-      <a href="/ma-valeur" class="ma-card">
-        <div class="card-top">
-          <div class="card-title">Création de valeur</div>
-        </div>
-        <p class="card-desc">Analyse de la création de valeur post-acquisition : synergies opérationnelles, optimisation du bilan et retours pour les actionnaires.</p>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        </div>
-      </a>
-
-      <!-- 8. Risques & Échecs -->
-      <a href="/ma-risques" class="ma-card">
-        <div class="card-top">
-          <div class="card-title">Risques &amp; Échecs</div>
-        </div>
-        <p class="card-desc">Études de cas sur les opérations avortées, les destructions de valeur et les leçons tirées des échecs de M&A dans le secteur.</p>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        </div>
-      </a>
-
-      <!-- 9. Analyse d'entreprise -->
-      <a href="/ma-analyse" class="ma-card">
-        <div class="card-top">
-          <div class="card-title">Analyse d'entreprise</div>
-        </div>
-        <p class="card-desc">Fiches détaillées par entreprise : données financières, positionnement stratégique et analyse M&A opération par opération.</p>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6"/>
-          </svg>
-        </div>
-      </a>
 
     </div>
   </section>

@@ -51,11 +51,11 @@ nav {
 .nav-links a.active { color:var(--gold); }
 .nav-cta {
   font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em;
-  padding:8px 20px; border:1px solid var(--gold);
-  color:var(--gold); text-decoration:none; transition:all 0.15s;
+  padding:8px 20px; background:var(--gold); border:none; border-radius:6px;
+  color:var(--bg); text-decoration:none; transition:all 0.15s;
   text-transform:uppercase;
 }
-.nav-cta:hover { background:var(--gold); color:var(--black); }
+.nav-cta:hover { opacity:0.88; }
 
 /* ── PAGE HEADER ── */
 .page-header {
@@ -387,9 +387,10 @@ h1 em { font-style:italic; color:var(--gold); }
   to { opacity:1; transform:translateY(0); }
 }
 
-.card-badges { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.card-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-bottom:10px; }
 .card-cible { font-family:'DM Serif Display',serif; font-size:17px; font-weight:700; margin-bottom:4px; line-height:1.2; }
 .card-acq { font-size:12px; color:var(--text-2); margin-bottom:10px; }
+.card-badges { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
 .card-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
 .card-tag {
   font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em;
@@ -401,7 +402,6 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 .card-amount { font-family:'DM Mono',monospace; font-size:20px; font-weight:500; color:var(--gold); }
 .card-multiple { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); }
-.card-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-bottom:8px; }
 .card-advisors { font-size:11px; color:var(--text-3); margin-bottom:12px; }
 .card-advisors strong { color:var(--text-2); font-size:10px; font-family:'DM Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; }
 .card-cta {
@@ -849,9 +849,10 @@ function renderCards(filtered) {
     const allAdvisors = [...d.conseilleursAcq, ...d.conseillersCible];
     return `
     <div class="deal-card" onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i*0.05}s">
-      <div class="card-badges">${typeBadge(d.type)}${statutBadge(d.statut)}</div>
+      <div class="card-date">${formatDate(d.date)}</div>
       <div class="card-cible">${d.cible}</div>
       <div class="card-acq">Acquis par ${d.acquéreur}</div>
+      <div class="card-badges">${typeBadge(d.type)}${statutBadge(d.statut)}</div>
       <div class="card-tags">
         <span class="card-tag">${secteurLabel(d.secteur)}</span>
         <span class="card-tag">${d.géo}</span>
@@ -860,7 +861,6 @@ function renderCards(filtered) {
         <span class="card-amount">${formatMontant(d.montant)}</span>
         <span class="card-multiple">${formatMultiple(d.multiple)}</span>
       </div>
-      <div class="card-date">${formatDate(d.date)}</div>
       ${allAdvisors.length > 0 ? `<div class="card-advisors"><strong>Conseilleurs :</strong> ${allAdvisors.join(', ')}</div>` : ''}
       <a href="/ma-entreprise.html?id=${d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
     </div>

@@ -66,9 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;padding:5px 12px;border:1px solid var(--border);background:transparent;color:var(--text-2);cursor:pointer;transition:all 0.15s;}
 .pill:hover{border-color:var(--gold);color:var(--gold);}
 .pill.active{background:var(--gold);color:var(--black);border-color:var(--gold);font-weight:700;}
-.pill.favorable.active{background:var(--green);color:var(--black);border-color:var(--green);}
 .pill.neutre.active{background:var(--gold);color:var(--black);}
-.pill.defavorable.active{background:var(--red);color:var(--black);border-color:var(--red);}
 .reset-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:8px 20px;border:1px solid var(--border);background:transparent;color:var(--text-3);cursor:pointer;transition:all 0.15s;width:100%;margin-top:8px;text-align:center;}
 .reset-btn:hover{border-color:var(--gold);color:var(--gold);}
 
@@ -89,13 +87,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 /* SIGNAL SUMMARY */
 .signal-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
 .signal-box{padding:16px;border:1px solid;}
-.signal-box.favorable{border-color:rgba(74,222,128,0.2);background:var(--green-dim);}
 .signal-box.neutre{border-color:rgba(184,155,94,0.2);background:var(--gold-dim);}
-.signal-box.defavorable{border-color:rgba(248,113,113,0.2);background:var(--red-dim);}
 .signal-box-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
-.signal-box.favorable .signal-box-title{color:var(--green);}
 .signal-box.neutre .signal-box-title{color:var(--gold);}
-.signal-box.defavorable .signal-box-title{color:var(--red);}
 .signal-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
 .signal-list li{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);}
 .signal-list li::before{content:'·  ';}
@@ -115,9 +109,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .kpi-change.good-down{color:var(--green);background:var(--green-dim);}
 .kpi-change.bad-up{color:var(--red);background:var(--red-dim);}
 .kpi-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:2px 7px;border:1px solid;float:right;margin-top:8px;}
-.kpi-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
 .kpi-signal.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
-.kpi-signal.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
 .kpi-spark{margin-top:auto;padding-top:10px;}
 .kpi-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--text-3);margin-top:6px;}
 .kpi-note{font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);margin-top:3px;}
@@ -177,8 +169,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .change-pos{color:var(--red);}
 .change-neg{color:var(--green);}
 .impact-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;}
-.impact-badge.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
-.impact-badge.defavorable{color:var(--red);border-color:rgba(248,113,113,0.3);}
 .impact-badge.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* CHART CONTAINERS */
@@ -196,7 +186,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .rate-change{font-family:'DM Mono',monospace;font-size:11px;margin-top:8px;}
 .rate-comment{font-size:12px;color:var(--text-3);margin-top:8px;line-height:1.5;}
 .rate-signal{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border:1px solid;display:inline-block;margin-top:8px;}
-.rate-signal.favorable{color:var(--green);border-color:rgba(74,222,128,0.3);}
 .rate-signal.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* ACTIVITY SECTION */
@@ -384,29 +373,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <div class="tab-panel active" id="tab-dashboard">
       <div class="section-label">Synthèse des indicateurs macro — Secteur BTP</div>
 
-      <!-- Signal summary -->
-      <div class="signal-summary">
-        <div class="signal-box favorable">
-          <div class="signal-box-title">4 indicateurs favorables</div>
-          <ul class="signal-list">
-            <li>Taux BCE (-25pb)</li><li>OAT 10 ans (-16pb)</li>
-            <li>Acier HRC (-11,8%)</li><li>Bitume (-18,4%)</li>
-          </ul>
-        </div>
-        <div class="signal-box neutre">
-          <div class="signal-box-title">3 indicateurs neutres</div>
-          <ul class="signal-list">
-            <li>ICC +3,8%</li><li>Inflation matériaux</li><li>Crédit promoteur</li>
-          </ul>
-        </div>
-        <div class="signal-box defavorable">
-          <div class="signal-box-title">5 indicateurs défavorables</div>
-          <ul class="signal-list">
-            <li>Mises en chantier (-14,2%)</li><li>Permis (-9,8%)</li>
-            <li>PMI (48,3)</li><li>Emploi (-2,1%)</li>
-          </ul>
-        </div>
-      </div>
 
       <!-- KPI Grid -->
       <div class="kpi-grid" id="kpiGrid"></div>
@@ -442,7 +408,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
             <th onclick="sortComm('c3m')">3 mois</th>
             <th onclick="sortComm('c12m')">12 mois</th>
             <th>Tendance</th>
-            <th>Impact BTP</th>
             <th>Évolution 12M</th>
           </tr>
         </thead>
@@ -553,15 +518,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
       <table class="data-table sector-table">
         <thead>
           <tr>
-            <th>Segment</th><th>Volume 12M</th><th>Évol. 12M</th><th>Part marché</th><th>Signal</th>
+            <th>Segment</th><th>Volume 12M</th><th>Évol. 12M</th><th>Part marché</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="animation-delay:0.05s"><td>Résidentiel neuf</td><td class="td-current">298 400 lgts</td><td class="change-pos">▼ -14,2%</td><td>38%</td><td><span class="impact-badge defavorable">Défavorable</span></td></tr>
-          <tr style="animation-delay:0.1s"><td>Résidentiel rénovation</td><td class="td-current">1 200 000 lgts</td><td class="change-pos">▼ -3,1%</td><td>29%</td><td><span class="impact-badge neutre">Neutre</span></td></tr>
-          <tr style="animation-delay:0.15s"><td>Tertiaire (bureaux/commerces)</td><td class="td-current">18,4 M m²</td><td class="change-pos">▼ -8,6%</td><td>14%</td><td><span class="impact-badge defavorable">Défavorable</span></td></tr>
-          <tr style="animation-delay:0.2s"><td>Génie civil & Infrastructures</td><td class="td-current">42,1 Md€</td><td class="change-neg">▲ +2,4%</td><td>12%</td><td><span class="impact-badge favorable">Favorable</span></td></tr>
-          <tr style="animation-delay:0.25s"><td>Industrie & Énergie</td><td class="td-current">8,2 Md€</td><td class="change-neg">▲ +4,1%</td><td>7%</td><td><span class="impact-badge favorable">Favorable</span></td></tr>
+          <tr style="animation-delay:0.05s"><td>Résidentiel neuf</td><td class="td-current">298 400 lgts</td><td class="change-pos">▼ -14,2%</td><td>38%</td></tr>
+          <tr style="animation-delay:0.1s"><td>Résidentiel rénovation</td><td class="td-current">1 200 000 lgts</td><td class="change-pos">▼ -3,1%</td><td>29%</td></tr>
+          <tr style="animation-delay:0.15s"><td>Tertiaire (bureaux/commerces)</td><td class="td-current">18,4 M m²</td><td class="change-pos">▼ -8,6%</td><td>14%</td></tr>
+          <tr style="animation-delay:0.2s"><td>Génie civil & Infrastructures</td><td class="td-current">42,1 Md€</td><td class="change-neg">▲ +2,4%</td><td>12%</td></tr>
+          <tr style="animation-delay:0.25s"><td>Industrie & Énergie</td><td class="td-current">8,2 Md€</td><td class="change-neg">▲ +4,1%</td><td>7%</td></tr>
         </tbody>
       </table>
     </div>
@@ -678,31 +643,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 <script>
 // ── DATA ──
 const commodities = [
-  { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', impact:'favorable', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
-  { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', impact:'défavorable', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
-  { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', impact:'favorable', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
-  { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', impact:'défavorable', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
-  { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', impact:'favorable', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
-  { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', impact:'défavorable', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#f87171' },
+  { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
+  { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
+  { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
+  { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
+  { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
+  { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#B89B5E' },
 ];
 
 const kpis = [
-  { slug:'taux-bce', icon:'📉', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11 Juin 2025', change:'↓ -50pb vs Mars 2026', changeClass:'good-down', signal:'favorable', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#4ade80' },
-  { slug:'oat-10ans', icon:'📊', label:'OAT 10 ans France', val:'3,74%', unit:'10 Avril 2026', change:'↑ +62pb vs Janvier 2026', changeClass:'up', signal:'défavorable', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#f87171' },
-  { slug:'permis-construire', icon:'📋', label:'Permis de construire', val:'33 151', unit:'logements — Février 2026', change:'', changeClass:'down', signal:'défavorable', source:'SDES, 31 Mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#f87171' },
-  { slug:'icc', icon:'🏛️', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', signal:'neutre', source:'INSEE, 24 Mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
-  { slug:'bt01', icon:'📐', label:'Indice BT01', val:'134,7', unit:'Janvier 2026 (base 100=2010)', change:'', changeClass:'', signal:'neutre', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
-  { slug:'emploi-btp', icon:'👷', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an — T4 2025', change:'▼ -3 100 trim. / -15 800 an', changeClass:'down', signal:'défavorable', source:'INSEE, 30 Janvier 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#f87171' },
-  { slug:'chomage', icon:'📉', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte, T4 2025', change:'', changeClass:'', signal:'neutre', source:'INSEE, 10 Février 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
-  { slug:'credit-immobilier', icon:'🏦', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — Février 2026', change:'Prod. 11,6 Mds€ · Encours +0,8%/an', changeClass:'', signal:'neutre', source:'BdF, Février 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
-  { slug:'credit-conso', icon:'💳', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — Février 2026', change:'▲ +3,1% / an', changeClass:'up', signal:'neutre', source:'BdF / FBF, Février 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
+  { slug:'taux-bce', icon:'📉', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11 Juin 2025', change:'↓ -50pb vs Mars 2026', changeClass:'good-down', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#B89B5E' },
+  { slug:'oat-10ans', icon:'📊', label:'OAT 10 ans France', val:'3,74%', unit:'10 Avril 2026', change:'↑ +62pb vs Janvier 2026', changeClass:'up', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#B89B5E' },
+  { slug:'permis-construire', icon:'📋', label:'Permis de construire', val:'33 151', unit:'logements — Février 2026', change:'', changeClass:'down', source:'SDES, 31 Mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#B89B5E' },
+  { slug:'icc', icon:'🏛️', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', source:'INSEE, 24 Mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
+  { slug:'bt01', icon:'📐', label:'Indice BT01', val:'134,7', unit:'Janvier 2026 (base 100=2010)', change:'', changeClass:'', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
+  { slug:'emploi-btp', icon:'👷', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an — T4 2025', change:'▼ -3 100 trim. / -15 800 an', changeClass:'down', source:'INSEE, 30 Janvier 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#B89B5E' },
+  { slug:'chomage', icon:'📉', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte, T4 2025', change:'', changeClass:'', source:'INSEE, 10 Février 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
+  { slug:'credit-immobilier', icon:'🏦', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — Février 2026', change:'Prod. 11,6 Mds€ · Encours +0,8%/an', changeClass:'', source:'BdF, Février 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
+  { slug:'credit-conso', icon:'💳', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — Février 2026', change:'▲ +3,1% / an', changeClass:'up', source:'BdF / FBF, Février 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
 ];
 
 const rates = [
-  { label:'Taux BCE dépôt', val:'2,00', unit:'%', changeBp:-50, trend:'down', signal:'favorable', comment:'Depuis le 11 Juin 2025. Cycle de baisse BCE — taux à leur plus bas depuis 2022.', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0] },
-  { label:'OAT 10 ans France', val:'3,74', unit:'%', changeBp:+62, trend:'up', signal:'défavorable', comment:'10 Avril 2026 — AFT. Remontée des taux longs, pression sur le financement immobilier.', spark:[3.8,3.6,3.4,3.2,3.14,3.12,3.30,3.55,3.74] },
-  { label:'Observatoire Crédit Logement', val:'3,25', unit:'%', changeBp:+8, trend:'up', signal:'neutre', comment:'Taux moyen crédits accordés — Février 2026. Légère remontée après le plancher de fin 2025.', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.23,3.25] },
-  { label:'Crédit entreprises construction', val:'3,53', unit:'%', changeBp:0, trend:'stable', signal:'neutre', comment:'Taux nouveaux crédits — Janvier 2026 (BdF). Encours total : −0,5%/an. Immobilier : +4,7%/an.', spark:[4.5,4.3,4.1,3.9,3.75,3.65,3.58,3.55,3.53] },
+  { label:'Taux BCE dépôt', val:'2,00', unit:'%', changeBp:-50, trend:'down', comment:'Depuis le 11 Juin 2025. Cycle de baisse BCE — taux à leur plus bas depuis 2022.', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0] },
+  { label:'OAT 10 ans France', val:'3,74', unit:'%', changeBp:+62, trend:'up', comment:'10 Avril 2026 — AFT. Remontée des taux longs, pression sur le financement immobilier.', spark:[3.8,3.6,3.4,3.2,3.14,3.12,3.30,3.55,3.74] },
+  { label:'Observatoire Crédit Logement', val:'3,25', unit:'%', changeBp:+8, trend:'up', comment:'Taux moyen crédits accordés — Février 2026. Légère remontée après le plancher de fin 2025.', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.23,3.25] },
+  { label:'Crédit entreprises construction', val:'3,53', unit:'%', changeBp:0, trend:'stable', comment:'Taux nouveaux crédits — Janvier 2026 (BdF). Encours total : −0,5%/an. Immobilier : +4,7%/an.', spark:[4.5,4.3,4.1,3.9,3.75,3.65,3.58,3.55,3.53] },
 ];
 
 // ── SECTIONS DETAIL DATA ──
@@ -807,7 +772,6 @@ function openKpiModal(slug) {
       <div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>
       <div class="modal-meta">
         <div><strong>Période :</strong> ${k.unit}</div>
-        <div><strong>Signal :</strong> <span style="color:${k.signal==='favorable'?'var(--green)':k.signal==='défavorable'?'var(--red)':'var(--gold)'}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span></div>
         <div><strong>Source :</strong> ${k.source}</div>
       </div>
       <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40)}</div>
@@ -850,7 +814,6 @@ function renderKpis() {
       <div class="kpi-label">${k.label}</div>
       <div class="kpi-val">${k.val}</div>
       <div class="kpi-unit">${k.unit}</div>
-      <span class="kpi-signal ${k.signal}">${k.signal.charAt(0).toUpperCase()+k.signal.slice(1)}</span>
       ${k.change ? `<span class="kpi-change ${k.changeClass}">${k.change}</span>` : ''}
       ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
       <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
@@ -878,7 +841,6 @@ function renderComm() {
       <td class="${c.c3m < 0 ? 'change-neg' : 'change-pos'}">${c.c3m > 0 ? '+' : ''}${c.c3m}%</td>
       <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
       <td style="font-size:16px">${c.trend === 'down' ? '↓' : '↑'}</td>
-      <td><span class="impact-badge ${c.impact === 'favorable' ? 'favorable' : 'defavorable'}">${c.impact}</span></td>
       <td>${makeSpark(c.spark, c.color)}</td>
     </tr>
   `).join('');
@@ -907,8 +869,7 @@ function renderRates() {
       <div class="rate-change" style="color:${r.changeBp < 0 ? 'var(--green)' : r.changeBp > 0 ? 'var(--red)' : 'var(--text-3)'}">
         ${r.changeBp !== 0 ? (r.changeBp > 0 ? '▲ +' : '▼ ') + Math.abs(r.changeBp) + ' pb' : '→ stable'}
       </div>
-      <div>${makeSpark(r.spark, r.signal === 'favorable' ? '#4ade80' : '#B89B5E', 100, 24)}</div>
-      <span class="rate-signal ${r.signal}">${r.signal.charAt(0).toUpperCase()+r.signal.slice(1)}</span>
+      <div>${makeSpark(r.spark, '#B89B5E', 100, 24)}</div>
       <div class="rate-comment">${r.comment}</div>
     </div>
   `).join('');
