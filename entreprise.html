@@ -1620,11 +1620,122 @@ const COMPANIES = {
     news: [],
   },
 
+  spie: {
+    tagSlug: 'spie',
+    ticker:  'SPIE.PA',
+    name:    'SPIE',
+    secteur: 'Services multi-techniques',
+    pays:    'FR',
+    signal:  'hold',
+    desc:    'SPIE est le leader indépendant européen des services multi-techniques dans les domaines de l\'énergie et des communications. Coté sur Euronext Paris, le groupe est fortement exposé aux marchés structurellement porteurs de la transition énergétique, de l\'électrification, de l\'efficacité énergétique, des réseaux et des services numériques. Son modèle peu capitalistique, sa forte implantation locale, la récurrence élevée d\'une partie de ses contrats et sa capacité démontrée à intégrer des acquisitions ciblées constituent ses principaux avantages stratégiques.',
+    highlights: [
+      'Présent dans plus de 20 pays avec environ 55 000 collaborateurs à fin 2025.',
+      'FY 2025 : production de 10 379,9 M€ (+4,8 %), EBITA de 793,5 M€ avec une marge EBITA de 7,6 % (+40 pb).',
+      'Visibilité commerciale élevée : 9 303 M€ d\'obligations de prestations non remplies ou partiellement remplies à fin 2025.',
+      'Structure financière solide : levier de 1,3x (hors IFRS 16), liquidité totale de 1 791 M€.',
+    ],
+    positioning: [
+      { label:'Croissance',   val:65, color:'var(--green)' },
+      { label:'Rentabilité',  val:72, color:'var(--gold)'  },
+      { label:'Visibilité',   val:78, color:'var(--blue)'  },
+    ],
+    segments: [
+      { name:'Germany',                pct:34.5, ca:'3 581,6 M€', color:'#7a5a24' },
+      { name:'France',                 pct:32.3, ca:'3 353,2 M€', color:'#B89B5E' },
+      { name:'North-Western Europe',   pct:20.2, ca:'2 101,7 M€', color:'#4ade80' },
+      { name:'Central Europe',         pct:8.5,  ca:'882,0 M€',   color:'#a78bfa' },
+      { name:'Global Services Energy', pct:4.4,  ca:'461,4 M€',   color:'#60a5fa' },
+    ],
+    breakdownYear: 'Production FY 2025 — 10 379,9 M€',
+    geo: [
+      { flag:'🇩🇪', name:'Allemagne',       pct:34.5 },
+      { flag:'🇫🇷', name:'France',           pct:32.3 },
+      { flag:'🇳🇱', name:'Pays-Bas',         pct:16.6 },
+      { flag:'🌍', name:'Reste du monde',    pct:16.5 },
+    ],
+    projects: [
+      { label:'Transition énergétique',     hot:true  },
+      { label:'Électrification',            hot:true  },
+      { label:'Efficacité énergétique',     hot:true  },
+      { label:'Infrastructures électriques',hot:true  },
+      { label:'Réseaux & communications',   hot:false },
+      { label:'Industrie',                  hot:false },
+      { label:'Services numériques',        hot:false },
+      { label:'Tertiaire & bâtiments',      hot:false },
+    ],
+    swot: {
+      strengths:  ['Leader indépendant européen des services multi-techniques','Modèle peu capitalistique et forte génération de cash','Récurrence élevée des contrats de maintenance','Track-record éprouvé d\'intégration d\'acquisitions bolt-on'],
+      weaknesses: ['Marges EBITA encore modestes (7,6 %) vs. ambitions du plan','Exposition au cycle des investissements industriels','Fragmentation de l\'activité sur de nombreux marchés locaux'],
+      opps:       ['Accélération de la transition énergétique en Europe','Electrification massive des bâtiments et industries','Croissance data centers et infrastructures numériques','Consolidation du marché européen des services multi-techniques'],
+      risks:      ['Pression salariale dans un marché de l\'emploi tendu','Ralentissement des investissements publics et privés','Intégration de nombreuses acquisitions simultanées','Remontée des taux pesant sur les valorisations M&A'],
+    },
+    competition: [
+      { name:'Vinci Energies', ticker:'DG.PA',  cap:'73,0 Md€', pe:'13,8x', note:'Division énergie du groupe Vinci, concurrent direct' },
+      { name:'Eiffage Énergie Systèmes', ticker:'FGR.PA', cap:'12,8 Md€', pe:'10,5x', note:'Branche énergie systèmes d\'Eiffage' },
+      { name:'Equans (Bouygues)', ticker:'EN.PA', cap:'11,4 Md€', pe:'13,1x', note:'Services multi-techniques, ex-Engie' },
+    ],
+    timeline: [
+      { date:'24 avr. 2026',      type:'earn', title:'Information trimestrielle T1 2026',  sub:'Publication de l\'activité au 31 mars 2026.' },
+      { date:'30 avr. 2026',      type:'ann',  title:'Assemblée Générale',                 sub:'Vote des comptes 2025 et du dividende de 1,08 € par action.' },
+      { date:'30 juil. 2026',     type:'earn', title:'Résultats semestriels S1 2026',       sub:'Publication des résultats du premier semestre 2026.' },
+      { date:'30 oct. 2026',      type:'earn', title:'Information trimestrielle T3 2026',  sub:'Publication de l\'activité au 30 septembre 2026.' },
+    ],
+    finances: {
+      year: 'FY 2025 — 31 décembre 2025',
+      kpis: [
+        { label:'Chiffre d\'affaires (IFRS)', val:'10 397 M€', sub:'FY 2025',  color:'var(--text)'  },
+        { label:'EBITA',                       val:'793,5 M€',  sub:'marge 7,6 %', color:'var(--gold)'  },
+        { label:'Résultat net pdg',            val:'176,4 M€',  sub:'FY 2025',  color:'var(--green)' },
+        { label:'Capitalisation',              val:'—',          sub:'Live',     color:'var(--gold)',  live:'cap' },
+        { label:'P/E ratio',                   val:'—',          sub:'Live',     color:'var(--text)',  live:'per' },
+        { label:'Rendement div.',              val:'~2,3 %',     sub:'Calculé sur cours du 14/04/2026', color:'var(--blue)' },
+      ],
+      accordions: [
+        {
+          title:'Carnet de commandes',
+          rows:[
+            ['Obligations de prestations non remplies', '9 303 M€'],
+            ['dont à reconnaître en 2026', '5 163 M€'],
+            ['dont au-delà d\'un an', '4 140 M€'],
+            ['Répartition par activité', 'Non disponible dans le rapport'],
+            ['Évolution vs N-1', 'Non disponible dans le rapport'],
+          ]
+        },
+        {
+          title:'Structure du capital',
+          rows:[
+            ['Actions en circulation', '170 175 397'],
+            ['Valeur nominale', '0,47 €'],
+            ['Capital social', '79 982 436,59 €'],
+            ['Actionnariat salarié', '8,0 %'],
+            ['M. Louette & managers', '1,9 %'],
+            ['Public (dont BlackRock 7,97 %)', '90,1 %'],
+            ['Auto-détention', '0,0 %'],
+            ['Dividende proposé 2025', '1,08 € / action'],
+          ]
+        },
+        {
+          title:'Dette & Liquidité — 31 déc. 2025',
+          rows:[
+            ['Dette nette (hors IFRS 16)', '1 145,3 M€'],
+            ['Dette nette (avec IFRS 16)', '1 778,0 M€'],
+            ['Trésorerie & équivalents', '791,7 M€'],
+            ['Ligne revolving non tirée', '1 000 M€'],
+            ['Liquidité totale', '1 791 M€'],
+            ['Ratio DN / EBITDA (hors IFRS 16)', '1,3x'],
+            ['Ratio DN / EBITDA (avec IFRS 16)', '1,6x'],
+            ['Notation crédit LT', 'BB+ (perspective stable)'],
+          ]
+        },
+      ]
+    },
+    news: [],
+  },
+
 }
 
 // ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
 const STUBS = {
-  'spie':         { name:'Spie',               ticker:'SPIE.PA', tagSlug:'spie'         },
 }
 
 const WP_API = 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2'

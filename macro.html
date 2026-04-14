@@ -24,7 +24,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-h
 nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
 .logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
 .logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:24px;list-style:none;}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
 .nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
 .nav-links a:hover{color:var(--text);}
 .nav-links a.active{color:var(--gold);}
@@ -503,30 +503,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <div class="tab-panel" id="tab-activite">
       <div class="section-label">Indicateurs d'activité de la construction en France</div>
       <div class="section-title">Activité <em style="font-style:italic;color:var(--gold)">BTP</em></div>
-      <p class="section-sub">Sources : SDES, INSEE, S&P Global. Données cumulées 12 mois glissants.</p>
+      <p class="section-sub">Sources : SDES, S&P Global, FNTP, Anah. Données officielles publiées.</p>
 
       <div class="activity-kpis">
-        <div class="act-kpi"><div class="act-kpi-val">298 400</div><div class="act-kpi-label">Mises en chantier</div><div class="act-kpi-change">▼ -14,2%</div></div>
-        <div class="act-kpi"><div class="act-kpi-val">342 100</div><div class="act-kpi-label">Permis construire</div><div class="act-kpi-change">▼ -9,8%</div></div>
-        <div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">48,3</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -1,8pt (contraction)</div></div>
+        <div class="act-kpi"><div class="act-kpi-val">283 007</div><div class="act-kpi-label">Mises en chantier</div><div class="act-kpi-change">▼ -17,7% vs moy. 5 ans</div></div>
+        <div class="act-kpi"><div class="act-kpi-val">387 944</div><div class="act-kpi-label">Permis construire</div><div class="act-kpi-change">▼ -5,1% vs moy. 5 ans</div></div>
+        <div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">38,4</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -5,5 pts vs fév. (43,9)</div></div>
       </div>
 
       <div id="btp-chart-root" style="width:100%;margin:16px 0 24px;"></div>
 
-      <!-- Segments table -->
-      <div class="section-label" style="margin-top:8px;">Par segment de marché</div>
+      <!-- Détail des indicateurs -->
+      <div class="section-label" style="margin-top:8px;">Détail des indicateurs publiés</div>
       <table class="data-table sector-table">
         <thead>
           <tr>
-            <th>Segment</th><th>Volume 12M</th><th>Évol. 12M</th><th>Part marché</th>
+            <th>Indicateur</th><th>Valeur</th><th>Évolution</th><th>Période</th><th>Source</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="animation-delay:0.05s"><td>Résidentiel neuf</td><td class="td-current">298 400 lgts</td><td class="change-pos">▼ -14,2%</td><td>38%</td></tr>
-          <tr style="animation-delay:0.1s"><td>Résidentiel rénovation</td><td class="td-current">1 200 000 lgts</td><td class="change-pos">▼ -3,1%</td><td>29%</td></tr>
-          <tr style="animation-delay:0.15s"><td>Tertiaire (bureaux/commerces)</td><td class="td-current">18,4 M m²</td><td class="change-pos">▼ -8,6%</td><td>14%</td></tr>
-          <tr style="animation-delay:0.2s"><td>Génie civil & Infrastructures</td><td class="td-current">42,1 Md€</td><td class="change-neg">▲ +2,4%</td><td>12%</td></tr>
-          <tr style="animation-delay:0.25s"><td>Industrie & Énergie</td><td class="td-current">8,2 Md€</td><td class="change-neg">▲ +4,1%</td><td>7%</td></tr>
+          <tr style="animation-delay:0.05s"><td>Mises en chantier</td><td class="td-current">283 007 lgts</td><td class="change-pos">▼ -17,7% vs moy. 5 ans</td><td>mars 2025 – fév. 2026</td><td>SDES, 31/03/2026</td></tr>
+          <tr style="animation-delay:0.1s"><td>Permis de construire</td><td class="td-current">387 944 lgts</td><td class="change-pos">▼ -5,1% vs moy. 5 ans</td><td>mars 2025 – fév. 2026</td><td>SDES, 31/03/2026</td></tr>
+          <tr style="animation-delay:0.15s"><td>PMI Construction France</td><td class="td-current">38,4</td><td class="change-pos">▼ -5,5 pts vs fév. (43,9)</td><td>mars 2026</td><td>S&P Global, 08/04/2026</td></tr>
+          <tr style="animation-delay:0.2s"><td>CA Travaux Publics</td><td class="td-current">51,3 Md€</td><td class="change-neg">▲ +4% en valeur</td><td>année 2024</td><td>FNTP</td></tr>
+          <tr style="animation-delay:0.25s"><td>Rénovation MaPrimeRénov'</td><td class="td-current">156 762 lgts</td><td class="change-pos">▼ -1,7% vs S1 2024</td><td>S1 2025 (jan–juin)</td><td>Anah, 25/07/2025</td></tr>
         </tbody>
       </table>
     </div>
@@ -535,88 +535,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <div class="tab-panel" id="tab-inflation">
       <div class="section-label">Indices de prix et coûts de la construction</div>
       <div class="section-title">Inflation & <em style="font-style:italic;color:var(--gold)">Coûts</em></div>
-      <p class="section-sub">Sources : INSEE, AIMCC, FFB, FNTP. Indices officiels français.</p>
+      <p class="section-sub">Sources : INSEE. Indices officiels français.</p>
 
       <!-- Indices table -->
       <table class="data-table" style="margin-bottom:28px;">
         <thead>
           <tr>
-            <th>Indice</th><th>Valeur</th><th>Base</th><th>Évol. 12M</th><th>Source</th><th>Fréquence</th>
+            <th>Indice</th><th>Valeur</th><th>Base</th><th>Période</th><th>Source</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="animation-delay:0.05s"><td class="td-name">ICC — Indice du Coût de la Construction</td><td class="index-val">2 156</td><td class="td-current">1953=100</td><td class="change-pos">▲ +3,8%</td><td>INSEE</td><td>Trimestriel</td></tr>
-          <tr style="animation-delay:0.1s"><td class="td-name">Index BT01 — Bâtiment tous corps d'état</td><td class="index-val">1 284</td><td class="td-current">2010=100</td><td class="change-pos">▲ +4,2%</td><td>INSEE</td><td>Mensuel</td></tr>
-          <tr style="animation-delay:0.15s"><td class="td-name">Index TP01 — Travaux routiers</td><td class="index-val">148,2</td><td class="td-current">2010=100</td><td class="change-pos">▲ +2,9%</td><td>INSEE</td><td>Mensuel</td></tr>
-          <tr style="animation-delay:0.2s"><td class="td-name">Index TP09 — Génie civil</td><td class="index-val">156,4</td><td class="td-current">2010=100</td><td class="change-pos">▲ +3,4%</td><td>INSEE</td><td>Mensuel</td></tr>
-          <tr style="animation-delay:0.25s"><td class="td-name">IPCH France — Inflation générale</td><td class="index-val">1,8%</td><td class="td-current">—</td><td class="change-neg">▼ -0,6pt</td><td>Eurostat</td><td>Mensuel</td></tr>
-          <tr style="animation-delay:0.3s"><td class="td-name">Inflation matériaux BTP spécifique</td><td class="index-val">3,8%</td><td class="td-current">—</td><td class="change-neg">▼ -2,1pt</td><td>AIMCC</td><td>Trimestriel</td></tr>
+          <tr style="animation-delay:0.05s"><td class="td-name">Index BT01 — Bâtiment tous corps d'état</td><td class="index-val">134,7</td><td class="td-current">2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
+          <tr style="animation-delay:0.1s"><td class="td-name">Index TP01 — Travaux routiers</td><td class="index-val">131,4</td><td class="td-current">2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
+          <tr style="animation-delay:0.15s"><td class="td-name">Index TP09 — Génie civil</td><td class="index-val">119,5</td><td class="td-current">2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
+          <tr style="animation-delay:0.2s"><td class="td-name">Index TP02</td><td class="index-val">137,5</td><td class="td-current">2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
+          <tr style="animation-delay:0.25s"><td class="td-name">ICC — Indice du Coût de la Construction</td><td class="index-val">2 056</td><td class="td-current">1953=100</td><td>T3 2025</td><td>INSEE</td></tr>
+          <tr style="animation-delay:0.3s"><td class="td-name">ICC (estimation)</td><td class="index-val">2 058</td><td class="td-current">1953=100</td><td>T4 2025</td><td>INSEE (non vérifié)</td></tr>
+          <tr style="animation-delay:0.35s"><td class="td-name">IPCH France — Inflation générale</td><td class="index-val">+0,4%</td><td class="td-current">sur un an</td><td>Janvier 2026</td><td>INSEE, 18/02/2026</td></tr>
         </tbody>
       </table>
-
-      <div class="chart-row">
-        <!-- Donut -->
-        <div class="chart-wrap">
-          <div class="chart-title">Décomposition du coût de construction — logement collectif 2026</div>
-          <div class="donut-wrap">
-            <svg viewBox="0 0 180 180" width="180" height="180">
-              <!-- Donut segments (42% gold, 31% blue, 18% purple, 9% green) -->
-              <!-- Total circumference of r=70: 2*PI*70 ≈ 439.8 -->
-              <!-- 42% = 184.7, 31% = 136.3, 18% = 79.2, 9% = 39.6 -->
-              <circle cx="90" cy="90" r="70" fill="none" stroke="#B89B5E" stroke-width="28"
-                stroke-dasharray="184.7 255.1" stroke-dashoffset="109.9" transform="rotate(-90 90 90)"/>
-              <circle cx="90" cy="90" r="70" fill="none" stroke="#60a5fa" stroke-width="28"
-                stroke-dasharray="136.3 303.5" stroke-dashoffset="-74.8" transform="rotate(-90 90 90)"/>
-              <circle cx="90" cy="90" r="70" fill="none" stroke="#a78bfa" stroke-width="28"
-                stroke-dasharray="79.2 360.6" stroke-dashoffset="-211.1" transform="rotate(-90 90 90)"/>
-              <circle cx="90" cy="90" r="70" fill="none" stroke="#4ade80" stroke-width="28"
-                stroke-dasharray="39.6 400.2" stroke-dashoffset="-290.3" transform="rotate(-90 90 90)"/>
-              <text x="90" y="86" font-family="DM Mono,monospace" font-size="11" fill="#e8e4da" text-anchor="middle">Coût</text>
-              <text x="90" y="100" font-family="DM Mono,monospace" font-size="11" fill="#e8e4da" text-anchor="middle">construct.</text>
-            </svg>
-            <div class="donut-legend">
-              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#B89B5E"></div><div class="donut-leg-label">Main d'œuvre</div><div class="donut-leg-pct" style="color:#B89B5E">42%</div></div>
-              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#60a5fa"></div><div class="donut-leg-label">Matériaux</div><div class="donut-leg-pct" style="color:#60a5fa">31%</div></div>
-              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#a78bfa"></div><div class="donut-leg-label">Sous-traitance</div><div class="donut-leg-pct" style="color:#a78bfa">18%</div></div>
-              <div class="donut-leg-item"><div class="donut-leg-dot" style="background:#4ade80"></div><div class="donut-leg-label">Frais généraux</div><div class="donut-leg-pct" style="color:#4ade80">9%</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Wage chart -->
-        <div class="chart-wrap">
-          <div class="chart-title">Hausse des coûts salariaux BTP vs inflation générale (%/an)</div>
-          <div style="padding-top:8px;">
-            <div class="wage-chart-group" style="margin-bottom:20px;">
-              <div class="wage-year">2024</div>
-              <div class="wage-bars">
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--gold)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:62%;background:var(--gold);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--gold)">+3,1%</div></div>
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--blue)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:48%;background:var(--blue);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--blue)">+2,4%</div></div>
-              </div>
-            </div>
-            <div class="wage-chart-group" style="margin-bottom:20px;">
-              <div class="wage-year">2025</div>
-              <div class="wage-bars">
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--gold)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:64%;background:var(--gold);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--gold)">+3,2%</div></div>
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:var(--blue)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:36%;background:var(--blue);height:100%;"></div></div><div class="wage-bar-val" style="color:var(--blue)">+1,8%</div></div>
-              </div>
-            </div>
-            <div class="wage-chart-group">
-              <div class="wage-year" style="color:var(--text-3)">2026e</div>
-              <div class="wage-bars">
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(184,155,94,0.6)">Salaires BTP</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:68%;background:rgba(184,155,94,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(184,155,94,0.7)">+3,4%e</div></div>
-                <div class="wage-bar-row"><div class="wage-bar-label" style="color:rgba(96,165,250,0.6)">Inflation</div><div class="wage-bar-bg"><div class="wage-bar-fill" style="width:32%;background:rgba(96,165,250,0.5);height:100%;"></div></div><div class="wage-bar-val" style="color:rgba(96,165,250,0.7)">+1,6%e</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="editorial-block">
-        <div class="editorial-title">Analyse BatiAnalyse — Coûts 2026</div>
-        <p>Si les prix des matériaux amorcent une détente bienvenue — notamment l'acier et le bitume — les coûts salariaux BTP continuent de progresser à un rythme supérieur à l'inflation générale (+3,4%e vs +1,6%e). Cette divergence comprime les marges des entreprises de taille intermédiaire, dont les contrats signés en 2022-2023 à des prix figés ne reflètent pas la hausse cumulée des coûts de production.</p>
-        <p>Les grands groupes (Vinci, Eiffage, Bouygues) disposent de clauses de révision de prix plus robustes et d'une capacité de négociation accrue avec leurs sous-traitants. À l'inverse, les ETI et PME du bâtiment subissent l'effet de ciseau complet : coûts main d'œuvre en hausse, prix de vente sous pression dans un marché atone. La FFB estime qu'un quart des entreprises de bâtiment pourraient voir leur marge nette passer sous 1% en 2026.</p>
-      </div>
     </div>
   </div>
 
