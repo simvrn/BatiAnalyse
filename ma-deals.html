@@ -186,7 +186,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 </div>
 
 <div class="posts-container">
-  <div id="postsGrid"></div>
+  <!-- Deals statiques BatiAnalyse -->
+  <div id="staticDeals" style="margin-bottom:20px;">
+    <div id="postsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:20px;">
+      <div class="post-card featured" onclick="location.href='/spie-euroconfort'" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;animation-delay:0s;opacity:1;">
+        <div class="card-img" style="background:linear-gradient(135deg,#16161A 0%,#1c1c20 100%);min-height:260px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:32px;">
+          <div style="font-family:'DM Serif Display',serif;font-size:40px;color:var(--gold);opacity:0.25;line-height:1;">M&A</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+            <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;">Acquéreur</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:28px;color:var(--text);">SPIE</span>
+            <span style="font-size:20px;color:var(--text-3);">×</span>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--text-3);text-transform:uppercase;">Cible</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold);">J.D. Euroconfort</span>
+          </div>
+        </div>
+        <div class="card-body" style="padding:32px;justify-content:center;">
+          <div class="card-cat">Acquisition · Rétrospective 27 mois</div>
+          <div class="card-title" style="font-size:26px;">SPIE rachète J.D. Euroconfort — le pari F-Gas tenu</div>
+          <div class="card-excerpt">Janvier 2024 : SPIE acquiert J.D. Euroconfort, ETI spécialisée en génie climatique (CA ~35 M€). Dix-huit mois plus tard, la directive F-Gas III entre en application et valide la thèse d'acquisition. Analyse rétrospective complète : deal rationale, synergies, valorisation et verdicts risques.</div>
+          <div class="card-meta">
+            <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+              <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;background:var(--gold-dim);color:var(--gold);padding:3px 8px;border-radius:3px;text-transform:uppercase;">Acquisition</span>
+              <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;background:rgba(74,222,128,0.1);color:var(--green);padding:3px 8px;border-radius:3px;text-transform:uppercase;">Bouclé</span>
+              <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;background:rgba(96,165,250,0.1);color:var(--blue);padding:3px 8px;border-radius:3px;text-transform:uppercase;">F-Gas III</span>
+            </div>
+            <span>Janvier 2024</span> <span>·</span> <span class="card-read-time">12 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="wpDealsGrid"></div>
 </div>
 
 <script>
@@ -238,7 +268,11 @@ function renderCard(post, featured = false) {
 }
 
 function showSkeletons() {
-  document.getElementById('postsGrid').innerHTML = [0,1,2,3,4,5].map(()=>`
+  const g = document.getElementById('wpDealsGrid')
+  g.style.display='grid'
+  g.style.gridTemplateColumns='repeat(auto-fill,minmax(300px,1fr))'
+  g.style.gap='20px'
+  g.innerHTML = [0,1,2,3,4,5].map(()=>`
     <div class="post-card">
       <div class="sk sk-img"></div>
       <div class="sk sk-cat"></div>
@@ -252,7 +286,7 @@ async function loadArticles() {
   showSkeletons()
   const tagId = await resolveTagId(TAG_SLUG)
   if (!tagId) {
-    document.getElementById('postsGrid').innerHTML = `
+    document.getElementById('wpDealsGrid').innerHTML = `
       <div class="empty-state">
         <div class="empty-icon">◎</div>
         <div class="empty-title">Aucun article</div>
@@ -268,7 +302,7 @@ async function loadArticles() {
     const total = res.headers.get('X-WP-Total') || posts.length
     document.getElementById('resultCount').textContent = total
     if (!posts.length) {
-      document.getElementById('postsGrid').innerHTML = `
+      document.getElementById('wpDealsGrid').innerHTML = `
         <div class="empty-state">
           <div class="empty-icon">◎</div>
           <div class="empty-title">Aucun article publié</div>
@@ -276,9 +310,13 @@ async function loadArticles() {
         </div>`
       return
     }
-    document.getElementById('postsGrid').innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
+    const g = document.getElementById('wpDealsGrid')
+    g.style.display='grid'
+    g.style.gridTemplateColumns='repeat(auto-fill,minmax(300px,1fr))'
+    g.style.gap='20px'
+    g.innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
   } catch(e) {
-    document.getElementById('postsGrid').innerHTML = `
+    document.getElementById('wpDealsGrid').innerHTML = `
       <div class="empty-state">
         <div class="empty-icon">◎</div>
         <div class="empty-title">Erreur de chargement</div>

@@ -45,6 +45,7 @@
     { "source": "/ma-deals",         "destination": "/ma-deals.html" },
     { "source": "/ma-expansion",     "destination": "/ma-expansion.html" },
     { "source": "/ma-ipo",           "destination": "/ma-ipo.html" },
-    { "source": "/macro-detail",     "destination": "/macro-detail.html" }
+    { "source": "/macro-detail",     "destination": "/macro-detail.html" },
+    { "source": "/spie-euroconfort", "destination": "/spie-euroconfort.html" }
   ]
 }

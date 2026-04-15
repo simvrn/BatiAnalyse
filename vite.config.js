@@ -26,6 +26,7 @@ const PAGES = [
   { url: '/ma-build-up',       changefreq: 'monthly', priority: '0.5' },
   { url: '/ma-expansion',      changefreq: 'monthly', priority: '0.5' },
   { url: '/ma-ipo',            changefreq: 'monthly', priority: '0.5' },
+  { url: '/spie-euroconfort',  changefreq: 'monthly', priority: '0.6' },
   // mentions-legales, article, macro-detail : noindex, non inclus
 ]
 
@@ -82,6 +83,7 @@ export default defineConfig({
         'ma-expansion':      resolve(__dirname, 'ma-expansion.html'),
         'ma-ipo':            resolve(__dirname, 'ma-ipo.html'),
         'macro-detail':      resolve(__dirname, 'macro-detail.html'),
+        'spie-euroconfort':  resolve(__dirname, 'spie-euroconfort.html'),
       },
     },
   },
