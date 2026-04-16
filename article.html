@@ -300,7 +300,9 @@ function renderArticle(post) {
   const cat      = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
   const catId    = post._embedded?.['wp:term']?.[0]?.[0]?.id   || null
   const img      = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
-  const authorName = post._embedded?.author?.[0]?.name || 'BatiAnalyse'
+  const rawAuthor  = post._embedded?.author?.[0]?.name || ''
+  // Masquer l'email si le nom d'auteur WordPress contient un @ (ex: sim.vrny@gmail.com)
+  const authorName = (rawAuthor && !rawAuthor.includes('@')) ? rawAuthor : 'BatiAnalyse'
 
   // Estimation du temps de lecture
   const wordCount = content.replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
