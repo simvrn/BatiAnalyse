@@ -324,21 +324,32 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 
 /* ── TABLE VIEW ── */
-.deals-table-wrap { overflow-x:auto; }
+.deals-table-wrap {
+  overflow-x:auto;
+  position:relative; /* stacking context stable, sans z-index flottant */
+}
 .deals-table {
-  width:100%; border-collapse:collapse;
+  width:100%;
+  border-collapse:separate; /* évite le bug Chrome : border-collapse:collapse casse position:sticky */
+  border-spacing:0;
 }
 .deals-table th {
   font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em;
   text-transform:uppercase; color:var(--text-3);
-  padding:10px 14px; border-bottom:1px solid var(--border);
-  text-align:left; white-space:nowrap; background:var(--surface);
-  position:sticky; top:56px; z-index:40;
+  padding:10px 14px;
+  border-bottom:2px solid var(--border);
+  text-align:left; white-space:nowrap;
+  background:var(--surface); /* fond solide — pas transparent */
+  /* Pas de position:sticky ni z-index : conflit direct avec .quick-filter-bar (sticky top:56px z-index:50)
+     qui recouvrait le thead. Header normal, toujours visible, sans overlap possible. */
 }
 .deals-table td {
-  padding:12px 14px; border-bottom:1px solid rgba(184,155,94,0.06);
+  padding:12px 14px;
+  border-bottom:1px solid rgba(184,155,94,0.06);
   font-size:13px; vertical-align:middle; white-space:nowrap;
 }
+/* Evite le double-border sur border-collapse:separate */
+.deals-table tbody tr:last-child td { border-bottom:none; }
 .deals-table thead tr {
   /* Pas d'animation sur le header — évite que transform casse position:sticky des th */
 }
