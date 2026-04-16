@@ -277,6 +277,88 @@ function showSkeletons() {
   ).join('')
 }
 
+// ─────────────────────────────────────────────────────────────
+//  MAILLAGE INTERNE AUTOMATIQUE
+//  Injecte des liens vers les pages du site sur les mots-clés
+//  reconnus. Max 1-2 liens par URL et par article. Ne touche pas
+//  aux titres (h1-h6), liens existants, code, ni aux citations.
+// ─────────────────────────────────────────────────────────────
+const INTERNAL_MAP = [
+  // Fiches entreprises (/entreprise?id=...)
+  { re: /\bVinci\b/,               url: '/entreprise?id=vinci',        max: 1 },
+  { re: /\bEiffage\b/,             url: '/entreprise?id=eiffage',      max: 1 },
+  { re: /\bBouygues\b/,            url: '/entreprise?id=bouygues',     max: 1 },
+  { re: /\bSaint-Gobain\b/i,       url: '/entreprise?id=saint-gobain', max: 1 },
+  { re: /\bSPIE\b/,                url: '/valeurs-cotees',             max: 1 },
+  // Réglementation
+  { re: /\bF-Gas\s?III\b/i,        url: '/reglementation',             max: 2 },
+  { re: /\bF-Gas\b/i,              url: '/reglementation',             max: 1 },
+  { re: /\bRE\s?2020\b/i,          url: '/reglementation',             max: 1 },
+  { re: /\bLoi Climat(?:\s&\sRésilience)?\b/i, url: '/reglementation', max: 1 },
+  // M&A
+  { re: /\bLBO\b/,                 url: '/lbo',                        max: 2 },
+  { re: /\bIPO\b/,                 url: '/ma-ipo',                     max: 1 },
+  { re: /\bjoint[- ]ventures?\b/i, url: '/ma-joint-ventures',          max: 1 },
+  { re: /\bbuild[- ]ups?\b/i,      url: '/ma-build-up',                max: 1 },
+  { re: /\bM&A\b/,                 url: '/ma-hub',                     max: 1 },
+  { re: /\bPrivate Equity\b/i,     url: '/pe',                         max: 1 },
+  { re: /\bcapital[- ]investissement\b/i, url: '/pe',                  max: 1 },
+  // Macro
+  { re: /\bmatières premières\b/i, url: '/macro',                      max: 1 },
+  // Contech
+  { re: /\bcontech\b/i,            url: '/contech',                    max: 1 },
+  { re: /\bBIM\b/,                 url: '/contech',                    max: 1 },
+  // Deal SPIE/Euroconfort
+  { re: /\bEuroconfort\b/,         url: '/spie-euroconfort',           max: 1 },
+]
+
+const _SKIP = new Set(['A','H1','H2','H3','H4','H5','H6','SCRIPT','STYLE','CODE','PRE','FIGURE','FIGCAPTION'])
+
+function addInternalLinks(html) {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  const counts = {}
+  INTERNAL_MAP.forEach(({ url }) => { if (!(url in counts)) counts[url] = 0 })
+
+  // Collecte des nœuds texte éligibles (hors balises protégées)
+  const walker = document.createTreeWalker(div, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      let el = node.parentElement
+      while (el && el !== div) {
+        if (_SKIP.has(el.tagName)) return NodeFilter.FILTER_REJECT
+        el = el.parentElement
+      }
+      return node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT
+    }
+  })
+  const nodes = []
+  let n
+  while ((n = walker.nextNode())) nodes.push(n)
+
+  for (const textNode of nodes) {
+    for (const { re, url, max } of INTERNAL_MAP) {
+      if ((counts[url] || 0) >= max) continue
+      const text = textNode.textContent
+      const match = re.exec(text)
+      if (!match) continue
+
+      counts[url]++
+      const parent = textNode.parentNode
+      const a = document.createElement('a')
+      a.href = url
+      a.textContent = match[0]
+      a.dataset.internal = '1'
+
+      parent.insertBefore(document.createTextNode(text.slice(0, match.index)), textNode)
+      parent.insertBefore(a, textNode)
+      parent.insertBefore(document.createTextNode(text.slice(match.index + match[0].length)), textNode)
+      parent.removeChild(textNode)
+      break // un seul remplacement par nœud texte pour ne pas sur-optimiser
+    }
+  }
+  return div.innerHTML
+}
+
 // ── Chargement et rendu de l'article ──
 async function loadArticle(id) {
   showSkeletons()
@@ -338,7 +420,7 @@ function renderArticle(post) {
     /href="https:\/\/batianalyste\.fr\/(?!wp-content)[^"]*"/g,
     'href="#" onclick="return false"'
   )
-  document.getElementById('articleContent').innerHTML = sanitized
+  document.getElementById('articleContent').innerHTML = addInternalLinks(sanitized)
 
   // Articles liés (même catégorie, hors article courant)
   if (catId) loadRelated(catId, post.id)
