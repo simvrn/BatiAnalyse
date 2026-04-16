@@ -763,7 +763,9 @@ h1 em { font-style:italic; color:var(--gold); }
 </footer>
 
 <script>
-const deals = [];
+const deals = [
+  { id:'spie-euroconfort', date:'2024-01-15', cible:'J.D. Euroconfort', acquéreur:'SPIE', secteur:'génie climatique', type:'acquisition', statut:'bouclé', montant:null, multiple:null, géo:'FR', taille:'small', conseilleursAcq:[], conseillersCible:[], résumé:"SPIE acquiert J.D. Euroconfort, ETI spécialisée en génie climatique (CA ~35 M€). La thèse d'acquisition repose sur le tournant réglementaire F-Gas III. 27 mois après le closing, la directive entre en application et valide le positionnement stratégique de la cible.", link:'/spie-euroconfort' },
+];
 
 // Active filters state
 const activeFilters = { type: new Set(), secteur: new Set(), taille: new Set(), geo: new Set(), statut: new Set() };
@@ -851,7 +853,7 @@ function renderTable(filtered) {
   }
   empty.style.display = 'none';
   tbody.innerHTML = filtered.map((d, i) => `
-    <tr onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i * 0.04}s">
+    <tr onclick="window.location='${d.link||'/ma-entreprise.html?id='+d.id}'" style="animation-delay:${i * 0.04}s">
       <td class="col-date">${formatDate(d.date)}</td>
       <td class="col-cible">${d.cible}</td>
       <td class="col-acq">${d.acquéreur}</td>
@@ -875,7 +877,7 @@ function renderCards(filtered) {
   container.innerHTML = filtered.map((d, i) => {
     const allAdvisors = [...d.conseilleursAcq, ...d.conseillersCible];
     return `
-    <div class="deal-card" onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i*0.05}s">
+    <div class="deal-card" onclick="window.location='${d.link||'/ma-entreprise.html?id='+d.id}'" style="animation-delay:${i*0.05}s">
       <div class="card-date">${formatDate(d.date)}</div>
       <div class="card-cible">${d.cible}</div>
       <div class="card-acq">Acquis par ${d.acquéreur}</div>
@@ -889,7 +891,7 @@ function renderCards(filtered) {
         <span class="card-multiple">${formatMultiple(d.multiple)}</span>
       </div>
       ${allAdvisors.length > 0 ? `<div class="card-advisors"><strong>Conseilleurs :</strong> ${allAdvisors.join(', ')}</div>` : ''}
-      <a href="/ma-entreprise.html?id=${d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
+      <a href="${d.link||'/ma-entreprise.html?id='+d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
     </div>
   `}).join('');
 }
