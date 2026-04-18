@@ -115,6 +115,11 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 .newsletter-aside button { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:9px 16px; background:var(--gold); color:var(--black); border:none; cursor:pointer; width:100%; transition:opacity 0.15s; }
 .newsletter-aside button:hover { opacity:0.85; }
 
+.glossary-list { list-style:none; padding:0; margin:0; }
+.glossary-list li { font-size:11px; color:var(--text-3); padding:7px 0; border-bottom:1px solid rgba(184,155,94,0.06); line-height:1.5; }
+.glossary-list li:last-child { border-bottom:none; }
+.glossary-term { font-family:'DM Mono',monospace; font-size:10px; color:var(--gold); display:block; margin-bottom:2px; }
+
 /* FOOTER */
 .page-footer { border-top:1px solid var(--border); padding:32px 40px; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
 .footer-logo { font-family:'DM Serif Display',serif; font-size:16px; font-weight:700; color:var(--white); }
@@ -338,6 +343,23 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
         <div class="aside-title">Le brief hebdo BTP</div>
         <input type="email" placeholder="Votre email pro…">
         <button>Recevoir le brief →</button>
+      </div>
+      <div class="aside-block">
+        <div class="aside-title">Glossaire</div>
+        <ul class="glossary-list">
+          <li><span class="glossary-term">LBO</span>Leveraged Buyout — rachat d'une entreprise financé majoritairement par de la dette, remboursée grâce aux bénéfices de la société achetée.</li>
+          <li><span class="glossary-term">EBITDA</span>Indicateur de rentabilité d'une entreprise avant déduction des intérêts, impôts et amortissements.</li>
+          <li><span class="glossary-term">BFR</span>Besoin en Fonds de Roulement — argent nécessaire pour couvrir le décalage entre le moment où l'entreprise paye ses fournisseurs et celui où elle encaisse ses clients.</li>
+          <li><span class="glossary-term">TRI</span>Taux de Rendement Interne — rendement annualisé attendu par un investisseur sur son placement.</li>
+          <li><span class="glossary-term">Build-up</span>Stratégie de croissance par rachats successifs de plusieurs petites entreprises pour constituer un groupe plus grand.</li>
+          <li><span class="glossary-term">Facility management</span>Gestion externalisée des services d'un bâtiment : entretien, nettoyage, sécurité, maintenance technique.</li>
+          <li><span class="glossary-term">CVC</span>Chauffage, Ventilation, Climatisation — corps de métier technique du bâtiment.</li>
+          <li><span class="glossary-term">VRD</span>Voirie et Réseaux Divers — travaux d'aménagement des routes, réseaux d'eau, d'égout et d'électricité.</li>
+          <li><span class="glossary-term">Pricing power</span>Capacité d'une entreprise à augmenter ses prix sans perdre ses clients face à la concurrence.</li>
+          <li><span class="glossary-term">Multiple d'acquisition</span>Rapport entre le prix payé pour racheter une entreprise et son EBITDA — sert à juger si le prix est raisonnable.</li>
+          <li><span class="glossary-term">FFB</span>Fédération Française du Bâtiment — organisation professionnelle représentant les entreprises du secteur.</li>
+          <li><span class="glossary-term">PME / TPE</span>Petite et Moyenne Entreprise (moins de 250 salariés) / Très Petite Entreprise (moins de 10 salariés).</li>
+        </ul>
       </div>
     </aside>
   </div>
