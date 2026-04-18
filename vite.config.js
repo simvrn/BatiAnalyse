@@ -86,6 +86,7 @@ export default defineConfig({
         'macro-detail':      resolve(__dirname, 'macro-detail.html'),
         'spie-euroconfort':  resolve(__dirname, 'spie-euroconfort.html'),
         'btp-private-equity': resolve(__dirname, 'btp-private-equity.html'),
+        'lbo-btp':            resolve(__dirname, 'lbo-btp.html'),
       },
     },
   },
