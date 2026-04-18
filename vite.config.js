@@ -87,6 +87,7 @@ export default defineConfig({
         'spie-euroconfort':  resolve(__dirname, 'spie-euroconfort.html'),
         'btp-private-equity': resolve(__dirname, 'btp-private-equity.html'),
         'lbo-btp':            resolve(__dirname, 'lbo-btp.html'),
+        'pe-btp-instruments': resolve(__dirname, 'pe-btp-instruments.html'),
       },
     },
   },
