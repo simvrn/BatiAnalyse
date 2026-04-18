@@ -49,6 +49,7 @@
     { "source": "/spie-euroconfort", "destination": "/spie-euroconfort.html" },
     { "source": "/pe",               "destination": "/pe.html" },
     { "source": "/btp-private-equity", "destination": "/btp-private-equity.html" },
-    { "source": "/lbo-btp",            "destination": "/lbo-btp.html" }
+    { "source": "/lbo-btp",            "destination": "/lbo-btp.html" },
+    { "source": "/pe-btp-instruments",  "destination": "/pe-btp-instruments.html" }
   ]
 }
