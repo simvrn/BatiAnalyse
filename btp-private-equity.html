@@ -13,6 +13,9 @@
 <meta property="og:url" content="https://batianalyse.fr/btp-private-equity">
 <meta property="og:site_name" content="BatiAnalyse">
 <meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Le BTP ne se vend pas en cinq ans. Le private equity, si.">
+<meta name="twitter:description" content="Le private equity applique un modèle à cycle court à un secteur qui fonctionne sur le long terme.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,107 +32,127 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
   --border:#1F1F22; --border-hover:#B89B5E;
   --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80;
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
   --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
   --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
-.logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
-.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
-.nav-links a:hover{color:var(--text);}
-.nav-links a.active{color:var(--gold);}
-.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;border:none;border-radius:6px;}
-.nav-cta:hover{opacity:0.88;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
-.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
-.nav-mobile a:last-child{border-bottom:none;}
+nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
+.logo { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
+.logo span { color:var(--gold); }
+.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
+.nav-links a { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
+.nav-links a:hover { color:var(--text); }
+.nav-links a.active { color:var(--gold); }
+.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; background:var(--gold); border:none; border-radius:6px; color:var(--bg); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
+.nav-cta:hover { opacity:0.88; }
+.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
+.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
+.nav-mobile.open { display:flex; }
+.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Inter',sans-serif; }
+.nav-mobile a:last-child { border-bottom:none; }
 
-/* ARTICLE */
-.article-wrap{max-width:760px;margin:0 auto;padding:88px 32px 64px;}
-.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-3);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
-.breadcrumb a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
-.breadcrumb a:hover{color:var(--gold);}
-.breadcrumb span{opacity:0.4;}
+/* LAYOUT */
+.page-wrap { padding-top:56px; }
+.breadcrumb-bar { padding:16px 32px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.15em; }
+.breadcrumb-bar a { color:var(--text-3); text-decoration:none; transition:color 0.15s; }
+.breadcrumb-bar a:hover { color:var(--gold); }
+.breadcrumb-bar .sep { opacity:0.4; }
 
-h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.08;letter-spacing:-0.5px;margin-bottom:16px;}
-h1 em{font-style:italic;color:var(--gold);}
-.lead{font-size:16px;color:var(--text-2);line-height:1.7;margin-bottom:12px;}
-.chapeau{font-size:13px;color:var(--text-3);line-height:1.7;margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+.article-layout { max-width:1100px; margin:0 auto; padding:48px 32px 80px; display:grid; grid-template-columns:1fr 280px; gap:64px; align-items:start; }
 
-h2{font-family:'DM Serif Display',serif;font-size:20px;margin:36px 0 16px;display:flex;align-items:baseline;gap:8px;}
-.section-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);opacity:0.5;}
-p{font-size:14px;color:var(--text-2);line-height:1.8;margin-bottom:14px;}
-p strong{color:var(--text);}
+/* ARTICLE HEADER */
+.art-cat { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
+.art-title { font-family:'DM Serif Display',serif; font-size:clamp(32px,4vw,52px); font-weight:900; line-height:1.05; letter-spacing:-0.5px; margin-bottom:20px; }
+.art-meta { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:36px; }
+.art-author { color:var(--text-2); }
+.art-sep { opacity:0.4; }
+
+/* ARTICLE CONTENT */
+.article-content { font-size:16px; font-weight:400; line-height:1.8; color:var(--text-2); }
+.article-content p { margin-bottom:1.5em; }
+.article-content h2 { font-family:'DM Serif Display',serif; font-size:clamp(22px,2.5vw,30px); font-weight:700; color:var(--white); line-height:1.2; margin:2.5em 0 0.8em; padding-bottom:12px; border-bottom:1px solid var(--border); }
+.article-content strong { color:var(--white); font-weight:700; }
+.article-content em { color:var(--gold); font-style:italic; }
+.article-content table { width:100%; border-collapse:collapse; margin:1.5em 0; font-family:'DM Mono',monospace; font-size:13px; }
+.article-content th { background:var(--surface); color:var(--gold); padding:10px 14px; text-align:left; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; border-bottom:1px solid var(--border); }
+.article-content td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text-2); font-size:13px; vertical-align:top; line-height:1.5; }
+.article-content tr:hover td { background:var(--gold-glow); }
+.article-content blockquote { border-left:3px solid var(--gold); padding:16px 20px; background:var(--surface); margin:1.5em 0; font-style:italic; color:var(--text-2); line-height:1.65; font-size:14px; }
+.article-content blockquote p { margin-bottom:0; }
 
 /* HORIZONS */
-.horizons{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
-.horizon-box{background:var(--surface);border:1px solid var(--border);padding:20px;text-align:center;}
-.horizon-val{font-family:'DM Serif Display',serif;font-size:34px;color:var(--gold);line-height:1;margin-bottom:6px;}
-.horizon-val.red{color:var(--red);}
-.horizon-unit{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px;}
-.horizon-desc{font-size:12px;color:var(--text-3);line-height:1.4;}
-
-/* NOTE */
-.note{background:var(--surface);border-left:2px solid var(--border);padding:12px 16px;margin:16px 0;font-size:13px;color:var(--text-3);line-height:1.65;font-style:italic;}
-
-/* TABLE */
-.data-table{width:100%;border-collapse:collapse;margin:16px 0 24px;}
-.data-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);}
-.data-table td{padding:11px 14px;border-bottom:1px solid rgba(184,155,94,0.05);font-size:13px;line-height:1.5;vertical-align:top;}
-.data-table tr:hover td{background:var(--gold-glow);}
-.tag-green{color:var(--green);font-family:'DM Mono',monospace;font-size:11px;}
-.tag-orange{color:#fb923c;font-family:'DM Mono',monospace;font-size:11px;}
-.tag-red{color:var(--red);font-family:'DM Mono',monospace;font-size:11px;}
+.horizons { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:1.5em 0; }
+.horizon-box { background:var(--surface); border:1px solid var(--border); padding:20px; text-align:center; }
+.horizon-val { font-family:'DM Serif Display',serif; font-size:34px; color:var(--gold); line-height:1; margin-bottom:6px; }
+.horizon-val.red { color:var(--red); }
+.horizon-unit { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-2); margin-bottom:6px; }
+.horizon-desc { font-size:12px; color:var(--text-3); line-height:1.4; }
 
 /* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
-.stat-box{background:var(--surface);border:1px solid var(--border);padding:16px;text-align:center;}
-.stat-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--gold);line-height:1;margin-bottom:4px;}
-.stat-val.red{color:var(--red);}
-.stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);}
-.stat-source{font-size:10px;color:var(--text-3);margin-top:3px;}
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:1.5em 0; }
+.stat-box { background:var(--surface); border:1px solid var(--border); padding:16px; text-align:center; }
+.stat-val { font-family:'DM Mono',monospace; font-size:18px; font-weight:500; color:var(--gold); line-height:1; margin-bottom:4px; }
+.stat-val.red { color:var(--red); }
+.stat-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-3); line-height:1.4; }
+.stat-source { font-size:10px; color:var(--text-3); margin-top:4px; }
 
-.big-stat{background:var(--surface);border:1px solid var(--border);padding:20px;margin:16px 0;display:flex;align-items:center;gap:20px;}
-.big-stat-val{font-family:'DM Mono',monospace;font-size:28px;font-weight:500;color:var(--gold);flex-shrink:0;}
-.big-stat-text{font-size:13px;color:var(--text-2);line-height:1.5;}
+.big-stat { background:var(--surface); border:1px solid var(--border); padding:20px; margin:1.5em 0; display:flex; align-items:center; gap:20px; }
+.big-stat-val { font-family:'DM Mono',monospace; font-size:28px; font-weight:500; color:var(--gold); flex-shrink:0; }
+.big-stat-text { font-size:13px; color:var(--text-2); line-height:1.5; }
 
-.effects-note{background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.15);border-left:2px solid var(--red);padding:14px 16px;margin:16px 0;font-size:13px;color:var(--text-2);line-height:1.65;}
-.effects-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.effects-note { background:rgba(248,113,113,0.06); border:1px solid rgba(248,113,113,0.15); border-left:2px solid var(--red); padding:14px 16px; margin:1.5em 0; font-size:13px; color:var(--text-2); line-height:1.65; }
+.effects-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--red); margin-bottom:6px; }
 
-/* VERDICT */
-.verdict{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:24px;margin-top:32px;}
-.verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
-.verdict p{font-size:14px;color:var(--text-2);line-height:1.8;margin-bottom:12px;}
-.verdict p:last-child{margin-bottom:0;}
-.verdict strong{color:var(--text);}
+.verdict-block { background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--gold); padding:24px; margin-top:2em; }
+.verdict-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+.verdict-block p { font-size:14px; color:var(--text-2); line-height:1.8; margin-bottom:12px; }
+.verdict-block p:last-child { margin-bottom:0; }
+
+.tag-green { color:var(--green); font-family:'DM Mono',monospace; font-size:11px; }
+.tag-orange { color:#fb923c; font-family:'DM Mono',monospace; font-size:11px; }
+.tag-red { color:var(--red); font-family:'DM Mono',monospace; font-size:11px; }
+
+/* ASIDE */
+.aside { position:sticky; top:80px; }
+.aside-block { border:1px solid var(--border); padding:20px; margin-bottom:20px; }
+.aside-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+.share-btns { display:flex; flex-direction:column; gap:8px; }
+.share-btn { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; padding:9px 14px; border:1px solid var(--border); background:none; color:var(--text-2); cursor:pointer; text-align:left; transition:all 0.15s; }
+.share-btn:hover { border-color:var(--gold); color:var(--gold); }
+.newsletter-aside input { font-family:'DM Mono',monospace; font-size:11px; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:9px 12px; outline:none; width:100%; margin-bottom:8px; }
+.newsletter-aside input:focus { border-color:var(--gold); }
+.newsletter-aside input::placeholder { color:var(--text-3); }
+.newsletter-aside button { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:9px 16px; background:var(--gold); color:var(--black); border:none; cursor:pointer; width:100%; transition:opacity 0.15s; }
+.newsletter-aside button:hover { opacity:0.85; }
 
 /* FOOTER */
-.page-footer{border-top:1px solid var(--border);padding:32px 40px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:48px;}
-.footer-logo{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;color:var(--white);}
-.footer-logo span{color:var(--gold);}
+.page-footer { border-top:1px solid var(--border); padding:32px 40px; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.footer-logo { font-family:'DM Serif Display',serif; font-size:16px; font-weight:700; color:var(--white); }
+.footer-logo span { color:var(--gold); }
 
-@media(max-width:768px){
-  .nav-links{display:none !important;}
-  .nav-cta{display:none !important;}
-  .nav-hamburger{display:flex;}
-  nav{padding:0 16px;}
-  .article-wrap{padding:76px 16px 48px;}
-  .horizons{grid-template-columns:1fr;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-  .page-footer{padding:24px 16px;flex-direction:column;align-items:flex-start;}
+@media(max-width:900px) { .article-layout { grid-template-columns:1fr; } .aside { display:none; } }
+@media(max-width:768px) {
+  .nav-links { display:none !important; }
+  .nav-cta { display:none !important; }
+  .nav-hamburger { display:flex; }
+  nav { padding:0 16px; }
+  .breadcrumb-bar { padding:8px 16px; font-size:9px; }
+  .article-layout { padding:24px 16px 48px; gap:32px; }
+  .horizons { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .art-title { font-size:clamp(26px,7vw,40px); }
+  .article-content { font-size:15px; }
+  .page-footer { padding:24px 16px; flex-direction:column; align-items:flex-start; }
 }
 </style>
 </head>
@@ -157,117 +180,148 @@ p strong{color:var(--text);}
   <a href="/blog">Analyses</a>
 </div>
 
-<div class="article-wrap">
-
-  <div class="breadcrumb">
-    <a href="/">BatiAnalyse</a><span>/</span>
-    <a href="/ma-hub">M&amp;A</a><span>/</span>
-    <a href="/pe">Private Equity</a><span>/</span>
-    Analyse
+<div class="page-wrap">
+  <div class="breadcrumb-bar">
+    <a href="/">Accueil</a>
+    <span class="sep">/</span>
+    <a href="/ma-hub">M&amp;A</a>
+    <span class="sep">/</span>
+    <a href="/pe">Private Equity</a>
+    <span class="sep">/</span>
+    <span>Analyse</span>
   </div>
 
-  <h1>Le BTP ne se vend pas en cinq ans.<br><em>Le private equity, si.</em></h1>
+  <div class="article-layout">
+    <main>
+      <div class="art-cat">Private Equity · BTP · Données 2025</div>
+      <h1 class="art-title">Le BTP ne se vend pas en cinq ans. Le private equity, si.</h1>
+      <div class="art-meta">
+        <span class="art-author">BatiAnalyse</span>
+        <span class="art-sep">·</span>
+        <span>18 avril 2026</span>
+        <span class="art-sep">·</span>
+        <span>8 min de lecture</span>
+      </div>
 
-  <p class="lead">Le private equity applique un modèle à cycle court à un secteur qui fonctionne sur le long terme. Le résultat : une illusion de valeur plutôt qu'une création de valeur.</p>
+      <div class="article-content">
 
-  <p class="chapeau">Quand on parle de capital-investissement dans le BTP en France en 2025, contre 34,2 Md€ en 2024. Ce n'est pas une stratégie. C'est un aveu que le secteur ne connaît pas le marché dans lequel il investit.</p>
+        <p>Le private equity applique un modèle à cycle court à un secteur qui fonctionne sur le long terme. Le résultat : une illusion de valeur plutôt qu'une création de valeur.</p>
 
-  <!-- Section 1 -->
-  <h2><span class="section-num">01</span>Le problème central : deux horizons incompatibles</h2>
+        <p>Quand on parle de capital-investissement dans le BTP en France en 2025, contre 34,2 Md€ en 2024. Ce n'est pas une stratégie. C'est un aveu que le secteur ne connaît pas le marché dans lequel il investit.</p>
 
-  <div class="horizons">
-    <div class="horizon-box">
-      <div class="horizon-val">3-6</div>
-      <div class="horizon-unit">ans</div>
-      <div class="horizon-desc">Cycle du fonds PE (déploiement + sortie)</div>
-    </div>
-    <div class="horizon-box">
-      <div class="horizon-val">5</div>
-      <div class="horizon-unit">ans</div>
-      <div class="horizon-desc">Durée de validité des permis de construire en France (R. 424-17)</div>
-    </div>
-    <div class="horizon-box">
-      <div class="horizon-val red">0</div>
-      <div class="horizon-unit">marge</div>
-      <div class="horizon-desc">Marché logement neuf pour créer de la valeur</div>
-    </div>
+        <h2>Le problème central : deux horizons incompatibles</h2>
+
+        <div class="horizons">
+          <div class="horizon-box">
+            <div class="horizon-val">3-6</div>
+            <div class="horizon-unit">ans</div>
+            <div class="horizon-desc">Cycle du fonds PE (déploiement + sortie)</div>
+          </div>
+          <div class="horizon-box">
+            <div class="horizon-val">5</div>
+            <div class="horizon-unit">ans</div>
+            <div class="horizon-desc">Durée de validité des permis de construire en France (R. 424-17)</div>
+          </div>
+          <div class="horizon-box">
+            <div class="horizon-val red">0</div>
+            <div class="horizon-unit">marge</div>
+            <div class="horizon-desc">Marché logement neuf pour créer de la valeur</div>
+          </div>
+        </div>
+
+        <p>Le décret du 28 mai 2025 a porté à 5 ans la durée des permis délivrés entre 2020-2024. La fenêtre PE et la fenêtre administrative sont désormais identiques. Il ne reste aucun temps pour l'exécution.</p>
+
+        <blockquote>
+          <p>La référence ne se trouve pas dans les multiples. Elle est dans l'ancrage local. Un actif mal documenté qui vaut 3× EBITDA en 2021 vaut beaucoup moins aujourd'hui — et sa réputation de chantier est exactement ce que risque tout fonds avec une intégration rapide post-deal.</p>
+        </blockquote>
+
+        <h2>Qui gagne, qui perd</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Acteur</th>
+              <th>Situation</th>
+              <th>Pourquoi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Grands groupes</strong><br><span style="font-size:12px;color:var(--text-3);">Bouygues, Eiffage, Vinci</span></td>
+              <td><span class="tag-green">Acquéreurs disciplinés</span></td>
+              <td>Diktent les cycles de fonds. Sortent et rentrent du cycle au bon moment.</td>
+            </tr>
+            <tr>
+              <td><strong>Fonds intermédiaires sectoriels</strong></td>
+              <td><span class="tag-orange">Sous-liquidité</span></td>
+              <td>Obtiennent du cash dans un marché improbable, mais intègrent une structure qui ne se valorisera pas effectivement dans leur fenêtre de sortie.</td>
+            </tr>
+            <tr>
+              <td><strong>Sous-traitants PME/TPE</strong></td>
+              <td><span class="tag-red">Structurés en LBO</span></td>
+              <td>Les problèmes PE alourdissent les fournisseurs et mettent la pression d'exigence sur les relations long terme entre entreprises et sous-traitants.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Les chiffres du marché en 2025</h2>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-val red">−6 %</div>
+            <div class="stat-label">Contraction du marché construction résidentiel</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val red">+14,6 %</div>
+            <div class="stat-label">Hausse des défaillances d'entreprises BTP</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val red">68 000</div>
+            <div class="stat-label">Emplois directs menacés</div>
+            <div class="stat-source">Altares, 28 mai 2025</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-val">65 000</div>
+            <div class="stat-label">Emplois dans les entreprises dont PE est actionnaire</div>
+            <div class="stat-source">ESTP Paris 2024</div>
+          </div>
+        </div>
+
+        <div class="big-stat">
+          <div class="big-stat-val">28,9 Md€</div>
+          <div class="big-stat-text">Transactions PE BTP en 2025 (vs 34,2 Md€ en 2024)</div>
+        </div>
+
+        <div class="effects-note">
+          <div class="effects-label">Effets</div>
+          Pire que les données de −5 %, solde en hausse de +3 % en 2025. Pas seulement macroéconomique — aussi conséquences de la destruction des relations long terme entre entreprises et sous-traitants.
+        </div>
+
+        <div class="verdict-block">
+          <div class="verdict-label">Verdict</div>
+          <p>La croissance externe BTP via le PE ne crée pas une stratégie de création de valeur. C'est une injection à contrainte de temps qui réduit la valeur pendant un marché où la valeur se construit sur la durée plutôt que sur la rapidité de cession.</p>
+          <p>Les opérations qui sortent positivement sont celles portées par des équipes qui ont <strong>résisté à la pression d'acquérir pour acquérir</strong> et maintenu l'ancrage local. Dans le BTP, ce qui a remarquablement réussi, ce ne sont pas les opérations qui maximisent — <strong>ce sont celles qui savaient quand ne pas acheter.</strong></p>
+        </div>
+
+      </div>
+    </main>
+
+    <aside class="aside">
+      <div class="aside-block">
+        <div class="aside-title">Partager</div>
+        <div class="share-btns">
+          <button class="share-btn" onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='✓ Lien copié !')">⟋ Copier le lien</button>
+          <button class="share-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href))">in LinkedIn</button>
+          <button class="share-btn" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href))">𝕏 Twitter/X</button>
+        </div>
+      </div>
+      <div class="aside-block newsletter-aside">
+        <div class="aside-title">Le brief hebdo BTP</div>
+        <input type="email" placeholder="Votre email pro…">
+        <button>Recevoir le brief →</button>
+      </div>
+    </aside>
   </div>
-
-  <p>Le décret du 28 mai 2025 a porté à 5 ans la durée des permis délivrés entre 2020-2024. La fenêtre PE et la fenêtre administrative sont désormais identiques. Il ne reste aucun temps pour l'exécution.</p>
-
-  <p class="note">La référence ne se trouve pas dans les multiples. Elle est dans l'ancrage local. Un actif mal documenté qui vaut 3× EBITDA en 2021 vaut beaucoup moins aujourd'hui — et sa réputation de chantier est exactement ce que risque tout fonds avec une intégration rapide post-deal.</p>
-
-  <!-- Section 2 -->
-  <h2><span class="section-num">02</span>Qui gagne, qui perd</h2>
-
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Acteur</th>
-        <th>Situation</th>
-        <th>Pourquoi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Grands groupes</strong><br><span style="font-size:12px;color:var(--text-3);">Bouygues, Eiffage, Vinci</span></td>
-        <td><span class="tag-green">Acquéreurs disciplinés</span></td>
-        <td>Diktent les cycles de fonds. Sortent et rentrent du cycle au bon moment.</td>
-      </tr>
-      <tr>
-        <td><strong>Fonds intermédiaires sectoriels</strong></td>
-        <td><span class="tag-orange">Sous-liquidité</span></td>
-        <td>Obtiennent du cash dans un marché improbable, mais intègrent une structure qui ne se valorisera pas effectivement dans leur fenêtre de sortie.</td>
-      </tr>
-      <tr>
-        <td><strong>Sous-traitants PME/TPE</strong></td>
-        <td><span class="tag-red">Structurés en LBO</span></td>
-        <td>Les problèmes PE alourdissent les fournisseurs et mettent la pression d'exigence sur les relations long terme entre entreprises et sous-traitants.</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Section 3 -->
-  <h2><span class="section-num">03</span>Les chiffres du marché en 2025</h2>
-
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-val red">−6 %</div>
-      <div class="stat-label">Contraction du marché construction résidentiel</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val red">+14,6 %</div>
-      <div class="stat-label">Hausse des défaillances d'entreprises BTP</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val red">68 000</div>
-      <div class="stat-label">Emplois directs menacés</div>
-      <div class="stat-source">Altares, 28 mai 2025</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val">65 000</div>
-      <div class="stat-label">Emplois dans les entreprises dont PE est actionnaire</div>
-      <div class="stat-source">ESTP Paris 2024</div>
-    </div>
-  </div>
-
-  <div class="big-stat">
-    <div class="big-stat-val">28,9 Md€</div>
-    <div class="big-stat-text">Transactions PE BTP en 2025 (vs 34,2 Md€ en 2024)</div>
-  </div>
-
-  <div class="effects-note">
-    <div class="effects-label">Effets</div>
-    Pire que les données de −5 %, solde en hausse de +3 % en 2025. Pas seulement macroéconomique — aussi conséquences de la destruction des relations long terme entre entreprises et sous-traitants.
-  </div>
-
-  <!-- Verdict -->
-  <div class="verdict">
-    <div class="verdict-label">Verdict</div>
-    <p>La croissance externe BTP via le PE ne crée pas une stratégie de création de valeur. C'est une injection à contrainte de temps qui réduit la valeur pendant un marché où la valeur se construit sur la durée plutôt que sur la rapidité de cession.</p>
-    <p>Les opérations qui sortent positivement sont celles portées par des équipes qui ont <strong>résisté à la pression d'acquérir pour acquérir</strong> et maintenu l'ancrage local. Dans le BTP, ce qui a remarquablement réussi, ce ne sont pas les opérations qui maximisent — <strong>ce sont celles qui savaient quand ne pas acheter.</strong></p>
-  </div>
-
 </div>
 
 <footer class="page-footer">
