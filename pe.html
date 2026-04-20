@@ -661,6 +661,107 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 .modal-cta:hover { background:var(--gold); color:var(--black); }
 
+/* ── ARTICLES GRID ── */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 32px;
+}
+.art-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.art-card:hover { border-color: var(--border-hover); background: var(--surface2); }
+.art-card-visual {
+  padding: 20px 16px;
+  background: linear-gradient(135deg, #16161A 0%, #1c1c20 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 150px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.art-card-visual-monogram {
+  font-family: 'DM Serif Display', serif;
+  font-size: 30px;
+  color: var(--gold);
+  opacity: 0.18;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.art-card-visual-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.art-card-visual-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px;
+  color: var(--red);
+  font-weight: 500;
+  line-height: 1;
+}
+.art-card-visual-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+}
+.art-card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.art-card-cat {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.art-card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.art-card-excerpt {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.art-card-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 1000px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .articles-grid { grid-template-columns: 1fr; padding: 16px; } }
+
 /* ── FOOTER ── */
 .page-footer {
   border-top:1px solid var(--border);
@@ -744,7 +845,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
-  <a href="#" class="nav-cta">Accès Premium</a>
+  <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
   <button class="nav-hamburger" onclick="document.getElementById('navMobilePE').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
