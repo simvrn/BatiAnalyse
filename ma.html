@@ -408,7 +408,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .badge-statut.rumeur    { color:var(--text-3); border:1px dashed rgba(90,84,70,0.5); background:transparent; }
 
 /* ── CARDS VIEW ── */
-.deals-cards { display:none; grid-template-columns:1fr 1fr; gap:16px; padding:20px 24px; }
+.deals-cards { display:none; grid-template-columns:repeat(3,1fr); gap:16px; padding:20px 24px; }
 .deals-cards.visible { display:grid; }
 .deals-table-wrap.hidden { display:none; }
 
@@ -582,6 +582,9 @@ h1 em { font-style:italic; color:var(--gold); }
   .deals-table { font-size: 11px; }
   .deals-table th, .deals-table td { padding: 8px 8px; white-space: nowrap; }
 
+  .deals-cards { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:600px){
   .deals-cards { grid-template-columns: 1fr; }
 
   .featured-deal-inner { flex-direction: column; }
