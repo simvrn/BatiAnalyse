@@ -28,6 +28,7 @@ const PAGES = [
   { url: '/ma-expansion',      changefreq: 'monthly', priority: '0.5' },
   { url: '/ma-ipo',            changefreq: 'monthly', priority: '0.5' },
   { url: '/spie-euroconfort',  changefreq: 'monthly', priority: '0.6' },
+  { url: '/bouygues-equans',   changefreq: 'monthly', priority: '0.6' },
   // mentions-legales, article, macro-detail : noindex, non inclus
 ]
 
@@ -88,6 +89,7 @@ export default defineConfig({
         'btp-private-equity': resolve(__dirname, 'btp-private-equity.html'),
         'lbo-btp':            resolve(__dirname, 'lbo-btp.html'),
         'pe-btp-instruments': resolve(__dirname, 'pe-btp-instruments.html'),
+        'bouygues-equans':    resolve(__dirname, 'bouygues-equans.html'),
       },
     },
   },
