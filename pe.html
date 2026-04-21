@@ -886,7 +886,7 @@ h1 em { font-style:italic; color:var(--gold); }
 <div style="padding:32px;">
 
   <!-- Article statique featured -->
-  <div id="staticGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:20px;">
+  <div id="staticGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px;">
     <div onclick="location.href='/btp-private-equity'" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--border);cursor:pointer;overflow:hidden;border-radius:8px;opacity:1;position:relative;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)';this.style.background='var(--surface2)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--surface)'">
       <div style="background:linear-gradient(135deg,#16161A 0%,#1c1c20 100%);min-height:260px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;padding:32px;">
         <div style="font-family:'DM Serif Display',serif;font-size:40px;color:var(--gold);opacity:0.25;line-height:1;">PE</div>
@@ -909,7 +909,7 @@ h1 em { font-style:italic; color:var(--gold); }
   </div>
 
   <!-- Second article statique -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-bottom:20px;">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:20px;">
     <div onclick="location.href='/pe-btp-instruments'" style="background:var(--surface);border:1px solid var(--border);cursor:pointer;overflow:hidden;border-radius:8px;position:relative;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)';this.style.background='var(--surface2)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--surface)'">
       <div style="padding:24px;display:flex;flex-direction:column;gap:10px;">
         <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;">Private Equity · Instruments · BTP</div>
@@ -977,7 +977,7 @@ function renderCard(post) {
 
 function showSkeletons() {
   const g = document.getElementById('wpPEGrid')
-  g.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;'
+  g.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:20px;'
   const sk = () => `<div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;"><div style="height:180px;background:var(--surface2);animation:shimmer 1.4s infinite;background-size:800px 100%;"></div><div style="height:10px;width:70px;margin:18px 22px 0;background:var(--surface2);border-radius:2px;animation:shimmer 1.4s infinite;background-size:800px 100%;"></div><div style="height:14px;margin:10px 22px 0;background:var(--surface2);border-radius:2px;animation:shimmer 1.4s infinite;background-size:800px 100%;"></div><div style="height:14px;width:60%;margin:8px 22px 0;background:var(--surface2);border-radius:2px;animation:shimmer 1.4s infinite;background-size:800px 100%;"></div><div style="height:9px;width:100px;margin:10px 22px 20px;background:var(--surface2);border-radius:2px;animation:shimmer 1.4s infinite;background-size:800px 100%;"></div></div>`
   g.innerHTML = [0,1,2].map(sk).join('')
 }
@@ -998,7 +998,7 @@ async function loadArticles() {
     document.getElementById('resultCount').textContent = 2 + total
     const g = document.getElementById('wpPEGrid')
     if (!posts.length) { g.innerHTML = ''; return }
-    g.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;'
+    g.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:20px;'
     g.innerHTML = posts.map(p => renderCard(p)).join('')
   } catch(e) {
     document.getElementById('wpPEGrid').innerHTML = ''
