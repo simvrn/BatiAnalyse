@@ -711,7 +711,7 @@ function openKpiModal(slug) {
         <div><strong>Période :</strong> ${k.unit}</div>
         <div><strong>Source :</strong> ${k.source}</div>
       </div>
-      <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40)}</div>
+      <div style="margin-left:auto;">${makeSpark(sparkFromHistory(slug) || k.spark, k.color, 120, 40)}</div>
     </div>
     <div class="modal-section-label">Historique des publications</div>
     <div class="modal-tl">${histHtml}</div>
@@ -730,21 +730,24 @@ function closeKpiModal() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModal(); });
 
-// ── SPARKLINE ──
+// ── SPARKLINE (interactive) ──
 function makeSpark(data, color, w=80, h=24) {
   if (!data || data.length < 2) {
     const mid = h / 2;
-    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    return `<svg class="spark-int" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
       <line x1="0" y1="${mid}" x2="${w}" y2="${mid}" stroke="${color}" stroke-width="1.5" opacity="0.3"/>
     </svg>`;
   }
   const min = Math.min(...data), max = Math.max(...data);
   const range = max - min || 1;
-  const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
+  const pts = data.map((v,i) => `${(i*(w/(data.length-1))).toFixed(2)},${(h-(((v-min)/range)*(h-4))-2).toFixed(2)}`).join(' ');
   const area = pts + ` ${w},${h} 0,${h}`;
-  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+  return `<svg class="spark-int" data-pts="${data.join(',')}" data-color="${color}" data-min="${min}" data-max="${max}" data-w="${w}" data-h="${h}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" style="overflow:visible;cursor:crosshair">
     <polygon points="${area}" fill="${color}" opacity="0.12"/>
     <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
+    <line class="spark-vline" x1="-999" y1="0" x2="-999" y2="${h}" stroke="${color}" stroke-width="1" stroke-dasharray="2,2" opacity="0.8"/>
+    <circle class="spark-cdot" cx="-999" cy="0" r="2.5" fill="${color}"/>
+    <rect x="0" y="-4" width="${w}" height="${h+8}" fill="transparent"/>
   </svg>`;
 }
 
@@ -879,6 +882,65 @@ function resetFilters() {
   document.querySelectorAll('#catFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
   document.querySelectorAll('#signalFilter .pill').forEach(b => b.classList.remove('active'));
 }
+
+// ── INTERACTIVE SPARKLINE TOOLTIP ──
+(function() {
+  const tip = document.createElement('div');
+  tip.style.cssText = "position:fixed;z-index:9999;pointer-events:none;background:#16161A;border:1px solid #B89B5E;font-family:'DM Mono',monospace;font-size:11px;color:#EAEAEA;padding:3px 10px;opacity:0;transition:opacity 0.1s;white-space:nowrap;";
+  document.body.appendChild(tip);
+  let prevSvg = null;
+
+  function interact(svg, cx, cy) {
+    const data = svg.dataset.pts.split(',').map(Number);
+    const w = +svg.dataset.w, h = +svg.dataset.h;
+    const min = +svg.dataset.min, max = +svg.dataset.max;
+    const range = max - min || 1;
+    const rect = svg.getBoundingClientRect();
+    const relX = Math.max(0, Math.min(rect.width, cx - rect.left));
+    const idx = Math.max(0, Math.min(data.length-1, Math.round((relX/rect.width)*(data.length-1))));
+    const val = data[idx];
+    const svgX = (idx*(w/(data.length-1))).toFixed(2);
+    const svgY = (h-(((val-min)/range)*(h-4))-2).toFixed(2);
+    const vl = svg.querySelector('.spark-vline');
+    const cd = svg.querySelector('.spark-cdot');
+    if (vl) { vl.setAttribute('x1', svgX); vl.setAttribute('x2', svgX); }
+    if (cd) { cd.setAttribute('cx', svgX); cd.setAttribute('cy', svgY); }
+    const fmt = val % 1 === 0 ? String(val) : val.toFixed(val < 100 ? 2 : 0);
+    tip.textContent = fmt;
+    tip.style.opacity = '1';
+    tip.style.left = (cx + 14) + 'px';
+    tip.style.top = (cy - 22) + 'px';
+  }
+
+  function reset(svg) {
+    const vl = svg?.querySelector('.spark-vline');
+    const cd = svg?.querySelector('.spark-cdot');
+    if (vl) { vl.setAttribute('x1', '-999'); vl.setAttribute('x2', '-999'); }
+    if (cd) cd.setAttribute('cx', '-999');
+    tip.style.opacity = '0';
+  }
+
+  document.addEventListener('mousemove', e => {
+    const svg = e.target.closest('svg.spark-int[data-pts]');
+    if (!svg) { if (prevSvg) { reset(prevSvg); prevSvg = null; } return; }
+    if (prevSvg && prevSvg !== svg) reset(prevSvg);
+    prevSvg = svg;
+    interact(svg, e.clientX, e.clientY);
+  });
+
+  document.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const svg = el?.closest('svg.spark-int[data-pts]');
+    if (!svg) { if (prevSvg) { reset(prevSvg); prevSvg = null; } return; }
+    if (prevSvg && prevSvg !== svg) reset(prevSvg);
+    prevSvg = svg;
+    interact(svg, t.clientX, t.clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => { if (prevSvg) { reset(prevSvg); prevSvg = null; } });
+  document.addEventListener('mouseleave', () => { if (prevSvg) { reset(prevSvg); prevSvg = null; } });
+})();
 
 // ── INIT ──
 renderKpis();
