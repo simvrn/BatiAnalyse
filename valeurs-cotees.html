@@ -533,6 +533,109 @@ h1 em { font-style:italic; color:var(--gold); }
 .blog-card-img {
   width: 100%; height: 120px; object-fit: cover; margin-bottom: 4px;
 }
+
+/* ── AGENDA CALENDAR OVERLAY ── */
+.cal-overlay {
+  display:none; position:fixed; inset:0; z-index:1500;
+  background:rgba(0,0,0,0.84); backdrop-filter:blur(8px);
+  padding:24px 16px; overflow-y:auto;
+}
+.cal-overlay.open { display:block; }
+.cal-panel {
+  background:var(--surface); border:1px solid var(--border);
+  border-top:3px solid var(--gold);
+  max-width:1080px; margin:0 auto;
+  animation:calIn 0.22s ease;
+}
+@keyframes calIn { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:none} }
+.cal-panel-head {
+  padding:28px 32px 20px; border-bottom:1px solid var(--border);
+  display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+}
+.cal-pre { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.28em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.cal-h1 { font-family:'DM Serif Display',serif; font-size:26px; font-weight:700; line-height:1; margin-bottom:4px; }
+.cal-hsub { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); }
+.cal-x {
+  background:none; border:1px solid var(--border); color:var(--text-3);
+  width:32px; height:32px; font-size:18px; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s;
+}
+.cal-x:hover { border-color:var(--gold); color:var(--gold); }
+.cal-body-wrap { display:grid; grid-template-columns:200px 1fr; }
+.cal-sec-nav { border-right:1px solid var(--border); padding:20px 0; }
+.cal-sec-title {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.25em;
+  text-transform:uppercase; color:var(--text-3);
+  padding:0 16px 10px; border-bottom:1px solid var(--border); margin-bottom:8px;
+}
+.cal-sec-item {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 16px; cursor:pointer;
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--text-2);
+  border-left:2px solid transparent; transition:all 0.15s;
+}
+.cal-sec-item:hover { color:var(--gold); background:var(--gold-glow); }
+.cal-sec-item.active { color:var(--gold); border-left-color:var(--gold); background:var(--gold-glow); }
+.cal-sec-n { font-size:10px; color:var(--text-3); background:var(--surface2); padding:2px 6px; }
+.cal-legend { margin-top:24px; padding:16px 16px 0; border-top:1px solid var(--border); }
+.cal-leg-item {
+  display:flex; align-items:center; gap:8px;
+  font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); margin-bottom:7px;
+}
+.cal-leg-dot { width:8px; height:8px; flex-shrink:0; }
+.cal-events-pane { padding:24px 28px; overflow-y:auto; max-height:78vh; }
+.cal-events-pane::-webkit-scrollbar { width:3px; }
+.cal-events-pane::-webkit-scrollbar-thumb { background:var(--border); }
+.cal-month-block { margin-bottom:28px; }
+.cal-month-head {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.3em;
+  text-transform:uppercase; color:var(--gold);
+  padding-bottom:10px; border-bottom:1px solid var(--border);
+  margin-bottom:10px; display:flex; align-items:center; justify-content:space-between;
+}
+.cal-month-n { font-size:9px; color:var(--text-3); letter-spacing:0.1em; }
+.cal-ev {
+  display:grid; grid-template-columns:64px 100px 160px 1fr;
+  gap:14px; align-items:center;
+  padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.cal-ev:last-child { border-bottom:none; }
+.cal-ev-day { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-2); }
+.cal-ev-day.past { color:var(--text-3); }
+.cal-ev-day.soon { color:var(--gold); font-weight:600; }
+.cal-ev-badge {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em;
+  padding:3px 8px; border:1px solid; white-space:nowrap;
+}
+.cal-ev-badge.resultats { color:var(--gold); border-color:rgba(184,155,94,0.4); background:var(--gold-dim); }
+.cal-ev-badge.ag { color:var(--blue); border-color:rgba(96,165,250,0.3); background:var(--blue-dim); }
+.cal-ev-badge.dividende { color:var(--green); border-color:rgba(74,222,128,0.3); background:var(--green-dim); }
+.cal-ev-badge.ca { color:var(--text-2); border-color:var(--border); background:var(--surface2); }
+.cal-ev-co { display:flex; align-items:center; gap:8px; min-width:0; overflow:hidden; }
+.cal-ev-ticker {
+  font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.1em;
+  color:var(--text-3); background:var(--surface2); padding:2px 6px; border:1px solid var(--border); flex-shrink:0;
+}
+.cal-ev-name { font-size:12px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cal-ev-lbl { font-size:12px; color:var(--text-2); }
+.cal-empty { text-align:center; padding:60px 0; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); }
+.cal-open-btn {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 20px; cursor:pointer; width:100%;
+  font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  background:var(--gold-dim); color:var(--gold);
+  border:none; border-bottom:1px solid var(--border); border-top:1px solid var(--border);
+  transition:background 0.15s; margin-bottom:8px;
+}
+.cal-open-btn:hover { background:rgba(184,155,94,0.2); }
+@media (max-width:768px) {
+  .cal-body-wrap { grid-template-columns:1fr; }
+  .cal-sec-nav { display:none; }
+  .cal-ev { grid-template-columns:56px 88px 1fr; }
+  .cal-ev-lbl { display:none; }
+  .cal-panel-head { padding:20px 16px; }
+  .cal-events-pane { padding:16px; }
+}
 </style>
 </head>
 <body>
@@ -620,6 +723,12 @@ h1 em { font-style:italic; color:var(--gold); }
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
+    <div class="sidebar-section">
+      <button class="cal-open-btn" onclick="openCalendar()">
+        Agenda investisseurs
+        <span>&#8594;</span>
+      </button>
+    </div>
     <div class="sidebar-section">
       <div class="sidebar-title">Par secteur</div>
       <div class="sidebar-item active" onclick="sidebarFilter('tous')">
@@ -709,6 +818,38 @@ h1 em { font-style:italic; color:var(--gold); }
   </main>
 </div>
 
+<!-- AGENDA CALENDAR OVERLAY -->
+<div id="calOverlay" class="cal-overlay" onclick="handleCalClick(event)">
+  <div class="cal-panel">
+    <div class="cal-panel-head">
+      <div>
+        <div class="cal-pre">BatiAnalyse · Valeurs cotees</div>
+        <div class="cal-h1">Agenda <em style="font-style:italic;color:var(--gold)">Investisseurs</em></div>
+        <div class="cal-hsub">Resultats, AG, dividendes · 14 valeurs BTP cotees · 2026</div>
+      </div>
+      <button class="cal-x" onclick="closeCalendar()">&#x2715;</button>
+    </div>
+    <div class="cal-body-wrap">
+      <div class="cal-sec-nav">
+        <div class="cal-sec-title">Par secteur</div>
+        <div class="cal-sec-item active" data-sec="tous" onclick="filterCal('tous')">Tous les secteurs <span class="cal-sec-n" id="cbn-tous"></span></div>
+        <div class="cal-sec-item" data-sec="construction" onclick="filterCal('construction')">Construction <span class="cal-sec-n" id="cbn-construction"></span></div>
+        <div class="cal-sec-item" data-sec="materiaux" onclick="filterCal('materiaux')">Materiaux <span class="cal-sec-n" id="cbn-materiaux"></span></div>
+        <div class="cal-sec-item" data-sec="promotion" onclick="filterCal('promotion')">Promotion immo <span class="cal-sec-n" id="cbn-promotion"></span></div>
+        <div class="cal-sec-item" data-sec="equipement" onclick="filterCal('equipement')">Equipements <span class="cal-sec-n" id="cbn-equipement"></span></div>
+        <div class="cal-sec-item" data-sec="infrastructure" onclick="filterCal('infrastructure')">Infrastructures <span class="cal-sec-n" id="cbn-infrastructure"></span></div>
+        <div class="cal-legend">
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--gold)"></div>Resultats</div>
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--blue)"></div>Assemblee Generale</div>
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green)"></div>Dividende</div>
+          <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--text-3)"></div>Chiffre d'affaires</div>
+        </div>
+      </div>
+      <div class="cal-events-pane" id="calMain"></div>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modalContent"></div>
@@ -735,6 +876,193 @@ const stocks = [
 
 // Initialiser perf_1an à null sur chaque stock (sera alimenté par l'API)
 stocks.forEach(s => { if (s.perf_1an === undefined) s.perf_1an = null })
+
+// ── AGENDA INVESTISSEURS ──
+const AGENDA = {
+  vinci: [
+    { date:'2026-02-05', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-17', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-04-24', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-04-28', type:'dividende', label:'Détachement dividende (2,13 €)' },
+    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  eiffage: [
+    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-23', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-04-30', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-07-31', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  bouygues: [
+    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-24', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-05-08', type:'dividende', label:'Détachement dividende (1,80 €)' },
+    { date:'2026-05-15', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  'saint-gobain': [
+    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-24', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-06-05', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-06-11', type:'dividende', label:'Détachement dividende (2,00 €)' },
+    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  nexity: [
+    { date:'2026-02-19', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-06-18', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-07-24', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  kaufman: [
+    { date:'2026-02-05', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-10', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-06-03', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-06-18', type:'dividende', label:'Détachement dividende (2,50 €)' },
+    { date:'2026-10-08', type:'resultats', label:'Résultats 9 mois 2026' },
+  ],
+  imerys: [
+    { date:'2026-02-25', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-30', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-05-12', type:'dividende', label:'Détachement dividende (0,65 €)' },
+    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  legrand: [
+    { date:'2026-02-12', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-29', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-05-28', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-06-05', type:'dividende', label:'Détachement dividende (1,80 €)' },
+    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  vicat: [
+    { date:'2026-03-11', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-06-04', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-08-05', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  bassac: [
+    { date:'2026-03-26', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-05-27', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-09-25', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  spie: [
+    { date:'2026-03-05', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-05-06', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-05-14', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-06-25', type:'dividende', label:'Détachement dividende (0,74 €)' },
+    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  cofinimmo: [
+    { date:'2026-02-25', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-05-08', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-05-20', type:'dividende', label:'Versement acompte dividende' },
+    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  balfour: [
+    { date:'2026-03-04', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-05-14', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-08-12', type:'resultats', label:'Résultats S1 2026' },
+  ],
+  schneider: [
+    { date:'2026-02-13', type:'resultats', label:'Résultats annuels 2025' },
+    { date:'2026-04-23', type:'ag',        label:'Assemblée Générale 2026' },
+    { date:'2026-04-30', type:'ca',        label:"Chiffre d'affaires T1 2026" },
+    { date:'2026-05-05', type:'dividende', label:'Détachement dividende (3,80 €)' },
+    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
+  ],
+};
+
+const CAL_SECTORS = ['tous','construction','materiaux','promotion','equipement','infrastructure'];
+let calActiveSec = 'tous';
+
+function openCalendar() {
+  updateCalCounts();
+  renderCalendar(calActiveSec);
+  document.getElementById('calOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCalendar() {
+  document.getElementById('calOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleCalClick(e) {
+  if (e.target === document.getElementById('calOverlay')) closeCalendar();
+}
+
+function filterCal(sec) {
+  calActiveSec = sec;
+  document.querySelectorAll('.cal-sec-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.sec === sec);
+  });
+  renderCalendar(sec);
+}
+
+function updateCalCounts() {
+  const counts = {};
+  CAL_SECTORS.forEach(s => { counts[s] = 0; });
+  stocks.forEach(s => {
+    const n = (AGENDA[s.id] || []).length;
+    counts['tous'] += n;
+    if (counts[s.secteur] !== undefined) counts[s.secteur] += n;
+    else counts[s.secteur] = n;
+  });
+  CAL_SECTORS.forEach(s => {
+    const el = document.getElementById('cbn-' + s);
+    if (el) el.textContent = counts[s] || 0;
+  });
+}
+
+function renderCalendar(sec) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const TYPE_LABEL = { resultats:'Résultats', ag:'AG', dividende:'Dividende', ca:"CA" };
+
+  const evs = [];
+  stocks.forEach(s => {
+    if (sec !== 'tous' && s.secteur !== sec) return;
+    (AGENDA[s.id] || []).forEach(ev => evs.push({ ...ev, stock: s }));
+  });
+  evs.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  const months = {};
+  evs.forEach(ev => {
+    const d = new Date(ev.date);
+    const key = d.getFullYear() + '-' + String(d.getMonth()).padStart(2, '0');
+    if (!months[key]) months[key] = {
+      label: d.toLocaleDateString('fr-FR', { month:'long', year:'numeric' }),
+      evs: []
+    };
+    months[key].evs.push(ev);
+  });
+
+  let html = '';
+  if (!Object.keys(months).length) {
+    html = '<div class="cal-empty">Aucun événement pour ce secteur.</div>';
+  } else {
+    Object.values(months).forEach(m => {
+      html += `<div class="cal-month-block">
+        <div class="cal-month-head">
+          <span>${m.label}</span>
+          <span class="cal-month-n">${m.evs.length} evt</span>
+        </div>`;
+      m.evs.forEach(ev => {
+        const d = new Date(ev.date);
+        const isPast = d < today;
+        const isSoon = !isPast && (d - today) < 14 * 86400000;
+        const dayStr = d.toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
+        const cls = isPast ? 'past' : (isSoon ? 'soon' : '');
+        html += `<div class="cal-ev">
+          <div class="cal-ev-day ${cls}">${dayStr}</div>
+          <div class="cal-ev-badge ${ev.type}">${TYPE_LABEL[ev.type] || ev.type}</div>
+          <div class="cal-ev-co">
+            <span class="cal-ev-ticker">${ev.stock.ticker}</span>
+            <span class="cal-ev-name">${ev.stock.name}</span>
+          </div>
+          <div class="cal-ev-lbl">${ev.label}</div>
+        </div>`;
+      });
+      html += '</div>';
+    });
+  }
+  document.getElementById('calMain').innerHTML = html;
+}
 
 // ── STATE ──
 let currentFilters = { secteur:'tous', perf:'tous', pays:'tous' };
@@ -1043,7 +1371,12 @@ function closeModal() {
 function closeModalOutside(e) {
   if(e.target.id==='modalOverlay') closeModal();
 }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('calOverlay').classList.contains('open')) closeCalendar();
+    else closeModal();
+  }
+});
 
 // ── INIT ──
 render();
