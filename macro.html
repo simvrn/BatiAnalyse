@@ -769,7 +769,7 @@ function sparkFromHistory(slug) {
 function renderKpis() {
   const grid = document.getElementById('kpiGrid');
   grid.innerHTML = kpis.map((k, i) => {
-    const sparkData = sparkFromHistory(k.slug);
+    const sparkData = sparkFromHistory(k.slug) || k.spark;
     return `
     <div class="kpi-card" style="animation-delay:${i*0.04}s" onclick="openKpiModal('${k.slug}')">
       <span class="kpi-icon">${k.icon}</span>
