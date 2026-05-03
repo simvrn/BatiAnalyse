@@ -414,59 +414,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
         <tbody id="commBody"></tbody>
       </table>
 
-      <div class="analysis-cards">
-        <div class="analysis-card">
-          <div class="analysis-card-title">Métaux ferreux — Soulagement confirmé</div>
-          <p>L'acier HRC recule de -11,8% sur 12 mois, effaçant une partie du choc de 2022. Cette détente profite directement aux constructeurs de charpentes métalliques et aux promoteurs de logements collectifs. Les analystes anticipent une stabilisation autour de 650-680 €/t au second semestre 2026.</p>
-        </div>
-        <div class="analysis-card">
-          <div class="analysis-card-title">Bois & aluminium — Tensions persistantes</div>
-          <p>Contrairement aux ferreux, le bois de construction (+5,4% sur 12 mois) et l'aluminium (+6,7%) maintiennent une pression à la hausse. La demande structurelle liée à la construction bois et aux exigences RE2020 soutient les prix, pénalisant les constructeurs de maisons individuelles et les menuisiers.</p>
-        </div>
-      </div>
-
-      <!-- Acier chart -->
-      <div class="chart-wrap">
-        <div class="chart-title">Acier HRC — Évolution 12 mois (€/tonne)</div>
-        <svg id="acierChart" viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
-          <!-- Gridlines -->
-          <line x1="0" y1="20" x2="700" y2="20" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-          <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-          <line x1="0" y1="140" x2="700" y2="140" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-          <!-- Y labels -->
-          <text x="4" y="18" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">800</text>
-          <text x="4" y="58" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">750</text>
-          <text x="4" y="98" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">700</text>
-          <text x="4" y="138" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">650</text>
-          <!-- Data: 820,800,780,760,745,728,710,700,695,688,685,682 mapped to Y (800-650 range = 150px) -->
-          <!-- y = 140 - ((val-650)/150)*120 -->
-          <defs>
-            <linearGradient id="acierGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
-            </linearGradient>
-          </defs>
-          <polygon points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120 700,140 36,140" fill="url(#acierGrad)"/>
-          <polyline points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120" stroke="#60a5fa" stroke-width="2" fill="none"/>
-          <!-- X labels -->
-          <text x="22" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">avr'25</text>
-          <text x="86" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mai</text>
-          <text x="150" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juin</text>
-          <text x="214" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juil</text>
-          <text x="278" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">août</text>
-          <text x="342" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">sep</text>
-          <text x="406" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">oct</text>
-          <text x="470" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">nov</text>
-          <text x="534" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">déc</text>
-          <text x="598" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">jan'26</text>
-          <text x="654" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">fév</text>
-          <text x="700" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mar</text>
-          <!-- End point -->
-          <circle cx="700" cy="120" r="4" fill="#60a5fa"/>
-          <text x="686" y="112" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa" text-anchor="middle">682€</text>
-        </svg>
-      </div>
     </div>
 
     <!-- TAB 3 — TAUX -->
