@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+<title>BatiAnalyse — Entreprise</title>
+=======
 <title>Fiches entreprises BTP — Analyse financière détaillée | BatiAnalyse</title>
 <meta name="description" content="Fiches entreprises détaillées du secteur BTP : chiffres clés, marges, positionnement, analyse concurrentielle. Vinci, Eiffage, Bouygues, Saint-Gobain et plus.">
 <meta name="robots" content="index, follow">
@@ -33,6 +36,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -287,7 +291,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
+<<<<<<< HEAD
+  <a href="#" class="nav-cta">Accès Premium</a>
+=======
   <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileEnt').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -317,7 +325,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
         <span id="companyTicker">—</span>
         <span class="company-signal" id="companySignal"></span>
       </div>
+<<<<<<< HEAD
+      <div class="company-name" id="companyName">Chargement…</div>
+=======
       <h1 class="company-name" id="companyName">Chargement…</h1>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="company-sub" id="companySub"></div>
     </div>
     <div class="company-kpis" id="companyKpis"></div>
@@ -636,6 +648,66 @@ const COMPANIES = {
     tagSlug: 'bouygues',
     ticker:  'EN.PA',
     name:    'Bouygues',
+<<<<<<< HEAD
+    secteur: 'Construction & Télécom & Médias',
+    pays:    'FR',
+    signal:  'watch',
+    desc:    'Bouygues est un conglomérat diversifié opérant dans la construction (Bouygues Construction, Colas, Bouygues Immobilier), les télécommunications (Bouygues Telecom) et les médias (TF1). La décote de conglomérat pèse structurellement sur la valorisation malgré des fondamentaux BTP solides.',
+    highlights: [
+      'Décote de conglomérat estimée à 20-25% vs somme des parties',
+      'Bouygues Telecom — moteur de croissance et de cash-flow',
+      'Colas : leader mondial des revêtements routiers',
+      'Question ouverte : simplification du portefeuille ?',
+    ],
+    positioning: [
+      { label:'Croissance', val:55, color:'var(--green)' },
+      { label:'Rentabilité', val:39, color:'var(--gold)' },
+      { label:'Visibilité', val:60, color:'var(--blue)' },
+    ],
+    segments: [
+      { name:'Colas',                pct:30, margin:'3,2%',  color:'#B89B5E' },
+      { name:'Bouygues Telecom',     pct:24, margin:'16,1%', color:'#4ade80' },
+      { name:'Bouygues Construction',pct:22, margin:'2,8%',  color:'#a07834' },
+      { name:'TF1',                  pct:12, margin:'8,4%',  color:'#60a5fa' },
+      { name:'Bouygues Immobilier',  pct:12, margin:'4,1%',  color:'#7a5a24' },
+    ],
+    breakdownYear: 'CA 2024E',
+    geo: [
+      { flag:'🇫🇷', name:'France',        pct:62 },
+      { flag:'🌍', name:'Europe hors FR',  pct:22 },
+      { flag:'🌎', name:'International',   pct:16 },
+    ],
+    projects: [
+      'Routes & voiries (Colas)','Télécommunications 5G','Programmes immobiliers',
+      'Bâtiments publics','Production audiovisuelle','Infrastructures ferroviaires',
+    ],
+    swot: {
+      strengths:  ['Diversification résiliente en cycle bas','Colas leader mondial revêtements','Bouygues Telecom très rentable'],
+      weaknesses: ['Décote conglomérat structurelle','Marges BTP sous la moyenne sectorielle','Gouvernance familiale complexe'],
+      opps:       ['Simplification du portefeuille','Fibre & 5G — croissance Telecom','Grands contrats d\'infrastructure'],
+      risks:      ['Pression sur le marché du logement neuf','Disruption médias (TF1)','Consolidation télécom européen'],
+    },
+    competition: [
+      { name:'Vinci',    ticker:'DG.PA',  cap:'42,1 Md€', pe:'14,2x', note:'Leader concessions & construction' },
+      { name:'Eiffage',  ticker:'FGR.PA', cap:'7,8 Md€',  pe:'11,8x', note:'Concurrent construction' },
+      { name:'Orange',   ticker:'ORA.PA', cap:'25,1 Md€', pe:'11,2x', note:'Concurrent télécom' },
+    ],
+    timeline: [
+      { date:'Fév 2025', type:'earn', title:'Résultats annuels 2024', sub:'CA et résultats FY2024' },
+      { date:'Avr 2025', type:'ann',  title:'Assemblée générale', sub:'Vote résolutions' },
+      { date:'Mai 2025', type:'div',  title:'Dividende 2024', sub:'Dividende annuel versé' },
+      { date:'Sep 2025', type:'earn', title:'Résultats S1 2025', sub:'Résultats semestriels' },
+    ],
+    finances: {
+      year: 'FY 2024E',
+      kpis: [
+        { label:'Chiffre d\'affaires', val:'52,4 Md€', sub:'+3,1% vs N-1',    color:'var(--text)' },
+        { label:'EBIT',                val:'2,0 Md€',  sub:'Marge 3,9%',       color:'var(--gold)' },
+        { label:'Résultat net',        val:'1,5 Md€',  sub:'Marge nette 2,9%', color:'var(--green)' },
+        { label:'Capitalisation',      val:'— Md€',    sub:'En cours (live)',   color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'—x',       sub:'En cours (live)',   color:'var(--text)', live:'per' },
+        { label:'Rendement div.',      val:'4,1%',     sub:'Dividende 2024E',   color:'var(--blue)' },
+=======
     secteur: 'Construction & Énergies & Services & Télécom & Médias',
     pays:    'FR',
     signal:  'watch',
@@ -720,11 +792,17 @@ const COMPANIES = {
         { label:'Capitalisation',      val:'—',          sub:'Live',                                   color:'var(--gold)', live:'cap' },
         { label:'P/E ratio',           val:'—',          sub:'Live',                                   color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'4,7 %',      sub:'2,10 €/action — source : Bouygues FY2025',color:'var(--blue)'  },
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       ],
       accordions: [
         {
           title:'Dette & Liquidité',
           rows:[
+<<<<<<< HEAD
+            ['Dette nette', '4,2 Md€'],
+            ['Trésorerie', '7,8 Md€'],
+            ['Ratio DN/EBITDA', '1,4x'],
+=======
             ['Dette nette fin 2025',        '4,204 Md€'],
             ['Dette nette fin 2024',        '6,066 Md€ (−1,862 Md€ en 1 an)'],
             ['Trésorerie & équivalents',    '7,535 Md€'],
@@ -760,6 +838,7 @@ const COMPANIES = {
             ['Autres actionnaires français','10,60 %'],
             ['Actionnaires étrangers',      '41,60 %'],
             ['Flottant reconstitué',        '52,2 % (hors SCDM, salariés, autocontrôle)'],
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
           ]
         },
       ]

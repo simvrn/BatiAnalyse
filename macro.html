@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+<title>BatiAnalyse — Macro & Conjoncture BTP</title>
+=======
 <title>Macro & Conjoncture BTP — Taux, matières premières, indicateurs | BatiAnalyse</title>
 <meta name="description" content="Indicateurs macro du secteur BTP : taux BCE, OAT 10 ans, crédit immobilier, matières premières (or, cuivre, pétrole), PMI Construction, mises en chantier. Données actualisées.">
 <meta name="robots" content="index, follow">
@@ -33,6 +36,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -201,6 +205,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .impact-badge.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* CHART CONTAINERS */
+<<<<<<< HEAD
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;}
+.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+
+=======
 .chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;position:relative;}
 .chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
@@ -220,6 +230,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .spark-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #333;padding:4px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--white);white-space:nowrap;z-index:60;opacity:0;pointer-events:none;transition:opacity 0.12s;}
 .spark-wrap:hover .spark-tip{opacity:1;}
 
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 /* RATES GRID */
 .rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
 .rate-card{background:var(--surface);border:1px solid var(--border);padding:18px;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;}
@@ -351,7 +362,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/macro.html" class="active">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
+<<<<<<< HEAD
+  <a href="#" class="nav-cta">Accès Premium</a>
+=======
   <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileMacro').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -431,25 +446,47 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
     <!-- TAB 2 — MATIÈRES PREMIÈRES -->
     <div class="tab-panel" id="tab-matieres">
+<<<<<<< HEAD
+      <div class="section-label">Prix des matériaux clés — Impact sur les marges BTP</div>
+      <div class="section-title">Matières <em style="font-style:italic;color:var(--gold)">premières</em></div>
+      <p class="section-sub">Données indicatives. Sources : LME, Euroconstruct, AIMCC. Mise à jour hebdomadaire.</p>
+=======
       <div class="section-label">Cours des matières premières — ETFs de référence</div>
       <div class="section-title">Matières <em style="font-style:italic;color:var(--gold)">premières</em></div>
       <p class="section-sub">Données de marché. Sources : NYSEARCA, cours en EUR. Mise à jour quotidienne.</p>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 
       <div class="comm-filters">
         <button class="comm-filter-btn active" data-cat="tous">Tous</button>
         <button class="comm-filter-btn" data-cat="metaux">Métaux</button>
+<<<<<<< HEAD
+        <button class="comm-filter-btn" data-cat="beton">Granulats & Béton</button>
+        <button class="comm-filter-btn" data-cat="bois">Bois & Dérivés</button>
+        <button class="comm-filter-btn" data-cat="energie">Énergie & Bitume</button>
+=======
         <button class="comm-filter-btn" data-cat="energie">Énergie</button>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       </div>
 
       <table class="data-table" id="commTable">
         <thead>
           <tr>
+<<<<<<< HEAD
+            <th onclick="sortComm('name')">Matériau</th>
+            <th onclick="sortComm('current')">Prix actuel</th>
+            <th onclick="sortComm('c1m')">1 mois</th>
+            <th onclick="sortComm('c3m')">3 mois</th>
+            <th onclick="sortComm('c12m')">12 mois</th>
+            <th>Tendance</th>
+            <th>Évolution 12M</th>
+=======
             <th onclick="sortComm('name')">Actif</th>
             <th onclick="sortComm('current')">Prix (EUR)</th>
             <th onclick="sortComm('changeDay')">Var. jour</th>
             <th onclick="sortComm('c12m')">Var. 1 an</th>
             <th>Tendance</th>
             <th>52 semaines</th>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
           </tr>
         </thead>
         <tbody id="commBody"></tbody>
@@ -457,6 +494,58 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
       <div class="analysis-cards">
         <div class="analysis-card">
+<<<<<<< HEAD
+          <div class="analysis-card-title">Métaux ferreux — Soulagement confirmé</div>
+          <p>L'acier HRC recule de -11,8% sur 12 mois, effaçant une partie du choc de 2022. Cette détente profite directement aux constructeurs de charpentes métalliques et aux promoteurs de logements collectifs. Les analystes anticipent une stabilisation autour de 650-680 €/t au second semestre 2026.</p>
+        </div>
+        <div class="analysis-card">
+          <div class="analysis-card-title">Bois & aluminium — Tensions persistantes</div>
+          <p>Contrairement aux ferreux, le bois de construction (+5,4% sur 12 mois) et l'aluminium (+6,7%) maintiennent une pression à la hausse. La demande structurelle liée à la construction bois et aux exigences RE2020 soutient les prix, pénalisant les constructeurs de maisons individuelles et les menuisiers.</p>
+        </div>
+      </div>
+
+      <!-- Acier chart -->
+      <div class="chart-wrap">
+        <div class="chart-title">Acier HRC — Évolution 12 mois (€/tonne)</div>
+        <svg id="acierChart" viewBox="0 0 700 160" width="100%" height="160" preserveAspectRatio="none">
+          <!-- Gridlines -->
+          <line x1="0" y1="20" x2="700" y2="20" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="60" x2="700" y2="60" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="100" x2="700" y2="100" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <line x1="0" y1="140" x2="700" y2="140" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
+          <!-- Y labels -->
+          <text x="4" y="18" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">800</text>
+          <text x="4" y="58" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">750</text>
+          <text x="4" y="98" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">700</text>
+          <text x="4" y="138" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">650</text>
+          <!-- Data: 820,800,780,760,745,728,710,700,695,688,685,682 mapped to Y (800-650 range = 150px) -->
+          <!-- y = 140 - ((val-650)/150)*120 -->
+          <defs>
+            <linearGradient id="acierGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <polygon points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120 700,140 36,140" fill="url(#acierGrad)"/>
+          <polyline points="36,7 100,23 163,39 227,55 290,67 354,82 418,98 481,106 545,110 608,116 654,118 700,120" stroke="#60a5fa" stroke-width="2" fill="none"/>
+          <!-- X labels -->
+          <text x="22" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">avr'25</text>
+          <text x="86" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mai</text>
+          <text x="150" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juin</text>
+          <text x="214" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">juil</text>
+          <text x="278" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">août</text>
+          <text x="342" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">sep</text>
+          <text x="406" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">oct</text>
+          <text x="470" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">nov</text>
+          <text x="534" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">déc</text>
+          <text x="598" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">jan'26</text>
+          <text x="654" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">fév</text>
+          <text x="700" y="155" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">mar</text>
+          <!-- End point -->
+          <circle cx="700" cy="120" r="4" fill="#60a5fa"/>
+          <text x="686" y="112" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa" text-anchor="middle">682€</text>
+        </svg>
+=======
           <div class="analysis-card-title">Métaux précieux — Dynamique haussière</div>
           <p>L'or progresse de +7,6% sur un an, porté par les tensions géopolitiques et la demande de valeur refuge. L'argent affiche une performance exceptionnelle de +76,3% sur 12 mois, soutenu par la demande industrielle (panneaux solaires, électronique) et l'effet de rattrapage par rapport à l'or.</p>
         </div>
@@ -474,6 +563,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           <div class="chart-tooltip-val" id="orTipVal"></div>
         </div>
         <svg id="orChart" viewBox="0 0 700 170" width="100%" height="170" style="cursor:crosshair"></svg>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       </div>
     </div>
 
@@ -588,12 +678,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 <script>
 // ── DATA ──
 const commodities = [
+<<<<<<< HEAD
+  { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
+  { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
+  { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
+  { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
+  { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
+  { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#B89B5E' },
+=======
   { id:'or', ticker:'GLD', name:'Or', cat:'metaux', unit:'EUR', current:'377,63', currentNum:377.63, changeDay:2.23, c12m:7.60, trend:'up', high52:'436,24', low52:'247,57', spark:[248,265,285,300,320,335,350,358,365,370,375,378], color:'#fbbf24' },
   { id:'argent', ticker:'SLV', name:'Argent', cat:'metaux', unit:'EUR', current:'61,12', currentNum:61.12, changeDay:5.51, c12m:76.33, trend:'up', high52:'93,17', low52:'24,64', spark:[25,30,35,38,42,46,50,53,56,58,60,61], color:'#a78bfa' },
   { id:'cuivre', ticker:'CPER', name:'Cuivre', cat:'metaux', unit:'EUR', current:'31,61', currentNum:31.61, changeDay:1.28, c12m:-7.54, trend:'down', high52:'34,31', low52:'22,98', spark:[34,33,32,31,30,29,28,29,30,31,31,32], color:'#fb923c' },
   { id:'metaux-base', ticker:'DBB', name:'Métaux de base', cat:'metaux', unit:'EUR', current:'21,20', currentNum:21.20, changeDay:0.81, c12m:0.39, trend:'stable', high52:'22,07', low52:'15,09', spark:[21,19,17,16,15,16,17,18,19,20,21,21], color:'#60a5fa' },
   { id:'petrole', ticker:'USO', name:'Pétrole', cat:'energie', unit:'EUR', current:'105,08', currentNum:105.08, changeDay:-3.60, c12m:34.11, trend:'up', high52:'122,16', low52:'52,40', spark:[52,60,70,78,85,92,98,105,110,115,112,105], color:'#ef4444' },
   { id:'commodites', ticker:'DBC', name:'Indice Commodités', cat:'energie', unit:'EUR', current:'24,47', currentNum:24.47, changeDay:-0.41, c12m:-0.62, trend:'stable', high52:'25,25', low52:'17,38', spark:[25,23,21,19,18,17,18,20,22,23,24,24], color:'#B89B5E' },
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 ];
 
 const kpis = [
@@ -719,7 +818,11 @@ function openKpiModal(slug) {
         <div><strong>Période :</strong> ${k.unit}</div>
         <div><strong>Source :</strong> ${k.source}</div>
       </div>
+<<<<<<< HEAD
+      <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40)}</div>
+=======
       <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40, s.name)}</div>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </div>
     <div class="modal-section-label">Historique des publications</div>
     <div class="modal-tl">${histHtml}</div>
@@ -739,11 +842,21 @@ function closeKpiModal() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModal(); });
 
 // ── SPARKLINE ──
+<<<<<<< HEAD
+function makeSpark(data, color, w=80, h=24) {
+=======
 function makeSpark(data, color, w=80, h=24, label) {
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   const min = Math.min(...data), max = Math.max(...data);
   const range = max - min || 1;
   const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
   const area = pts + ` ${w},${h} 0,${h}`;
+<<<<<<< HEAD
+  return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+    <polygon points="${area}" fill="${color}" opacity="0.12"/>
+    <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
+  </svg>`;
+=======
   const tipText = label ? label : `${min.toLocaleString('fr-FR')} → ${max.toLocaleString('fr-FR')}`;
   const lastVal = data[data.length-1];
   const firstVal = data[0];
@@ -865,6 +978,7 @@ function renderOrChart() {
     hoverLineEl.setAttribute('opacity', '0');
     document.querySelectorAll('.or-dot').forEach(el => el.setAttribute('opacity', '0'));
   });
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 }
 
 // ── KPI GRID ──
@@ -878,7 +992,11 @@ function renderKpis() {
       <div class="kpi-unit">${k.unit}</div>
       ${k.change ? `<span class="kpi-change ${k.changeClass}">${k.change}</span>` : ''}
       ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
+<<<<<<< HEAD
+      <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
+=======
       <div class="kpi-spark">${makeSpark(k.spark, k.color, 80, 24, k.label)}</div>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="kpi-source">Source : ${k.source}</div>
     </div>
   `).join('');
@@ -897,12 +1015,22 @@ function renderComm() {
     });
   document.getElementById('commBody').innerHTML = data.map((c, i) => `
     <tr style="animation-delay:${i*0.05}s">
+<<<<<<< HEAD
+      <td class="td-name">${c.name} <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">${c.unit}</span></td>
+      <td class="td-current">${c.current}</td>
+      <td class="${c.c1m < 0 ? 'change-neg' : 'change-pos'}">${c.c1m > 0 ? '+' : ''}${c.c1m}%</td>
+      <td class="${c.c3m < 0 ? 'change-neg' : 'change-pos'}">${c.c3m > 0 ? '+' : ''}${c.c3m}%</td>
+      <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
+      <td style="font-size:16px">${c.trend === 'down' ? '↓' : '↑'}</td>
+      <td>${makeSpark(c.spark, c.color)}</td>
+=======
       <td class="td-name">${c.name} <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">${c.ticker}</span></td>
       <td class="td-current">${c.current} <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">${c.unit}</span></td>
       <td class="${c.changeDay < 0 ? 'change-neg' : 'change-pos'}">${c.changeDay > 0 ? '+' : ''}${c.changeDay}%</td>
       <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
       <td style="font-size:16px">${c.trend === 'down' ? '↓' : c.trend === 'up' ? '↑' : '→'}</td>
       <td>${makeSpark(c.spark, c.color, 80, 24, c.name+' · 52 sem')}</td>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </tr>
   `).join('');
 }
@@ -930,7 +1058,11 @@ function renderRates() {
       <div class="rate-change" style="color:${r.changeBp < 0 ? 'var(--green)' : r.changeBp > 0 ? 'var(--red)' : 'var(--text-3)'}">
         ${r.changeBp !== 0 ? (r.changeBp > 0 ? '▲ +' : '▼ ') + Math.abs(r.changeBp) + ' pb' : '→ stable'}
       </div>
+<<<<<<< HEAD
+      <div>${makeSpark(r.spark, '#B89B5E', 100, 24)}</div>
+=======
       <div>${makeSpark(r.spark, '#B89B5E', 100, 24, r.label)}</div>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="rate-comment">${r.comment}</div>
     </div>
   `).join('');
@@ -985,7 +1117,10 @@ function resetFilters() {
 // ── INIT ──
 renderKpis();
 renderComm();
+<<<<<<< HEAD
+=======
 renderOrChart();
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 </script>
 <!-- ── KPI MODAL OVERLAY ── -->
 <div id="kpi-modal-overlay" class="kpi-modal-overlay" onclick="if(event.target===this)closeKpiModal()">

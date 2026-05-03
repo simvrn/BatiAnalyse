@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+<title>BatiAnalyse — Article</title>
+=======
 <title>Article — Analyse BTP | BatiAnalyse</title>
 <meta name="description" content="Article d'analyse financière et sectorielle du BTP. Décryptage approfondi, données sourcées, opinion argumentée.">
 <meta name="robots" content="index, follow">
@@ -33,6 +36,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -198,7 +202,11 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html" class="active">Analyses</a></li>
   </ul>
+<<<<<<< HEAD
+  <a href="#" class="nav-cta">Accès Premium</a>
+=======
   <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileArticle').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -277,6 +285,8 @@ function showSkeletons() {
   ).join('')
 }
 
+<<<<<<< HEAD
+=======
 // ─────────────────────────────────────────────────────────────
 //  MAILLAGE INTERNE AUTOMATIQUE
 //  Injecte des liens vers les pages du site sur les mots-clés
@@ -359,6 +369,7 @@ function addInternalLinks(html) {
   return div.innerHTML
 }
 
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 // ── Chargement et rendu de l'article ──
 async function loadArticle(id) {
   showSkeletons()
@@ -382,9 +393,13 @@ function renderArticle(post) {
   const cat      = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
   const catId    = post._embedded?.['wp:term']?.[0]?.[0]?.id   || null
   const img      = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
+<<<<<<< HEAD
+  const authorName = post._embedded?.author?.[0]?.name || 'BatiAnalyse'
+=======
   const rawAuthor  = post._embedded?.author?.[0]?.name || ''
   // Masquer l'email si le nom d'auteur WordPress contient un @ (ex: sim.vrny@gmail.com)
   const authorName = (rawAuthor && !rawAuthor.includes('@')) ? rawAuthor : 'BatiAnalyse'
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 
   // Estimation du temps de lecture
   const wordCount = content.replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
@@ -420,7 +435,11 @@ function renderArticle(post) {
     /href="https:\/\/batianalyste\.fr\/(?!wp-content)[^"]*"/g,
     'href="#" onclick="return false"'
   )
+<<<<<<< HEAD
+  document.getElementById('articleContent').innerHTML = sanitized
+=======
   document.getElementById('articleContent').innerHTML = addInternalLinks(sanitized)
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 
   // Articles liés (même catégorie, hors article courant)
   if (catId) loadRelated(catId, post.id)

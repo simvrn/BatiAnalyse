@@ -2,6 +2,8 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
+<<<<<<< HEAD
+=======
   "headers": [
     {
       "source": "/(.*)",
@@ -24,6 +26,7 @@
       ]
     }
   ],
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   "rewrites": [
     { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" },
     { "source": "/ma",             "destination": "/ma.html" },
@@ -45,6 +48,9 @@
     { "source": "/ma-deals",         "destination": "/ma-deals.html" },
     { "source": "/ma-expansion",     "destination": "/ma-expansion.html" },
     { "source": "/ma-ipo",           "destination": "/ma-ipo.html" },
+<<<<<<< HEAD
+    { "source": "/macro-detail",     "destination": "/macro-detail.html" }
+=======
     { "source": "/macro-detail",     "destination": "/macro-detail.html" },
     { "source": "/spie-euroconfort", "destination": "/spie-euroconfort.html" },
     { "source": "/pe",               "destination": "/pe.html" },
@@ -52,5 +58,6 @@
     { "source": "/lbo-btp",            "destination": "/lbo-btp.html" },
     { "source": "/pe-btp-instruments",  "destination": "/pe-btp-instruments.html" },
     { "source": "/bouygues-equans",      "destination": "/bouygues-equans.html" }
+>>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   ]
 }
