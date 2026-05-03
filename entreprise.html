@@ -1852,16 +1852,33 @@ function renderOverview() {
   const typeMap = { div:'tl-type-div', earn:'tl-type-earn', ann:'tl-type-ann' }
   const dotMap  = { div:'tl-dot-div',  earn:'tl-dot-earn',  ann:'tl-dot-ann'  }
   const labelMap= { div:'Dividende', earn:'Résultats', ann:'Annonce' }
-  document.getElementById('timeline').innerHTML = company.timeline.map(e => `
-    <div class="tl-item">
+
+  function isPastDate(dateStr) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const M = { jan:0,janv:0,janvier:0,'fév':1,'févr':1,'février':1,mars:2,avr:3,avril:3,mai:4,juin:5,juil:6,juillet:6,'août':7,sep:8,sept:8,septembre:8,oct:9,octobre:9,nov:10,novembre:10,'déc':11,'décembre':11 };
+    const s = dateStr.toLowerCase().replace(/\./g,'').trim();
+    let m, mo, yr, d;
+    if ((m = s.match(/^fin\s+(\w+)\s+(\d{4})$/)))    { mo=M[m[1]]; yr=+m[2]; if(mo!=null) return new Date(yr,mo+1,0)<today; }
+    if ((m = s.match(/^mi[-\s](\w+)\s+(\d{4})$/)))   { mo=M[m[1]]; yr=+m[2]; if(mo!=null) return new Date(yr,mo,15)<today; }
+    if ((m = s.match(/^(\d{1,2})\s+(\w+)\s+(\d{4})$/))) { d=+m[1]; mo=M[m[2]]; yr=+m[3]; if(mo!=null) return new Date(yr,mo,d)<today; }
+    if ((m = s.match(/^(\w+)\s+(\d{4})$/)))           { mo=M[m[1]]; yr=+m[2]; if(mo!=null) return new Date(yr,mo+1,0)<today; }
+    return false;
+  }
+
+  document.getElementById('timeline').innerHTML = company.timeline.map(e => {
+    const past = e.past || isPastDate(e.date);
+    const title = e.title.replace(/\s*✓\s*$/, '') + (past ? ' ✓' : '');
+    return `
+    <div class="tl-item" style="${past ? 'opacity:0.6' : ''}">
       <div class="tl-dot-wrap"><div class="tl-dot ${dotMap[e.type]}"></div></div>
       <div class="tl-body">
         <div class="tl-date">${e.date}</div>
-        <div class="tl-title">${e.title}</div>
+        <div class="tl-title">${title}</div>
         <div class="tl-sub">${e.sub}</div>
         <span class="tl-badge ${typeMap[e.type]}">${labelMap[e.type]}</span>
       </div>
-    </div>`).join('')
+    </div>`;
+  }).join('')
 
   // Animate bars after paint
   requestAnimationFrame(() => setTimeout(animateBars, 80))

@@ -732,6 +732,12 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModa
 
 // ── SPARKLINE ──
 function makeSpark(data, color, w=80, h=24) {
+  if (!data || data.length < 2) {
+    const mid = h / 2;
+    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
+      <line x1="0" y1="${mid}" x2="${w}" y2="${mid}" stroke="${color}" stroke-width="1.5" opacity="0.3"/>
+    </svg>`;
+  }
   const min = Math.min(...data), max = Math.max(...data);
   const range = max - min || 1;
   const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
@@ -742,10 +748,26 @@ function makeSpark(data, color, w=80, h=24) {
   </svg>`;
 }
 
+function parseHistVal(str) {
+  const s = str.replace(/\s/g,'').replace(/~/g,'');
+  const m = s.match(/-?\d[\d,]*/);
+  if (!m) return null;
+  return parseFloat(m[0].replace(',','.'));
+}
+
+function sparkFromHistory(slug) {
+  const sec = SECTIONS[slug];
+  if (!sec || !sec.history || sec.history.length === 0) return null;
+  const vals = [...sec.history].reverse().map(h => parseHistVal(h.val)).filter(v => v !== null);
+  return vals.length >= 2 ? vals : null;
+}
+
 // ── KPI GRID ──
 function renderKpis() {
   const grid = document.getElementById('kpiGrid');
-  grid.innerHTML = kpis.map((k, i) => `
+  grid.innerHTML = kpis.map((k, i) => {
+    const sparkData = sparkFromHistory(k.slug);
+    return `
     <div class="kpi-card" style="animation-delay:${i*0.04}s" onclick="openKpiModal('${k.slug}')">
       <span class="kpi-icon">${k.icon}</span>
       <div class="kpi-label">${k.label}</div>
@@ -753,10 +775,10 @@ function renderKpis() {
       <div class="kpi-unit">${k.unit}</div>
       ${k.change ? `<span class="kpi-change ${k.changeClass}">${k.change}</span>` : ''}
       ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
-      <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
+      <div class="kpi-spark">${makeSpark(sparkData, k.color)}</div>
       <div class="kpi-source">Source : ${k.source}</div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 // ── COMMODITIES TABLE ──
