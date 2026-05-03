@@ -2,31 +2,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
-<<<<<<< HEAD
-=======
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
-      ]
-    }
-  ],
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   "rewrites": [
     { "source": "/valeurs-cotees", "destination": "/valeurs-cotees.html" },
     { "source": "/ma",             "destination": "/ma.html" },
@@ -48,16 +23,6 @@
     { "source": "/ma-deals",         "destination": "/ma-deals.html" },
     { "source": "/ma-expansion",     "destination": "/ma-expansion.html" },
     { "source": "/ma-ipo",           "destination": "/ma-ipo.html" },
-<<<<<<< HEAD
     { "source": "/macro-detail",     "destination": "/macro-detail.html" }
-=======
-    { "source": "/macro-detail",     "destination": "/macro-detail.html" },
-    { "source": "/spie-euroconfort", "destination": "/spie-euroconfort.html" },
-    { "source": "/pe",               "destination": "/pe.html" },
-    { "source": "/btp-private-equity", "destination": "/btp-private-equity.html" },
-    { "source": "/lbo-btp",            "destination": "/lbo-btp.html" },
-    { "source": "/pe-btp-instruments",  "destination": "/pe-btp-instruments.html" },
-    { "source": "/bouygues-equans",      "destination": "/bouygues-equans.html" }
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   ]
 }

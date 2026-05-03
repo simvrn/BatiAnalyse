@@ -3,40 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
 <title>BatiAnalyse — Entreprise</title>
-=======
-<title>Fiches entreprises BTP — Analyse financière détaillée | BatiAnalyse</title>
-<meta name="description" content="Fiches entreprises détaillées du secteur BTP : chiffres clés, marges, positionnement, analyse concurrentielle. Vinci, Eiffage, Bouygues, Saint-Gobain et plus.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://batianalyse.fr/entreprise">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fiches entreprises BTP">
-<meta property="og:description" content="Fiches entreprises détaillées du secteur BTP : chiffres clés, marges, positionnement, analyse concurrentielle. Vinci, Eiffage, Bouygues, Saint-Gobain et plus.">
-<meta property="og:url" content="https://batianalyse.fr/entreprise">
-<meta property="og:site_name" content="BatiAnalyse">
-<meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fiches entreprises BTP">
-<meta name="twitter:description" content="Fiches entreprises détaillées du secteur BTP : chiffres clés, marges, positionnement, analyse concurrentielle. Vinci, Eiffage, Bouygues, Saint-Gobain et plus.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Fiches entreprises BTP",
-  "url": "https://batianalyse.fr/entreprise",
-  "description": "Fiches entreprises détaillées du secteur BTP : chiffres clés, marges, positionnement, analyse concurrentielle. Vinci, Eiffage, Bouygues, Saint-Gobain et plus.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "BatiAnalyse",
-    "url": "https://batianalyse.fr"
-  },
-  "inLanguage": "fr-FR"
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -291,11 +258,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
-<<<<<<< HEAD
   <a href="#" class="nav-cta">Accès Premium</a>
-=======
-  <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileEnt').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -325,11 +288,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
         <span id="companyTicker">—</span>
         <span class="company-signal" id="companySignal"></span>
       </div>
-<<<<<<< HEAD
       <div class="company-name" id="companyName">Chargement…</div>
-=======
-      <h1 class="company-name" id="companyName">Chargement…</h1>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="company-sub" id="companySub"></div>
     </div>
     <div class="company-kpis" id="companyKpis"></div>
@@ -648,7 +607,6 @@ const COMPANIES = {
     tagSlug: 'bouygues',
     ticker:  'EN.PA',
     name:    'Bouygues',
-<<<<<<< HEAD
     secteur: 'Construction & Télécom & Médias',
     pays:    'FR',
     signal:  'watch',
@@ -707,138 +665,14 @@ const COMPANIES = {
         { label:'Capitalisation',      val:'— Md€',    sub:'En cours (live)',   color:'var(--gold)', live:'cap' },
         { label:'P/E ratio',           val:'—x',       sub:'En cours (live)',   color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'4,1%',     sub:'Dividende 2024E',   color:'var(--blue)' },
-=======
-    secteur: 'Construction & Énergies & Services & Télécom & Médias',
-    pays:    'FR',
-    signal:  'watch',
-    desc:    'Bouygues est un groupe français diversifié de services présent dans la construction (Construction Division : Colas, Bouygues Construction, Bouygues Immobilier), les énergies & services (Equans), les télécommunications (Bouygues Telecom) et les médias (TF1). En FY 2025, le groupe publie un CA de 56,877 Md€, avec 50,2 % réalisé à l\'international. La diversification sectorielle et une structure financière renforcée (dette nette ramenée à 4,2 Md€, levier ~0,82×) caractérisent le modèle.',
-    highlights: [
-      'Présent dans près de 80 pays avec environ 200 000 collaborateurs (FY 2025)',
-      'CA FY 2025 : 56,877 Md€ — 50,2 % réalisé à l\'international',
-      'Dette nette ramenée à 4,204 Md€ fin 2025 vs 6,066 Md€ fin 2024 — amélioration du gearing de 42 % à 28 %',
-      'Dividende proposé : 2,10 €/action (rendement 4,7 % sur cours 44,35 € au 31 déc. 2025) — détachement 28 avr. 2026',
-      'Backlog Construction Division : 31,954 Md€ fin 2025 — visibilité élevée selon le groupe',
-      'Notation S&P : A– perspective stable (relevée de négative à stable le 12 sept. 2025)',
-    ],
-    positioning: [
-      { label:'Croissance',   val:55, color:'var(--green)' },
-      { label:'Rentabilité',  val:44, color:'var(--gold)'  },
-      { label:'Visibilité',   val:65, color:'var(--blue)'  },
-    ],
-    segments: [
-      { name:'Construction Division (Colas + Bouygues Construction + Bouygues Immobilier)', pct:49.3, ca:'28 026 M€', color:'#B89B5E' },
-      { name:'Equans',              pct:32.9, ca:'18 699 M€', color:'#4ade80' },
-      { name:'Bouygues Telecom',    pct:14.2, ca:'8 098 M€',  color:'#60a5fa' },
-      { name:'TF1',                 pct:4.0,  ca:'2 297 M€',  color:'#a78bfa' },
-      { name:'Bouygues SA & autres / éliminations', pct:-0.4, ca:'-243 M€ net', color:'#5a5a5a' },
-    ],
-    breakdownYear: 'CA FY 2025 — 56,877 Md€ (segmentation officielle)',
-    geo: [
-      { flag:'🇫🇷', name:'France',        pct:49.8 },
-      { flag:'🌍', name:'International',   pct:50.2 },
-    ],
-    projects: [
-      'Backlog Construction Division : 31,954 Md€ (Colas 13,7 Md€ · Bouygues Construction 17,5 Md€ · Immobilier 0,8 Md€)',
-      'Equans — énergies & services multi-techniques, transition énergétique',
-      'Bouygues Telecom — fibre & 5G, CA 8,1 Md€',
-      'TF1 — médias & streaming, CA 2,3 Md€',
-      'Grands contrats infrastructure (routes, ferroviaire, bâtiments publics)',
-    ],
-    swot: {
-      strengths:  [
-        'Diversification sectorielle résiliente — construction, services, télécom, médias',
-        'Structure financière nettement renforcée : gearing 28 %, liquidité 17,6 Md€',
-        'Equans : plateforme énergies & services à forte récurrence (18,7 Md€ CA)',
-        'Colas : leader mondial revêtements routiers',
-      ],
-      weaknesses: [
-        'Décote de conglomérat structurelle vs acteurs purs',
-        'Marges Construction sous la moyenne sectorielle (Vinci, Eiffage)',
-        'Gouvernance familiale (SCDM 28,3 %)',
-      ],
-      opps:       [
-        'Transition énergétique — accélération des contrats Equans',
-        'Bouygues Telecom : croissance fibre & 5G, fort levier opérationnel',
-        'Amélioration continue de la structure financière (objectif de désendettement)',
-      ],
-      risks:      [
-        'Marché du logement neuf sous pression (Bouygues Immobilier)',
-        'Disruption médias & publicité (TF1)',
-        'Consolidation télécom européen — pression concurrentielle',
-        'Environnement macro contrasté selon les métiers',
-      ],
-    },
-    competition: [
-      { name:'Vinci',    ticker:'DG.PA',  cap:'~50 Md€', pe:'~14x', note:'Leader concessions & construction mondial' },
-      { name:'Eiffage',  ticker:'FGR.PA', cap:'~8 Md€',  pe:'~12x', note:'Concurrent direct construction & concessions' },
-      { name:'Orange',   ticker:'ORA.PA', cap:'~25 Md€', pe:'~11x', note:'Concurrent télécom grand public' },
-      { name:'Engie',    ticker:'ENGI.PA',cap:'~35 Md€', pe:'~13x', note:'Concurrent énergies & services (Equans vs Engie Solutions)' },
-    ],
-    timeline: [
-      { date:'26 fév. 2026',  type:'earn', title:'Résultats annuels FY 2025 ✓', sub:'CA 56,877 Md€ · EBIT 2,331 Md€ · RN pdG 1,138 Md€. Publié le 26 février 2026.', past:true },
-      { date:'23 avr. 2026',  type:'ann',  title:'Assemblée Générale Mixte',     sub:'Vote résolutions, dont dividende 2,10 €/action au titre de FY 2025.' },
-      { date:'28 avr. 2026',  type:'div',  title:'Détachement dividende',        sub:'Dividende 2,10 €/action — rendement 4,7 % sur cours 44,35 € au 31 déc. 2025.' },
-      { date:'30 avr. 2026',  type:'div',  title:'Paiement dividende',           sub:'Versement effectif du dividende FY 2025.' },
-      { date:'7 mai 2026',    type:'earn', title:'Résultats T1 2026',            sub:'Publication du chiffre d\'affaires et des résultats du 1er trimestre 2026.' },
-      { date:'30 juil. 2026', type:'earn', title:'Résultats S1 2026',            sub:'Publication des résultats semestriels 2026.' },
-      { date:'5 nov. 2026',   type:'earn', title:'Résultats T3 2026',            sub:'Publication de l\'activité des neuf premiers mois de 2026.' },
-    ],
-    finances: {
-      year: 'FY 2025 — 31 décembre 2025',
-      kpis: [
-        { label:'Chiffre d\'affaires', val:'56,877 Md€', sub:'FY 2025 — +50,2 % international',      color:'var(--text)'  },
-        { label:'EBIT (Rés. opér.)',   val:'2,331 Md€',  sub:'Rés. opér. courant : 2,555 Md€',        color:'var(--gold)'  },
-        { label:'Résultat net pdG',    val:'1,138 Md€',  sub:'RN consolidé total : 1,272 Md€',         color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',          sub:'Live',                                   color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',          sub:'Live',                                   color:'var(--text)', live:'per' },
-        { label:'Rendement div.',      val:'4,7 %',      sub:'2,10 €/action — source : Bouygues FY2025',color:'var(--blue)'  },
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       ],
       accordions: [
         {
           title:'Dette & Liquidité',
           rows:[
-<<<<<<< HEAD
             ['Dette nette', '4,2 Md€'],
             ['Trésorerie', '7,8 Md€'],
             ['Ratio DN/EBITDA', '1,4x'],
-=======
-            ['Dette nette fin 2025',        '4,204 Md€'],
-            ['Dette nette fin 2024',        '6,066 Md€ (−1,862 Md€ en 1 an)'],
-            ['Trésorerie & équivalents',    '7,535 Md€'],
-            ['Liquidité totale',            '17,6 Md€'],
-            ['EBITDA après loyers (2025)',  '5,124 Md€'],
-            ['Ratio DN/EBITDA (calculé)',   '~0,82× (non publié sous cette forme)'],
-            ['Gearing',                     '28 % (vs 42 % fin 2024)'],
-            ['Notation S&P',               'A– perspective stable (depuis 12 sept. 2025)'],
-            ['Notation Moody\'s',           'A3 perspective stable (conf. 5 juin 2025)'],
-          ]
-        },
-        {
-          title:'Backlog — Construction Division',
-          rows:[
-            ['Backlog total Construction Division', '31,954 Md€ fin 2025 (≈ 32 Md€)'],
-            ['Dont Bouygues Construction',           '17,490 Md€'],
-            ['Dont Colas',                           '13,685 Md€'],
-            ['Dont Bouygues Immobilier',             '779 M€'],
-            ['Évolution vs fin 2024',               '−1 % publié / +1 % à périmètre & change cst.'],
-            ['France',                              '~12,8 Md€'],
-            ['Europe hors France',                  '~8,9 Md€'],
-            ['International hors Europe',           '~10,2 Md€'],
-            ['Note',                                'Backlog concerne la Construction Division uniquement — Equans, Telecom et TF1 non inclus'],
-          ]
-        },
-        {
-          title:'Structure du capital (31 déc. 2025)',
-          rows:[
-            ['Nombre d\'actions',           '385 323 631'],
-            ['SCDM (famille Bouygues)',     '28,30 %'],
-            ['Salariés',                    '19,20 %'],
-            ['Actions autodétenues',        '0,30 %'],
-            ['Autres actionnaires français','10,60 %'],
-            ['Actionnaires étrangers',      '41,60 %'],
-            ['Flottant reconstitué',        '52,2 % (hors SCDM, salariés, autocontrôle)'],
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
           ]
         },
       ]

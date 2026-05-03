@@ -3,40 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
 <title>BatiAnalyse — Macro & Conjoncture BTP</title>
-=======
-<title>Macro & Conjoncture BTP — Taux, matières premières, indicateurs | BatiAnalyse</title>
-<meta name="description" content="Indicateurs macro du secteur BTP : taux BCE, OAT 10 ans, crédit immobilier, matières premières (or, cuivre, pétrole), PMI Construction, mises en chantier. Données actualisées.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://batianalyse.fr/macro">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Macro & Conjoncture BTP — Indicateurs clés">
-<meta property="og:description" content="Indicateurs macro du secteur BTP : taux BCE, OAT 10 ans, crédit immobilier, matières premières (or, cuivre, pétrole), PMI Construction, mises en chantier. Données actualisées.">
-<meta property="og:url" content="https://batianalyse.fr/macro">
-<meta property="og:site_name" content="BatiAnalyse">
-<meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Macro & Conjoncture BTP — Indicateurs clés">
-<meta name="twitter:description" content="Indicateurs macro du secteur BTP : taux BCE, OAT 10 ans, crédit immobilier, matières premières (or, cuivre, pétrole), PMI Construction, mises en chantier. Données actualisées.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Macro-conjoncture BTP",
-  "url": "https://batianalyse.fr/macro",
-  "description": "Indicateurs macro du secteur BTP : taux BCE, OAT 10 ans, crédit immobilier, matières premières (or, cuivre, pétrole), PMI Construction, mises en chantier. Données actualisées.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "BatiAnalyse",
-    "url": "https://batianalyse.fr"
-  },
-  "inLanguage": "fr-FR"
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -205,32 +172,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 .impact-badge.neutre{color:var(--gold);border-color:rgba(184,155,94,0.3);}
 
 /* CHART CONTAINERS */
-<<<<<<< HEAD
 .chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;}
 .chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
 
-=======
-.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;position:relative;}
-.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
-
-/* CHART TOOLTIP */
-.chart-tooltip{position:absolute;pointer-events:none;background:#1a1a1a;border:1px solid #333;padding:8px 12px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.6;z-index:50;opacity:0;transition:opacity 0.12s;}
-.chart-tooltip.visible{opacity:1;}
-.chart-tooltip-date{color:var(--text-3);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;}
-.chart-tooltip-val{color:var(--white);font-size:14px;font-weight:600;}
-.chart-dot-hit{cursor:crosshair;opacity:0;transition:opacity 0.12s;}
-.chart-dot-hit:hover{opacity:1;}
-.chart-dot-vis{pointer-events:none;opacity:0;transition:opacity 0.12s;}
-.chart-dot-hit:hover+.chart-dot-vis,.chart-dot-hit:hover~.chart-dot-vis{opacity:1;}
-
-/* SPARK TOOLTIP */
-.spark-wrap{position:relative;display:inline-block;cursor:crosshair;}
-.spark-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #333;padding:4px 8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--white);white-space:nowrap;z-index:60;opacity:0;pointer-events:none;transition:opacity 0.12s;}
-.spark-wrap:hover .spark-tip{opacity:1;}
-
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 /* RATES GRID */
 .rates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
 .rate-card{background:var(--surface);border:1px solid var(--border);padding:18px;transition:border-color 0.15s;animation:kpiIn 0.4s ease forwards;opacity:0;}
@@ -362,11 +307,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
     <li><a href="/macro.html" class="active">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
-<<<<<<< HEAD
   <a href="#" class="nav-cta">Accès Premium</a>
-=======
-  <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileMacro').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -446,32 +387,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
     <!-- TAB 2 — MATIÈRES PREMIÈRES -->
     <div class="tab-panel" id="tab-matieres">
-<<<<<<< HEAD
       <div class="section-label">Prix des matériaux clés — Impact sur les marges BTP</div>
       <div class="section-title">Matières <em style="font-style:italic;color:var(--gold)">premières</em></div>
       <p class="section-sub">Données indicatives. Sources : LME, Euroconstruct, AIMCC. Mise à jour hebdomadaire.</p>
-=======
-      <div class="section-label">Cours des matières premières — ETFs de référence</div>
-      <div class="section-title">Matières <em style="font-style:italic;color:var(--gold)">premières</em></div>
-      <p class="section-sub">Données de marché. Sources : NYSEARCA, cours en EUR. Mise à jour quotidienne.</p>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 
       <div class="comm-filters">
         <button class="comm-filter-btn active" data-cat="tous">Tous</button>
         <button class="comm-filter-btn" data-cat="metaux">Métaux</button>
-<<<<<<< HEAD
         <button class="comm-filter-btn" data-cat="beton">Granulats & Béton</button>
         <button class="comm-filter-btn" data-cat="bois">Bois & Dérivés</button>
         <button class="comm-filter-btn" data-cat="energie">Énergie & Bitume</button>
-=======
-        <button class="comm-filter-btn" data-cat="energie">Énergie</button>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       </div>
 
       <table class="data-table" id="commTable">
         <thead>
           <tr>
-<<<<<<< HEAD
             <th onclick="sortComm('name')">Matériau</th>
             <th onclick="sortComm('current')">Prix actuel</th>
             <th onclick="sortComm('c1m')">1 mois</th>
@@ -479,14 +409,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
             <th onclick="sortComm('c12m')">12 mois</th>
             <th>Tendance</th>
             <th>Évolution 12M</th>
-=======
-            <th onclick="sortComm('name')">Actif</th>
-            <th onclick="sortComm('current')">Prix (EUR)</th>
-            <th onclick="sortComm('changeDay')">Var. jour</th>
-            <th onclick="sortComm('c12m')">Var. 1 an</th>
-            <th>Tendance</th>
-            <th>52 semaines</th>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
           </tr>
         </thead>
         <tbody id="commBody"></tbody>
@@ -494,7 +416,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 
       <div class="analysis-cards">
         <div class="analysis-card">
-<<<<<<< HEAD
           <div class="analysis-card-title">Métaux ferreux — Soulagement confirmé</div>
           <p>L'acier HRC recule de -11,8% sur 12 mois, effaçant une partie du choc de 2022. Cette détente profite directement aux constructeurs de charpentes métalliques et aux promoteurs de logements collectifs. Les analystes anticipent une stabilisation autour de 650-680 €/t au second semestre 2026.</p>
         </div>
@@ -545,25 +466,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           <circle cx="700" cy="120" r="4" fill="#60a5fa"/>
           <text x="686" y="112" font-family="DM Mono,monospace" font-size="9" fill="#60a5fa" text-anchor="middle">682€</text>
         </svg>
-=======
-          <div class="analysis-card-title">Métaux précieux — Dynamique haussière</div>
-          <p>L'or progresse de +7,6% sur un an, porté par les tensions géopolitiques et la demande de valeur refuge. L'argent affiche une performance exceptionnelle de +76,3% sur 12 mois, soutenu par la demande industrielle (panneaux solaires, électronique) et l'effet de rattrapage par rapport à l'or.</p>
-        </div>
-        <div class="analysis-card">
-          <div class="analysis-card-title">Énergie & métaux industriels — Signaux mixtes</div>
-          <p>Le pétrole (USO) reste en forte hausse sur 1 an (+34,1%) malgré un recul récent de -3,6% sur la séance, reflétant les incertitudes sur la demande mondiale. Le cuivre (CPER) recule de -7,5% sur un an, signalant un ralentissement de l'activité industrielle mondiale qui pourrait peser sur les coûts de construction.</p>
-        </div>
-      </div>
-
-      <!-- Or chart — interactive -->
-      <div class="chart-wrap" id="orChartWrap">
-        <div class="chart-title">Or (GLD) — Fourchette 52 semaines (EUR)</div>
-        <div class="chart-tooltip" id="orTooltip">
-          <div class="chart-tooltip-date" id="orTipDate"></div>
-          <div class="chart-tooltip-val" id="orTipVal"></div>
-        </div>
-        <svg id="orChart" viewBox="0 0 700 170" width="100%" height="170" style="cursor:crosshair"></svg>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       </div>
     </div>
 
@@ -678,33 +580,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
 <script>
 // ── DATA ──
 const commodities = [
-<<<<<<< HEAD
   { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
   { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
   { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
   { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
   { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
   { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#B89B5E' },
-=======
-  { id:'or', ticker:'GLD', name:'Or', cat:'metaux', unit:'EUR', current:'377,63', currentNum:377.63, changeDay:2.23, c12m:7.60, trend:'up', high52:'436,24', low52:'247,57', spark:[248,265,285,300,320,335,350,358,365,370,375,378], color:'#fbbf24' },
-  { id:'argent', ticker:'SLV', name:'Argent', cat:'metaux', unit:'EUR', current:'61,12', currentNum:61.12, changeDay:5.51, c12m:76.33, trend:'up', high52:'93,17', low52:'24,64', spark:[25,30,35,38,42,46,50,53,56,58,60,61], color:'#a78bfa' },
-  { id:'cuivre', ticker:'CPER', name:'Cuivre', cat:'metaux', unit:'EUR', current:'31,61', currentNum:31.61, changeDay:1.28, c12m:-7.54, trend:'down', high52:'34,31', low52:'22,98', spark:[34,33,32,31,30,29,28,29,30,31,31,32], color:'#fb923c' },
-  { id:'metaux-base', ticker:'DBB', name:'Métaux de base', cat:'metaux', unit:'EUR', current:'21,20', currentNum:21.20, changeDay:0.81, c12m:0.39, trend:'stable', high52:'22,07', low52:'15,09', spark:[21,19,17,16,15,16,17,18,19,20,21,21], color:'#60a5fa' },
-  { id:'petrole', ticker:'USO', name:'Pétrole', cat:'energie', unit:'EUR', current:'105,08', currentNum:105.08, changeDay:-3.60, c12m:34.11, trend:'up', high52:'122,16', low52:'52,40', spark:[52,60,70,78,85,92,98,105,110,115,112,105], color:'#ef4444' },
-  { id:'commodites', ticker:'DBC', name:'Indice Commodités', cat:'energie', unit:'EUR', current:'24,47', currentNum:24.47, changeDay:-0.41, c12m:-0.62, trend:'stable', high52:'25,25', low52:'17,38', spark:[25,23,21,19,18,17,18,20,22,23,24,24], color:'#B89B5E' },
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 ];
 
 const kpis = [
-  { slug:'taux-bce', icon:'📉', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11 Juin 2025', change:'↓ -50pb vs Mars 2026', changeClass:'good-down', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#B89B5E' },
-  { slug:'oat-10ans', icon:'📊', label:'OAT 10 ans France', val:'3,74%', unit:'10 Avril 2026', change:'↑ +62pb vs Janvier 2026', changeClass:'up', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#B89B5E' },
-  { slug:'permis-construire', icon:'📋', label:'Permis de construire', val:'33 151', unit:'logements — Février 2026', change:'', changeClass:'down', source:'SDES, 31 Mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#B89B5E' },
-  { slug:'icc', icon:'🏛️', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', source:'INSEE, 24 Mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
-  { slug:'bt01', icon:'📐', label:'Indice BT01', val:'134,7', unit:'Janvier 2026 (base 100=2010)', change:'', changeClass:'', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
-  { slug:'emploi-btp', icon:'👷', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an — T4 2025', change:'▼ -3 100 trim. / -15 800 an', changeClass:'down', source:'INSEE, 30 Janvier 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#B89B5E' },
-  { slug:'chomage', icon:'📉', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte, T4 2025', change:'', changeClass:'', source:'INSEE, 10 Février 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
-  { slug:'credit-immobilier', icon:'🏦', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — Février 2026', change:'Prod. 11,6 Mds€ · Encours +0,8%/an', changeClass:'', source:'BdF, Février 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
-  { slug:'credit-conso', icon:'💳', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — Février 2026', change:'▲ +3,1% / an', changeClass:'up', source:'BdF / FBF, Février 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
+  { slug:'taux-bce', icon:'↘', label:'Taux BCE dépôt', val:'2,00%', unit:'depuis 11 Juin 2025', change:'↓ -50pb vs Mars 2026', changeClass:'good-down', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.0], color:'#B89B5E' },
+  { slug:'oat-10ans', icon:'≡', label:'OAT 10 ans France', val:'3,74%', unit:'10 Avril 2026', change:'↑ +62pb vs Janvier 2026', changeClass:'up', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74], color:'#B89B5E' },
+  { slug:'permis-construire', icon:'□', label:'Permis de construire', val:'33 151', unit:'logements — Février 2026', change:'', changeClass:'down', source:'SDES, 31 Mars 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151], color:'#B89B5E' },
+  { slug:'icc', icon:'◈', label:'ICC', val:'2 058', unit:'T4 2025 (base 1953=100)', change:'', changeClass:'', source:'INSEE, 24 Mars 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058], color:'#B89B5E' },
+  { slug:'bt01', icon:'∠', label:'Indice BT01', val:'134,7', unit:'Janvier 2026 (base 100=2010)', change:'', changeClass:'', source:'AIMCC / FNTP', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7], color:'#B89B5E' },
+  { slug:'emploi-btp', icon:'⊙', label:'Emploi BTP', val:'-0,2% / trim.', unit:'-1,0% / an — T4 2025', change:'▼ -3 100 trim. / -15 800 an', changeClass:'down', source:'INSEE, 30 Janvier 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420], color:'#B89B5E' },
+  { slug:'chomage', icon:'↘', label:'Taux chômage', val:'7,9%', unit:'BIT — France hors Mayotte, T4 2025', change:'', changeClass:'', source:'INSEE, 10 Février 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9], color:'#B89B5E' },
+  { slug:'credit-immobilier', icon:'▣', label:'Crédit immobilier (BdF)', val:'3,23%', unit:'taux moyen — Février 2026', change:'Prod. 11,6 Mds€ · Encours +0,8%/an', changeClass:'', source:'BdF, Février 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23], color:'#B89B5E' },
+  { slug:'credit-conso', icon:'▭', label:'Crédit à la conso', val:'218 Mds€', unit:'encours total — Février 2026', change:'▲ +3,1% / an', changeClass:'up', source:'BdF / FBF, Février 2026', spark:[210,211,212,213,214,215,216,217,217.5,218], color:'#B89B5E' },
 ];
 
 const rates = [
@@ -717,7 +610,7 @@ const rates = [
 // ── SECTIONS DETAIL DATA ──
 const SECTIONS = {
   'taux-bce': {
-    name:'Taux BCE dépôt', icon:'📉',
+    name:'Taux BCE dépôt', icon:'↘',
     desc:'Taux directeur de facilité de dépôt de la Banque Centrale Européenne. Référence pour le coût du crédit en zone euro.',
     history:[
       { date:'11 Juin 2025', val:'2,00%', note:'Baisse de 25pb (de 2,25% à 2,00%). Taux au plus bas depuis fin 2022. Le cycle de détente monétaire reste actif.', src:'BCE — Décision de politique monétaire' },
@@ -726,7 +619,7 @@ const SECTIONS = {
     ]
   },
   'oat-10ans': {
-    name:'OAT 10 ans France', icon:'📊',
+    name:'OAT 10 ans France', icon:'≡',
     desc:'Rendement de l\'obligation assimilable du Trésor à 10 ans. Baromètre des taux longs et du coût du financement immobilier à long terme.',
     history:[
       { date:'10 Avril 2026', val:'3,74%', note:'Remontée significative des taux longs français. Écart croissant avec la BCE (spread). Pression directe sur les taux immobiliers et le financement promoteur.', src:'AFT — Agence France Trésor' },
@@ -734,42 +627,42 @@ const SECTIONS = {
     ]
   },
   'permis-construire': {
-    name:'Permis de construire', icon:'📋',
+    name:'Permis de construire', icon:'□',
     desc:'Nombre de logements autorisés à la construction. Indicateur avancé de l\'activité du bâtiment résidentiel. Publication mensuelle SDES (Sit@del2).',
     history:[
       { date:'31 Mars 2026', val:'33 151 logements', note:'Données Février 2026 publiées par le SDES. Poursuite de la tendance baissière des autorisations, illustrant la dépression durable du marché du neuf.', src:'SDES — Sit@del2' },
     ]
   },
   'icc': {
-    name:'ICC — Indice du Coût de la Construction', icon:'🏛️',
+    name:'ICC — Indice du Coût de la Construction', icon:'◈',
     desc:'Publié par l\'INSEE, base 1953=100. Utilisé pour l\'indexation des loyers commerciaux (baux 3-6-9). Publication trimestrielle.',
     history:[
       { date:'24 Mars 2026', val:'2 058', note:'T4 2025. Légère détente de l\'indice sur le trimestre. En baisse par rapport au pic de 2 156 observé précédemment.', src:'INSEE' },
     ]
   },
   'bt01': {
-    name:'Indice BT01 — Tous corps d\'état', icon:'📐',
+    name:'Indice BT01 — Tous corps d\'état', icon:'∠',
     desc:'Indice national du bâtiment, base 100=2010. Référence pour l\'actualisation des marchés de travaux et des devis. Publié mensuellement par l\'AIMCC / FNTP.',
     history:[
       { date:'Janvier 2026', val:'134,7', note:'Progression régulière. Représente une hausse de +34,7% depuis 2010.', src:'AIMCC / FNTP' },
     ]
   },
   'emploi-btp': {
-    name:'Emploi BTP', icon:'👷',
+    name:'Emploi BTP', icon:'⊙',
     desc:'Emploi salarié dans la construction en France. Indicateur de tension sectorielle et de santé économique du BTP.',
     history:[
       { date:'30 Janvier 2026', val:'-0,2% / trim. · -1,0% / an', note:'T4 2025. -3 100 emplois sur le trimestre, -15 800 sur un an. La contraction se poursuit, reflet direct de la baisse d\'activité dans le neuf.', src:'INSEE — Estimations d\'emploi' },
     ]
   },
   'chomage': {
-    name:'Taux de chômage', icon:'📉',
+    name:'Taux de chômage', icon:'↘',
     desc:'Taux de chômage au sens du BIT, France hors Mayotte. Contexte macroéconomique général, influençant la demande de logement.',
     history:[
       { date:'10 Février 2026', val:'7,9%', note:'T4 2025. Légère remontée par rapport aux trimestres précédents. France hors Mayotte, périmètre BIT.', src:'INSEE — Enquête Emploi' },
     ]
   },
   'credit-immobilier': {
-    name:'Crédit immobilier (BdF)', icon:'🏦',
+    name:'Crédit immobilier (BdF)', icon:'▣',
     desc:'Taux moyen des crédits immobiliers aux particuliers et production mensuelle. Source officielle Banque de France.',
     history:[
       { date:'Février 2026', val:'3,23% · Prod. 11,6 Mds€', note:'Taux moyen de la production de crédits immobiliers. Production mensuelle de 11,6 milliards d\'euros. Encours total en hausse de +0,8% sur un an.', src:'Banque de France — Stat Info Crédits' },
@@ -777,7 +670,7 @@ const SECTIONS = {
     ]
   },
   'credit-conso': {
-    name:'Crédit à la consommation', icon:'💳',
+    name:'Crédit à la consommation', icon:'▭',
     desc:'Encours total et évolution des crédits à la consommation en France. Indicateur de la confiance des ménages et de la consommation.',
     history:[
       { date:'Février 2026', val:'218 Mds€ · +3,1%/an', note:'Encours total des crédits à la consommation en hausse de 3,1% sur un an. Signal de dynamisme de la consommation malgré le contexte de taux.', src:'Banque de France / FBF' },
@@ -818,11 +711,7 @@ function openKpiModal(slug) {
         <div><strong>Période :</strong> ${k.unit}</div>
         <div><strong>Source :</strong> ${k.source}</div>
       </div>
-<<<<<<< HEAD
       <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40)}</div>
-=======
-      <div style="margin-left:auto;">${makeSpark(k.spark, k.color, 120, 40, s.name)}</div>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </div>
     <div class="modal-section-label">Historique des publications</div>
     <div class="modal-tl">${histHtml}</div>
@@ -842,143 +731,15 @@ function closeKpiModal() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModal(); });
 
 // ── SPARKLINE ──
-<<<<<<< HEAD
 function makeSpark(data, color, w=80, h=24) {
-=======
-function makeSpark(data, color, w=80, h=24, label) {
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   const min = Math.min(...data), max = Math.max(...data);
   const range = max - min || 1;
   const pts = data.map((v,i) => `${i*(w/(data.length-1))},${h-(((v-min)/range)*(h-4))-2}`).join(' ');
   const area = pts + ` ${w},${h} 0,${h}`;
-<<<<<<< HEAD
   return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
     <polygon points="${area}" fill="${color}" opacity="0.12"/>
     <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
   </svg>`;
-=======
-  const tipText = label ? label : `${min.toLocaleString('fr-FR')} → ${max.toLocaleString('fr-FR')}`;
-  const lastVal = data[data.length-1];
-  const firstVal = data[0];
-  const pct = ((lastVal - firstVal) / Math.abs(firstVal) * 100).toFixed(1);
-  const sign = pct > 0 ? '+' : '';
-  return `<span class="spark-wrap">
-    <span class="spark-tip">${tipText} (${sign}${pct}%)</span>
-    <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
-      <polygon points="${area}" fill="${color}" opacity="0.12"/>
-      <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
-    </svg>
-  </span>`;
-}
-
-// ── OR CHART (interactive) ──
-function renderOrChart() {
-  const orData = [
-    { month:"avr'25", val:248 }, { month:'mai', val:265 }, { month:'juin', val:285 },
-    { month:'juil', val:300 }, { month:'août', val:320 }, { month:'sep', val:335 },
-    { month:'oct', val:350 }, { month:'nov', val:358 }, { month:'déc', val:365 },
-    { month:"jan'26", val:370 }, { month:'fév', val:375 }, { month:'avr', val:377.63 },
-  ];
-  const W = 700, H = 150, PAD_TOP = 10, PAD_BOT = 30;
-  const chartH = H - PAD_TOP - PAD_BOT;
-  const yMin = 247, yMax = 436;
-  const yRange = yMax - yMin;
-
-  function toX(i) { return 36 + i * ((W - 36) / (orData.length - 1)); }
-  function toY(v) { return PAD_TOP + chartH - ((v - yMin) / yRange) * chartH; }
-
-  const pts = orData.map((d, i) => `${toX(i)},${toY(d.val)}`).join(' ');
-  const area = pts + ` ${toX(orData.length-1)},${PAD_TOP + chartH} ${toX(0)},${PAD_TOP + chartH}`;
-
-  const gridLines = [yMax, yMax - yRange/3, yMax - 2*yRange/3, yMin].map(v =>
-    `<line x1="0" y1="${toY(v)}" x2="${W}" y2="${toY(v)}" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-     <text x="4" y="${toY(v)-2}" font-family="DM Mono,monospace" font-size="9" fill="#5a5446">${Math.round(v)}</text>`
-  ).join('');
-
-  const xLabels = orData.map((d, i) =>
-    `<text x="${toX(i)}" y="${H - 2}" font-family="DM Mono,monospace" font-size="8" fill="#5a5446" text-anchor="middle">${d.month}</text>`
-  ).join('');
-
-  // Vertical hover line (hidden by default)
-  const hoverLine = `<line id="orHoverLine" x1="0" y1="${PAD_TOP}" x2="0" y2="${PAD_TOP + chartH}" stroke="rgba(184,155,94,0.3)" stroke-width="1" stroke-dasharray="3 2" opacity="0"/>`;
-
-  // Interactive hit circles (large invisible) + visible dots
-  const dots = orData.map((d, i) => {
-    const cx = toX(i), cy = toY(d.val);
-    return `<circle cx="${cx}" cy="${cy}" r="16" fill="transparent" class="or-hit" data-idx="${i}"/>
-            <circle cx="${cx}" cy="${cy}" r="3.5" fill="#fbbf24" opacity="0" class="or-dot" id="orDot${i}"/>`;
-  }).join('');
-
-  const svg = document.getElementById('orChart');
-  svg.innerHTML = `
-    <defs>
-      <linearGradient id="orGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.25"/>
-        <stop offset="100%" stop-color="#fbbf24" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    ${gridLines}
-    <polygon points="${area}" fill="url(#orGrad)"/>
-    <polyline points="${pts}" stroke="#fbbf24" stroke-width="2" fill="none"/>
-    ${xLabels}
-    ${hoverLine}
-    ${dots}
-    <circle cx="${toX(orData.length-1)}" cy="${toY(orData[orData.length-1].val)}" r="4" fill="#fbbf24"/>
-    <text x="${toX(orData.length-1)-14}" y="${toY(orData[orData.length-1].val)-8}" font-family="DM Mono,monospace" font-size="9" fill="#fbbf24" text-anchor="middle">${orData[orData.length-1].val}€</text>
-  `;
-
-  // Hover logic
-  const tooltip = document.getElementById('orTooltip');
-  const tipDate = document.getElementById('orTipDate');
-  const tipVal = document.getElementById('orTipVal');
-  const hoverLineEl = document.getElementById('orHoverLine');
-  const wrap = document.getElementById('orChartWrap');
-
-  svg.addEventListener('mousemove', function(e) {
-    const rect = svg.getBoundingClientRect();
-    const scaleX = W / rect.width;
-    const mouseX = (e.clientX - rect.left) * scaleX;
-
-    // Find closest data point
-    let closest = 0, closestDist = Infinity;
-    orData.forEach((d, i) => {
-      const dist = Math.abs(toX(i) - mouseX);
-      if (dist < closestDist) { closestDist = dist; closest = i; }
-    });
-
-    const d = orData[closest];
-    const cx = toX(closest);
-
-    // Show hover line
-    hoverLineEl.setAttribute('x1', cx);
-    hoverLineEl.setAttribute('x2', cx);
-    hoverLineEl.setAttribute('opacity', '1');
-
-    // Show dot
-    document.querySelectorAll('.or-dot').forEach(el => el.setAttribute('opacity', '0'));
-    const dot = document.getElementById('orDot' + closest);
-    if (dot) dot.setAttribute('opacity', '1');
-
-    // Position tooltip
-    tipDate.textContent = d.month;
-    tipVal.textContent = d.val.toLocaleString('fr-FR') + ' €';
-    tooltip.classList.add('visible');
-
-    const tipX = (cx / W) * rect.width;
-    const tipW = tooltip.offsetWidth;
-    let left = tipX - tipW / 2;
-    if (left < 0) left = 0;
-    if (left + tipW > rect.width) left = rect.width - tipW;
-    tooltip.style.left = left + 'px';
-    tooltip.style.top = '36px';
-  });
-
-  svg.addEventListener('mouseleave', function() {
-    tooltip.classList.remove('visible');
-    hoverLineEl.setAttribute('opacity', '0');
-    document.querySelectorAll('.or-dot').forEach(el => el.setAttribute('opacity', '0'));
-  });
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 }
 
 // ── KPI GRID ──
@@ -992,11 +753,7 @@ function renderKpis() {
       <div class="kpi-unit">${k.unit}</div>
       ${k.change ? `<span class="kpi-change ${k.changeClass}">${k.change}</span>` : ''}
       ${k.note ? `<div class="kpi-note">${k.note}</div>` : ''}
-<<<<<<< HEAD
       <div class="kpi-spark">${makeSpark(k.spark, k.color)}</div>
-=======
-      <div class="kpi-spark">${makeSpark(k.spark, k.color, 80, 24, k.label)}</div>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="kpi-source">Source : ${k.source}</div>
     </div>
   `).join('');
@@ -1015,7 +772,6 @@ function renderComm() {
     });
   document.getElementById('commBody').innerHTML = data.map((c, i) => `
     <tr style="animation-delay:${i*0.05}s">
-<<<<<<< HEAD
       <td class="td-name">${c.name} <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">${c.unit}</span></td>
       <td class="td-current">${c.current}</td>
       <td class="${c.c1m < 0 ? 'change-neg' : 'change-pos'}">${c.c1m > 0 ? '+' : ''}${c.c1m}%</td>
@@ -1023,14 +779,6 @@ function renderComm() {
       <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
       <td style="font-size:16px">${c.trend === 'down' ? '↓' : '↑'}</td>
       <td>${makeSpark(c.spark, c.color)}</td>
-=======
-      <td class="td-name">${c.name} <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3)">${c.ticker}</span></td>
-      <td class="td-current">${c.current} <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3)">${c.unit}</span></td>
-      <td class="${c.changeDay < 0 ? 'change-neg' : 'change-pos'}">${c.changeDay > 0 ? '+' : ''}${c.changeDay}%</td>
-      <td class="${c.c12m < 0 ? 'change-neg' : 'change-pos'}" style="font-weight:700">${c.c12m > 0 ? '+' : ''}${c.c12m}%</td>
-      <td style="font-size:16px">${c.trend === 'down' ? '↓' : c.trend === 'up' ? '↑' : '→'}</td>
-      <td>${makeSpark(c.spark, c.color, 80, 24, c.name+' · 52 sem')}</td>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </tr>
   `).join('');
 }
@@ -1058,11 +806,7 @@ function renderRates() {
       <div class="rate-change" style="color:${r.changeBp < 0 ? 'var(--green)' : r.changeBp > 0 ? 'var(--red)' : 'var(--text-3)'}">
         ${r.changeBp !== 0 ? (r.changeBp > 0 ? '▲ +' : '▼ ') + Math.abs(r.changeBp) + ' pb' : '→ stable'}
       </div>
-<<<<<<< HEAD
       <div>${makeSpark(r.spark, '#B89B5E', 100, 24)}</div>
-=======
-      <div>${makeSpark(r.spark, '#B89B5E', 100, 24, r.label)}</div>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="rate-comment">${r.comment}</div>
     </div>
   `).join('');
@@ -1117,10 +861,6 @@ function resetFilters() {
 // ── INIT ──
 renderKpis();
 renderComm();
-<<<<<<< HEAD
-=======
-renderOrChart();
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 </script>
 <!-- ── KPI MODAL OVERLAY ── -->
 <div id="kpi-modal-overlay" class="kpi-modal-overlay" onclick="if(event.target===this)closeKpiModal()">

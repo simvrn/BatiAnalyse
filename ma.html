@@ -3,40 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
 <title>BatiAnalyse — M&A & Private Equity BTP</title>
-=======
-<title>M&A BTP — Fusions, acquisitions et opérations stratégiques | BatiAnalyse</title>
-<meta name="description" content="Analyse des opérations M&A dans le secteur BTP : fusions-acquisitions, build-up, LBO, joint-ventures, IPO. Décryptage des deals et des stratégies de croissance externe.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://batianalyse.fr/ma">
-<meta property="og:type" content="website">
-<meta property="og:title" content="M&A BTP — Fusions et acquisitions">
-<meta property="og:description" content="Analyse des opérations M&A dans le secteur BTP : fusions-acquisitions, build-up, LBO, joint-ventures, IPO. Décryptage des deals et des stratégies de croissance externe.">
-<meta property="og:url" content="https://batianalyse.fr/ma">
-<meta property="og:site_name" content="BatiAnalyse">
-<meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="M&A BTP — Fusions et acquisitions">
-<meta name="twitter:description" content="Analyse des opérations M&A dans le secteur BTP : fusions-acquisitions, build-up, LBO, joint-ventures, IPO. Décryptage des deals et des stratégies de croissance externe.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "M&A BTP",
-  "url": "https://batianalyse.fr/ma",
-  "description": "Analyse des opérations M&A dans le secteur BTP : fusions-acquisitions, build-up, LBO, joint-ventures, IPO. Décryptage des deals et des stratégies de croissance externe.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "BatiAnalyse",
-    "url": "https://batianalyse.fr"
-  },
-  "inLanguage": "fr-FR"
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -328,25 +295,13 @@ h1 em { font-style:italic; color:var(--gold); }
 }
 
 /* ── TABLE VIEW ── */
-<<<<<<< HEAD
 .deals-table-wrap { overflow-x:auto; }
 .deals-table {
   width:100%; border-collapse:collapse;
-=======
-.deals-table-wrap {
-  overflow-x:auto;
-  position:relative; /* stacking context stable, sans z-index flottant */
-}
-.deals-table {
-  width:100%;
-  border-collapse:separate; /* évite le bug Chrome : border-collapse:collapse casse position:sticky */
-  border-spacing:0;
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 }
 .deals-table th {
   font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.18em;
   text-transform:uppercase; color:var(--text-3);
-<<<<<<< HEAD
   padding:10px 14px; border-bottom:1px solid var(--border);
   text-align:left; white-space:nowrap; background:var(--surface);
   position:sticky; top:56px; z-index:40;
@@ -356,31 +311,10 @@ h1 em { font-style:italic; color:var(--gold); }
   font-size:13px; vertical-align:middle; white-space:nowrap;
 }
 .deals-table tr {
-=======
-  padding:10px 14px;
-  border-bottom:2px solid var(--border);
-  text-align:left; white-space:nowrap;
-  background:var(--surface); /* fond solide — pas transparent */
-  /* Pas de position:sticky ni z-index : conflit direct avec .quick-filter-bar (sticky top:56px z-index:50)
-     qui recouvrait le thead. Header normal, toujours visible, sans overlap possible. */
-}
-.deals-table td {
-  padding:12px 14px;
-  border-bottom:1px solid rgba(184,155,94,0.06);
-  font-size:13px; vertical-align:middle; white-space:nowrap;
-}
-/* Evite le double-border sur border-collapse:separate */
-.deals-table tbody tr:last-child td { border-bottom:none; }
-.deals-table thead tr {
-  /* Pas d'animation sur le header — évite que transform casse position:sticky des th */
-}
-.deals-table tbody tr {
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   cursor:pointer; transition:background 0.15s;
   opacity:0; transform:translateY(8px);
   animation: rowIn 0.3s ease forwards;
 }
-<<<<<<< HEAD
 .deals-table tr:hover td { background:var(--gold-glow); }
 @keyframes rowIn {
   to { opacity:1; transform:translateY(0); }
@@ -397,24 +331,6 @@ h1 em { font-style:italic; color:var(--gold); }
 .deals-table tr:nth-child(10) { animation-delay:0.40s; }
 .deals-table tr:nth-child(11) { animation-delay:0.44s; }
 .deals-table tr:nth-child(12) { animation-delay:0.48s; }
-=======
-.deals-table tbody tr:hover td { background:var(--gold-glow); }
-@keyframes rowIn {
-  to { opacity:1; transform:translateY(0); }
-}
-.deals-table tbody tr:nth-child(1)  { animation-delay:0.04s; }
-.deals-table tbody tr:nth-child(2)  { animation-delay:0.08s; }
-.deals-table tbody tr:nth-child(3)  { animation-delay:0.12s; }
-.deals-table tbody tr:nth-child(4)  { animation-delay:0.16s; }
-.deals-table tbody tr:nth-child(5)  { animation-delay:0.20s; }
-.deals-table tbody tr:nth-child(6)  { animation-delay:0.24s; }
-.deals-table tbody tr:nth-child(7)  { animation-delay:0.28s; }
-.deals-table tbody tr:nth-child(8)  { animation-delay:0.32s; }
-.deals-table tbody tr:nth-child(9)  { animation-delay:0.36s; }
-.deals-table tbody tr:nth-child(10) { animation-delay:0.40s; }
-.deals-table tbody tr:nth-child(11) { animation-delay:0.44s; }
-.deals-table tbody tr:nth-child(12) { animation-delay:0.48s; }
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 
 .col-date { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); }
 .col-cible { font-weight:700; font-size:13px; }
@@ -423,11 +339,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .col-multiple { font-family:'DM Mono',monospace; font-size:12px; color:var(--text-2); }
 .col-geo { font-family:'DM Mono',monospace; font-size:11px; }
 .col-action { color:var(--gold); font-family:'DM Mono',monospace; font-size:14px; opacity:0.4; transition:opacity 0.15s; }
-<<<<<<< HEAD
 .deals-table tr:hover .col-action { opacity:1; }
-=======
-.deals-table tbody tr:hover .col-action { opacity:1; }
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 .na { color:var(--text-3); font-family:'DM Mono',monospace; font-size:11px; }
 
 /* Type badges */
@@ -453,11 +365,7 @@ h1 em { font-style:italic; color:var(--gold); }
 .badge-statut.rumeur    { color:var(--text-3); border:1px dashed rgba(90,84,70,0.5); background:transparent; }
 
 /* ── CARDS VIEW ── */
-<<<<<<< HEAD
 .deals-cards { display:none; grid-template-columns:1fr 1fr; gap:16px; padding:20px 24px; }
-=======
-.deals-cards { display:none; grid-template-columns:repeat(3,1fr); gap:16px; padding:20px 24px; }
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 .deals-cards.visible { display:grid; }
 .deals-table-wrap.hidden { display:none; }
 
@@ -631,12 +539,6 @@ h1 em { font-style:italic; color:var(--gold); }
   .deals-table { font-size: 11px; }
   .deals-table th, .deals-table td { padding: 8px 8px; white-space: nowrap; }
 
-<<<<<<< HEAD
-=======
-  .deals-cards { grid-template-columns: 1fr 1fr; }
-}
-@media(max-width:600px){
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   .deals-cards { grid-template-columns: 1fr; }
 
   .featured-deal-inner { flex-direction: column; }
@@ -662,11 +564,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
-<<<<<<< HEAD
   <a href="#" class="nav-cta">Accès Premium</a>
-=======
-  <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
   <button class="nav-hamburger" onclick="document.getElementById('navMobileMA').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -685,11 +583,7 @@ h1 em { font-style:italic; color:var(--gold); }
     <div class="page-header-left">
       <div class="page-breadcrumb">BatiAnalyse <span>/</span> <a href="/ma-hub" style="color:var(--gold);text-decoration:none;">M&A Hub</a> <span>/</span> Opérations</div>
       <h1>Fusions &amp; <em>Acquisitions</em></h1>
-<<<<<<< HEAD
       <div class="page-sub">127 opérations suivies · Mis à jour vendredi 13 mars 2026</div>
-=======
-      <div class="page-sub">Mis à jour dimanche 20 avril 2026</div>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </div>
     <div class="header-stats">
       <div class="hstat">
@@ -778,7 +672,6 @@ h1 em { font-style:italic; color:var(--gold); }
   <main class="main-content">
 
     <!-- FEATURED DEAL -->
-<<<<<<< HEAD
     <div class="featured-deal">
       <div class="featured-deal-inner">
         <div>
@@ -791,31 +684,13 @@ h1 em { font-style:italic; color:var(--gold); }
           <div class="badge-boucle">● BOUCLÉ</div>
           <br>
           <a href="/ma-entreprise.html?id=gcf-ingenierie" class="featured-cta">Voir le détail →</a>
-=======
-    <div class="featured-deal" style="margin-top:0;">
-      <div class="featured-deal-inner">
-        <div>
-          <div class="deal-week-tag">Analyse complète</div>
-          <div class="featured-deal-title">Bouygues acquiert Equans — le pari des services multi-techniques</div>
-          <div class="featured-deal-sub">Acquisition · Services multi-techniques · 7,1 Md€ VE · Plus grand deal Bouygues · Bilan avril 2026</div>
-        </div>
-        <div class="featured-deal-right">
-          <div class="featured-amount" style="font-size:clamp(20px,2.2vw,28px);">7,1 Md€ VE</div>
-          <div class="badge-boucle">● BOUCLÉ Sept. 2023</div>
-          <br>
-          <a href="/bouygues-equans" class="featured-cta">Lire l'analyse →</a>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
         </div>
       </div>
     </div>
 
     <!-- RESULTS META -->
     <div class="results-meta">
-<<<<<<< HEAD
       <div>Affichage de <strong id="resultCount">12</strong> opérations</div>
-=======
-      <div>Affichage de <strong id="resultCount">2</strong> opérations</div>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="data-disclaimer">Données indicatives</div>
     </div>
 
@@ -860,12 +735,7 @@ h1 em { font-style:italic; color:var(--gold); }
 
 <script>
 const deals = [
-<<<<<<< HEAD
   { id:'gcf-ingenierie', date:'2026-03-11', cible:'GCF Ingénierie', acquéreur:'Ardian Infrastructure', secteur:'construction', type:'lbo', statut:'bouclé', montant:340, multiple:8.2, géo:'FR', taille:'mid', conseilleursAcq:['Rothschild & Co','Gide Loyrette Nouel'], conseillersCible:['DC Advisory','Linklaters'], résumé:"Ardian acquiert la majorité du capital de GCF Ingénierie, ETI de génie civil présente dans 8 régions françaises. La cible réalise 210M€ de CA pour 41M€ d'EBITDA 2025. Le deal valorise l'entreprise à 8,2x l'EBITDA, en ligne avec les multiples récents du secteur pour une ETI bien positionnée sur le génie civil industriel." },
-=======
-  { id:'bouygues-equans', date:'2023-09-15', cible:'Equans', acquéreur:'Bouygues', secteur:'services multi-techniques', type:'acquisition', statut:'bouclé', montant:6100, multiple:null, géo:'FR', taille:'large', conseilleursAcq:[], conseillersCible:[], résumé:"Bouygues acquiert Equans (ex-Engie Solutions), leader européen des services multi-techniques, pour 7,1 Md€ VE (6,1 Md€ equity). Le deal transforme Bouygues Energies & Services en acteur de rang mondial avec 74 000 collaborateurs et ~12 Md€ de CA.", link:'/bouygues-equans' },
-  { id:'spie-euroconfort', date:'2024-01-15', cible:'J.D. Euroconfort', acquéreur:'SPIE', secteur:'génie climatique', type:'acquisition', statut:'bouclé', montant:null, multiple:null, géo:'FR', taille:'small', conseilleursAcq:[], conseillersCible:[], résumé:"SPIE acquiert J.D. Euroconfort, ETI spécialisée en génie climatique (CA ~35 M€). La thèse d'acquisition repose sur le tournant réglementaire F-Gas III. 27 mois après le closing, la directive entre en application et valide le positionnement stratégique de la cible.", link:'/spie-euroconfort' },
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
 ];
 
 // Active filters state
@@ -954,11 +824,7 @@ function renderTable(filtered) {
   }
   empty.style.display = 'none';
   tbody.innerHTML = filtered.map((d, i) => `
-<<<<<<< HEAD
     <tr onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i * 0.04}s">
-=======
-    <tr onclick="window.location='${d.link||'/ma-entreprise.html?id='+d.id}'" style="animation-delay:${i * 0.04}s">
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <td class="col-date">${formatDate(d.date)}</td>
       <td class="col-cible">${d.cible}</td>
       <td class="col-acq">${d.acquéreur}</td>
@@ -982,11 +848,7 @@ function renderCards(filtered) {
   container.innerHTML = filtered.map((d, i) => {
     const allAdvisors = [...d.conseilleursAcq, ...d.conseillersCible];
     return `
-<<<<<<< HEAD
     <div class="deal-card" onclick="window.location='/ma-entreprise.html?id=${d.id}'" style="animation-delay:${i*0.05}s">
-=======
-    <div class="deal-card" onclick="window.location='${d.link||'/ma-entreprise.html?id='+d.id}'" style="animation-delay:${i*0.05}s">
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
       <div class="card-date">${formatDate(d.date)}</div>
       <div class="card-cible">${d.cible}</div>
       <div class="card-acq">Acquis par ${d.acquéreur}</div>
@@ -1000,11 +862,7 @@ function renderCards(filtered) {
         <span class="card-multiple">${formatMultiple(d.multiple)}</span>
       </div>
       ${allAdvisors.length > 0 ? `<div class="card-advisors"><strong>Conseilleurs :</strong> ${allAdvisors.join(', ')}</div>` : ''}
-<<<<<<< HEAD
       <a href="/ma-entreprise.html?id=${d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
-=======
-      <a href="${d.link||'/ma-entreprise.html?id='+d.id}" class="card-cta" onclick="event.stopPropagation()">Voir le deal →</a>
->>>>>>> c28601ea3433019a35e0b8f37d231dca460dccef
     </div>
   `}).join('');
 }
