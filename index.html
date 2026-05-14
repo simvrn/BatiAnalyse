@@ -1129,6 +1129,13 @@ loadTicker()
 // ── BLOG PREVIEW — articles statiques + WordPress REST API ──
 const STATIC_BLOG_ARTICLES = [
   {
+    title: "VINCI rachète Cobra IS à ACS : pivot structurel vers l'énergie soldé en 2025",
+    excerpt: "4,6 Md€ de valeur d'entreprise, coût total 5,3 Md€, earn-out soldé en août 2025. Marge ROPA 7,4% dès la première année. Analyse complète du deal et signal faible sur la consolidation EPC énergie mondiale.",
+    cat: "Analyse M&A",
+    date: "14 mai 2026",
+    url: "/vinci-cobra-is"
+  },
+  {
     title: "Électricité : qui gagne vraiment de l'argent dans cette filière ?",
     excerpt: "Comparatif des marges EBIT de 9 acteurs de la filière électrique française : fabricants de câbles, distributeurs, installateurs. Qui capture réellement la valeur ?",
     cat: "Analyse filière",
@@ -1140,25 +1147,33 @@ const STATIC_BLOG_ARTICLES = [
 async function loadBlogPreview() {
   const container = document.getElementById('blogPreview')
 
-  // Article statique toujours affiché en première position (featured)
-  const staticCard = `
-    <div class="article-card featured" onclick="location.href='${STATIC_BLOG_ARTICLES[0].url}'" style="cursor:pointer;background:var(--surface);">
-      <div style="position:relative">
-        <div class="article-category">${STATIC_BLOG_ARTICLES[0].cat}</div>
-        <div class="article-title">${STATIC_BLOG_ARTICLES[0].title}</div>
-        <div class="article-excerpt">${STATIC_BLOG_ARTICLES[0].excerpt}</div>
-        <div class="article-meta"><span>${STATIC_BLOG_ARTICLES[0].date}</span></div>
-      </div>
-    </div>`
+  // Premier article statique en featured, les suivants en cartes normales
+  const staticCards = STATIC_BLOG_ARTICLES.map((art, i) => i === 0
+    ? `<div class="article-card featured" onclick="location.href='${art.url}'" style="cursor:pointer;background:var(--surface);">
+        <div style="position:relative">
+          <div class="article-category">${art.cat}</div>
+          <div class="article-title">${art.title}</div>
+          <div class="article-excerpt">${art.excerpt}</div>
+          <div class="article-meta"><span>${art.date}</span></div>
+        </div>
+       </div>`
+    : `<div class="article-card" onclick="location.href='${art.url}'" style="cursor:pointer">
+        <div class="article-category">${art.cat}</div>
+        <div class="article-title">${art.title}</div>
+        <div class="article-excerpt">${art.excerpt}</div>
+        <div class="article-meta"><span>${art.date}</span></div>
+       </div>`
+  ).join('')
 
   try {
-    const response = await fetch('https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?per_page=2&_embed')
+    const wpCount = Math.max(0, 3 - STATIC_BLOG_ARTICLES.length)
+    const response = await fetch(`https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?per_page=${wpCount}&_embed`)
 
     if (!response.ok) throw new Error('HTTP ' + response.status)
 
     const posts = await response.json()
 
-    const wpCards = (!posts || posts.length === 0) ? '' : posts.map(post => {
+    const wpCards = (!posts || posts.length === 0 || wpCount === 0) ? '' : posts.map(post => {
       const title = post.title?.rendered || 'Sans titre'
       const rawExcerpt = post.excerpt?.rendered || ''
       const excerpt = rawExcerpt.replace(/<[^>]+>/g, '').replace(/&[^;]+;/g, ' ').trim().slice(0, 160) + '...'
@@ -1178,11 +1193,11 @@ async function loadBlogPreview() {
         </div>`
     }).join('')
 
-    container.innerHTML = staticCard + wpCards
+    container.innerHTML = staticCards + wpCards
 
   } catch (e) {
     console.warn('[Blog]', e.message)
-    container.innerHTML = staticCard
+    container.innerHTML = staticCards
   }
 }
 

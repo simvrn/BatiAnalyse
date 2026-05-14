@@ -33,6 +33,7 @@ export default defineConfig({
         'bouygues-equans':        resolve(__dirname, 'bouygues-equans.html'),
         'eiffage-claus-heinemann': resolve(__dirname, 'eiffage-claus-heinemann.html'),
         'electricite-filiere':     resolve(__dirname, 'electricite-filiere.html'),
+        'vinci-cobra-is':          resolve(__dirname, 'vinci-cobra-is.html'),
       },
     },
   },
