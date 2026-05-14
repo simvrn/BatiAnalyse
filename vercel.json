@@ -26,6 +26,7 @@
     { "source": "/macro-detail",          "destination": "/macro-detail.html" },
     { "source": "/spie-euroconfort",      "destination": "/spie-euroconfort.html" },
     { "source": "/bouygues-equans",       "destination": "/bouygues-equans.html" },
-    { "source": "/eiffage-claus-heinemann", "destination": "/eiffage-claus-heinemann.html" }
+    { "source": "/eiffage-claus-heinemann", "destination": "/eiffage-claus-heinemann.html" },
+    { "source": "/electricite-filiere",     "destination": "/electricite-filiere.html" }
   ]
 }

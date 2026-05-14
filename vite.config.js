@@ -32,6 +32,7 @@ export default defineConfig({
         'spie-euroconfort':       resolve(__dirname, 'spie-euroconfort.html'),
         'bouygues-equans':        resolve(__dirname, 'bouygues-equans.html'),
         'eiffage-claus-heinemann': resolve(__dirname, 'eiffage-claus-heinemann.html'),
+        'electricite-filiere':     resolve(__dirname, 'electricite-filiere.html'),
       },
     },
   },
