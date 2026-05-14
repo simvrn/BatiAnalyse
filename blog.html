@@ -200,6 +200,21 @@ nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:
 
 <script>
 // ═══════════════════════════════════════════════════════
+// ARTICLES STATIQUES — pages internes non hébergées sur WordPress
+// ═══════════════════════════════════════════════════════
+const STATIC_ARTICLES = [
+  {
+    title: "Électricité : qui gagne vraiment de l'argent dans cette filière ?",
+    excerpt: "Comparatif des marges EBIT de 9 acteurs de la filière électrique française : fabricants de câbles, distributeurs, installateurs. Qui capture réellement la valeur dans cette chaîne ?",
+    cat: "Analyse filière",
+    date: "14 mai 2026",
+    readTime: "8 min",
+    url: "/electricite-filiere"
+  }
+]
+// ═══════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════
 // CONFIG SECTIONS WORDPRESS — ajouter une entrée par section
 // ═══════════════════════════════════════════════════════
 const WP_SECTIONS = {
@@ -273,9 +288,10 @@ async function loadPosts(page = 1, reset = false) {
     }
 
     renderPosts(reset)
-    document.getElementById('resultCount').textContent = total || allPosts.length
+    const displayTotal = (total || allPosts.length) + (reset ? STATIC_ARTICLES.length : 0)
+    document.getElementById('resultCount').textContent = displayTotal
     document.getElementById('pageSubtitle').textContent =
-      `${total || allPosts.length} articles publiés · Contenu éditorial BatiAnalyse`
+      `${displayTotal} articles publiés · Contenu éditorial BatiAnalyse`
 
     const wrap = document.getElementById('loadMoreWrap')
     wrap.style.display = currentPage < totalPages ? 'block' : 'none'
@@ -296,15 +312,37 @@ async function loadPosts(page = 1, reset = false) {
 // ── RENDER ──
 function renderPosts(reset) {
   const grid = document.getElementById('postsGrid')
-  if (reset) grid.innerHTML = ''
+  if (reset) {
+    grid.innerHTML = ''
+    // Articles statiques en tête de liste
+    STATIC_ARTICLES.forEach((art, idx) => {
+      const card = document.createElement('div')
+      card.className = 'post-card'
+      card.style.animationDelay = `${idx * 0.04}s`
+      card.onclick = () => location.href = art.url
+      card.innerHTML = `
+        <div class="card-body">
+          <div class="card-cat">${art.cat}</div>
+          <div class="card-title">${art.title}</div>
+          <div class="card-excerpt">${art.excerpt}</div>
+          <div class="card-meta">
+            <span>${art.date}</span>
+            <span class="card-read-time">${art.readTime} de lecture</span>
+          </div>
+        </div>`
+      grid.appendChild(card)
+    })
+  }
 
   if (allPosts.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">◎</div>
-        <div class="empty-title">Aucun article trouvé</div>
-        <div class="empty-sub">Essayez un autre thème ou modifiez votre recherche.</div>
-      </div>`
+    if (reset && STATIC_ARTICLES.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">◎</div>
+          <div class="empty-title">Aucun article trouvé</div>
+          <div class="empty-sub">Essayez un autre thème ou modifiez votre recherche.</div>
+        </div>`
+    }
     return
   }
 
@@ -312,7 +350,7 @@ function renderPosts(reset) {
   const newPosts = reset ? allPosts : allPosts.slice(startIndex)
 
   newPosts.forEach((post, idx) => {
-    const isFeatured = reset && idx === 0
+    const isFeatured = reset && idx === 0 && STATIC_ARTICLES.length === 0
     const title    = post.title?.rendered || 'Sans titre'
     const excerpt  = (post.excerpt?.rendered || '').replace(/<[^>]+>/g,'').replace(/&[^;]+;/g,' ').trim()
     const link     = `/article.html?id=${post.id}`
