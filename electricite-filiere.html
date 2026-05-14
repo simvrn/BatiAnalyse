@@ -1,544 +1,407 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Électricité : qui gagne vraiment de l'argent dans cette filière ?</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Électricité : qui gagne vraiment de l'argent dans cette filière ? | BatiAnalyse</title>
+<meta name="description" content="Du producteur d'énergie à l'électricien sur le chantier, neuf entreprises françaises ou exposées au marché français : où se concentre la vraie rentabilité dans la chaîne électrique ?">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://batianalyse.fr/electricite-filiere">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Électricité : qui gagne vraiment de l'argent dans cette filière ?">
+<meta property="og:description" content="Schneider 21,8 %, Legrand 20,7 %, Equans 5,0 %. Neuf entreprises, une seule question : où se concentre la rentabilité dans la chaîne électrique ?">
+<meta property="og:url" content="https://batianalyse.fr/electricite-filiere">
+<meta property="og:site_name" content="BatiAnalyse">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Électricité — qui gagne vraiment de l'argent ?">
+<meta name="twitter:description" content="Schneider 21,8 %, Legrand 20,7 %, Equans 5,0 %. Où se concentre la rentabilité dans la chaîne électrique.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Électricité : qui gagne vraiment de l'argent dans cette filière ?",
+  "description": "Du producteur d'énergie à l'électricien sur le chantier, neuf entreprises françaises ou exposées au marché français, une seule question : où se concentre la vraie rentabilité dans la chaîne électrique ?",
+  "url": "https://batianalyse.fr/electricite-filiere",
+  "datePublished": "2026-05-14",
+  "publisher": { "@type": "Organization", "name": "BatiAnalyse", "url": "https://batianalyse.fr" },
+  "inLanguage": "fr-FR"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
+  --border:#1F1F22; --border-hover:#B89B5E;
+  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
+  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
+  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
+  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
+  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
+  --purple:#a78bfa; --purple-dim:rgba(167,139,250,0.12);
+  --amber:#fbbf24; --teal:#2dd4bf;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-    :root {
-      --bg: #F7F5F0;
-      --surface: #EDEAE2;
-      --surface2: #E4E0D6;
-      --text: #1A1916;
-      --text-muted: #6B6860;
-      --text-faint: #9E9C96;
-      --border: rgba(26,25,22,0.12);
-      --border-med: rgba(26,25,22,0.2);
-      --purple-dark: #3C3489;
-      --purple-mid: #534AB7;
-      --purple-light: #EEEDFE;
-      --purple-text: #3C3489;
-      --green-dark: #27500A;
-      --green-mid: #3B6D11;
-      --green-light: #EAF3DE;
-      --amber-dark: #633806;
-      --amber-mid: #BA7517;
-      --amber-light: #FAEEDA;
-      --coral-dark: #712B13;
-      --coral-mid: #D85A30;
-      --coral-light: #FAECE7;
-      --blue-dark: #0C447C;
-      --blue-mid: #378ADD;
-      --blue-light: #E6F1FB;
-      --teal-mid: #5DCAA5;
-      --teal-light: #E1F5EE;
-      --teal-dark: #04342C;
-      --navy: #185FA5;
-      --accent: #EF9F27;
-    }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
+.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
+.logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
+.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--gold);}
+.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;border:none;border-radius:6px;}
+.nav-cta:hover{opacity:0.88;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
+.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
+.nav-mobile a:last-child{border-bottom:none;}
 
-    html { scroll-behavior: smooth; }
+/* ARTICLE HEADER */
+.article-header{padding:88px 40px 0;max-width:900px;margin:0 auto;}
+.breadcrumb-row{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-3);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.breadcrumb-row a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
+.breadcrumb-row a:hover{color:var(--gold);}
+.breadcrumb-row span{opacity:0.4;}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--text-2);text-decoration:none;transition:color 0.15s;margin-bottom:20px;}
+.back-link:hover{color:var(--gold);}
+.article-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;white-space:nowrap;}
+.badge-analyse{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,155,94,0.3);}
+.badge-elec{background:rgba(59,130,246,0.12);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);}
+.badge-fy{background:rgba(20,184,166,0.1);color:var(--teal);border:1px solid rgba(20,184,166,0.2);}
+.article-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,50px);font-weight:900;line-height:1.05;letter-spacing:-0.5px;margin-bottom:14px;}
+.article-title em{font-style:italic;color:var(--gold);}
+.article-subtitle{font-size:15px;color:var(--text-2);line-height:1.7;max-width:680px;margin-bottom:24px;}
+.article-meta{display:flex;gap:20px;flex-wrap:wrap;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:0.08em;padding-bottom:28px;border-bottom:1px solid var(--border);}
+.article-meta strong{color:var(--gold);}
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+/* BODY */
+.article-body{max-width:900px;margin:0 auto;padding:40px;}
+.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.section-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);opacity:0.5;margin-right:8px;}
+h2.section-title{font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;margin-bottom:14px;margin-top:40px;display:flex;align-items:baseline;gap:6px;}
+h2.section-title:first-child{margin-top:0;}
+.body-text{font-size:14px;color:var(--text-2);line-height:1.85;margin-bottom:16px;}
+.body-text strong{color:var(--text);font-weight:600;}
 
-    .page {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-    }
+/* EBIT FORMULA */
+.formula-wrap{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:24px 0;display:flex;align-items:center;flex-wrap:wrap;gap:0;}
+.f-item{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;}
+.f-op{font-size:18px;color:var(--text-3);padding:0 12px;}
+.f-result{background:var(--gold-dim);border:1px solid rgba(184,155,94,0.3);border-radius:4px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--gold);white-space:nowrap;}
 
-    /* HERO */
-    .hero {
-      padding: 64px 0 48px;
-      border-bottom: 1px solid var(--border-med);
-      margin-bottom: 56px;
-    }
+/* WHY GRID */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 32px;}
+.why-card{background:var(--surface);border:1px solid var(--border);padding:16px;}
+.why-icon{font-size:18px;margin-bottom:8px;}
+.why-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:6px;}
+.why-desc{font-size:12px;color:var(--text-2);line-height:1.6;}
 
-    .hero-tag {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 20px;
-    }
+/* CHART */
+.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:24px;margin:24px 0;}
+.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:20px;}
+.chart-container{position:relative;width:100%;height:420px;}
 
-    .hero-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 20px;
-      font-weight: 400;
-    }
+/* MAILLON LABEL */
+.maillon-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin:32px 0 12px;display:flex;align-items:center;gap:10px;}
+.maillon-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-    .hero-title em {
-      font-style: italic;
-      color: var(--purple-mid);
-    }
+/* ENTRY */
+.entry{margin-bottom:0;padding:20px 0;border-bottom:1px solid var(--border);}
+.entry:last-child{border-bottom:none;}
+.entry-header{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.entry-name{font-size:14px;font-weight:600;color:var(--text);}
+.entry-meta{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.08em;padding:2px 8px;margin-left:8px;vertical-align:middle;}
+.tag-seg{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,0.25);}
+.tag-full{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.2);}
+.tag-adj{background:rgba(251,191,36,0.1);color:var(--amber);border:1px solid rgba(251,191,36,0.2);}
+.entry-calc{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);line-height:1.65;background:var(--surface);border:1px solid var(--border);border-left:2px solid var(--gold-dim);padding:10px 14px;margin-bottom:10px;}
+.entry-calc strong{color:var(--gold);}
+.bar-bg{background:var(--surface2);height:20px;margin-bottom:8px;overflow:hidden;}
+.bar{height:100%;display:flex;align-items:center;justify-content:flex-end;min-width:48px;transition:width 0.6s ease;}
+.bval{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;padding:0 10px;white-space:nowrap;}
+.entry-desc{font-size:13px;color:var(--text-2);line-height:1.7;}
 
-    .hero-sub {
-      font-size: 16px;
-      color: var(--text-muted);
-      line-height: 1.75;
-      max-width: 600px;
-    }
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
+.kpi-strip-card{background:var(--surface);border:1px solid var(--border);padding:16px 18px;}
+.kpi-strip-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
+.kpi-strip-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);line-height:1;}
+.kpi-strip-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:4px;}
 
-    /* SECTIONS */
-    .section { margin-bottom: 56px; }
+/* VERDICT */
+.verdict-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:28px 32px;margin-top:40px;}
+.verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.verdict-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);margin-bottom:20px;line-height:1.2;}
+.verdict-body{font-size:14px;color:var(--text-2);line-height:1.85;}
+.verdict-body p{margin-bottom:1.1rem;}
+.verdict-body p:last-child{margin-bottom:0;}
+.verdict-body strong{color:var(--text);font-weight:600;}
 
-    .section-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+/* FOOTNOTE */
+.fn{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.7;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);}
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+/* FOOTER */
+.page-footer{border-top:1px solid var(--border);padding:32px 40px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;color:var(--white);}
+.footer-logo span{color:var(--gold);}
 
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 56px 0;
-    }
-
-    /* PROSE */
-    .prose {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-
-    .prose strong { color: var(--text); font-weight: 500; }
-    .prose p { margin-bottom: 1rem; }
-    .prose p:last-child { margin-bottom: 0; }
-
-    /* FORMULA */
-    .formula-wrap {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin: 24px 0;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-    }
-
-    .f-item {
-      background: white;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      white-space: nowrap;
-      border: 1px solid var(--border);
-    }
-
-    .f-op {
-      font-size: 18px;
-      color: var(--text-faint);
-      padding: 0 12px;
-    }
-
-    .f-result {
-      background: var(--purple-light);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--purple-dark);
-      white-space: nowrap;
-    }
-
-    /* WHY CARDS */
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .why-card {
-      background: var(--surface);
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .why-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    .why-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .why-desc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* CHART */
-    .chart-container {
-      position: relative;
-      width: 100%;
-      height: 420px;
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    /* MAILLON LABEL */
-    .maillon-label {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      margin: 32px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .maillon-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ENTRY */
-    .entry {
-      margin-bottom: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .entry:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .entry-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .entry-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .entry-meta {
-      font-size: 11px;
-      color: var(--text-faint);
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: 6px;
-      vertical-align: middle;
-      font-weight: 500;
-    }
-
-    .tag-seg { background: var(--purple-light); color: var(--purple-dark); }
-    .tag-full { background: var(--green-light); color: var(--green-dark); }
-    .tag-adj { background: var(--amber-light); color: var(--amber-dark); }
-
-    .entry-calc {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      background: var(--surface);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-bottom: 8px;
-    }
-
-    .entry-calc strong { color: var(--text); font-weight: 500; }
-
-    .bar-bg {
-      background: var(--surface2);
-      border-radius: 4px;
-      height: 22px;
-      margin-bottom: 6px;
-      overflow: hidden;
-    }
-
-    .bar {
-      height: 100%;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      min-width: 48px;
-      transition: width 0.6s ease;
-    }
-
-    .bval {
-      font-size: 12px;
-      font-weight: 500;
-      padding: 0 10px;
-      white-space: nowrap;
-    }
-
-    .entry-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.65;
-    }
-
-    /* VERDICT */
-    .verdict-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 28px;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
-
-    .verdict-body {
-      font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-
-    .verdict-body p { margin-bottom: 1.1rem; }
-    .verdict-body p:last-child { margin-bottom: 0; }
-    .verdict-body strong { color: var(--text); font-weight: 500; }
-
-    /* FOOTNOTE */
-    .fn {
-      font-size: 11px;
-      color: var(--text-faint);
-      font-style: italic;
-      margin-top: 48px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      line-height: 1.7;
-    }
-
-    @media (max-width: 600px) {
-      .why-grid { grid-template-columns: 1fr; }
-      .formula-wrap { gap: 6px; }
-      .f-op { padding: 0 6px; }
-      .chart-container { height: 520px; padding: 16px; }
-    }
-  </style>
+@media(max-width:768px){
+  .nav-links{display:none !important;}
+  .nav-cta{display:none !important;}
+  .nav-hamburger{display:flex;}
+  nav{padding:0 16px;}
+  .article-header{padding:72px 16px 0;}
+  .article-body{padding:24px 16px;}
+  .why-grid{grid-template-columns:1fr;}
+  .kpi-strip{grid-template-columns:1fr 1fr;}
+  .formula-wrap{gap:6px;}
+  .f-op{padding:0 6px;}
+  .chart-container{height:520px;}
+  .page-footer{padding:24px 16px;flex-direction:column;align-items:flex-start;}
+  .verdict-block{padding:20px;}
+}
+</style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-tag">Analyse financière · Filière électrique · FY2025</div>
-    <div class="hero-title">Électricité : qui gagne <em>vraiment</em> de l'argent dans cette filière ?</div>
-    <div class="hero-sub">Du producteur d'énergie à l'électricien sur le chantier, neuf entreprises françaises ou exposées au marché français, une seule question : où se concentre la vraie rentabilité dans la chaîne électrique ?</div>
+<nav>
+  <a href="/" class="logo">Bati<span>Analyse</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
+    <li><a href="/ma-hub">M&amp;A</a></li>
+    <li><a href="/macro.html">Macro</a></li>
+    <li><a href="/blog.html" class="active">Analyses</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Accès Premium (Prochainement)</a>
+  <button class="nav-hamburger" onclick="document.getElementById('navMobileEF').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile" id="navMobileEF">
+  <a href="/">Accueil</a>
+  <a href="/valeurs-cotees.html">Valeurs cotées</a>
+  <a href="/ma-hub">M&amp;A</a>
+  <a href="/macro.html">Macro</a>
+  <a href="/blog.html">Analyses</a>
+</div>
+
+<!-- HEADER -->
+<div class="article-header">
+  <div class="breadcrumb-row">
+    <a href="/">BatiAnalyse</a><span>/</span>
+    <a href="/blog.html">Analyses</a><span>/</span>
+    Filière électrique
+  </div>
+  <a href="/blog.html" class="back-link">&#8592; Retour aux analyses</a>
+  <div class="article-badges">
+    <span class="badge badge-analyse">Analyse financière</span>
+    <span class="badge badge-elec">Filière électrique</span>
+    <span class="badge badge-fy">FY2025</span>
+  </div>
+  <h1 class="article-title">Électricité : qui gagne <em>vraiment</em> de l'argent dans cette filière ?</h1>
+  <p class="article-subtitle">Du producteur d'énergie à l'électricien sur le chantier, neuf entreprises françaises ou exposées au marché français, une seule question : où se concentre la vraie rentabilité dans la chaîne électrique ?</p>
+  <div class="article-meta">
+    <span><strong>Publié :</strong> Mai 2026</span>
+    <span><strong>Données :</strong> FY2025</span>
+    <span><strong>Sociétés couvertes :</strong> 9</span>
+    <span><strong>Indicateur :</strong> Marge EBIT segment</span>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="article-body">
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip">
+    <div class="kpi-strip-card">
+      <div class="kpi-strip-label">Meilleure marge</div>
+      <div class="kpi-strip-val">21,8 %</div>
+      <div class="kpi-strip-sub">Schneider — Energy Mgmt</div>
+    </div>
+    <div class="kpi-strip-card">
+      <div class="kpi-strip-label">Marge médiane</div>
+      <div class="kpi-strip-val">10,5 %</div>
+      <div class="kpi-strip-sub">Nexans — PWR-Connect</div>
+    </div>
+    <div class="kpi-strip-card">
+      <div class="kpi-strip-label">Marge la plus basse</div>
+      <div class="kpi-strip-val">5,0 %</div>
+      <div class="kpi-strip-sub">Equans — Filiale Bouygues</div>
+    </div>
   </div>
 
-  <!-- EBIT -->
-  <div class="section">
-    <div class="section-label">L'indicateur retenu : l'EBIT</div>
-    <div class="prose">
-      <p>La filière électrique regroupe des entreprises très différentes en taille et en métier. Comparer leurs profits bruts n'aurait aucun sens. On utilise la <strong>marge EBIT</strong> : ce qu'il reste à une entreprise sur chaque euro encaissé, après avoir payé ses achats, ses salaires et ses amortissements, mais avant impôts et intérêts d'emprunt.</p>
-    </div>
+  <!-- SECTION 1 : EBIT -->
+  <div class="section-label">L'indicateur retenu</div>
+  <h2 class="section-title"><span class="section-num">01</span>Pourquoi l'EBIT ?</h2>
+  <p class="body-text">La filière électrique regroupe des entreprises très différentes en taille et en métier. Comparer leurs profits bruts n'aurait aucun sens. On utilise la <strong>marge EBIT</strong> : ce qu'il reste à une entreprise sur chaque euro encaissé, après avoir payé ses achats, ses salaires et ses amortissements, mais avant impôts et intérêts d'emprunt.</p>
 
-    <div class="formula-wrap">
-      <div class="f-item">Chiffre d'affaires</div>
-      <div class="f-op">-</div>
-      <div class="f-item">Achats et charges</div>
-      <div class="f-op">-</div>
-      <div class="f-item">Salaires</div>
-      <div class="f-op">-</div>
-      <div class="f-item">Amortissements</div>
-      <div class="f-op">=</div>
-      <div class="f-result">EBIT</div>
-    </div>
+  <div class="formula-wrap">
+    <div class="f-item">Chiffre d'affaires</div>
+    <div class="f-op">-</div>
+    <div class="f-item">Achats et charges</div>
+    <div class="f-op">-</div>
+    <div class="f-item">Salaires</div>
+    <div class="f-op">-</div>
+    <div class="f-item">Amortissements</div>
+    <div class="f-op">=</div>
+    <div class="f-result">EBIT</div>
+  </div>
 
-    <div class="prose" style="margin-bottom: 16px;">
-      <p>Exprimé en pourcentage du CA, il permet de mettre sur un pied d'égalité Legrand et ses 9,5 milliards avec Engie et ses 71,9 milliards.</p>
-    </div>
+  <p class="body-text">Exprimé en pourcentage du CA, il permet de mettre sur un pied d'égalité Legrand et ses 9,5 milliards avec Engie et ses 71,9 milliards.</p>
 
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">&#x2696;&#xFE0F;</div>
-        <div class="why-title">Comparaison équitable</div>
-        <div class="why-desc">La taille des entreprises s'efface. Seule la rentabilité relative compte.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">&#x1F52C;</div>
-        <div class="why-title">Activité pure</div>
-        <div class="why-desc">Ni la structure de dette, ni la fiscalité du pays ne viennent polluer le chiffre.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">&#x1F4CA;</div>
-        <div class="why-title">Référence sectorielle</div>
-        <div class="why-desc">C'est l'indicateur standard des analystes pour comparer des entreprises industrielles.</div>
-      </div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">&#9878;</div>
+      <div class="why-title">Comparaison équitable</div>
+      <div class="why-desc">La taille des entreprises s'efface. Seule la rentabilité relative compte.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#9670;</div>
+      <div class="why-title">Activité pure</div>
+      <div class="why-desc">Ni la structure de dette, ni la fiscalité du pays ne viennent polluer le chiffre.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">&#9636;</div>
+      <div class="why-title">Référence sectorielle</div>
+      <div class="why-desc">C'est l'indicateur standard des analystes pour comparer des entreprises industrielles.</div>
     </div>
   </div>
 
-  <hr class="divider">
+  <!-- SECTION 2 : CHART -->
+  <div class="section-label">Vue d'ensemble</div>
+  <h2 class="section-title"><span class="section-num">02</span>Marges EBIT comparées — FY2025</h2>
 
-  <!-- CHART -->
-  <div class="section">
-    <div class="section-label">Marges EBIT segment électrique FY2025</div>
+  <div class="chart-wrap">
+    <div class="chart-title">Marge EBIT segment électrique FY2025 — du plus élevé au plus bas</div>
     <div class="chart-container">
       <canvas id="mainChart" role="img" aria-label="Marges EBIT FY2025 du plus élevé au plus bas : Schneider 21.8%, Legrand 20.7%, Prysmian 13.4%, Engie 12.2%, Nexans 10.5%, VINCI Energies 7.4%, Eiffage 6.2%, Rexel 6.0%, Equans 5.0%"></canvas>
     </div>
   </div>
 
-  <hr class="divider">
+  <!-- SECTION 3 : DETAIL -->
+  <div class="section-label">Périmètre et calcul par maillon</div>
+  <h2 class="section-title"><span class="section-num">03</span>Détail par entreprise</h2>
+  <p class="body-text">Pour chaque entreprise : le segment retenu, le calcul du CA correspondant, la barre de marge et ce qui explique ce niveau de rentabilité. <strong>Legrand et Rexel sont des pure-players : on prend leur groupe entier.</strong></p>
 
-  <!-- PÉRIMÈTRE + DÉTAIL -->
-  <div class="section">
-    <div class="section-label">Périmètre, calcul des CA et détail par maillon</div>
-    <div class="prose" style="margin-bottom: 24px;">
-      <p>Pour chaque entreprise : le segment retenu, le calcul du CA correspondant, la barre de marge et ce qui explique ce niveau de rentabilité. <strong>Legrand et Rexel sont des pure-players : on prend leur groupe entier.</strong></p>
+  <!-- FABRICANTS -->
+  <div class="maillon-label">Fabricants d'équipements</div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Schneider Electric<span class="tag tag-seg">Energy Management</span></span>
+      <span class="entry-meta">CA groupe 40,2 Mds &euro; · segment ~33 Mds &euro; (82 %)</span>
     </div>
-
-    <div class="maillon-label">Fabricants d'équipements</div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Schneider Electric <span class="tag tag-seg">Energy Management</span></span>
-        <span class="entry-meta">CA groupe €40,2 Mds · segment ~€33 Mds (82 %)</span>
-      </div>
-      <div class="entry-calc">Schneider ne publie pas le CA du segment en valeur absolue. En 2023, Energy Management pesait <strong>79 %</strong> du CA groupe. Le segment ayant crû de +10 % en 2025 contre +9 % pour le groupe, on retient <strong>82 %</strong>. Calcul : 40,2 × 82 % = <strong>~€33 Mds</strong>. Valeur estimée.</div>
-      <div class="bar-bg"><div class="bar" style="width:100%;background:#534AB7"><span class="bval" style="color:#EEEDFE">21,8%</span></div></div>
-      <div class="entry-desc">Tableaux, disjoncteurs, GTB, systèmes datacenter. Des produits que les bureaux d'études imposent dans leurs cahiers des charges avant même que l'appel d'offres soit lancé.</div>
-    </div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Legrand <span class="tag tag-full">Groupe entier</span></span>
-        <span class="entry-meta">CA €9,5 Mds (100 %)</span>
-      </div>
-      <div class="bar-bg"><div class="bar" style="width:95%;background:#7F77DD"><span class="bval" style="color:#EEEDFE">20,7%</span></div></div>
-      <div class="entry-desc">Prises, goulotes, tableaux résidentiels. Des marges proches du luxe dans un secteur qu'on imagine purement industriel. Un architecte écrit "Legrand" dans les plans et personne ne discute.</div>
-    </div>
-
-    <div class="maillon-label">Fabricants de câbles</div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Prysmian <span class="tag tag-seg">Industrial & Construction</span></span>
-        <span class="entry-meta">CA groupe €19,7 Mds · segment €7,5 Mds (38 %)</span>
-      </div>
-      <div class="entry-calc">Segment publié officiellement. 7,5 / 19,7 = <strong>38 %</strong> du CA groupe. Les segments Transmission (câbles HVDC offshore) et Digital Solutions sont exclus : hors périmètre bâtiment.</div>
-      <div class="bar-bg"><div class="bar" style="width:61%;background:#EF9F27"><span class="bval" style="color:#412402">13,4%</span></div></div>
-      <div class="entry-desc">Câbles BT/MT bâtiment et distribution. Une marge plus haute que ce qu'on attend d'un câblier, portée par les commandes datacenter en Amérique du Nord et un mix produit qui monte en gamme.</div>
-    </div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Nexans <span class="tag tag-seg">PWR-Connect</span></span>
-        <span class="entry-meta">CA groupe standard €6,1 Mds · segment ~€3,5 Mds (57 %)</span>
-      </div>
-      <div class="entry-calc">Nexans publie en CA "prix standard métal" pour neutraliser la volatilité du cuivre. PWR-Connect représente <strong>~57 %</strong> du CA standard selon la répartition 2024. PWR-Transmission exclu comme chez Prysmian.</div>
-      <div class="bar-bg"><div class="bar" style="width:48%;background:#BA7517"><span class="bval" style="color:#fff">10,5%</span></div></div>
-      <div class="entry-desc">Câbles d'installation et de distribution. Sans la convention prix standard métal, une hausse du cuivre gonflerait le CA sans améliorer la rentabilité réelle.</div>
-    </div>
-
-    <div class="maillon-label">Producteur d'énergie</div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Engie <span class="tag tag-adj">EBIT hors nucléaire</span></span>
-        <span class="entry-meta">CA groupe €71,9 Mds (CA inchangé, ajustement sur l'EBIT)</span>
-      </div>
-      <div class="entry-calc">Engie est un quasi pure-player énergie : le CA groupe est la bonne base. On exclut uniquement le nucléaire belge en cours de cession de l'EBIT. Calcul : €8,8 Mds / €71,9 Mds = <strong>12,2 %</strong>.</div>
-      <div class="bar-bg"><div class="bar" style="width:56%;background:#3B6D11"><span class="bval" style="color:#EAF3DE">12,2%</span></div></div>
-      <div class="entry-desc">Renouvelables, réseaux, BtoB et BtoC. Les tarifs réseau sont fixés par le régulateur et les prix de l'énergie fluctuent sans prévenir : la marge subit les deux contraintes simultanément.</div>
-    </div>
-
-    <div class="maillon-label">Distribution professionnelle</div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Rexel <span class="tag tag-full">Groupe entier</span></span>
-        <span class="entry-meta">CA €19,4 Mds (100 %)</span>
-      </div>
-      <div class="bar-bg"><div class="bar" style="width:27%;background:#D85A30"><span class="bval" style="color:#fff">6,0%</span></div></div>
-      <div class="entry-desc">Coincé entre des fournisseurs qui fixent leurs prix (Legrand, Schneider) et des clients qui comparent les devis. Amazon Business et les revendeurs en ligne grappillent déjà des parts sur les références standard, là où Rexel ne peut se différencier que par la disponibilité et le conseil.</div>
-    </div>
-
-    <div class="maillon-label">Intégrateurs et chantier</div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">VINCI Energies <span class="tag tag-seg">Division isolée</span></span>
-        <span class="entry-meta">CA groupe €68,7 Mds · division €21,6 Mds (31 %)</span>
-      </div>
-      <div class="entry-calc">21,6 / 68,7 = <strong>31 %</strong> du CA groupe. VINCI Autoroutes, VINCI Airports et VINCI Construction exclus : aucun lien avec la filière électrique.</div>
-      <div class="bar-bg"><div class="bar" style="width:34%;background:#378ADD"><span class="bval" style="color:#fff">7,4%</span></div></div>
-      <div class="entry-desc">Meilleur intégrateur de la chaîne. 300 PME autonomes qui peuvent refuser un chantier peu rentable, là où un grand groupe centralisé doit nourrir ses équipes à tout prix.</div>
-    </div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Eiffage Énergie Systèmes <span class="tag tag-seg">Division isolée</span></span>
-        <span class="entry-meta">CA groupe €22,6 Mds · division ~€7,9 Mds (35 %)</span>
-      </div>
-      <div class="entry-calc">7,9 / 22,6 = <strong>35 %</strong> du CA groupe. La division Concessions (autoroutes APRR) génère 43 % de marge pour seulement 16 % du CA : l'inclure écraserait toute la lecture.</div>
-      <div class="bar-bg"><div class="bar" style="width:28%;background:#5DCAA5"><span class="bval" style="color:#04342C">6,2%</span></div></div>
-      <div class="entry-desc">5,4 % en 2023, 5,8 % en 2024, 6,2 % en 2025. Progression constante portée par l'Allemagne et l'Espagne pendant que le marché français stagne.</div>
-    </div>
-
-    <div class="entry">
-      <div class="entry-header">
-        <span class="entry-name">Equans <span class="tag tag-seg">Filiale Bouygues</span></span>
-        <span class="entry-meta">CA groupe €46,1 Mds · Equans €18,7 Mds (41 %)</span>
-      </div>
-      <div class="entry-calc">18,7 / 46,1 = <strong>41 %</strong> du CA groupe. Bouygues Telecom, TF1 et Colas (routes) exclus.</div>
-      <div class="bar-bg"><div class="bar" style="width:23%;background:#185FA5"><span class="bval" style="color:#fff">5,0%</span></div></div>
-      <div class="entry-desc">Racheté à Engie en 2022 avec des contrats déficitaires en héritage et 83 000 salariés à intégrer. En trois ans, la marge est passée de 2 % à 5 %, un an avant l'objectif annoncé.</div>
-    </div>
+    <div class="entry-calc">Schneider ne publie pas le CA du segment en valeur absolue. En 2023, Energy Management pesait <strong>79 %</strong> du CA groupe. Le segment ayant crû de +10 % en 2025 contre +9 % pour le groupe, on retient <strong>82 %</strong>. Calcul : 40,2 × 82 % = <strong>~33 Mds €</strong>. Valeur estimée.</div>
+    <div class="bar-bg"><div class="bar" style="width:100%;background:#7C6FD4"><span class="bval" style="color:#fff">21,8 %</span></div></div>
+    <div class="entry-desc">Tableaux, disjoncteurs, GTB, systèmes datacenter. Des produits que les bureaux d'études imposent dans leurs cahiers des charges avant même que l'appel d'offres soit lancé.</div>
   </div>
 
-  <hr class="divider">
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Legrand<span class="tag tag-full">Groupe entier</span></span>
+      <span class="entry-meta">CA 9,5 Mds &euro; (100 %)</span>
+    </div>
+    <div class="bar-bg"><div class="bar" style="width:95%;background:#9B91DE"><span class="bval" style="color:#fff">20,7 %</span></div></div>
+    <div class="entry-desc">Prises, goulotes, tableaux résidentiels. Des marges proches du luxe dans un secteur qu'on imagine purement industriel. Un architecte écrit "Legrand" dans les plans et personne ne discute.</div>
+  </div>
+
+  <!-- CABLIERS -->
+  <div class="maillon-label">Fabricants de câbles</div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Prysmian<span class="tag tag-seg">Industrial &amp; Construction</span></span>
+      <span class="entry-meta">CA groupe 19,7 Mds &euro; · segment 7,5 Mds &euro; (38 %)</span>
+    </div>
+    <div class="entry-calc">Segment publié officiellement. 7,5 / 19,7 = <strong>38 %</strong> du CA groupe. Les segments Transmission (câbles HVDC offshore) et Digital Solutions sont exclus : hors périmètre bâtiment.</div>
+    <div class="bar-bg"><div class="bar" style="width:61%;background:#B89B5E"><span class="bval" style="color:#0B0B0C">13,4 %</span></div></div>
+    <div class="entry-desc">Câbles BT/MT bâtiment et distribution. Une marge plus haute que ce qu'on attend d'un câblier, portée par les commandes datacenter en Amérique du Nord et un mix produit qui monte en gamme.</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Nexans<span class="tag tag-seg">PWR-Connect</span></span>
+      <span class="entry-meta">CA groupe standard 6,1 Mds &euro; · segment ~3,5 Mds &euro; (57 %)</span>
+    </div>
+    <div class="entry-calc">Nexans publie en CA "prix standard métal" pour neutraliser la volatilité du cuivre. PWR-Connect représente <strong>~57 %</strong> du CA standard selon la répartition 2024. PWR-Transmission exclu comme chez Prysmian.</div>
+    <div class="bar-bg"><div class="bar" style="width:48%;background:#c9a96a"><span class="bval" style="color:#0B0B0C">10,5 %</span></div></div>
+    <div class="entry-desc">Câbles d'installation et de distribution. Sans la convention prix standard métal, une hausse du cuivre gonflerait le CA sans améliorer la rentabilité réelle.</div>
+  </div>
+
+  <!-- PRODUCTEUR -->
+  <div class="maillon-label">Producteur d'énergie</div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Engie<span class="tag tag-adj">EBIT hors nucléaire</span></span>
+      <span class="entry-meta">CA groupe 71,9 Mds &euro; (CA inchangé, ajustement sur l'EBIT)</span>
+    </div>
+    <div class="entry-calc">Engie est un quasi pure-player énergie : le CA groupe est la bonne base. On exclut uniquement le nucléaire belge en cours de cession de l'EBIT. Calcul : 8,8 Mds € / 71,9 Mds € = <strong>12,2 %</strong>.</div>
+    <div class="bar-bg"><div class="bar" style="width:56%;background:#4ade80"><span class="bval" style="color:#0B0B0C">12,2 %</span></div></div>
+    <div class="entry-desc">Renouvelables, réseaux, BtoB et BtoC. Les tarifs réseau sont fixés par le régulateur et les prix de l'énergie fluctuent sans prévenir : la marge subit les deux contraintes simultanément.</div>
+  </div>
+
+  <!-- DISTRIBUTION -->
+  <div class="maillon-label">Distribution professionnelle</div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Rexel<span class="tag tag-full">Groupe entier</span></span>
+      <span class="entry-meta">CA 19,4 Mds &euro; (100 %)</span>
+    </div>
+    <div class="bar-bg"><div class="bar" style="width:27%;background:#f87171"><span class="bval" style="color:#fff">6,0 %</span></div></div>
+    <div class="entry-desc">Coincé entre des fournisseurs qui fixent leurs prix (Legrand, Schneider) et des clients qui comparent les devis. Amazon Business et les revendeurs en ligne grappillent déjà des parts sur les références standard, là où Rexel ne peut se différencier que par la disponibilité et le conseil.</div>
+  </div>
+
+  <!-- INTEGRATEURS -->
+  <div class="maillon-label">Intégrateurs et chantier</div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">VINCI Energies<span class="tag tag-seg">Division isolée</span></span>
+      <span class="entry-meta">CA groupe 68,7 Mds &euro; · division 21,6 Mds &euro; (31 %)</span>
+    </div>
+    <div class="entry-calc">21,6 / 68,7 = <strong>31 %</strong> du CA groupe. VINCI Autoroutes, VINCI Airports et VINCI Construction exclus : aucun lien avec la filière électrique.</div>
+    <div class="bar-bg"><div class="bar" style="width:34%;background:#60a5fa"><span class="bval" style="color:#fff">7,4 %</span></div></div>
+    <div class="entry-desc">Meilleur intégrateur de la chaîne. 300 PME autonomes qui peuvent refuser un chantier peu rentable, là où un grand groupe centralisé doit nourrir ses équipes à tout prix.</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Eiffage Énergie Systèmes<span class="tag tag-seg">Division isolée</span></span>
+      <span class="entry-meta">CA groupe 22,6 Mds &euro; · division ~7,9 Mds &euro; (35 %)</span>
+    </div>
+    <div class="entry-calc">7,9 / 22,6 = <strong>35 %</strong> du CA groupe. La division Concessions (autoroutes APRR) génère 43 % de marge pour seulement 16 % du CA : l'inclure écraserait toute la lecture.</div>
+    <div class="bar-bg"><div class="bar" style="width:28%;background:#2dd4bf"><span class="bval" style="color:#0B0B0C">6,2 %</span></div></div>
+    <div class="entry-desc">5,4 % en 2023, 5,8 % en 2024, 6,2 % en 2025. Progression constante portée par l'Allemagne et l'Espagne pendant que le marché français stagne.</div>
+  </div>
+
+  <div class="entry">
+    <div class="entry-header">
+      <span class="entry-name">Equans<span class="tag tag-seg">Filiale Bouygues</span></span>
+      <span class="entry-meta">CA groupe 46,1 Mds &euro; · Equans 18,7 Mds &euro; (41 %)</span>
+    </div>
+    <div class="entry-calc">18,7 / 46,1 = <strong>41 %</strong> du CA groupe. Bouygues Telecom, TF1 et Colas (routes) exclus.</div>
+    <div class="bar-bg"><div class="bar" style="width:23%;background:#93c5fd"><span class="bval" style="color:#0B0B0C">5,0 %</span></div></div>
+    <div class="entry-desc">Racheté à Engie en 2022 avec des contrats déficitaires en héritage et 83 000 salariés à intégrer. En trois ans, la marge est passée de 2 % à 5 %, un an avant l'objectif annoncé.</div>
+  </div>
 
   <!-- VERDICT -->
-  <div class="section">
-    <div class="verdict-title">Ce que ces chiffres disent vraiment</div>
+  <div class="verdict-block">
+    <div class="verdict-label">Ce que ces chiffres disent vraiment</div>
+    <div class="verdict-title">La marge est une question de pouvoir de négociation, pas de taille.</div>
     <div class="verdict-body">
       <p>La marge n'est pas une question de taille ou d'ancienneté. Elle est une question de <strong>pouvoir de négociation</strong>. Legrand et Schneider imposent leurs conditions parce que leurs produits sont prescrits avant même que l'appel d'offres soit lancé. Un électricien qui voudrait substituer une marque alternative risque son chantier et sa réputation : le client a demandé du Legrand, c'est du Legrand. Ce mécanisme de prescription crée une barrière invisible mais quasi-infranchissable, et c'est ce qui explique 20 % de marge dans un secteur qu'on imagine comme un simple commerce de composants.</p>
       <p>Les câbliers occupent un territoire à part. Prysmian et Nexans ne prescrivent rien, mais ils fabriquent un produit que personne ne peut contourner : sans câble, il n'y a pas d'électricité. Leur rentabilité de 10 à 13 % repose sur deux leviers. Le premier est la demande structurelle liée à l'électrification des infrastructures et à l'explosion des datacenters, qui tirent les volumes vers le haut. Le second est la discipline sur les prix standards : en isolant le coût du cuivre de leur marge, ils protègent leur rentabilité des soubresauts des matières premières. C'est une position solide, mais cyclique si la vague datacenter ralentit, la marge suit.</p>
@@ -549,73 +412,85 @@
     </div>
   </div>
 
-  <div class="fn">Sources FY2025, rapports annuels et communiqués publiés début 2026. CA Schneider Energy Management estimé (~€33 Mds) : non publié en valeur absolue, reconstruit à partir du poids historique du segment et des taux de croissance 2024-2025. Marges Prysmian et Nexans calculées à prix standard métal. Marges VINCI Energies, Eiffage Énergie Systèmes et Equans : operating income de la division, hors concessions et activités non-électriques.</div>
+  <div class="fn">Sources FY2025, rapports annuels et communiqués publiés début 2026. CA Schneider Energy Management estimé (~33 Mds €) : non publié en valeur absolue, reconstruit à partir du poids historique du segment et des taux de croissance 2024-2025. Marges Prysmian et Nexans calculées à prix standard métal. Marges VINCI Energies, Eiffage Énergie Systèmes et Equans : operating income de la division, hors concessions et activités non-électriques.</div>
 
 </div>
 
+<footer class="page-footer">
+  <div class="footer-logo">Bati<span>Analyse</span></div>
+  <span>Données FY2025 · Mai 2026</span>
+</footer>
+
 <script>
-  const ctx = document.getElementById('mainChart');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: [
-        'Schneider — Energy Mgmt',
-        'Legrand',
-        'Prysmian — Ind. & Constr.',
-        'Engie',
-        'Nexans — PWR-Connect',
-        'VINCI Energies',
-        'Eiffage Énergie Syst.',
-        'Rexel',
-        'Equans'
+const ctx = document.getElementById('mainChart');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: [
+      'Schneider — Energy Mgmt',
+      'Legrand',
+      'Prysmian — Ind. & Constr.',
+      'Engie',
+      'Nexans — PWR-Connect',
+      'VINCI Energies',
+      'Eiffage Énergie Syst.',
+      'Rexel',
+      'Equans'
+    ],
+    datasets: [{
+      data: [21.8, 20.7, 13.4, 12.2, 10.5, 7.4, 6.2, 6.0, 5.0],
+      backgroundColor: [
+        '#7C6FD4','#9B91DE',
+        '#B89B5E','#4ade80','#c9a96a',
+        '#60a5fa','#2dd4bf','#f87171','#93c5fd'
       ],
-      datasets: [{
-        data: [21.8, 20.7, 13.4, 12.2, 10.5, 7.4, 6.2, 6.0, 5.0],
-        backgroundColor: [
-          '#534AB7','#7F77DD',
-          '#EF9F27','#3B6D11','#BA7517',
-          '#378ADD','#5DCAA5','#D85A30','#185FA5'
-        ],
-        borderRadius: 4,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => ' ' + ctx.parsed.x.toFixed(1) + '%'
-          }
-        }
-      },
-      scales: {
-        x: {
-          min: 0,
-          max: 24,
-          ticks: {
-            callback: v => v + '%',
-            font: { size: 11, family: 'DM Sans' },
-            color: '#9E9C96',
-            stepSize: 4
-          },
-          grid: { color: 'rgba(26,25,22,0.07)' },
-          border: { display: false }
-        },
-        y: {
-          ticks: {
-            font: { size: 12, family: 'DM Sans' },
-            color: '#1A1916'
-          },
-          grid: { display: false },
-          border: { display: false }
+      borderRadius: 3,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#16161A',
+        borderColor: '#1F1F22',
+        borderWidth: 1,
+        titleColor: '#B89B5E',
+        bodyColor: '#EAEAEA',
+        titleFont: { family: 'DM Mono', size: 11 },
+        bodyFont: { family: 'DM Mono', size: 12 },
+        callbacks: {
+          label: ctx => '  ' + ctx.parsed.x.toFixed(1) + ' %'
         }
       }
+    },
+    scales: {
+      x: {
+        min: 0,
+        max: 24,
+        ticks: {
+          callback: v => v + ' %',
+          font: { size: 11, family: 'DM Mono' },
+          color: '#6B7280',
+          stepSize: 4
+        },
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        border: { display: false }
+      },
+      y: {
+        ticks: {
+          font: { size: 12, family: 'Inter' },
+          color: '#9CA3AF'
+        },
+        grid: { display: false },
+        border: { display: false }
+      }
     }
-  });
+  }
+});
 </script>
 </body>
 </html>
