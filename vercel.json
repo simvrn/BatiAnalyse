@@ -28,6 +28,7 @@
     { "source": "/bouygues-equans",       "destination": "/bouygues-equans.html" },
     { "source": "/eiffage-claus-heinemann", "destination": "/eiffage-claus-heinemann.html" },
     { "source": "/electricite-filiere",     "destination": "/electricite-filiere.html" },
-    { "source": "/vinci-cobra-is",           "destination": "/vinci-cobra-is.html" }
+    { "source": "/vinci-cobra-is",           "destination": "/vinci-cobra-is.html" },
+    { "source": "/ipo-btp",                  "destination": "/ipo-btp.html" }
   ]
 }
