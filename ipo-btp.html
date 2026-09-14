@@ -126,14 +126,19 @@ h2.section-title:first-child{margin-top:0;}
 .risk-table td.opt-name{font-weight:600;color:var(--text);}
 .risk-table td.risk-col{color:var(--red);}
 
-/* VERDICT */
-.verdict-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:28px 32px;margin-top:40px;}
-.verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
-.verdict-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);margin-bottom:20px;line-height:1.2;}
-.verdict-body{font-size:14px;color:var(--text-2);line-height:1.85;}
-.verdict-body p{margin-bottom:1.1rem;}
-.verdict-body p:last-child{margin-bottom:0;}
-.verdict-body strong{color:var(--text);font-weight:600;}
+/* TABLE CAPTION */
+.table-caption{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;caption-side:top;text-align:left;}
+
+/* RECOMMENDATION */
+.reco-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);padding:28px 32px;margin-top:40px;}
+.reco-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#93c5fd;margin-bottom:20px;}
+.reco-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);margin-bottom:16px;line-height:1.2;}
+.reco-body{font-size:14px;color:var(--text-2);line-height:1.85;margin-bottom:20px;}
+.reco-body strong{color:var(--text);font-weight:600;}
+.reco-plan{padding-left:20px;margin:0;}
+.reco-plan li{margin-bottom:12px;line-height:1.65;color:var(--text-2);font-size:13px;}
+.reco-plan li:last-child{margin-bottom:0;}
+.reco-plan li strong{color:var(--text);font-weight:600;}
 
 /* FOOTNOTE */
 .fn{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.7;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);}
@@ -156,7 +161,7 @@ h2.section-title:first-child{margin-top:0;}
   .f-op{padding:0 6px;}
   .chart-container{height:380px;}
   .page-footer{padding:24px 16px;flex-direction:column;align-items:flex-start;}
-  .verdict-block{padding:20px;}
+  .reco-block{padding:20px;}
   .risk-table{display:block;overflow-x:auto;white-space:nowrap;}
 }
 </style>
@@ -211,19 +216,19 @@ h2.section-title:first-child{margin-top:0;}
 <!-- BODY -->
 <div class="article-body">
 
-  <p class="body-text">Chez Eiffage, la branche qui construit génère une marge opérationnelle de <strong>4 %</strong>. La branche qui exploite des autoroutes et des parkings en dégage <strong>46,3 %</strong>. Même actionnaire, même conseil d'administration, deux mondes financiers. C'est cet écart, plus que la conjoncture seule, qui explique pourquoi si peu d'entreprises de bâtiment et travaux publics osent aujourd'hui frapper à la porte d'Euronext.</p>
+  <p class="body-text">Chez Eiffage, la branche qui construit génère une marge opérationnelle de <strong>4 %</strong>. La branche qui exploite des autoroutes et des aéroports en dégage <strong>46,3 %</strong>. Même actionnaire, même conseil d'administration, deux mondes financiers. C'est cet écart, plus que la conjoncture seule, qui explique pourquoi si peu d'entreprises de bâtiment et travaux publics osent aujourd'hui frapper à la porte d'Euronext.</p>
 
   <!-- KPI STRIP -->
   <div class="kpi-strip">
     <div class="kpi-strip-card">
       <div class="kpi-strip-label">Marge nette du secteur</div>
       <div class="kpi-strip-val">1 à 3 %</div>
-      <div class="kpi-strip-sub">BTP France, structurelle</div>
+      <div class="kpi-strip-sub">BTP France, rarement &gt; 5 %</div>
     </div>
     <div class="kpi-strip-card">
-      <div class="kpi-strip-label">IPO recensées en 2023</div>
-      <div class="kpi-strip-val">6</div>
-      <div class="kpi-strip-sub">Euronext Paris, tous secteurs</div>
+      <div class="kpi-strip-label">Défaillances en 2024</div>
+      <div class="kpi-strip-val">14 112</div>
+      <div class="kpi-strip-sub">+40,7 % sur un an (Altares)</div>
     </div>
     <div class="kpi-strip-card">
       <div class="kpi-strip-label">Écart de marge chez Eiffage</div>
@@ -235,21 +240,21 @@ h2.section-title:first-child{margin-top:0;}
   <!-- SECTION 1 -->
   <div class="section-label">Un marché sous pression</div>
   <h2 class="section-title"><span class="section-num">01</span>Un marché qui s'effondre, et des sous-traitants qui tombent avec lui</h2>
-  <p class="body-text">La production de logements neufs a reculé de 7,8 % en 2023 puis de 21,9 % en 2024, selon la Fédération Française du Bâtiment. Les mises en chantier sont tombées à 261 000 unités en 2024, un plancher plus vu depuis le début des années 1990, avant un rebond partiel à 283 000 en 2025.</p>
+  <p class="body-text">La conjoncture n'aide pas. Les mises en chantier de logements ont chuté de 24,9 % en 2023 puis de 14,2 % en 2024, selon la Fédération Française du Bâtiment. Elles sont tombées à 261 000 unités, un niveau qu'il faut remonter aux années 1950 pour retrouver. Sur la seule période 2021-2024, l'effondrement cumulé atteint près de 40 %. Un rebond partiel a ramené le compteur à 283 000 unités en 2025, mais on reste très loin de la moyenne historique de 360 000 logements par an observée depuis 1980.</p>
 
   <div class="chart-wrap">
     <div class="chart-title">Mises en chantier de logements en France, en milliers d'unités</div>
-    <div class="chart-container"><canvas id="chartMEC" role="img" aria-label="Mises en chantier : 409 000 en 2019, 389 000 en 2021, 286 000 en 2023, 261 000 en 2024, 283 000 en 2025"></canvas></div>
+    <div class="chart-container"><canvas id="chartMEC" role="img" aria-label="Mises en chantier : 386 000 en 2021, 376 000 en 2022, 287 000 en 2023, 261 000 en 2024, 283 000 en 2025"></canvas></div>
   </div>
 
-  <p class="body-text">Aucun dirigeant ne choisit ce contexte pour vendre une histoire de croissance à des investisseurs, et le marché ne s'y trompe pas : les défaillances dans la construction ont bondi de 42 % au premier trimestre 2023, puis de 35 % au deuxième, selon Altares. Sur l'ensemble de 2023, le secteur a concentré près d'un quart de toutes les faillites françaises.</p>
+  <p class="body-text">Aucun dirigeant ne choisit ce contexte pour vendre une histoire de croissance à des investisseurs, et le marché ne s'y trompe pas : les défaillances dans la construction ont bondi de 40,7 % en 2024, avec 14 112 procédures ouvertes, selon Altares. Le secteur a concentré à lui seul près d'un quart de toutes les faillites françaises, après une année 2023 déjà marquée par une hausse record de plus de 36 %.</p>
 
   <div class="chart-wrap">
-    <div class="chart-title">Défaillances dans la construction, évolution en glissement annuel</div>
-    <div class="chart-container"><canvas id="chartDef" role="img" aria-label="Défaillances : +42% au T1 2023, +35% au T2 2023, +23.4% au T2 2024"></canvas></div>
+    <div class="chart-title">Défaillances dans la construction, nombre de procédures ouvertes par an</div>
+    <div class="chart-container"><canvas id="chartDef" role="img" aria-label="Défaillances dans la construction : environ 7 300 en 2022, 10 030 en 2023, 14 112 en 2024, soit +40,7% sur un an"></canvas></div>
   </div>
 
-  <p class="body-text">Un an plus tard, certains sous-traitants encaissent encore le choc : plâtrerie (+50 %), menuiserie bois et PVC (+60 %), pose de climatisation (+87 %) au deuxième trimestre 2024. Aucune banque introductrice ne construit un dossier de cotation sur un carnet de commandes qui dépend de fournisseurs en train de fermer les uns après les autres.</p>
+  <p class="body-text">Certains sous-traitants ont encaissé le choc de plein fouet : la maçonnerie générale a vu ses défaillances progresser de 50,5 % sur 2024, et les travaux d'installation électrique de 48,3 %. Aucune banque introductrice ne construit un dossier de cotation sur un carnet de commandes qui dépend de fournisseurs en train de fermer les uns après les autres.</p>
 
   <!-- SECTION 2 -->
   <div class="section-label">Le coût de l'accès au marché</div>
@@ -264,7 +269,7 @@ h2.section-title:first-child{margin-top:0;}
     <div class="f-result">Coût de cotation Euronext Growth</div>
   </div>
 
-  <p class="body-text">Pour une entreprise de travaux réalisant 40 millions d'euros de chiffre d'affaires et 800 000 euros de résultat net, soit une marge nette de 2 %, ce seul maintien de cotation peut absorber <strong>20 à 30 %</strong> du bénéfice. Le secteur tourne historiquement sur une marge nette de 1 à 3 %. Un dérapage de deux points sur le coût des matériaux, ou une pénalité de retard, suffit à transformer une année profitable en déficit. La Bourse sanctionne cette variation immédiatement.</p>
+  <p class="body-text">Pour une entreprise de travaux réalisant 40 millions d'euros de chiffre d'affaires et 800 000 euros de résultat net, soit une marge nette de 2 %, ce seul maintien de cotation peut absorber <strong>20 à 30 %</strong> du bénéfice. Le secteur tourne historiquement sur une marge nette serrée, généralement estimée entre 1 et 3 % pour la construction pure, et rarement au-delà de 5 %. Un dérapage de deux points sur le coût des matériaux, ou une pénalité de retard, suffit à transformer une année profitable en déficit. La Bourse sanctionne cette variation immédiatement, sans filet de sécurité.</p>
 
   <div class="why-grid">
     <div class="why-card">
@@ -287,16 +292,9 @@ h2.section-title:first-child{margin-top:0;}
   <!-- SECTION 3 -->
   <div class="section-label">Un flux d'introductions à sec</div>
   <h2 class="section-title"><span class="section-num">03</span>Un désert boursier qui pousse vers le non coté</h2>
-  <p class="body-text">Résultat : un désert boursier. Le marché parisien a compté 33 introductions en bourse en 2021, 11 en 2022, seulement 6 en 2023 et 47 en 2024, selon l'Observatoire des offres publiques d'EY.</p>
+  <p class="body-text">Résultat : un désert boursier. Le marché parisien a compté 33 introductions en bourse en 2021, 11 en 2022, puis seulement 6 en 2023, selon l'Observatoire des offres publiques d'EY. Cette année-là, aucune opération n'a même eu lieu sur le marché réglementé principal d'Euronext Paris : toutes se sont limitées au compartiment Growth, dédié aux plus petites valeurs. Le rebond apparent de 2024 (47 opérations) tient surtout à des transferts d'autres compartiments, pas à un afflux de nouvelles entreprises. Sur toute la période, aucune de ces opérations ne concerne une entreprise de construction ou de promotion pure : la tech, la santé et l'énergie ont capté l'essentiel des capitaux.</p>
 
-  <div class="chart-wrap">
-    <div class="chart-title">Introductions en bourse, Euronext Paris, tous secteurs</div>
-    <div class="chart-container"><canvas id="chartIPO" role="img" aria-label="IPO Euronext Paris : 33 en 2021, 11 en 2022, 6 en 2023, 47 en 2024"></canvas></div>
-  </div>
-
-  <p class="body-text">Sur ces quatre années, l'opération la plus notable liée à la construction reste celle de l'espagnol Ferrovial, coté sur Euronext Amsterdam en 2023, mais Ferrovial n'est plus une entreprise de travaux : c'est un gestionnaire d'infrastructures et d'aéroports. La tech, la santé et l'énergie ont capté l'essentiel des nouvelles cotations.</p>
-
-  <p class="body-text">Face à ce constat, les dirigeants du BTP se tournent logiquement vers le non coté. Les fonds de private equity offrent ce que la Bourse refuse : la discrétion, et un horizon de moyen ou long terme, à l'abri des publications trimestrielles imposées par l'AMF.</p>
+  <p class="body-text">Face à ce constat, les dirigeants du BTP se tournent logiquement vers le non coté. Les fonds de private equity offrent ce que la Bourse refuse : la discrétion, et un horizon de moyen ou long terme, à l'abri des publications trimestrielles imposées par l'AMF. Les PME et ETI du secteur leur préfèrent naturellement le LBO ou la transmission familiale, des montages plus compatibles avec des résultats qui varient fortement d'une année sur l'autre selon les chantiers en cours.</p>
 
   <!-- SECTION 4 -->
   <div class="section-label">Un problème de fond</div>
@@ -304,11 +302,11 @@ h2.section-title:first-child{margin-top:0;}
   <p class="body-text">Ce choix n'est pas qu'une question de goût pour la discrétion. Il traduit un problème de fond : la Bourse ne sait pas noter le modèle économique du BTP. Chez Eiffage, la marge opérationnelle des Travaux est passée de 3,8 % en 2022 à 4 % en 2023. Celle des Concessions est passée de 47,2 % à 46,3 % sur la même période.</p>
 
   <div class="chart-wrap">
-    <div class="chart-title">Marge opérationnelle par branche, groupe Eiffage</div>
+    <div class="chart-title">Marge opérationnelle courante par branche, groupe Eiffage</div>
     <div class="chart-container"><canvas id="chartEif" role="img" aria-label="Marge Travaux 3.8% en 2022 et 4.0% en 2023, marge Concessions 47.2% en 2022 et 46.3% en 2023"></canvas></div>
   </div>
 
-  <p class="body-text">Les marchés valorisent avec un multiple élevé un revenu récurrent, contractualisé sur plusieurs décennies et prévisible. Ils appliquent une décote sévère à un revenu cyclique, exposé aux litiges de chantier et à l'inflation des matériaux. C'est exactement ce qui distingue les groupes de BTP qui réussissent en Bourse : Vinci, Eiffage, Ferrovial, ACS, Sacyr ont tous basculé vers les concessions d'infrastructure. Ce n'est pas leur activité de construction qui justifie leur valorisation, mais leur portefeuille d'autoroutes, d'aéroports et de réseaux concédés. Le marché ne récompense pas les entreprises de BTP. Il récompense celles qui ont cessé d'en dépendre uniquement.</p>
+  <p class="body-text">Les marchés valorisent avec un multiple élevé un revenu récurrent, contractualisé sur plusieurs décennies et prévisible. Ils appliquent une décote sévère à un revenu cyclique, exposé aux litiges de chantier et à l'inflation des matériaux. C'est exactement ce qui distingue les groupes de BTP qui réussissent en Bourse : Vinci, Eiffage, Ferrovial, ACS, Sacyr ont tous basculé vers les concessions d'infrastructure. Ce n'est pas leur activité de construction qui justifie leur valorisation, mais leur portefeuille d'autoroutes, d'aéroports et de réseaux concédés. Et aucun de ces cinq groupes n'est une entrée en bourse récente : Ferrovial elle-même est cotée à Madrid depuis 1999, et son transfert de cotation principale vers Euronext Amsterdam en 2023 n'était pas une introduction en bourse mais un changement de domiciliation, sans levée de capitaux nouveaux. Le marché ne récompense pas les entreprises de BTP. Il récompense des groupes qui ont mis vingt à trente ans à cesser d'en dépendre uniquement, pas des candidats fraîchement introduits.</p>
 
   <!-- SECTION 5 -->
   <div class="section-label">Options de financement</div>
@@ -316,6 +314,7 @@ h2.section-title:first-child{margin-top:0;}
   <p class="body-text">Pour une ETI de travaux qui reste purement une entreprise de construction, une introduction en bourse n'est aujourd'hui pas une option réaliste. Les alternatives se jouent ailleurs.</p>
 
   <table class="risk-table">
+    <caption class="table-caption">Options de financement et de transmission pour une ETI du BTP</caption>
     <thead>
       <tr><th>Option</th><th>Avantages</th><th>Inconvénients</th><th>Risques</th></tr>
     </thead>
@@ -347,18 +346,20 @@ h2.section-title:first-child{margin-top:0;}
     </tbody>
   </table>
 
-  <!-- VERDICT -->
-  <div class="verdict-block">
-    <div class="verdict-label">Ce que ces chiffres disent vraiment</div>
-    <div class="verdict-title">Le marché ne récompense pas le BTP. Il récompense ceux qui en sortent.</div>
-    <div class="verdict-body">
-      <p>La faiblesse du flux d'introductions en bourse dans le BTP n'est pas un accident de calendrier. C'est la conséquence directe d'une marge nette de 1 à 3 % qui ne supporte ni les coûts fixes d'une cotation, ni la discipline d'un reporting trimestriel calé sur un cycle de chantier imprévisible.</p>
-      <p>Les groupes qui réussissent en Bourse, Vinci, Eiffage, Ferrovial, ACS, Sacyr, ont tous le même point commun : leur valorisation ne repose plus sur leur activité de construction, mais sur un portefeuille de concessions d'infrastructure au revenu récurrent et contractualisé sur plusieurs décennies. C'est ce revenu-là que les marchés savent noter, pas un carnet de commandes de chantiers.</p>
-      <p>Pour une ETI qui reste une pure entreprise de travaux, la conclusion est simple : la Bourse n'est plus un point de passage réaliste. Le private equity, la transmission familiale ou la construction d'un second pôle de revenus récurrents restent les seules voies crédibles, chacune avec son propre horizon et ses propres contraintes.</p>
+  <!-- RECOMMANDATION -->
+  <div class="reco-block">
+    <div class="reco-label">Notre recommandation</div>
+    <div class="reco-body">
+      <p>Pour une ETI du BTP en 2026, le chemin le plus solide à court terme reste le LBO ou la transmission familiale : moins d'exposition à la volatilité trimestrielle, plus de temps pour restructurer les marges. Mais la seule stratégie qui ouvre réellement la porte des marchés financiers à moyen terme consiste à construire, à côté de l'activité travaux, un pôle de revenus récurrents (concessions, exploitation, maintenance longue durée, services énergétiques). C'est le seul dénominateur commun des groupes de BTP aujourd'hui bien valorisés en Bourse.</p>
     </div>
+    <ol class="reco-plan">
+      <li>Isoler et présenter séparément les revenus déjà récurrents (contrats d'exploitation, de maintenance) pour objectiver la vraie qualité de la marge de l'entreprise.</li>
+      <li>Chiffrer précisément le coût de cotation rapporté au résultat net avant toute démarche : c'est souvent ce calcul, à lui seul, qui tranche la question.</li>
+      <li>Explorer le LBO ou la transmission familiale comme solution immédiate, tout en construisant sur 3 à 5 ans un pôle de revenus contractualisés qui rendrait une cotation future crédible.</li>
+    </ol>
   </div>
 
-  <div class="fn">Sources : Fédération Française du Bâtiment, bilans annuels 2023, 2024 et 2025. Altares, études trimestrielles de défaillances d'entreprises 2023-2024. EY, Observatoire des offres publiques, éditions 2024 et 2025. Eiffage et Vinci, communiqués de résultats annuels et semestriels 2023-2024. Assemblée nationale et analyses de place (Zonebourse) pour les ordres de grandeur des coûts d'introduction en bourse. Les frais de cotation récurrents et l'exemple chiffré de la section 02 sont des estimations analytiques, à ajuster selon la taille réelle de l'opération et de l'entreprise.</div>
+  <div class="fn">Sources : Fédération Française du Bâtiment, bilans annuels 2024 et 2025 (mises en chantier : -24,9 % en 2023, -14,2 % en 2024, rebond de 8,4 % en 2025). SDES / Sitadel pour les séries de logements commencés. Altares, bilans de défaillances d'entreprises 2023 et 2024 (14 112 défauts dans la construction en 2024, +40,7 % ; hausse de plus de 36 % en 2023 ; secteur concentrant 24 % des faillites françaises). EY, Observatoire des offres publiques, 15e et 16e éditions (33 IPO en 2021, 11 en 2022, 6 en 2023 sur la seule place de Paris). Eiffage, communiqués de résultats annuels 2023 et 2024 (marge opérationnelle Travaux 4,0 % en 2023, Concessions 46,3 %). Assemblée nationale et analyses de place pour les ordres de grandeur des coûts d'introduction en bourse (consensus de 5 à 7 % du montant levé).<br>Précisions : les valeurs annuelles des deux graphiques pour les années antérieures à 2024 sont reconstituées à partir des taux de variation officiels et servent d'illustration de tendance. L'exemple chiffré de la section 02 (ETI à 40 M€ de chiffre d'affaires) est une estimation analytique, à ajuster selon la taille réelle de l'opération.</div>
 
 </div>
 
@@ -376,10 +377,10 @@ Chart.defaults.color = inkSoft;
 new Chart(document.getElementById('chartMEC'), {
   type: 'line',
   data: {
-    labels: ['2019', '2021', '2023', '2024', '2025'],
+    labels: ['2021', '2022', '2023', '2024', '2025'],
     datasets: [{
       label: 'Mises en chantier (milliers)',
-      data: [409, 389, 286, 261, 283],
+      data: [386, 376, 287, 261, 283],
       borderColor: '#fbbf24',
       backgroundColor: 'rgba(251,191,36,0.1)',
       borderWidth: 2.5,
@@ -411,10 +412,10 @@ new Chart(document.getElementById('chartMEC'), {
 new Chart(document.getElementById('chartDef'), {
   type: 'bar',
   data: {
-    labels: ['T1 2023', 'T2 2023', 'T2 2024'],
+    labels: ['2022', '2023', '2024'],
     datasets: [{
-      label: 'Évolution des défaillances',
-      data: [42, 35, 23.4],
+      label: 'Défaillances dans la construction',
+      data: [7300, 10030, 14112],
       backgroundColor: '#f87171',
       borderRadius: 3,
       borderSkipped: false,
@@ -430,43 +431,11 @@ new Chart(document.getElementById('chartDef'), {
         backgroundColor: '#16161A', borderColor: '#1F1F22', borderWidth: 1,
         titleColor: '#B89B5E', bodyColor: '#EAEAEA',
         titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 12 },
-        callbacks: { label: ctx => '  +' + ctx.parsed.y + ' %' }
+        callbacks: { label: ctx => '  ' + ctx.parsed.y.toLocaleString('fr-FR') + ' procédures' }
       }
     },
     scales: {
-      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => '+' + v + ' %', font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
-      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Inter' } }, border: { display: false } }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartIPO'), {
-  type: 'bar',
-  data: {
-    labels: ['2021', '2022', '2023', '2024'],
-    datasets: [{
-      label: 'IPO Euronext Paris',
-      data: [33, 11, 6, 47],
-      backgroundColor: ['#60a5fa', '#60a5fa', '#f87171', '#60a5fa'],
-      borderRadius: 3,
-      borderSkipped: false,
-      maxBarThickness: 70
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        backgroundColor: '#16161A', borderColor: '#1F1F22', borderWidth: 1,
-        titleColor: '#B89B5E', bodyColor: '#EAEAEA',
-        titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 12 },
-        callbacks: { label: ctx => '  ' + ctx.parsed.y + ' introductions' }
-      }
-    },
-    scales: {
-      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => (v/1000) + ' k', font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
       x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Inter' } }, border: { display: false } }
     }
   }
