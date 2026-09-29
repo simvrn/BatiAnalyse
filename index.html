@@ -807,11 +807,11 @@
   <ul class="nav-links">
     <li><a href="/">Accueil</a></li>
     <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <li><a href="/ma-hub">M&amp;A</a></li>
+    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub">M&amp;A</a></li>-->
     <li><a href="/macro.html">Macro</a></li>
     <li><a href="/blog.html">Analyses</a></li>
   </ul>
-  <a href="#" class="nav-cta">Accès Premium</a>
+  <!--MASQUE_TEMP_PREMIUM:<a href="#" class="nav-cta">Accès Premium</a>-->
   <button class="nav-hamburger" onclick="document.getElementById('navMobileIndex').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -819,7 +819,7 @@
 <div class="nav-mobile" id="navMobileIndex">
   <a href="/">Accueil</a>
   <a href="/valeurs-cotees.html">Valeurs</a>
-  <a href="/ma-hub">M&amp;A</a>
+  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
   <a href="/macro.html">Macro</a>
   <a href="/blog.html">Analyses</a>
 </div>
@@ -915,12 +915,12 @@
         <div class="theme-desc">Analyse des cours, décryptage des résultats, étude des marges et carnets de commandes des grands groupes BTP européens.</div>
         <span class="theme-tag">Vinci · Eiffage · Bouygues · Saint-Gobain</span>
       </a>
-      <a class="theme-card" href="/ma-hub">
+      <!--MASQUE_TEMP_MA:<a class="theme-card" href="/ma-hub">
         <span class="theme-icon">⊕</span>
         <div class="theme-title">M&A & Fusions</div>
         <div class="theme-desc">Décryptage des opérations de rapprochement, valorisations, synergies attendues et analyse des deal flows sectoriels.</div>
         <span class="theme-tag">Deal flow · Multiples · Due diligence</span>
-      </a>
+      </a>-->
       <a class="theme-card" href="/macro.html">
         <span class="theme-icon">◎</span>
         <div class="theme-title">Macro & Conjoncture</div>
@@ -1047,7 +1047,7 @@
         <h5>Analyses</h5>
         <ul>
           <li><a href="/valeurs-cotees.html">Valeurs cotées</a></li>
-          <li><a href="#">M&A & Fusions</a></li>
+          <!--MASQUE_TEMP_MA:<li><a href="#">M&A & Fusions</a></li>-->
           <li><a href="#">Private Equity</a></li>
           <li><a href="#">Résultats</a></li>
         </ul>
@@ -1135,6 +1135,7 @@ const STATIC_BLOG_ARTICLES = [
     date: "11 septembre 2026",
     url: "/ipo-btp"
   },
+  /* MASQUE_TEMP_MA:
   {
     title: "VINCI rachète Cobra IS à ACS : pivot structurel vers l'énergie soldé en 2025",
     excerpt: "4,6 Md€ de valeur d'entreprise, coût total 5,3 Md€, earn-out soldé en août 2025. Marge ROPA 7,4% dès la première année. Analyse complète du deal et signal faible sur la consolidation EPC énergie mondiale.",
@@ -1142,6 +1143,7 @@ const STATIC_BLOG_ARTICLES = [
     date: "14 mai 2026",
     url: "/vinci-cobra-is"
   },
+  */
   {
     title: "Électricité : qui gagne vraiment de l'argent dans cette filière ?",
     excerpt: "Comparatif des marges EBIT de 9 acteurs de la filière électrique française : fabricants de câbles, distributeurs, installateurs. Qui capture réellement la valeur ?",
