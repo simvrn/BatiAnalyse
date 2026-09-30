@@ -668,7 +668,7 @@
 
   .footer-inner {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr; /* ORIGINAL: 2fr 1fr 1fr 1fr — restaurer avec les colonnes Analyses/Secteurs */
     gap: 48px;
     margin-bottom: 48px;
   }
@@ -1043,11 +1043,12 @@
         <a href="/" class="logo">Bati<span>Analyse</span></a>
         <p>Le premier média financier exclusivement dédié au secteur de la construction, des matériaux et des infrastructures.</p>
       </div>
+      <!--MASQUE_TEMP_FOOTER:
       <div class="footer-col">
         <h5>Analyses</h5>
         <ul>
           <li><a href="/valeurs-cotees.html">Valeurs cotées</a></li>
-          <!--MASQUE_TEMP_MA:<li><a href="#">M&A & Fusions</a></li>-->
+          <li><a href="#">M&A & Fusions</a></li>
           <li><a href="#">Private Equity</a></li>
           <li><a href="#">Résultats</a></li>
         </ul>
@@ -1061,6 +1062,7 @@
           <li><a href="#">PropTech</a></li>
         </ul>
       </div>
+      -->
       <div class="footer-col">
         <h5>À propos</h5>
         <ul>
