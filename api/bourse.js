@@ -75,6 +75,15 @@ export default async function handler(req, res) {
       const price = parseNum(cols[1])
       if (!price) continue
 
+      // La colonne N (performance 1 an calculée par le Sheet via GOOGLEFINANCE)
+      // affiche parfois "Chargement en cours..." de façon intermittente.
+      // On recalcule nous-mêmes à partir du prix actuel et du prix il y a 52
+      // semaines (colonne M), plus fiable, avec la colonne N en repli.
+      const price52wAgo = parseNum(cols[12])
+      const perf_1an = (price && price52wAgo)
+        ? ((price - price52wAgo) / price52wAgo) * 100
+        : parseNum(cols[13])
+
       stockData[ticker] = {
         price,
         percent_change: parseNum(cols[2]) ?? 0,
@@ -84,7 +93,7 @@ export default async function handler(req, res) {
         low52w:  parseNum(cols[6]),
         volume:  parseNum(cols[7]),
         eps:     parseNum(cols[8]),
-        perf_1an: parseNum(cols[13]),
+        perf_1an,
       }
     }
 
