@@ -453,9 +453,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
       <p class="section-sub">Sources : SDES, S&P Global, FNTP, Anah. Données officielles publiées.</p>
 
       <div class="activity-kpis">
-        <div class="act-kpi"><div class="act-kpi-val">283 007</div><div class="act-kpi-label">Mises en chantier</div><div class="act-kpi-change">▼ -17,7% vs moy. 5 ans</div></div>
+        <div class="act-kpi"><div class="act-kpi-val" style="color:var(--green)">300 500</div><div class="act-kpi-label">Mises en chantier (12m)</div><div class="act-kpi-change" style="color:var(--green)">▲ +19,9% sur un an</div></div>
         <div class="act-kpi"><div class="act-kpi-val">369 723</div><div class="act-kpi-label">Permis construire</div><div class="act-kpi-change">▼ -9,7% vs moy. 5 ans</div></div>
-        <div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">38,4</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -5,5 pts vs fév. (43,9)</div></div>
+        <!--MASQUE_TEMP_PMI:<div class="act-kpi"><div class="act-kpi-val" style="color:var(--red)">38,4</div><div class="act-kpi-label">PMI Construction</div><div class="act-kpi-change">▼ -5,5 pts vs fév. (43,9)</div></div>-->
       </div>
 
       <div id="btp-chart-root" style="width:100%;margin:16px 0 24px;"></div>
@@ -469,11 +469,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
           </tr>
         </thead>
         <tbody>
-          <tr style="animation-delay:0.05s"><td>Mises en chantier</td><td class="td-current">283 007 lgts</td><td class="change-pos">▼ -17,7% vs moy. 5 ans</td><td>mars 2025 – fév. 2026</td><td>SDES, 31/03/2026</td></tr>
+          <tr style="animation-delay:0.05s"><td>Mises en chantier</td><td class="td-current">300 500 lgts (12m)</td><td class="change-neg">▲ +19,9% sur un an · +4,1% m/m (27 663 en août)</td><td>sept. 2025 – août 2026</td><td>SDES, 29/09/2026</td></tr>
           <tr style="animation-delay:0.1s"><td>Permis de construire</td><td class="td-current">369 723 lgts (12m)</td><td class="change-pos">▼ -9,7% vs moy. 5 ans · -1,1% m/m (29 749)</td><td>sept. 2025 – août 2026</td><td>SDES, 29/09/2026</td></tr>
-          <tr style="animation-delay:0.15s"><td>PMI Construction France</td><td class="td-current">38,4</td><td class="change-pos">▼ -5,5 pts vs fév. (43,9)</td><td>mars 2026</td><td>S&P Global, 08/04/2026</td></tr>
-          <tr style="animation-delay:0.2s"><td>CA Travaux Publics</td><td class="td-current">51,3 Md€</td><td class="change-neg">▲ +4% en valeur</td><td>année 2024</td><td>FNTP</td></tr>
-          <tr style="animation-delay:0.25s"><td>Rénovation MaPrimeRénov'</td><td class="td-current">156 762 lgts</td><td class="change-pos">▼ -1,7% vs S1 2024</td><td>S1 2025 (jan–juin)</td><td>Anah, 25/07/2025</td></tr>
+          <!--MASQUE_TEMP_PMI:<tr style="animation-delay:0.15s"><td>PMI Construction France</td><td class="td-current">38,4</td><td class="change-pos">▼ -5,5 pts vs fév. (43,9)</td><td>mars 2026</td><td>S&P Global, 08/04/2026</td></tr>-->
+          <!--MASQUE_TEMP_CATP:<tr style="animation-delay:0.2s"><td>CA Travaux Publics</td><td class="td-current">51,3 Md€</td><td class="change-neg">▲ +4% en valeur</td><td>année 2024</td><td>FNTP</td></tr>-->
+          <!--MASQUE_TEMP_MAPRIMERENOV:<tr style="animation-delay:0.25s"><td>Rénovation MaPrimeRénov'</td><td class="td-current">156 762 lgts</td><td class="change-pos">▼ -1,7% vs S1 2024</td><td>S1 2025 (jan–juin)</td><td>Anah, 25/07/2025</td></tr>-->
         </tbody>
       </table>
     </div>
@@ -509,7 +509,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
   <div class="right-rail">
     <div class="rail-section">
       <div class="rail-title">Agenda Macro</div>
-      <div class="agenda-item"><div class="agenda-date">02 avr</div><div><div class="agenda-name">Réunion BCE — décision taux</div><div class="agenda-dots">●●●</div></div></div>
+      <div class="agenda-item"><div class="agenda-date">29 oct</div><div><div class="agenda-name">Réunion BCE — décision taux (28-29/10, Francfort, 14h15 Paris). Taux dépôt actuel : 2,50%.</div><div class="agenda-dots">●●●</div></div></div>
     </div>
 
     <div class="rail-section">
@@ -517,6 +517,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;ali
       <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">01 Octobre 2026</div><div class="alert-text">OAT 10 ans (TEC 10) : 4,90% — AFT. Forte remontée des taux longs.</div></div></div>
       <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">30 Septembre 2026</div><div class="alert-text">Inflation France : IPC +3,0%/an (prov.), IPCH +3,4%/an — INSEE</div></div></div>
       <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">29 Septembre 2026</div><div class="alert-text">Permis de construire : 29 749 lgts (août, -1,1% m/m) — SDES</div></div></div>
+      <div class="alert-item"><div class="alert-dot green"></div><div class="alert-content"><div class="alert-date">29 Septembre 2026</div><div class="alert-text">Mises en chantier : 27 663 lgts en août (+4,1% m/m), 300 500 sur 12 mois (+19,9%/an) — SDES</div></div></div>
       <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">23 Septembre 2026</div><div class="alert-text">ICC T2 2026 : 2 103 (+0,91% trim., +0,81% an) — INSEE</div></div></div>
       <div class="alert-item"><div class="alert-dot red"></div><div class="alert-content"><div class="alert-date">16 Septembre 2026</div><div class="alert-text">Taux BCE : facilité de dépôt relevée à 2,50% — BCE</div></div></div>
       <div class="alert-item"><div class="alert-dot" style="background:var(--gold)"></div><div class="alert-content"><div class="alert-date">15 Septembre 2026</div><div class="alert-text">Indice BT01 : 138,9 (+4,12%/an) — INSEE (paru au JO le 16/09)</div></div></div>
@@ -989,7 +990,7 @@ renderComm();
     { x:'Jun 24', label:'1ère baisse BCE', color:'#888' },
     { x:'Oct 24', label:'PMI plancher',    color:'#888' },
     { x:'Jan 25', label:'PTZ élargi',      color:'#888' },
-    { x:'Mar 26', label:'PMI 38,4 — plancher récent', color:'#cc4444' },
+    // MASQUE_TEMP_PMI: { x:'Mar 26', label:'PMI 38,4 — plancher récent', color:'#cc4444' },
   ];
 
   // ── Custom tooltip ──
@@ -1059,6 +1060,7 @@ renderComm();
             tickLine={false}
             label={{ value:'Mises en chantier (k)', angle:-90, position:'insideLeft', fill:'#555', fontSize:9, fontFamily:FONT, dx:-6 }}
           />
+          {/* MASQUE_TEMP_PMI — axe PMI retire temporairement (pas de donnee recente)
           <YAxis
             yAxisId="right"
             orientation="right"
@@ -1069,6 +1071,7 @@ renderComm();
             tickLine={false}
             label={{ value:'PMI Construction', angle:90, position:'insideRight', fill:'#555', fontSize:9, fontFamily:FONT, dx:10 }}
           />
+          */}
           <Tooltip content={<CustomTooltip />} cursor={{ stroke:'#2a2a2a', strokeWidth:1 }} />
           <Legend
             verticalAlign="top"
@@ -1080,10 +1083,11 @@ renderComm();
           <ReferenceLine yAxisId="left" y={30} stroke="#7f3d3d" strokeDasharray="4 3" strokeWidth={1}
             label={{ value:'Cible 30k', position:'insideTopLeft', fill:'#7f3d3d', fontSize:9, fontFamily:FONT }}
           />
-          {/* Reference line — seuil PMI 50 */}
+          {/* MASQUE_TEMP_PMI — seuil PMI 50
           <ReferenceLine yAxisId="right" y={50} stroke="#3a3a3a" strokeDasharray="4 3" strokeWidth={1}
             label={{ value:'Seuil 50', position:'insideTopRight', fill:'#666', fontSize:9, fontFamily:FONT }}
           />
+          */}
 
           {/* Annotation vertical lines */}
           {ANNOTS.map(a => (
@@ -1107,6 +1111,7 @@ renderComm();
             maxBarSize={14}
             radius={[1,1,0,0]}
           />
+          {/* MASQUE_TEMP_PMI — serie PMI retiree temporairement (pas de donnee recente)
           <Line
             yAxisId="right"
             type="monotone"
@@ -1118,6 +1123,7 @@ renderComm();
             activeDot={{ r:4, fill:'#d4d4d4', stroke:'#0f0f0f', strokeWidth:2 }}
             connectNulls={false}
           />
+          */}
         </ComposedChart>
       </ResponsiveContainer>
     </div>
