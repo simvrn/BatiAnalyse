@@ -29,167 +29,23 @@
       <p class="fil"><a href="/">BatiAnalyse</a> / Macro et conjoncture</p>
       <h1>Macro et conjoncture</h1>
       <div class="ligne-sous">
-        <p class="maj">Indicateurs économiques du BTP, zone euro et France. Mis à jour le 1er octobre 2026.</p>
-        <div class="chiffres n">
-          <div><small>Taux BCE</small><strong>2,50%</strong></div>
-          <div><small>OAT 10 ans</small><strong>4,90%</strong></div>
-          <div><small>Indice BT01</small><strong>138,9</strong></div>
-          <div><small>Chômage BIT</small><strong>8,3%</strong></div>
-          <div><small>Crédit immo</small><strong>3,30%</strong></div>
-        </div>
+        <p class="maj">Trois indicateurs suivis pour le BTP : le coût de l'argent, la demande de logements neufs et l'emploi. Mis à jour le 1er octobre 2026.</p>
+        <div class="chiffres n" id="macroChiffres"></div>
       </div>
     </div>
   </div>
 
   <div class="wrap cadre droite">
     <div class="content">
-      <!-- TAB BAR -->
-      <div class="onglets tab-bar" aria-label="Sections macro">
-        <button class="tab-btn active" data-tab="dashboard">Tableau de bord</button>
-        <!--MASQUE_TEMP_MATIERES:<button class="tab-btn" data-tab="matieres">Matières premières</button>-->
-        <button class="tab-btn" data-tab="taux">Taux et financement</button>
-        <button class="tab-btn" data-tab="activite">Activité BTP</button>
-        <!--MASQUE_TEMP_INFLATION:<button class="tab-btn" data-tab="inflation">Inflation et coûts</button>-->
+      <div class="lecture">
+        <h3>Lecture de marché, octobre 2026</h3>
+        <p class="note" style="margin:0 0 10px"><b>Brouillon, à valider.</b></p>
+        <p>La BCE a relevé son taux de dépôt à 2,50 % le 16 septembre 2026. Le crédit devient plus cher pour les promoteurs et les acheteurs. La demande de logements neufs reste faible : 369 723 logements autorisés sur 12 mois à fin août, soit 9,7 % sous la moyenne des cinq dernières années. Le marché du travail se dégrade aussi : le chômage atteint 8,3 % au deuxième trimestre, en hausse de 0,2 point. Des taux plus élevés sur une demande déjà faible : c'est le risque central du cycle.</p>
       </div>
 
-      <!-- TAB 1 : DASHBOARD -->
-      <div class="tab-panel active" id="tab-dashboard">
-        <div class="lecture">
-          <h3>Lecture de marché, octobre 2026</h3>
-          <p>Le cycle d'assouplissement de la BCE s'est interrompu : la facilité de dépôt est remontée à 2,50% depuis le 16 septembre 2026 (refinancement 2,65%, prêt marginal 2,90%), en réponse à une inflation qui se réaccélère nettement : IPC à +3,0% sur un an en septembre (estimation provisoire), IPCH à +3,4%. Les taux longs suivent la même trajectoire : l'OAT 10 ans (TEC 10) s'établit à 4,90% au 1er octobre 2026, en forte hausse par rapport aux 3,74% d'avril. Le coût du crédit aux entreprises progresse également (3,75% en juillet, contre 3,53% en début d'année), tout comme l'indice BT01 des matériaux (138,9, +4,12% sur un an).</p>
-          <p style="margin-top:12px">Côté activité, la dégradation se poursuit : les permis de construire reculent de -9,7% sur 12 mois glissants par rapport à la moyenne des 5 dernières années (369 723 logements, -1,1% sur le seul mois d'août), et l'emploi BTP recule de -1,4% sur un an (1 519,4 milliers de salariés hors intérim, T2 2026). Le taux de chômage remonte à 8,3% (BIT, +0,2 point sur le trimestre). Seul point de résistance relatif : le crédit immobilier reste contenu à 3,30% chez les particuliers (Banque de France, juillet 2026), mais sa production ralentit (11,0 Md€ contre 11,6 Md€ en février) et son encours ne progresse plus que de +0,2% sur un an. La remontée conjointe des taux et de l'inflation, sur fond de demande déjà déprimée, est désormais le risque central du cycle.</p>
-        </div>
-
-        <div class="cote">
-          <h2>Synthèse des indicateurs</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">Secteur BTP</span>
-        </div>
-        <dl class="releve n" id="kpiGrid"></dl>
-        <p class="note">Cliquez sur un indicateur pour voir l'historique de ses publications.</p>
-      </div>
-
-      <!-- TAB 2 : MATIÈRES PREMIÈRES -->
-      <div class="tab-panel" id="tab-matieres">
-        <div class="cote">
-          <h2>Matières premières</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">Impact sur les marges BTP</span>
-        </div>
-        <p class="note" style="margin:0 0 18px">Données indicatives. Sources : LME, Euroconstruct, AIMCC. Mise à jour hebdomadaire.</p>
-
-        <div class="outils">
-          <button class="filtre comm-filter-btn active" data-cat="tous">Tous</button>
-          <button class="filtre comm-filter-btn" data-cat="metaux">Métaux</button>
-          <button class="filtre comm-filter-btn" data-cat="beton">Granulats et béton</button>
-          <button class="filtre comm-filter-btn" data-cat="bois">Bois et dérivés</button>
-          <button class="filtre comm-filter-btn" data-cat="energie">Énergie et bitume</button>
-        </div>
-
-        <div class="tab-wrap">
-          <table class="n" id="commTable">
-            <thead>
-              <tr>
-                <th class="tri" onclick="sortComm('name')">Matériau</th>
-                <th class="r tri" onclick="sortComm('current')">Prix actuel</th>
-                <th class="r tri" onclick="sortComm('c1m')">1 mois</th>
-                <th class="r tri" onclick="sortComm('c3m')">3 mois</th>
-                <th class="r tri" onclick="sortComm('c12m')">12 mois</th>
-                <th>Évolution 12 mois</th>
-              </tr>
-            </thead>
-            <tbody id="commBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TAB 3 : TAUX -->
-      <div class="tab-panel" id="tab-taux">
-        <div class="cote">
-          <h2>Crédit immobilier</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">Juillet 2026</span>
-        </div>
-        <dl class="releve n">
-          <div><dt>Taux moyen des nouveaux crédits habitat</dt><dd class="v">3,30%</dd><dd class="s">Hors renégociations, juillet 2026 (provisoire). Source : Banque de France</dd></div>
-          <div><dt>Production mensuelle</dt><dd class="v">11,0 Md€</dd><dd class="s">Juillet 2026, données CVS, provisoire. Source : Banque de France</dd></div>
-          <div><dt>Encours sur un an</dt><dd class="v">+0,2%</dd><dd class="s">Source : Banque de France</dd></div>
-        </dl>
-
-        <div class="cote" style="margin-top:44px">
-          <h2>Taux et financement</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">Impact sur la construction</span>
-        </div>
-        <dl class="releve n" id="ratesGrid"></dl>
-        <p class="note">Sources : BCE, Banque de France, Observatoire Crédit Logement. Crédit immobilier : données Banque de France, juillet 2026 (provisoire).</p>
-      </div>
-
-      <!-- TAB 4 : ACTIVITÉ -->
-      <div class="tab-panel" id="tab-activite">
-        <div class="cote">
-          <h2>Construction de logements</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">12 mois, à fin août</span>
-        </div>
-        <dl class="releve n">
-          <div><dt>Mises en chantier, 12 mois</dt><dd class="v">300 500</dd><dd class="s"><span class="var up">+19,9%</span> sur un an. Source : SDES</dd></div>
-          <div><dt>Permis de construire, 12 mois</dt><dd class="v">369 723</dd><dd class="s"><span class="var down">-9,7%</span> sous la moyenne à 5 ans. Source : SDES</dd></div>
-          <!--MASQUE_TEMP_PMI:<div><dt>PMI Construction</dt><dd class="v">38,4</dd><dd class="s"><span class="var down">-5,5 pts</span> par rapport à février (43,9). Source : S&amp;P Global</dd></div>-->
-        </dl>
-
-        <div id="btp-chart-root" style="width:100%;margin:28px 0 8px;"></div>
-        <p class="note" style="margin:0 0 8px">Mises en chantier mensuelles, en milliers de logements. Source : SDES.</p>
-
-        <div class="cote" style="margin-top:44px">
-          <h2>Détail des indicateurs publiés</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">SDES</span>
-        </div>
-        <div class="tab-wrap">
-          <table class="n">
-            <thead>
-              <tr><th>Indicateur</th><th class="r">Valeur</th><th>Évolution</th><th>Période</th><th>Source</th></tr>
-            </thead>
-            <tbody>
-              <tr><td class="nom"><b>Mises en chantier</b></td><td class="r">300 500 lgts (12m)</td><td><span class="var up">+19,9%</span> sur un an, +4,1% sur le mois (27 663 en août)</td><td>Sept. 2025 à août 2026</td><td>SDES, 29/09/2026</td></tr>
-              <tr><td class="nom"><b>Permis de construire</b></td><td class="r">369 723 lgts (12m)</td><td><span class="var down">-9,7%</span> sous la moyenne à 5 ans, -1,1% sur le mois (29 749)</td><td>Sept. 2025 à août 2026</td><td>SDES, 29/09/2026</td></tr>
-              <!--MASQUE_TEMP_PMI:<tr><td class="nom"><b>PMI Construction France</b></td><td class="r">38,4</td><td><span class="var down">-5,5 pts</span> par rapport à février (43,9)</td><td>Mars 2026</td><td>S&amp;P Global, 08/04/2026</td></tr>-->
-              <!--MASQUE_TEMP_CATP:<tr><td class="nom"><b>CA Travaux publics</b></td><td class="r">51,3 Md€</td><td><span class="var up">+4%</span> en valeur</td><td>Année 2024</td><td>FNTP</td></tr>-->
-              <!--MASQUE_TEMP_MAPRIMERENOV:<tr><td class="nom"><b>Rénovation MaPrimeRénov'</b></td><td class="r">156 762 lgts</td><td><span class="var down">-1,7%</span> par rapport au S1 2024</td><td>S1 2025 (janvier à juin)</td><td>Anah, 25/07/2025</td></tr>-->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TAB 5 : INFLATION -->
-      <div class="tab-panel" id="tab-inflation">
-        <div class="cote">
-          <h2>Prix et coûts</h2>
-          <span class="ligne" aria-hidden="true"></span>
-          <span class="mesure">Indices INSEE</span>
-        </div>
-        <div class="tab-wrap">
-          <table class="n">
-            <thead>
-              <tr><th>Indice</th><th class="r">Valeur</th><th>Base</th><th>Période</th><th>Source</th></tr>
-            </thead>
-            <tbody>
-              <tr><td class="nom"><b>BT01</b><small>Bâtiment, tous corps d'état</small></td><td class="r">138,9</td><td>2010=100, +4,12% sur un an</td><td>Juillet 2026</td><td>INSEE, 15/09/2026 (JO 16/09)</td></tr>
-              <tr><td class="nom"><b>TP01</b><small>Travaux routiers</small></td><td class="r">131,4</td><td>2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
-              <tr><td class="nom"><b>TP09</b><small>Génie civil</small></td><td class="r">119,5</td><td>2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
-              <tr><td class="nom"><b>TP02</b></td><td class="r">137,5</td><td>2010=100</td><td>Janvier 2026</td><td>INSEE, 13/03/2026</td></tr>
-              <tr><td class="nom"><b>ICC</b><small>Indice du coût de la construction</small></td><td class="r">2 103</td><td>1953=100, +0,91% sur le trimestre, +0,81% sur un an</td><td>T2 2026</td><td>INSEE, 23/09/2026</td></tr>
-              <tr><td class="nom"><b>ICC</b><small>Période précédente</small></td><td class="r">2 058</td><td>1953=100</td><td>T4 2025</td><td>INSEE</td></tr>
-              <tr><td class="nom"><b>IPC France</b><small>Inflation générale</small></td><td class="r">+3,0%</td><td>Estimation provisoire</td><td>Septembre 2026</td><td>INSEE, 30/09/2026</td></tr>
-              <tr><td class="nom"><b>IPCH France</b><small>Inflation harmonisée</small></td><td class="r">+3,4%</td><td>Comparable zone euro</td><td>Septembre 2026</td><td>INSEE, 30/09/2026</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <div id="macroIndicateurs"></div>
     </div>
 
-    <!-- RIGHT RAIL -->
     <aside class="fil-actu" aria-label="Agenda et actualités">
       <section>
         <h4>Agenda macro</h4>
@@ -197,16 +53,8 @@
       </section>
       <section>
         <h4>Dernières actualités</h4>
-        <div class="it"><time>1er octobre 2026</time>OAT 10 ans (TEC 10) : 4,90%. Forte remontée des taux longs. Source : AFT</div>
-        <div class="it"><time>30 septembre 2026</time>Inflation France : IPC +3,0% sur un an (provisoire), IPCH +3,4%. Source : INSEE</div>
         <div class="it"><time>29 septembre 2026</time>Permis de construire : 29 749 logements en août, -1,1% sur le mois. Source : SDES</div>
-        <div class="it"><time>29 septembre 2026</time>Mises en chantier : 27 663 logements en août (+4,1% sur le mois), 300 500 sur 12 mois (+19,9% sur un an). Source : SDES</div>
-        <div class="it"><time>23 septembre 2026</time>ICC T2 2026 : 2 103 (+0,91% sur le trimestre, +0,81% sur un an). Source : INSEE</div>
         <div class="it"><time>16 septembre 2026</time>Taux BCE : facilité de dépôt relevée à 2,50%. Source : BCE</div>
-        <div class="it"><time>15 septembre 2026</time>Indice BT01 : 138,9 (+4,12% sur un an), paru au JO le 16/09. Source : INSEE</div>
-        <div class="it"><time>9 septembre 2026</time>Crédit aux entreprises : encours 1 443,6 Md€ (+3,5% sur un an), coût moyen 3,75%. Source : Banque de France</div>
-        <div class="it"><time>7 septembre 2026</time>Crédit immobilier : 3,30%, production 11,0 Md€, encours +0,2% sur un an. Source : Banque de France</div>
-        <div class="it"><time>28 août 2026</time>Emploi BTP T2 2026 : 1 519,4 milliers de salariés, -1,4% sur un an. Source : INSEE</div>
         <div class="it"><time>7 août 2026</time>Taux de chômage T2 2026 : 8,3% au sens du BIT (+0,2 point sur le trimestre). Source : INSEE</div>
       </section>
     </aside>
@@ -230,595 +78,86 @@
 </footer>
 
 <script>
-// ── DATA ──
-const commodities = [
-  { id:'acier', name:'Acier HRC', cat:'metaux', unit:'€/t', current:'682', c1m:-2.1, c3m:-8.4, c12m:-11.8, trend:'down', spark:[820,800,780,760,745,728,710,700,695,688,685,682], color:'#60a5fa' },
-  { id:'cuivre', name:'Cuivre', cat:'metaux', unit:'$/t', current:'9 240', c1m:1.2, c3m:4.8, c12m:12.3, trend:'up', spark:[8200,8300,8450,8600,8720,8800,8900,9000,9080,9150,9200,9240], color:'#fb923c' },
-  { id:'ciment', name:'Ciment CEM II', cat:'beton', unit:'€/t', current:'118', c1m:-0.8, c3m:-2.4, c12m:-6.2, trend:'down', spark:[128,127,126,125,124,123,122,121,120,120,119,118], color:'#a78bfa' },
-  { id:'bois', name:'Bois construction', cat:'bois', unit:'€/m³', current:'420', c1m:3.2, c3m:8.1, c12m:5.4, trend:'up', spark:[398,400,403,406,408,410,412,414,415,418,419,420], color:'#6ee7b7' },
-  { id:'bitume', name:'Bitume', cat:'energie', unit:'€/t', current:'348', c1m:-4.8, c3m:-12.1, c12m:-18.4, trend:'down', spark:[430,420,410,400,392,385,378,370,364,358,353,348], color:'#fbbf24' },
-  { id:'alu', name:'Aluminium', cat:'metaux', unit:'$/t', current:'2 380', c1m:0.4, c3m:1.8, c12m:6.7, trend:'up', spark:[2230,2240,2260,2270,2285,2300,2320,2340,2355,2365,2374,2380], color:'#B89B5E' },
-];
-
-const kpis = [
-  { slug:'taux-bce', icon:'↗', label:'Taux BCE dépôt', val:'2,50%', unit:'depuis 16 septembre 2026', change:'+50pb vs juin 2025', changeClass:'up', source:'BCE', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.5], color:'#B89B5E' },
-  { slug:'oat-10ans', icon:'≡', label:'OAT 10 ans France', val:'4,90%', unit:'TEC 10, 1er octobre 2026', change:'+116pb vs avril 2026', changeClass:'up', source:'AFT', spark:[3.5,3.6,3.4,3.3,3.2,3.14,3.12,3.30,3.55,3.74,4.90], color:'#B89B5E' },
-  { slug:'permis-construire', icon:'□', label:'Permis de construire', val:'29 749', unit:'logements, août 2026 (CVS)', change:'-1,1% m/m · 369 723/12m (-9,7% vs moy. 5 ans)', changeClass:'down', source:'SDES, 29 septembre 2026', spark:[38000,37000,36000,35500,35000,34500,34000,33800,33400,33151,29749], color:'#B89B5E' },
-  { slug:'icc', icon:'◈', label:'ICC', val:'2 103', unit:'T2 2026 (base 1953=100)', change:'+0,91% / trim. · +0,81% / an', changeClass:'up', source:'INSEE, 23 septembre 2026', spark:[2100,2110,2115,2120,2115,2100,2090,2075,2065,2058,2103], color:'#B89B5E' },
-  { slug:'bt01', icon:'∠', label:'Indice BT01', val:'138,9', unit:'Juillet 2026 (base 100=2010)', change:'+4,12% / an · +0,43% / mois', changeClass:'up', source:'INSEE, 15 septembre 2026', spark:[130,131,131.5,132,132.5,133,133.5,134,134.3,134.7,138.9], color:'#B89B5E' },
-  { slug:'inflation-ipc', icon:'▲', label:'Inflation (IPC)', val:'+3,0%', unit:'sur un an, septembre 2026 (provisoire)', change:'IPCH +3,4% / an', changeClass:'up', source:'INSEE, 30 septembre 2026', spark:[3.0], color:'#B89B5E' },
-  { slug:'emploi-btp', icon:'⊙', label:'Emploi BTP', val:'1 519,4 k', unit:'salariés hors intérim, T2 2026', change:'-0,4% trim. (-6 700) · -1,4% / an', changeClass:'down', source:'INSEE, 28 août 2026', spark:[1480,1475,1465,1460,1455,1450,1445,1440,1435,1420,1519.4], color:'#B89B5E' },
-  { slug:'chomage', icon:'↗', label:'Taux chômage', val:'8,3%', unit:'BIT, France, T2 2026', change:'+0,2 pt / trimestre', changeClass:'up', source:'INSEE, 7 août 2026', spark:[7.3,7.4,7.5,7.6,7.7,7.8,7.85,7.9,7.9,7.9,8.3], color:'#B89B5E' },
-  { slug:'credit-immobilier', icon:'▣', label:'Crédit immobilier (BdF)', val:'3,30%', unit:'nouveaux crédits hors renégo., juillet 2026', change:'Prod. 11,0 Md€ · Encours +0,2%/an', changeClass:'', source:'BdF, 7 septembre 2026', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.20,3.22,3.23,3.30], color:'#B89B5E' },
-  { slug:'credit-conso', icon:'▭', label:'Crédit à la conso', val:'6,07%', unit:'taux moyen, juillet 2026 (provisoire)', change:'Prod. 5,2 Md€ (CVS) · Encours +2,1%/an', changeClass:'', source:'BdF, 7 septembre 2026', spark:[], color:'#B89B5E' },
-];
-
-const rates = [
-  { label:'Taux BCE dépôt', val:'2,50', unit:'%', changeBp:+50, trend:'up', comment:'Depuis le 16 septembre 2026 (refi 2,65%, prêt marginal 2,90%). Fin du cycle de baisse, remontée en réponse à la réaccélération de l\'inflation.', spark:[4.5,4.25,3.5,3.0,2.75,2.5,2.25,2.0,2.0,2.5] },
-  { label:'OAT 10 ans France', val:'4,90', unit:'%', changeBp:+116, trend:'up', comment:'TEC 10 du jour, 1er octobre 2026, AFT. Forte remontée des taux longs, pression directe sur le financement immobilier et promoteur.', spark:[3.8,3.6,3.4,3.2,3.14,3.12,3.30,3.55,3.74,4.90] },
-  { label:'Observatoire Crédit Logement', val:'3,31', unit:'%', changeBp:+6, trend:'up', comment:'Taux moyen tous crédits accordés, hors assurance, août 2026. Légère remontée confirmée après le plancher de fin 2025.', spark:[4.2,3.9,3.6,3.4,3.2,3.09,3.17,3.23,3.25,3.31] },
-  { label:'Crédit entreprises (proxy promoteur)', val:'3,75', unit:'%', changeBp:+22, trend:'up', comment:'Coût moyen des nouveaux crédits aux sociétés non financières, juillet 2026 (provisoire, BdF). Encours total : 1 443,6 Md€ (+3,5%/an).', spark:[4.5,4.3,4.1,3.9,3.75,3.65,3.58,3.55,3.53,3.75] },
-];
-
-// ── SECTIONS DETAIL DATA ──
-const SECTIONS = {
-  'taux-bce': {
-    name:'Taux BCE dépôt', icon:'↗',
-    desc:'Taux directeur de facilité de dépôt de la Banque Centrale Européenne. Référence pour le coût du crédit en zone euro.',
-    history:[
-      { date:'16 septembre 2026', val:'2,50%', note:'Hausse de 50pb (de 2,00% à 2,50%). Fin du cycle de baisse entamé en 2024-2025 : la BCE relève ses taux en réponse à la réaccélération de l\'inflation (IPC +3,0%/an). Refinancement à 2,65%, prêt marginal à 2,90%.', src:'BCE, Décision de politique monétaire' },
+// ── LES 3 INDICATEURS SUIVIS ──
+// Données reprises de la version précédente de la page. Remplacées par data/macro.json au chantier 2.
+const INDICATEURS = [
+  {
+    slug: 'taux-bce',
+    court: 'Taux BCE',
+    label: 'Taux de dépôt de la BCE',
+    val: '2,50%',
+    unit: 'Depuis le 16 septembre 2026',
+    change: '+50 pb par rapport à juin 2025',
+    source: 'BCE',
+    desc: 'Taux directeur de facilité de dépôt de la Banque Centrale Européenne. Référence pour le coût du crédit en zone euro.',
+    history: [
+      { date:'16 septembre 2026', val:'2,50%', note:'Hausse de 50pb (de 2,00% à 2,50%). Fin du cycle de baisse entamé en 2024-2025 : la BCE relève ses taux en réponse à la réaccélération de l\'inflation. Refinancement à 2,65%, prêt marginal à 2,90%.', src:'BCE, Décision de politique monétaire' },
       { date:'11 juin 2025', val:'2,00%', note:'Baisse de 25pb (de 2,25% à 2,00%). Taux au plus bas depuis fin 2022. Le cycle de détente monétaire reste actif.', src:'BCE, Décision de politique monétaire' },
       { date:'17 avril 2025', val:'2,25%', note:'Baisse de 25pb (de 2,50% à 2,25%).', src:'BCE' },
       { date:'6 mars 2025', val:'2,50%', note:'Baisse de 25pb (de 2,75% à 2,50%). 3ème baisse consécutive.', src:'BCE' },
     ]
   },
-  'oat-10ans': {
-    name:'OAT 10 ans France', icon:'≡',
-    desc:'Rendement de l\'obligation assimilable du Trésor à 10 ans (TEC 10). Baromètre des taux longs et du coût du financement immobilier à long terme.',
-    history:[
-      { date:'1er octobre 2026', val:'4,90%', note:'TEC 10 du jour. Forte remontée des taux longs français (+116pb vs avril 2026), en ligne avec le resserrement de la BCE et la réaccélération de l\'inflation. Pression accrue sur les taux immobiliers et le financement promoteur.', src:'AFT, TEC 10 du jour' },
-      { date:'10 avril 2026', val:'3,74%', note:'Remontée significative des taux longs français. Écart croissant avec la BCE (spread). Pression directe sur les taux immobiliers et le financement promoteur.', src:'AFT, Agence France Trésor' },
-      { date:'Janvier 2026', val:'~3,12%', note:'Point bas relatif début 2026 avant la remontée d\'avril.', src:'AFT' },
+  {
+    slug: 'permis-construire',
+    court: 'Permis de construire',
+    label: 'Permis de construire',
+    val: '29 749',
+    unit: 'Logements autorisés en août 2026 (CVS)',
+    change: '-1,1% sur le mois. 369 723 sur 12 mois, -9,7% par rapport à la moyenne des 5 dernières années',
+    source: 'SDES, 29 septembre 2026',
+    desc: 'Nombre de logements autorisés à la construction. Indicateur avancé de l\'activité du bâtiment résidentiel. Publication mensuelle SDES (Sit@del2).',
+    history: [
+      { date:'29 septembre 2026', val:'29 749 logements', note:'Données août 2026 (CVS), -1,1% sur un mois. Sur 12 mois glissants : 369 723 logements, -9,7% par rapport à la moyenne des 5 dernières années. La dépression du marché du neuf s\'accentue.', src:'SDES, Sit@del2' },
+      { date:'31 mars 2026', val:'33 151 logements', note:'Données février 2026 publiées par le SDES. Poursuite de la tendance baissière des autorisations, illustrant la dépression durable du marché du neuf.', src:'SDES, Sit@del2' },
     ]
   },
-  'permis-construire': {
-    name:'Permis de construire', icon:'□',
-    desc:'Nombre de logements autorisés à la construction. Indicateur avancé de l\'activité du bâtiment résidentiel. Publication mensuelle SDES (Sit@del2).',
-    history:[
-      { date:'29 septembre 2026', val:'29 749 logements', note:'Données Août 2026 (CVS), -1,1% sur un mois. Sur 12 mois glissants : 369 723 logements, -9,7% par rapport à la moyenne des 5 dernières années. La dépression du marché du neuf s\'accentue.', src:'SDES, Sit@del2' },
-      { date:'31 mars 2026', val:'33 151 logements', note:'Données Février 2026 publiées par le SDES. Poursuite de la tendance baissière des autorisations, illustrant la dépression durable du marché du neuf.', src:'SDES, Sit@del2' },
-    ]
-  },
-  'icc': {
-    name:'ICC, Indice du Coût de la Construction', icon:'◈',
-    desc:'Publié par l\'INSEE, base 1953=100. Utilisé pour l\'indexation des loyers commerciaux (baux 3-6-9). Publication trimestrielle.',
-    history:[
-      { date:'23 septembre 2026', val:'2 103', note:'T2 2026. +0,91% sur le trimestre, +0,81% sur un an. Reprise de la hausse de l\'indice après la phase de légère détente fin 2025.', src:'INSEE' },
-      { date:'24 mars 2026', val:'2 058', note:'T4 2025. Légère détente de l\'indice sur le trimestre. En baisse par rapport au pic de 2 156 observé précédemment.', src:'INSEE' },
-    ]
-  },
-  'bt01': {
-    name:'Indice BT01, Tous corps d\'état', icon:'∠',
-    desc:'Indice national du bâtiment, base 100=2010. Référence pour l\'actualisation des marchés de travaux et des devis. Publié mensuellement par l\'INSEE.',
-    history:[
-      { date:'15 septembre 2026', val:'138,9', note:'Juillet 2026 (paru au JO le 16/09/2026). +4,12% sur un an, +0,43% sur un mois. Reprise de l\'inflation sur les coûts de construction.', src:'INSEE' },
-      { date:'Janvier 2026', val:'134,7', note:'Progression régulière. Représente une hausse de +34,7% depuis 2010.', src:'AIMCC / FNTP' },
-    ]
-  },
-  'inflation-ipc': {
-    name:'Inflation (IPC)', icon:'▲',
-    desc:'Indice des prix à la consommation, inflation annuelle en France. L\'IPCH (indice harmonisé, comparable aux autres pays de la zone euro) est suivi en parallèle.',
-    history:[
-      { date:'30 septembre 2026', val:'+3,0%', note:'Estimation provisoire pour septembre 2026 (IPC, sur un an). IPCH (harmonisé) à +3,4% sur un an, reprise marquée de l\'inflation après la phase de désinflation de 2024-2025, qui a motivé le resserrement monétaire de la BCE.', src:'INSEE' },
-    ]
-  },
-  'emploi-btp': {
-    name:'Emploi BTP', icon:'⊙',
-    desc:'Emploi salarié dans la construction en France (hors intérim). Indicateur de tension sectorielle et de santé économique du BTP.',
-    history:[
-      { date:'28 août 2026', val:'-1,4% / an · 1 519,4 k salariés', note:'T2 2026. -1,4% sur un an, -0,4% sur le trimestre (-6 700 emplois). 1 519,4 milliers de salariés hors intérim. La contraction se poursuit et s\'accentue, reflet direct de la baisse d\'activité dans le neuf.', src:'INSEE, Estimations d\'emploi' },
-      { date:'30 janvier 2026', val:'-0,2% / trim. · -1,0% / an', note:'T4 2025. -3 100 emplois sur le trimestre, -15 800 sur un an.', src:'INSEE, Estimations d\'emploi' },
-    ]
-  },
-  'chomage': {
-    name:'Taux de chômage', icon:'↗',
-    desc:'Taux de chômage au sens du BIT, France. Contexte macroéconomique général, influençant la demande de logement.',
-    history:[
+  {
+    slug: 'chomage',
+    court: 'Chômage BIT',
+    label: 'Taux de chômage au sens du BIT',
+    val: '8,3%',
+    unit: 'France, T2 2026',
+    change: '+0,2 point sur le trimestre',
+    source: 'INSEE, 7 août 2026',
+    desc: 'Taux de chômage au sens du BIT, France. Contexte macroéconomique général, influençant la demande de logement.',
+    history: [
       { date:'7 août 2026', val:'8,3%', note:'T2 2026. +0,2 point sur le trimestre. Dégradation confirmée du marché du travail, en cohérence avec le ralentissement de l\'activité BTP et le resserrement monétaire.', src:'INSEE, Enquête Emploi' },
       { date:'10 février 2026', val:'7,9%', note:'T4 2025. France hors Mayotte, périmètre BIT.', src:'INSEE, Enquête Emploi' },
     ]
   },
-  'credit-immobilier': {
-    name:'Crédit immobilier (BdF)', icon:'▣',
-    desc:'Taux moyen des nouveaux crédits immobiliers aux particuliers (hors renégociations) et production mensuelle. Source officielle Banque de France.',
-    history:[
-      { date:'Juillet 2026', val:'3,30% · Prod. 11,0 Md€', note:'Taux moyen des nouveaux crédits habitat hors renégociations (provisoire). Production mensuelle de 11,0 milliards d\'euros (CVS), en léger ralentissement. Encours total en hausse de seulement +0,2% sur un an.', src:'Banque de France, Stat Info Crédits' },
-      { date:'Février 2026', val:'3,23% · Prod. 11,6 Mds€', note:'Taux moyen de la production de crédits immobiliers. Production mensuelle de 11,6 milliards d\'euros. Encours total en hausse de +0,8% sur un an.', src:'Banque de France, Stat Info Crédits' },
-    ]
-  },
-  'credit-conso': {
-    name:'Crédit à la consommation', icon:'▭',
-    desc:'Taux moyen et production des crédits à la consommation en France. Indicateur de la confiance des ménages et de la consommation.',
-    history:[
-      { date:'Juillet 2026', val:'6,07% · Prod. 5,2 Md€', note:'Taux moyen des nouveaux crédits à la consommation (provisoire). Production mensuelle de 5,2 milliards d\'euros (CVS). Encours total en hausse de +2,1% sur un an.', src:'Banque de France' },
-      { date:'Février 2026', val:'+3,1%/an · Encours 218 Mds€', note:'Encours total des crédits à la consommation en hausse de 3,1% sur un an.', src:'Banque de France / FBF' },
-    ]
-  },
-};
+]
 
-// ── MODAL ──
-function openKpiModal(slug) {
-  const s = SECTIONS[slug];
-  const k = kpis.find(x => x.slug === slug);
-  if (!s || !k) return;
+// ── RENDU ──
+document.getElementById('macroChiffres').innerHTML = INDICATEURS.map(i =>
+  `<div><small>${i.court}</small><strong>${i.val}</strong></div>`
+).join('')
 
-  const histHtml = s.history.map(h => `
-    <div class="modal-tl-entry">
-      <div class="modal-tl-date">${h.date}</div>
-      <div class="modal-tl-val">${h.val}</div>
-      <div class="modal-tl-note">${h.note}</div>
-      <div class="modal-tl-src">Source : ${h.src}</div>
-    </div>
-  `).join('');
-
-  document.getElementById('kpi-modal-content').innerHTML = `
-    <div class="modal-intro">
-      <p class="modal-kicker">Indicateur macro</p>
-      <h2>${s.name}</h2>
-      <p class="modal-desc">${s.desc}</p>
-    </div>
+document.getElementById('macroIndicateurs').innerHTML = INDICATEURS.map(i => `
+  <section class="ent-sec" id="${i.slug}">
+    <div class="cote"><h2>${i.label}</h2><span class="ligne" aria-hidden="true"></span><span class="mesure">Source : ${i.source}</span></div>
+    <p class="modal-desc">${i.desc}</p>
     <div class="modal-current n">
       <div class="modal-current-main">
-        <div class="mcm-label">Valeur actuelle</div>
-        <div class="mcm-val">${k.val}</div>
-        ${k.change ? `<div class="mcm-change">${k.change}</div>` : ''}
+        <div class="mcm-label">Dernière valeur</div>
+        <div class="mcm-val">${i.val}</div>
+        <div class="mcm-change">${i.change}</div>
       </div>
       <div class="modal-meta">
-        <div><strong>Période :</strong> ${k.unit}</div>
-        <div><strong>Source :</strong> ${k.source}</div>
+        <div><strong>Période :</strong> ${i.unit}</div>
+        <div><strong>Source :</strong> ${i.source}</div>
       </div>
-      <div style="margin-left:auto;">${makeSpark(sparkFromHistory(slug) !== null ? sparkFromHistory(slug) : k.spark, '#16191C', 120, 40)}</div>
     </div>
     <div class="modal-section-label">Historique des publications</div>
-    <div class="modal-tl">${histHtml}</div>
-    <div class="modal-section-label">Notes et analyses</div>
-    <p class="vide">Les analyses associées à cet indicateur apparaîtront ici.</p>
-  `;
-
-  document.getElementById('kpi-modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeKpiModal() {
-  document.getElementById('kpi-modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeKpiModal(); });
-
-// ── SPARKLINE (interactive) ──
-function makeSpark(data, color, w=80, h=24) {
-  if (!data || data.length < 2) {
-    const mid = h / 2;
-    return `<svg class="spark-int" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}">
-      <line x1="0" y1="${mid}" x2="${w}" y2="${mid}" stroke="${color}" stroke-width="1.5" opacity="0.3"/>
-    </svg>`;
-  }
-  const min = Math.min(...data), max = Math.max(...data);
-  const range = max - min || 1;
-  const pts = data.map((v,i) => `${(i*(w/(data.length-1))).toFixed(2)},${(h-(((v-min)/range)*(h-4))-2).toFixed(2)}`).join(' ');
-  const area = pts + ` ${w},${h} 0,${h}`;
-  return `<svg class="spark-int" data-pts="${data.join(',')}" data-color="${color}" data-min="${min}" data-max="${max}" data-w="${w}" data-h="${h}" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" style="overflow:visible;cursor:crosshair">
-    <polygon points="${area}" fill="${color}" opacity="0.12"/>
-    <polyline points="${pts}" stroke="${color}" stroke-width="1.5" fill="none"/>
-    <line class="spark-vline" x1="-999" y1="0" x2="-999" y2="${h}" stroke="${color}" stroke-width="1" stroke-dasharray="2,2" opacity="0.8"/>
-    <circle class="spark-cdot" cx="-999" cy="0" r="2.5" fill="${color}"/>
-    <rect x="0" y="-4" width="${w}" height="${h+8}" fill="transparent"/>
-  </svg>`;
-}
-
-function parseHistVal(str) {
-  const s = str.replace(/\s/g,'').replace(/~/g,'');
-  const m = s.match(/-?\d[\d,]*/);
-  if (!m) return null;
-  return parseFloat(m[0].replace(',','.'));
-}
-
-function sparkFromHistory(slug) {
-  const sec = SECTIONS[slug];
-  if (!sec || !sec.history || sec.history.length === 0) return null;
-  const vals = [...sec.history].reverse().map(h => parseHistVal(h.val)).filter(v => v !== null);
-  return vals.length >= 1 ? vals : null;
-}
-
-// ── KPI GRID ──
-function renderKpis() {
-  const grid = document.getElementById('kpiGrid');
-  grid.innerHTML = kpis.map((k, i) => {
-    const fromHistory = sparkFromHistory(k.slug);
-    const sparkData = fromHistory !== null ? fromHistory : k.spark;
-    return `
-    <div class="kpi-card" role="button" tabindex="0" onclick="openKpiModal('${k.slug}')" onkeydown="if(event.key==='Enter')openKpiModal('${k.slug}')">
-      <dt>${k.label}</dt>
-      <dd class="v">${k.val}</dd>
-      <dd class="s">${k.unit.charAt(0).toUpperCase() + k.unit.slice(1)}.${k.change ? ' ' + k.change + '.' : ''}${k.note ? ' ' + k.note + '.' : ''} Source : ${k.source}</dd>
-      <dd class="kpi-spark">${makeSpark(sparkData, '#16191C')}</dd>
-    </div>`;
-  }).join('');
-}
-
-// ── COMMODITIES TABLE ──
-let commFilter = 'tous';
-let commSort = { col: 'c12m', dir: 1 };
-
-function renderComm() {
-  const data = commodities.filter(c => commFilter === 'tous' || c.cat === commFilter)
-    .sort((a,b) => {
-      const av = typeof a[commSort.col] === 'number' ? a[commSort.col] : a[commSort.col];
-      const bv = typeof b[commSort.col] === 'number' ? b[commSort.col] : b[commSort.col];
-      return (av > bv ? 1 : -1) * commSort.dir;
-    });
-  document.getElementById('commBody').innerHTML = data.map((c, i) => `
-    <tr>
-      <td class="nom"><b>${c.name}</b><small>${c.unit}</small></td>
-      <td class="r">${c.current}</td>
-      <td class="r var ${c.c1m < 0 ? 'down' : c.c1m > 0 ? 'up' : ''}">${c.c1m > 0 ? '+' : ''}${String(c.c1m).replace('.', ',')}%</td>
-      <td class="r var ${c.c3m < 0 ? 'down' : c.c3m > 0 ? 'up' : ''}">${c.c3m > 0 ? '+' : ''}${String(c.c3m).replace('.', ',')}%</td>
-      <td class="r var ${c.c12m < 0 ? 'down' : c.c12m > 0 ? 'up' : ''}">${c.c12m > 0 ? '+' : ''}${String(c.c12m).replace('.', ',')}%</td>
-      <td>${makeSpark(c.spark, '#16191C')}</td>
-    </tr>
-  `).join('');
-}
-
-function sortComm(col) {
-  commSort = { col, dir: commSort.col === col ? -commSort.dir : -1 };
-  renderComm();
-}
-
-document.querySelectorAll('.comm-filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.comm-filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    commFilter = btn.dataset.cat;
-    renderComm();
-  });
-});
-
-// ── RATES GRID ──
-function renderRates() {
-  document.getElementById('ratesGrid').innerHTML = rates.map((r,i) => `
-    <div>
-      <dt>${r.label}</dt>
-      <dd class="v">${r.val}${r.unit}</dd>
-      <dd class="s"><b>${r.changeBp !== 0 ? (r.changeBp > 0 ? '+' : '-') + Math.abs(r.changeBp) + ' points de base' : 'Stable'}.</b> ${r.comment}</dd>
-      <dd class="kpi-spark">${makeSpark(r.spark, '#16191C', 100, 24)}</dd>
+    <div class="modal-tl">${i.history.map(h => `
+      <div class="modal-tl-entry">
+        <div class="modal-tl-date">${h.date}</div>
+        <div class="modal-tl-val">${h.val}</div>
+        <div class="modal-tl-note">${h.note}</div>
+        <div class="modal-tl-src">Source : ${h.src}</div>
+      </div>`).join('')}
     </div>
-  `).join('');
-}
-
-// ── TABS ──
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-    if (btn.dataset.tab === 'taux' && !document.getElementById('ratesGrid').children.length) renderRates();
-  });
-});
-
-// ── SIDEBAR FILTERS (period = single, others = decorative for now) ──
-document.querySelectorAll('#periodFilter .pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#periodFilter .pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-document.querySelectorAll('#geoFilter .pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#geoFilter .pill').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-document.querySelectorAll('#catFilter .pill').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.dataset.val === 'tous') {
-      document.querySelectorAll('#catFilter .pill').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    } else {
-      document.querySelector('#catFilter [data-val="tous"]').classList.remove('active');
-      btn.classList.toggle('active');
-    }
-  });
-});
-document.querySelectorAll('#signalFilter .pill').forEach(btn => {
-  btn.addEventListener('click', () => btn.classList.toggle('active'));
-});
-
-function resetFilters() {
-  document.querySelectorAll('#periodFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.querySelectorAll('#geoFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.querySelectorAll('#catFilter .pill').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.querySelectorAll('#signalFilter .pill').forEach(b => b.classList.remove('active'));
-}
-
-// ── INTERACTIVE SPARKLINE TOOLTIP ──
-(function() {
-  const tip = document.createElement('div');
-  tip.style.cssText = "position:fixed;z-index:9999;pointer-events:none;background:#16191C;font-family:'Archivo',system-ui,sans-serif;font-size:13px;font-weight:600;color:#F1F2EE;padding:3px 9px;opacity:0;transition:opacity 0.1s;white-space:nowrap;font-variant-numeric:tabular-nums;";
-  document.body.appendChild(tip);
-  let prevSvg = null;
-
-  function interact(svg, cx, cy) {
-    const data = svg.dataset.pts.split(',').map(Number);
-    const w = +svg.dataset.w, h = +svg.dataset.h;
-    const min = +svg.dataset.min, max = +svg.dataset.max;
-    const range = max - min || 1;
-    const rect = svg.getBoundingClientRect();
-    const relX = Math.max(0, Math.min(rect.width, cx - rect.left));
-    const idx = Math.max(0, Math.min(data.length-1, Math.round((relX/rect.width)*(data.length-1))));
-    const val = data[idx];
-    const svgX = (idx*(w/(data.length-1))).toFixed(2);
-    const svgY = (h-(((val-min)/range)*(h-4))-2).toFixed(2);
-    const vl = svg.querySelector('.spark-vline');
-    const cd = svg.querySelector('.spark-cdot');
-    if (vl) { vl.setAttribute('x1', svgX); vl.setAttribute('x2', svgX); }
-    if (cd) { cd.setAttribute('cx', svgX); cd.setAttribute('cy', svgY); }
-    const fmt = (val % 1 === 0 ? String(val) : val.toFixed(val < 100 ? 2 : 0)).replace('.', ',');
-    tip.textContent = fmt;
-    tip.style.opacity = '1';
-    tip.style.left = (cx + 14) + 'px';
-    tip.style.top = (cy - 22) + 'px';
-  }
-
-  function reset(svg) {
-    const vl = svg?.querySelector('.spark-vline');
-    const cd = svg?.querySelector('.spark-cdot');
-    if (vl) { vl.setAttribute('x1', '-999'); vl.setAttribute('x2', '-999'); }
-    if (cd) cd.setAttribute('cx', '-999');
-    tip.style.opacity = '0';
-  }
-
-  document.addEventListener('mousemove', e => {
-    const svg = e.target.closest('svg.spark-int[data-pts]');
-    if (!svg) { if (prevSvg) { reset(prevSvg); prevSvg = null; } return; }
-    if (prevSvg && prevSvg !== svg) reset(prevSvg);
-    prevSvg = svg;
-    interact(svg, e.clientX, e.clientY);
-  });
-
-  document.addEventListener('touchmove', e => {
-    const t = e.touches[0];
-    const el = document.elementFromPoint(t.clientX, t.clientY);
-    const svg = el?.closest('svg.spark-int[data-pts]');
-    if (!svg) { if (prevSvg) { reset(prevSvg); prevSvg = null; } return; }
-    if (prevSvg && prevSvg !== svg) reset(prevSvg);
-    prevSvg = svg;
-    interact(svg, t.clientX, t.clientY);
-  }, { passive: true });
-
-  document.addEventListener('touchend', () => { if (prevSvg) { reset(prevSvg); prevSvg = null; } });
-  document.addEventListener('mouseleave', () => { if (prevSvg) { reset(prevSvg); prevSvg = null; } });
-})();
-
-// ── INIT ──
-renderKpis();
-renderComm();
+  </section>`).join('')
 </script>
-<!-- KPI MODAL OVERLAY -->
-<div id="kpi-modal-overlay" class="kpi-modal-overlay" onclick="if(event.target===this)closeKpiModal()">
-  <div class="kpi-modal-panel" id="kpi-modal-panel">
-    <button class="kpi-modal-close" onclick="closeKpiModal()">Fermer</button>
-    <div id="kpi-modal-content"></div>
-  </div>
-</div>
-
 <script src="/cookie-banner.js" defer></script>
-
-<!-- BTP CHART : React + Recharts -->
-<script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.24.6/babel.min.js"></script>
-<script type="text/babel" data-presets="react">
-(function() {
-  const {
-    ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid,
-    Tooltip, Legend, ReferenceLine, ResponsiveContainer
-  } = Recharts;
-
-  const FONT = "'Archivo',system-ui,sans-serif";
-  const INK = '#16191C', MUTED = '#4F565B', TRAIT = '#B1B3AC', CLAIR = '#F1F2EE', DOWN = '#B3261E';
-
-  // 39 mois, janvier 2023 à mars 2026
-  const data = [
-    { m:'Jan 23', mec:33.5, pmi:47.2 },
-    { m:'Fév 23', mec:32.8, pmi:46.8 },
-    { m:'Mar 23', mec:32.1, pmi:46.3 },
-    { m:'Avr 23', mec:31.5, pmi:45.8 },
-    { m:'Mai 23', mec:30.9, pmi:45.1 },
-    { m:'Jun 23', mec:30.4, pmi:44.5 },
-    { m:'Jul 23', mec:29.8, pmi:44.0 },
-    { m:'Aoû 23', mec:29.2, pmi:43.5 },
-    { m:'Sep 23', mec:28.8, pmi:43.0 },
-    { m:'Oct 23', mec:28.5, pmi:42.6 },
-    { m:'Nov 23', mec:29.1, pmi:42.4 },
-    { m:'Déc 23', mec:30.0, pmi:42.8 },
-    { m:'Jan 24', mec:29.7, pmi:42.5 },
-    { m:'Fév 24', mec:29.2, pmi:42.9 },
-    { m:'Mar 24', mec:28.6, pmi:43.1 },
-    { m:'Avr 24', mec:28.1, pmi:42.7 },
-    { m:'Mai 24', mec:27.8, pmi:42.3 },
-    { m:'Jun 24', mec:28.3, pmi:42.8 },
-    { m:'Jul 24', mec:28.0, pmi:42.5 },
-    { m:'Aoû 24', mec:27.4, pmi:41.8 },
-    { m:'Sep 24', mec:27.0, pmi:41.1 },
-    { m:'Oct 24', mec:26.7, pmi:40.2 },
-    { m:'Nov 24', mec:27.2, pmi:41.3 },
-    { m:'Déc 24', mec:28.8, pmi:42.2 },
-    { m:'Jan 25', mec:29.4, pmi:43.0 },
-    { m:'Fév 25', mec:30.1, pmi:43.5 },
-    { m:'Mar 25', mec:30.7, pmi:43.8 },
-    { m:'Avr 25', mec:31.2, pmi:44.1 },
-    { m:'Mai 25', mec:31.6, pmi:43.7 },
-    { m:'Jun 25', mec:31.9, pmi:43.2 },
-    { m:'Jul 25', mec:31.6, pmi:42.6 },
-    { m:'Aoû 25', mec:32.0, pmi:41.9 },
-    { m:'Sep 25', mec:32.3, pmi:41.2 },
-    { m:'Oct 25', mec:31.9, pmi:39.8 },
-    { m:'Nov 25', mec:32.4, pmi:43.6 },
-    { m:'Déc 25', mec:32.0, pmi:43.4 },
-    { m:'Jan 26', mec:27.6, pmi:43.5 },
-    { m:'Fév 26', mec:27.2, pmi:43.9 },
-    { m:'Mar 26', mec:null, pmi:38.4 },
-  ];
-
-  const ANNOTS = [
-    { x:'Jan 23', label:'Hausse taux BCE', color:MUTED },
-    { x:'Jan 24', label:'Fin Pinel',       color:MUTED },
-    { x:'Jun 24', label:'1ère baisse BCE', color:MUTED },
-    { x:'Oct 24', label:'PMI plancher',    color:MUTED },
-    { x:'Jan 25', label:'PTZ élargi',      color:MUTED },
-    // MASQUE_TEMP_PMI: { x:'Mar 26', label:'PMI 38,4, plancher récent', color:DOWN },
-  ];
-
-  // ── Custom tooltip ──
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (!active || !payload || !payload.length) return null;
-    return (
-      <div style={{ background:CLAIR, border:'2px solid ' + INK, padding:'8px 12px', fontFamily:FONT, fontSize:'14px', lineHeight:'1.5', color:INK }}>
-        <div style={{ fontWeight:700, marginBottom:'4px' }}>{label}</div>
-        {payload.map(p => (
-          <div key={p.dataKey} style={{ display:'flex', justifyContent:'space-between', gap:'20px' }}>
-            <span>{p.name}</span>
-            <span style={{ fontWeight:700 }}>{p.value != null ? String(p.value).replace('.', ',') : 'n.c.'}</span>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  // ── Annotation label (rotated -45°) ──
-  const AnnotLabel = ({ viewBox, label, color }) => {
-    if (!viewBox) return null;
-    const { x, y } = viewBox;
-    return (
-      <g>
-        <text
-          x={0} y={0}
-          fill={color} fontSize={12}
-          fontFamily={FONT}
-          textAnchor="start"
-          style={{ pointerEvents:'none' }}
-          transform={`translate(${x + 3},${y + 6}) rotate(-45)`}
-        >
-          {label}
-        </text>
-      </g>
-    );
-  };
-
-  // ── Custom dot: only on last PMI point ──
-  const PMIDot = (props) => {
-    const { cx, cy, index } = props;
-    if (index === data.length - 1) {
-      return <circle cx={cx} cy={cy} r={5} fill={DOWN} stroke={CLAIR} strokeWidth={2} />;
-    }
-    return <g />;
-  };
-
-  // ── Chart ──
-  const BTPChart = () => (
-    <div style={{ width:'100%', height:380 }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={data} margin={{ top:100, right:56, bottom:20, left:44 }}>
-          <CartesianGrid vertical={false} stroke={TRAIT} />
-          <XAxis
-            dataKey="m"
-            ticks={['Jan 23','Jul 23','Jan 24','Jul 24','Jan 25','Jul 25','Jan 26']}
-            tick={{ fill:MUTED, fontSize:13, fontFamily:FONT }}
-            axisLine={{ stroke:INK, strokeWidth:2 }}
-            tickLine={false}
-          />
-          <YAxis
-            yAxisId="left"
-            domain={[24, 36]}
-            ticks={[24,26,28,30,32,34,36]}
-            tick={{ fill:MUTED, fontSize:13, fontFamily:FONT }}
-            axisLine={false}
-            tickLine={false}
-            label={{ value:'Mises en chantier (milliers)', angle:-90, position:'insideLeft', fill:MUTED, fontSize:12, fontFamily:FONT, dx:-6 }}
-          />
-          {/* MASQUE_TEMP_PMI : axe PMI retire temporairement (pas de donnee recente)
-          <YAxis
-            yAxisId="right"
-            orientation="right"
-            domain={[30, 60]}
-            ticks={[30,35,40,45,50,55,60]}
-            tick={{ fill:'#666', fontSize:11, fontFamily:FONT }}
-            axisLine={false}
-            tickLine={false}
-            label={{ value:'PMI Construction', angle:90, position:'insideRight', fill:'#555', fontSize:9, fontFamily:FONT, dx:10 }}
-          />
-          */}
-          <Tooltip content={<CustomTooltip />} cursor={{ fill:'rgba(22,25,28,0.06)' }} />
-          <Legend
-            verticalAlign="bottom"
-            align="left"
-            wrapperStyle={{ fontFamily:FONT, fontSize:'14px', color:INK, paddingTop:'8px' }}
-          />
-
-          {/* Ligne de référence : cible 30k mises en chantier */}
-          <ReferenceLine yAxisId="left" y={30} stroke={INK} strokeDasharray="4 3" strokeWidth={1.5}
-            label={{ value:'Cible 30k', position:'right', fill:INK, fontSize:12, fontWeight:600, fontFamily:FONT }}
-          />
-          {/* MASQUE_TEMP_PMI : seuil PMI 50
-          <ReferenceLine yAxisId="right" y={50} stroke="#3a3a3a" strokeDasharray="4 3" strokeWidth={1}
-            label={{ value:'Seuil 50', position:'insideTopRight', fill:'#666', fontSize:9, fontFamily:FONT }}
-          />
-          */}
-
-          {/* Annotation vertical lines */}
-          {ANNOTS.map(a => (
-            <ReferenceLine
-              key={a.x}
-              x={a.x}
-              yAxisId="left"
-              stroke={a.color}
-              strokeWidth={1}
-              strokeOpacity={0.5}
-              label={<AnnotLabel label={a.label} color={a.color} />}
-            />
-          ))}
-
-          <Bar
-            yAxisId="left"
-            dataKey="mec"
-            name="Mises en chantier (k)"
-            fill={INK}
-            maxBarSize={14}
-          />
-          {/* MASQUE_TEMP_PMI : serie PMI retiree temporairement (pas de donnee recente)
-          <Line
-            yAxisId="right"
-            type="monotone"
-            dataKey="pmi"
-            name="PMI Construction"
-            stroke="#d4d4d4"
-            strokeWidth={2}
-            dot={<PMIDot />}
-            activeDot={{ r:4, fill:'#d4d4d4', stroke:'#0f0f0f', strokeWidth:2 }}
-            connectNulls={false}
-          />
-          */}
-        </ComposedChart>
-      </ResponsiveContainer>
-    </div>
-  );
-
-  const root = document.getElementById('btp-chart-root');
-  if (root) ReactDOM.createRoot(root).render(<BTPChart />);
-})();
-</script>
 </body>
 </html>
