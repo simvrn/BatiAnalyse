@@ -3,230 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BatiAnalyse — Article</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
-  --border:#1F1F22; --border-hover:#B89B5E;
-  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
-  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
-
-
-/* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
-.logo { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
-.logo span { color:var(--gold); }
-.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
-.nav-links a { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
-.nav-links a:hover { color:var(--text); }
-.nav-links a.active { color:var(--gold); }
-.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; background:var(--gold);border:none;border-radius:6px; color:var(--bg); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
-.nav-cta:hover { opacity:0.88; }
-
-/* LAYOUT */
-.page-wrap { padding-top:56px; }
-.breadcrumb-bar { padding:16px 32px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.15em; }
-.breadcrumb-bar a { color:var(--text-3); text-decoration:none; transition:color 0.15s; }
-.breadcrumb-bar a:hover { color:var(--gold); }
-.breadcrumb-bar .sep { color:var(--text-3); opacity:0.4; }
-#breadcrumbTitle { color:var(--text-2); max-width:400px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-.article-layout { max-width:1100px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:1fr 280px; gap:64px; align-items:start; padding-top:48px; padding-bottom:80px; }
-@media(max-width:900px) { .article-layout { grid-template-columns:1fr; } .aside { display:none; } }
-
-/* ARTICLE HEADER */
-#articleHeader { margin-bottom:32px; }
-.art-cat { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; }
-.art-title { font-family:'DM Serif Display',serif; font-size:clamp(32px,4vw,52px); font-weight:900; line-height:1.05; letter-spacing:-0.5px; margin-bottom:20px; }
-.art-meta { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-.art-author { color:var(--text-2); }
-.art-sep { opacity:0.4; }
-
-/* FEATURED IMAGE */
-#featuredImageWrap { display:none; margin-bottom:36px; }
-.featured-img { width:100%; max-height:480px; object-fit:cover; display:block; }
-
-/* ARTICLE CONTENT — Styles pour le HTML rendu par WordPress */
-.article-content { font-size:16px; font-weight:400; line-height:1.8; color:var(--text-2); }
-.article-content p { margin-bottom:1.5em; }
-.article-content h2 { font-family:'DM Serif Display',serif; font-size:clamp(22px,2.5vw,30px); font-weight:700; color:var(--white); line-height:1.2; margin:2.5em 0 0.8em; padding-bottom:12px; border-bottom:1px solid var(--border); }
-.article-content h3 { font-family:'DM Serif Display',serif; font-size:clamp(18px,2vw,24px); font-weight:700; color:var(--white); line-height:1.3; margin:2em 0 0.7em; }
-.article-content h4 { font-size:16px; font-weight:700; color:var(--text); margin:1.5em 0 0.5em; text-transform:uppercase; letter-spacing:0.06em; font-family:'Inter',sans-serif; }
-.article-content strong { color:var(--white); font-weight:700; }
-.article-content em { color:var(--gold); font-style:italic; }
-.article-content a { color:var(--gold); text-decoration:underline; text-underline-offset:3px; transition:opacity 0.15s; }
-.article-content a:hover { opacity:0.75; }
-.article-content ul, .article-content ol { padding-left:1.5em; margin-bottom:1.5em; }
-.article-content li { margin-bottom:0.5em; }
-.article-content ul li::marker { color:var(--gold); }
-.article-content ol li::marker { color:var(--gold); font-family:'DM Mono',monospace; font-size:13px; }
-.article-content blockquote { border-left:3px solid var(--gold); padding:20px 24px; background:var(--surface); margin:2em 0; font-family:'DM Serif Display',serif; font-size:18px; font-style:italic; color:var(--white); line-height:1.6; }
-.article-content blockquote p { margin-bottom:0; }
-.article-content img { max-width:100%; height:auto; display:block; margin:2em auto; }
-.article-content figure { margin:2em 0; }
-.article-content figcaption { font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); text-align:center; margin-top:8px; letter-spacing:0.08em; }
-.article-content hr { border:none; border-top:1px solid var(--border); margin:2.5em 0; }
-.article-content table { width:100%; border-collapse:collapse; margin:2em 0; font-family:'DM Mono',monospace; font-size:13px; }
-.article-content th { background:var(--surface); color:var(--gold); padding:10px 14px; text-align:left; font-size:10px; letter-spacing:0.15em; text-transform:uppercase; border-bottom:1px solid var(--border); }
-.article-content td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--text-2); }
-.article-content tr:hover td { background:var(--gold-glow); }
-.article-content pre { background:var(--surface); border:1px solid var(--border); padding:20px; overflow-x:auto; margin:2em 0; }
-.article-content code { font-family:'DM Mono',monospace; font-size:13px; color:var(--gold); background:var(--gold-dim); padding:2px 6px; }
-.article-content pre code { background:none; padding:0; font-size:13px; color:var(--text-2); }
-
-/* ASIDE */
-.aside { position:sticky; top:80px; }
-.aside-block { border:1px solid var(--border); padding:20px; margin-bottom:20px; }
-.aside-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--border); }
-.share-btns { display:flex; flex-direction:column; gap:8px; }
-.share-btn { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.08em; padding:9px 14px; border:1px solid var(--border); background:none; color:var(--text-2); cursor:pointer; text-align:left; transition:all 0.15s; }
-.share-btn:hover { border-color:var(--gold); color:var(--gold); }
-.newsletter-aside input { font-family:'DM Mono',monospace; font-size:11px; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:9px 12px; outline:none; width:100%; margin-bottom:8px; }
-.newsletter-aside input:focus { border-color:var(--gold); }
-.newsletter-aside input::placeholder { color:var(--text-3); }
-.newsletter-aside button { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; padding:9px 16px; background:var(--gold); color:var(--black); border:none; cursor:pointer; width:100%; transition:opacity 0.15s; }
-.newsletter-aside button:hover { opacity:0.85; }
-
-/* RELATED */
-#relatedSection { padding:60px 32px 80px; border-top:1px solid var(--border); max-width:1100px; margin:0 auto; display:none; }
-.related-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-.related-title-main { font-family:'DM Serif Display',serif; font-size:28px; font-weight:700; margin-bottom:32px; }
-#relatedGrid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-@media(max-width:768px) { #relatedGrid { grid-template-columns:1fr; } }
-.related-card { background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:all 0.2s; overflow:hidden; }
-.related-card:hover { border-color:var(--border-hover); }
-.related-img { height:140px; background:var(--surface2); background-size:cover; background-position:center; }
-.related-img-ph { background:var(--surface2); }
-.related-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); padding:14px 16px 0; }
-.related-title { font-family:'DM Serif Display',serif; font-size:16px; font-weight:700; line-height:1.3; padding:8px 16px; }
-.related-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); padding:0 16px 14px; }
-
-/* SKELETONS */
-@keyframes shimmer { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
-.sk-cat, .sk-h1, .sk-meta, .sk-p {
-  background: var(--surface2);
-  background-size:800px 100%; animation:shimmer 1.4s infinite; border-radius:2px;
-}
-.sk-cat { height:10px; width:80px; margin-bottom:16px; }
-.sk-h1 { height:40px; margin-bottom:12px; }
-.sk-h1.sk-short { width:70%; }
-.sk-meta { height:10px; width:200px; margin-top:10px; }
-.sk-p { height:16px; margin-bottom:12px; }
-.sk-p.sk-short { width:65%; }
-
-/* NOT FOUND */
-.not-found { padding:80px 32px; text-align:center; }
-.nf-icon { font-size:48px; opacity:0.15; margin-bottom:20px; }
-.nf-title { font-family:'DM Serif Display',serif; font-size:32px; color:var(--text-2); margin-bottom:10px; }
-.nf-sub { font-size:14px; color:var(--text-3); margin-bottom:28px; }
-.nf-back { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--gold); text-decoration:none; border:1px solid var(--gold); padding:10px 20px; display:inline-block; transition:all 0.15s; }
-.nf-back:hover { background:var(--gold); color:var(--black); }
-
-/* ── HAMBURGER NAV ── */
-.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
-.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
-.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
-.nav-mobile.open { display:flex; }
-.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Inter',sans-serif; }
-.nav-mobile a:last-child { border-bottom:none; }
-
-/* ── RESPONSIVE MOBILE ── */
-@media (max-width: 768px) {
-  .nav-links { display:none !important; }
-  .nav-cta { display:none !important; }
-  .nav-hamburger { display:flex; }
-  nav { padding: 0 16px; }
-
-  .breadcrumb-bar { padding: 8px 16px; font-size: 9px; }
-
-  .article-layout { grid-template-columns: 1fr; padding: 24px 16px 48px; gap: 32px; }
-  .aside { display: none; }
-
-  .art-title { font-size: clamp(26px, 7vw, 40px); }
-  .article-content { font-size: 15px; }
-
-  #relatedSection { padding: 40px 16px 60px; }
-  #relatedGrid { grid-template-columns: 1fr; }
-}
-</style>
+<title>Article | BatiAnalyse</title>
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Bati<span>Analyse</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub">M&A / PE</a></li>-->
-    <li><a href="/macro.html">Macro</a></li>
-    <li><a href="/blog.html" class="active">Analyses</a></li>
-  </ul>
-  <a href="#" class="nav-cta" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
-  <button class="nav-hamburger" onclick="document.getElementById('navMobileArticle').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="navMobileArticle">
-  <a href="/">Accueil</a>
-  <a href="/valeurs-cotees.html">Valeurs</a>
-  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
-  <a href="/macro.html">Macro</a>
-  <a href="/blog.html">Analyses</a>
-</div>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/blog.html" aria-current="page">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
+  </div>
+</header>
 
-<div class="page-wrap">
-  <div class="breadcrumb-bar">
-    <a href="/">Accueil</a>
-    <span class="sep">/</span>
-    <a href="/blog.html">Blog</a>
-    <span class="sep">/</span>
-    <span id="breadcrumbTitle">Article</span>
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/blog.html">Analyses</a> / <span id="breadcrumbTitle">Article</span></p>
+      <div id="articleHeader"></div>
+    </div>
   </div>
 
-  <div class="article-layout">
-    <main>
-      <div id="articleHeader"></div>
+  <div class="wrap cadre droite">
+    <div class="article-corps">
       <div id="featuredImageWrap"></div>
       <div id="articleContent" class="article-content"></div>
-    </main>
+    </div>
 
-    <aside class="aside">
-      <div class="aside-block">
-        <div class="aside-title">Partager</div>
+    <aside class="fil-actu art-aside">
+      <section>
+        <h4>Partager</h4>
         <div class="share-btns">
-          <button class="share-btn" onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='✓ Lien copié !')">⟋ Copier le lien</button>
-          <button class="share-btn" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href))">in LinkedIn</button>
-          <button class="share-btn" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href))">𝕏 Twitter/X</button>
+          <button class="btn clair" onclick="navigator.clipboard.writeText(location.href).then(()=>this.textContent='Lien copié')">Copier le lien</button>
+          <button class="btn clair" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent(location.href))">LinkedIn</button>
+          <button class="btn clair" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(location.href))">X (Twitter)</button>
         </div>
-      </div>
-      <div class="aside-block newsletter-aside">
-        <div class="aside-title">Le brief hebdo BTP</div>
-        <input type="email" placeholder="Votre email pro…">
-        <button>Recevoir le brief →</button>
-      </div>
+      </section>
+      <section class="newsletter-aside">
+        <h4>Le brief hebdo BTP</h4>
+        <label for="emailAside" style="position:absolute;left:-9999px">Votre e-mail professionnel</label>
+        <input id="emailAside" type="email" placeholder="Votre e-mail professionnel">
+        <button class="btn">Recevoir le brief</button>
+      </section>
     </aside>
   </div>
 
   <!-- Articles liés -->
-  <div id="relatedSection">
-    <div class="related-label">Pour aller plus loin</div>
-    <div class="related-title-main">Articles liés</div>
-    <div id="relatedGrid"></div>
+  <div class="wrap" id="relatedSection">
+    <div class="cote">
+      <h2>Articles liés</h2>
+      <span class="ligne" aria-hidden="true"></span>
+      <span class="mesure">Pour aller plus loin</span>
+    </div>
+    <div class="liste" id="relatedGrid"></div>
   </div>
-</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>© 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
+    </div>
+    <ul>
+      <li><a href="/blog.html">Toutes les analyses</a></li>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
 const WP_API = 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2'
 
-// ── Lecture de l'ID dans l'URL (?id=123) ──
+// Lecture de l'ID dans l'URL (?id=123)
 const params = new URLSearchParams(location.search)
 const postId = parseInt(params.get('id'))
 
@@ -238,14 +96,8 @@ if (!postId) {
 
 // ── Afficher les squelettes de chargement ──
 function showSkeletons() {
-  document.getElementById('articleHeader').innerHTML = `
-    <div class="sk-cat"></div>
-    <div class="sk-h1"></div>
-    <div class="sk-h1 sk-short"></div>
-    <div class="sk-meta"></div>`
-  document.getElementById('articleContent').innerHTML = Array.from({length:6}).map((_,i) =>
-    `<div class="sk-p${i===2||i===5?' sk-short':''}"></div>`
-  ).join('')
+  document.getElementById('articleHeader').innerHTML = '<p class="vide">Chargement de l\'article</p>'
+  document.getElementById('articleContent').innerHTML = ''
 }
 
 // ── Chargement et rendu de l'article ──
@@ -278,21 +130,19 @@ function renderArticle(post) {
   const readTime  = Math.max(1, Math.round(wordCount / 200))
 
   // Mise à jour du <title> de la page
-  document.title = `${title} — BatiAnalyse`
+  document.title = `${title} | BatiAnalyse`
 
   // Breadcrumb
   document.getElementById('breadcrumbTitle').textContent = title
 
   // Header
   document.getElementById('articleHeader').innerHTML = `
-    <div class="art-cat">${cat}</div>
-    <h1 class="art-title">${title}</h1>
+    <p class="art-themes">${cat}</p>
+    <h1 class="art-h1">${title}</h1>
     <div class="art-meta">
-      <span class="art-author">${authorName}</span>
-      <span class="art-sep">·</span>
-      <span>${date}</span>
-      <span class="art-sep">·</span>
-      <span>${readTime} min de lecture</span>
+      <div><small>Auteur</small><strong>${authorName}</strong></div>
+      <div><small>Publié</small><strong>${date}</strong></div>
+      <div><small>Lecture</small><strong>${readTime} min</strong></div>
     </div>`
 
   // Image à la une
@@ -329,12 +179,11 @@ async function loadRelated(catId, excludeId) {
       const pCat   = p._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
       const pDate  = p.date ? new Date(p.date).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' }) : ''
       const pTitle = p.title?.rendered || 'Sans titre'
-      return `<div class="related-card" onclick="location.href='/article.html?id=${p.id}'">
-        <div class="related-img ${pImg ? '' : 'related-img-ph'}" style="${pImg ? `background-image:url('${pImg}')` : ''}"></div>
-        <div class="related-cat">${pCat}</div>
-        <div class="related-title">${pTitle}</div>
-        <div class="related-date">${pDate}</div>
-      </div>`
+      return `<a class="art" href="/article.html?id=${p.id}">
+        <time>${pDate}</time>
+        <div><h3>${pTitle}</h3></div>
+        <span class="th">${pCat}</span>
+      </a>`
     }).join('')
   } catch(e) { /* articles liés non critiques */ }
 }
@@ -343,11 +192,10 @@ async function loadRelated(catId, excludeId) {
 function showNotFound(msg) {
   document.getElementById('articleHeader').innerHTML = ''
   document.getElementById('articleContent').innerHTML = `
-    <div class="not-found">
-      <div class="nf-icon">◎</div>
-      <div class="nf-title">Article non trouvé</div>
-      <div class="nf-sub">${msg}</div>
-      <a href="/blog.html" class="nf-back">← Retour aux analyses</a>
+    <div class="empty-state visible">
+      <p class="empty-title">Article non trouvé</p>
+      <p class="empty-sub">${msg}</p>
+      <a href="/blog.html" class="btn clair">Retour aux analyses</a>
     </div>`
 }
 </script>

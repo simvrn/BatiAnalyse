@@ -29,217 +29,55 @@
   "inLanguage": "fr-FR"
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<style>
-:root {
-  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
-  --border:#1F1F22; --border-hover:#B89B5E;
-  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
-  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
-  --amber:#fbbf24; --teal:#2dd4bf;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
-.logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
-.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
-.nav-links a:hover{color:var(--text);}
-.nav-links a.active{color:var(--gold);}
-.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;border:none;border-radius:6px;}
-.nav-cta:hover{opacity:0.88;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
-.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
-.nav-mobile a:last-child{border-bottom:none;}
-
-/* ARTICLE HEADER */
-.article-header{padding:88px 40px 0;max-width:900px;margin:0 auto;}
-.breadcrumb-row{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-3);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.breadcrumb-row a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
-.breadcrumb-row a:hover{color:var(--gold);}
-.breadcrumb-row span{opacity:0.4;}
-.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--text-2);text-decoration:none;transition:color 0.15s;margin-bottom:20px;}
-.back-link:hover{color:var(--gold);}
-.article-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
-.badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;white-space:nowrap;}
-.badge-analyse{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,155,94,0.3);}
-.badge-elec{background:rgba(59,130,246,0.12);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);}
-.badge-fy{background:rgba(20,184,166,0.1);color:var(--teal);border:1px solid rgba(20,184,166,0.2);}
-.article-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,4vw,50px);font-weight:900;line-height:1.05;letter-spacing:-0.5px;margin-bottom:14px;}
-.article-title em{font-style:italic;color:var(--gold);}
-.article-subtitle{font-size:15px;color:var(--text-2);line-height:1.7;max-width:680px;margin-bottom:24px;}
-.article-meta{display:flex;gap:20px;flex-wrap:wrap;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:0.08em;padding-bottom:28px;border-bottom:1px solid var(--border);}
-.article-meta strong{color:var(--gold);}
-
-/* BODY */
-.article-body{max-width:900px;margin:0 auto;padding:40px;}
-.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.section-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);opacity:0.5;margin-right:8px;}
-h2.section-title{font-family:'DM Serif Display',serif;font-size:22px;font-weight:700;margin-bottom:14px;margin-top:40px;display:flex;align-items:baseline;gap:6px;}
-h2.section-title:first-child{margin-top:0;}
-.body-text{font-size:14px;color:var(--text-2);line-height:1.85;margin-bottom:16px;}
-.body-text strong{color:var(--text);font-weight:600;}
-
-/* COST FORMULA */
-.formula-wrap{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin:24px 0;display:flex;align-items:center;flex-wrap:wrap;gap:0;}
-.f-item{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);white-space:nowrap;}
-.f-op{font-size:18px;color:var(--text-3);padding:0 12px;}
-.f-result{background:var(--gold-dim);border:1px solid rgba(184,155,94,0.3);border-radius:4px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--gold);white-space:nowrap;}
-
-/* WHY GRID */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 32px;}
-.why-card{background:var(--surface);border:1px solid var(--border);padding:16px;}
-.why-icon{font-size:18px;margin-bottom:8px;color:var(--gold);}
-.why-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);margin-bottom:6px;}
-.why-desc{font-size:12px;color:var(--text-2);line-height:1.6;}
-
-/* CHART */
-.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:24px;margin:24px 0;}
-.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:20px;}
-.chart-container{position:relative;width:100%;height:320px;}
-
-/* KPI STRIP */
-.kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0;}
-.kpi-strip-card{background:var(--surface);border:1px solid var(--border);padding:16px 18px;}
-.kpi-strip-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
-.kpi-strip-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--gold);line-height:1;}
-.kpi-strip-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:4px;}
-
-/* TABLE */
-.risk-table{width:100%;border-collapse:collapse;margin-bottom:28px;}
-.risk-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);}
-.risk-table td{padding:12px 14px;border-bottom:1px solid rgba(184,155,94,0.05);font-size:13px;line-height:1.5;vertical-align:top;color:var(--text-2);}
-.risk-table tr:hover td{background:var(--gold-glow);}
-.risk-table td.opt-name{font-weight:600;color:var(--text);}
-.risk-table td.risk-col{color:var(--red);}
-
-/* TABLE CAPTION */
-.table-caption{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;caption-side:top;text-align:left;}
-
-/* RECOMMENDATION */
-.reco-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);padding:28px 32px;margin-top:40px;}
-.reco-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#93c5fd;margin-bottom:20px;}
-.reco-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--text);margin-bottom:16px;line-height:1.2;}
-.reco-body{font-size:14px;color:var(--text-2);line-height:1.85;margin-bottom:20px;}
-.reco-body strong{color:var(--text);font-weight:600;}
-.reco-plan{padding-left:20px;margin:0;}
-.reco-plan li{margin-bottom:12px;line-height:1.65;color:var(--text-2);font-size:13px;}
-.reco-plan li:last-child{margin-bottom:0;}
-.reco-plan li strong{color:var(--text);font-weight:600;}
-
-/* FOOTNOTE */
-.fn{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.7;margin-top:40px;padding-top:24px;border-top:1px solid var(--border);}
-
-/* FOOTER */
-.page-footer{border-top:1px solid var(--border);padding:32px 40px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-.footer-logo{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;color:var(--white);}
-.footer-logo span{color:var(--gold);}
-
-@media(max-width:768px){
-  .nav-links{display:none !important;}
-  .nav-cta{display:none !important;}
-  .nav-hamburger{display:flex;}
-  nav{padding:0 16px;}
-  .article-header{padding:72px 16px 0;}
-  .article-body{padding:24px 16px;}
-  .why-grid{grid-template-columns:1fr;}
-  .kpi-strip{grid-template-columns:1fr;}
-  .formula-wrap{gap:6px;}
-  .f-op{padding:0 6px;}
-  .chart-container{height:380px;}
-  .page-footer{padding:24px 16px;flex-direction:column;align-items:flex-start;}
-  .reco-block{padding:20px;}
-  .risk-table{display:block;overflow-x:auto;white-space:nowrap;}
-}
-</style>
+</head>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Bati<span>Analyse</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub">M&amp;A</a></li>-->
-    <li><a href="/macro.html">Macro</a></li>
-    <li><a href="/blog.html" class="active">Analyses</a></li>
-  </ul>
-  <a href="#" class="nav-cta" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium (Prochainement)</a>
-  <button class="nav-hamburger" onclick="document.getElementById('navMobileIPO').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="navMobileIPO">
-  <a href="/">Accueil</a>
-  <a href="/valeurs-cotees.html">Valeurs cotées</a>
-  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
-  <a href="/macro.html">Macro</a>
-  <a href="/blog.html">Analyses</a>
-</div>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/blog.html" aria-current="page">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
+  </div>
+</header>
 
 <!-- HEADER -->
-<div class="article-header">
-  <div class="breadcrumb-row">
-    <a href="/">BatiAnalyse</a><span>/</span>
-    <a href="/blog.html">Analyses</a><span>/</span>
-    Financement
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/blog.html">Analyses</a> / Financement</p>
+      <p class="art-themes">Analyse marché, IPO et financement, 2021-2025</p>
+      <h1 class="art-h1">Pourquoi les entreprises du BTP n'osent plus entrer en bourse</h1>
+      <p class="chapo art-chapo">Marges écrasées, défaillances en série, un modèle économique que les marchés financiers ne savent pas noter. La construction française déserte la cote, chiffres à l'appui.</p>
+      <div class="art-meta"><div><small>Publié</small><strong>11 septembre 2026</strong></div><div><small>Lecture</small><strong>6 min</strong></div><div><small>Période couverte</small><strong>2021-2025</strong></div><div><small>Indicateur</small><strong>Marge nette, marge opérationnelle</strong></div></div>
+    </div>
   </div>
-  <a href="/blog.html" class="back-link">&#8592; Retour aux analyses</a>
-  <div class="article-badges">
-    <span class="badge badge-analyse">Analyse marché</span>
-    <span class="badge badge-elec">IPO &amp; Financement</span>
-    <span class="badge badge-fy">2021-2025</span>
-  </div>
-  <h1 class="article-title">Pourquoi les entreprises du BTP n'osent <em>plus</em> entrer en bourse</h1>
-  <p class="article-subtitle">Marges écrasées, défaillances en série, un modèle économique que les marchés financiers ne savent pas noter. La construction française déserte la cote, chiffres à l'appui.</p>
-  <div class="article-meta">
-    <span><strong>Publié :</strong> 11 septembre 2026</span>
-    <span><strong>Lecture :</strong> 6 min</span>
-    <span><strong>Période couverte :</strong> 2021-2025</span>
-    <span><strong>Indicateur :</strong> Marge nette, marge opérationnelle</span>
-  </div>
-</div>
 
 <!-- BODY -->
-<div class="article-body">
+  <div class="wrap">
+  <article class="article-corps">
 
   <p class="body-text">Chez Eiffage, la branche qui construit génère une marge opérationnelle de <strong>4 %</strong>. La branche qui exploite des autoroutes et des aéroports en dégage <strong>46,3 %</strong>. Même actionnaire, même conseil d'administration, deux mondes financiers. C'est cet écart, plus que la conjoncture seule, qui explique pourquoi si peu d'entreprises de bâtiment et travaux publics osent aujourd'hui frapper à la porte d'Euronext.</p>
 
   <!-- KPI STRIP -->
-  <div class="kpi-strip">
-    <div class="kpi-strip-card">
-      <div class="kpi-strip-label">Marge nette du secteur</div>
-      <div class="kpi-strip-val">1 à 3 %</div>
-      <div class="kpi-strip-sub">BTP France, rarement &gt; 5 %</div>
-    </div>
-    <div class="kpi-strip-card">
-      <div class="kpi-strip-label">Défaillances en 2024</div>
-      <div class="kpi-strip-val">14 112</div>
-      <div class="kpi-strip-sub">+40,7 % sur un an (Altares)</div>
-    </div>
-    <div class="kpi-strip-card">
-      <div class="kpi-strip-label">Écart de marge chez Eiffage</div>
-      <div class="kpi-strip-val">42 pts</div>
-      <div class="kpi-strip-sub">Travaux 4 % vs Concessions 46,3 %</div>
-    </div>
-  </div>
+  <dl class="releve n art-chiffres">
+    <div><dt>Marge nette du secteur</dt><dd class="v">1 à 3 %</dd><dd class="s">BTP France, rarement &gt; 5 %</dd></div>
+    <div><dt>Défaillances en 2024</dt><dd class="v">14 112</dd><dd class="s">+40,7 % sur un an (Altares)</dd></div>
+    <div><dt>Écart de marge chez Eiffage</dt><dd class="v">42 pts</dd><dd class="s">Travaux 4 % vs Concessions 46,3 %</dd></div>
+  </dl>
 
   <!-- SECTION 1 -->
-  <div class="section-label">Un marché sous pression</div>
-  <h2 class="section-title"><span class="section-num">01</span>Un marché qui s'effondre, et des sous-traitants qui tombent avec lui</h2>
+  <h2 class="art-h2">Un marché qui s'effondre, et des sous-traitants qui tombent avec lui</h2>
+  <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">Un marché sous pression</span></div>
   <p class="body-text">Les mises en chantier de logements ont chuté de 24,9 % en 2023 puis de 14,2 % en 2024, selon la Fédération Française du Bâtiment. Elles sont tombées à 261 000 unités, un niveau qu'il faut remonter aux années 1950 pour retrouver. Sur la seule période 2021-2024, l'effondrement cumulé atteint près de 40 %. Un rebond partiel a ramené le compteur à 283 000 unités en 2025, mais on reste très loin de la moyenne historique de 360 000 logements par an observée depuis 1980.</p>
 
   <div class="chart-wrap">
@@ -257,8 +95,8 @@ h2.section-title:first-child{margin-top:0;}
   <p class="body-text">Certains sous-traitants ont encaissé le choc de plein fouet : la maçonnerie générale a vu ses défaillances progresser de 50,5 % sur 2024, et les travaux d'installation électrique de 48,3 %. Aucune banque introductrice ne construit un dossier de cotation sur un carnet de commandes qui dépend de fournisseurs en train de fermer les uns après les autres.</p>
 
   <!-- SECTION 2 -->
-  <div class="section-label">Le coût de l'accès au marché</div>
-  <h2 class="section-title"><span class="section-num">02</span>Le prix d'entrée, quand chaque point de marge compte</h2>
+  <h2 class="art-h2">Le prix d'entrée, quand chaque point de marge compte</h2>
+  <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">Le coût de l'accès au marché</span></div>
   <p class="body-text">Et même dans un marché porteur, l'équation resterait tendue. Une introduction sur Euronext Growth coûte entre 500 000 et 1,5 million d'euros de frais uniques (banques introductrices, commissaires aux comptes, avocats, communication financière), auxquels s'ajoutent 150 000 à 300 000 euros de frais récurrents chaque année.</p>
 
   <div class="formula-wrap">
@@ -273,32 +111,29 @@ h2.section-title:first-child{margin-top:0;}
 
   <div class="why-grid">
     <div class="why-card">
-      <div class="why-icon">&#9636;</div>
       <div class="why-title">Marge nette de 1 à 3 %</div>
       <div class="why-desc">Le coût de cotation absorbe à lui seul un quart du bénéfice d'une ETI de travaux moyenne.</div>
     </div>
     <div class="why-card">
-      <div class="why-icon">&#9670;</div>
       <div class="why-title">Reporting trimestriel</div>
       <div class="why-desc">L'AMF impose une transparence que peu de dirigeants du BTP jugent compatible avec la cyclicité des chantiers.</div>
     </div>
     <div class="why-card">
-      <div class="why-icon">&#9878;</div>
       <div class="why-title">Sensibilité aux aléas</div>
       <div class="why-desc">Un litige de chantier ou une hausse de matériaux peut effacer la marge d'une année entière.</div>
     </div>
   </div>
 
   <!-- SECTION 3 -->
-  <div class="section-label">Un flux d'introductions à sec</div>
-  <h2 class="section-title"><span class="section-num">03</span>Un désert boursier qui pousse vers le non coté</h2>
+  <h2 class="art-h2">Un désert boursier qui pousse vers le non coté</h2>
+  <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">Un flux d'introductions à sec</span></div>
   <p class="body-text">Le marché parisien a compté 33 introductions en bourse en 2021, 11 en 2022, puis seulement 6 en 2023, selon l'Observatoire des offres publiques d'EY. Cette année-là, aucune opération n'a même eu lieu sur le marché réglementé principal d'Euronext Paris : toutes se sont limitées au compartiment Growth, dédié aux plus petites valeurs. Le rebond apparent de 2024 (47 opérations) tient surtout à des transferts d'autres compartiments, pas à un afflux de nouvelles entreprises. Sur toute la période, aucune de ces opérations ne concerne une entreprise de construction ou de promotion pure : la tech, la santé et l'énergie ont capté l'essentiel des capitaux.</p>
 
   <p class="body-text">Face à ce constat, les dirigeants du BTP se tournent logiquement vers le non coté. Les fonds de private equity offrent ce que la Bourse refuse : la discrétion, et un horizon de moyen ou long terme, à l'abri des publications trimestrielles imposées par l'AMF. Les PME et ETI du secteur leur préfèrent naturellement le LBO ou la transmission familiale, des montages plus compatibles avec des résultats qui varient fortement d'une année sur l'autre selon les chantiers en cours.</p>
 
   <!-- SECTION 4 -->
-  <div class="section-label">Un problème de fond</div>
-  <h2 class="section-title"><span class="section-num">04</span>Le vrai problème : un modèle que la Bourse ne sait pas noter</h2>
+  <h2 class="art-h2">Le vrai problème : un modèle que la Bourse ne sait pas noter</h2>
+  <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">Un problème de fond</span></div>
   <p class="body-text">Le problème est de fond : la Bourse ne sait pas noter le modèle économique du BTP. Chez Eiffage, la marge opérationnelle des Travaux est passée de 3,8 % en 2022 à 4 % en 2023. Celle des Concessions est passée de 47,2 % à 46,3 % sur la même période.</p>
 
   <div class="chart-wrap">
@@ -309,11 +144,12 @@ h2.section-title:first-child{margin-top:0;}
   <p class="body-text">Les marchés valorisent avec un multiple élevé un revenu récurrent, contractualisé sur plusieurs décennies et prévisible. Ils appliquent une décote sévère à un revenu cyclique, exposé aux litiges de chantier et à l'inflation des matériaux. C'est exactement ce qui distingue les groupes de BTP qui réussissent en Bourse : Vinci, Eiffage, Ferrovial, ACS, Sacyr ont tous basculé vers les concessions d'infrastructure. Ce n'est pas leur activité de construction qui justifie leur valorisation, mais leur portefeuille d'autoroutes, d'aéroports et de réseaux concédés. Et aucun de ces cinq groupes n'est une entrée en bourse récente : Ferrovial elle-même est cotée à Madrid depuis 1999, et son transfert de cotation principale vers Euronext Amsterdam en 2023 n'était pas une introduction en bourse mais un changement de domiciliation, sans levée de capitaux nouveaux. Le marché ne récompense pas les entreprises de BTP. Il récompense des groupes qui ont mis vingt à trente ans à cesser d'en dépendre uniquement, pas des candidats fraîchement introduits.</p>
 
   <!-- SECTION 5 -->
-  <div class="section-label">Options de financement</div>
-  <h2 class="section-title"><span class="section-num">05</span>Ce que ça change pour les dirigeants</h2>
+  <h2 class="art-h2">Ce que ça change pour les dirigeants</h2>
+  <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">Options de financement</span></div>
   <p class="body-text">Pour une ETI de travaux qui reste purement une entreprise de construction, une introduction en bourse n'est aujourd'hui pas une option réaliste. Les alternatives se jouent ailleurs.</p>
 
-  <table class="risk-table">
+  <div class="tab-wrap">
+  <table class="art-table">
     <caption class="table-caption">Options de financement et de transmission pour une ETI du BTP</caption>
     <thead>
       <tr><th>Option</th><th>Avantages</th><th>Inconvénients</th><th>Risques</th></tr>
@@ -345,6 +181,7 @@ h2.section-title:first-child{margin-top:0;}
       </tr>
     </tbody>
   </table>
+  </div>
 
   <!-- RECOMMANDATION -->
   <div class="reco-block">
@@ -359,19 +196,31 @@ h2.section-title:first-child{margin-top:0;}
     </ol>
   </div>
 
-  <div class="fn">Sources : Fédération Française du Bâtiment, bilans annuels 2024 et 2025 (mises en chantier : -24,9 % en 2023, -14,2 % en 2024, rebond de 8,4 % en 2025). SDES / Sitadel pour les séries de logements commencés. Altares, bilans de défaillances d'entreprises 2023 et 2024 (14 112 défauts dans la construction en 2024, +40,7 % ; hausse de plus de 36 % en 2023 ; secteur concentrant 24 % des faillites françaises). EY, Observatoire des offres publiques, 15e et 16e éditions (33 IPO en 2021, 11 en 2022, 6 en 2023 sur la seule place de Paris). Eiffage, communiqués de résultats annuels 2023 et 2024 (marge opérationnelle Travaux 4,0 % en 2023, Concessions 46,3 %). Assemblée nationale et analyses de place pour les ordres de grandeur des coûts d'introduction en bourse (consensus de 5 à 7 % du montant levé).<br>Précisions : les valeurs annuelles des deux graphiques pour les années antérieures à 2024 sont reconstituées à partir des taux de variation officiels et servent d'illustration de tendance. L'exemple chiffré de la section 02 (ETI à 40 M€ de chiffre d'affaires) est une estimation analytique, à ajuster selon la taille réelle de l'opération.</div>
+  <div class="note art-sources">Sources : Fédération Française du Bâtiment, bilans annuels 2024 et 2025 (mises en chantier : -24,9 % en 2023, -14,2 % en 2024, rebond de 8,4 % en 2025). SDES / Sitadel pour les séries de logements commencés. Altares, bilans de défaillances d'entreprises 2023 et 2024 (14 112 défauts dans la construction en 2024, +40,7 % ; hausse de plus de 36 % en 2023 ; secteur concentrant 24 % des faillites françaises). EY, Observatoire des offres publiques, 15e et 16e éditions (33 IPO en 2021, 11 en 2022, 6 en 2023 sur la seule place de Paris). Eiffage, communiqués de résultats annuels 2023 et 2024 (marge opérationnelle Travaux 4,0 % en 2023, Concessions 46,3 %). Assemblée nationale et analyses de place pour les ordres de grandeur des coûts d'introduction en bourse (consensus de 5 à 7 % du montant levé).<br>Précisions : les valeurs annuelles des deux graphiques pour les années antérieures à 2024 sont reconstituées à partir des taux de variation officiels et servent d'illustration de tendance. L'exemple chiffré de la section 02 (ETI à 40 M€ de chiffre d'affaires) est une estimation analytique, à ajuster selon la taille réelle de l'opération.</div>
 
-</div>
+  </article>
+  </div>
+</main>
 
-<footer class="page-footer">
-  <div class="footer-logo">Bati<span>Analyse</span></div>
-  <span>Données 2021-2025 · Septembre 2026</span>
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>Données 2021-2025, Septembre 2026. © 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
+    </div>
+    <ul>
+      <li><a href="/blog.html">Toutes les analyses</a></li>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+    </ul>
+  </div>
 </footer>
 
 <script>
-const inkSoft = '#6B7280';
-const gridColor = 'rgba(255,255,255,0.04)';
-Chart.defaults.font.family = "'Inter', sans-serif";
+const inkSoft = '#4F565B';
+const gridColor = '#B1B3AC';
+Chart.defaults.font.family = "'Archivo', system-ui, sans-serif";
 Chart.defaults.color = inkSoft;
 
 new Chart(document.getElementById('chartMEC'), {
@@ -381,11 +230,11 @@ new Chart(document.getElementById('chartMEC'), {
     datasets: [{
       label: 'Mises en chantier (milliers)',
       data: [386, 376, 287, 261, 283],
-      borderColor: '#fbbf24',
-      backgroundColor: 'rgba(251,191,36,0.1)',
+      borderColor: '#16191C',
+      backgroundColor: 'rgba(22,25,28,0.06)',
       borderWidth: 2.5,
       pointRadius: 4,
-      pointBackgroundColor: '#fbbf24',
+      pointBackgroundColor: '#16191C',
       tension: 0.25,
       fill: true
     }]
@@ -396,15 +245,15 @@ new Chart(document.getElementById('chartMEC'), {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#16161A', borderColor: '#1F1F22', borderWidth: 1,
-        titleColor: '#B89B5E', bodyColor: '#EAEAEA',
-        titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 12 },
+        backgroundColor: '#16191C', borderColor: '#16191C', borderWidth: 1,
+        titleColor: '#F1F2EE', bodyColor: '#F1F2EE',
+        titleFont: { family: 'Archivo', size: 11 }, bodyFont: { family: 'Archivo', size: 12 },
         callbacks: { label: ctx => '  ' + ctx.parsed.y + ' k' }
       }
     },
     scales: {
-      y: { min: 200, grid: { color: gridColor }, ticks: { callback: v => v + ' k', font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
-      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Inter' } }, border: { display: false } }
+      y: { min: 200, grid: { color: gridColor }, ticks: { callback: v => v + ' k', font: { size: 11, family: 'Archivo' } }, border: { display: false } },
+      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Archivo' } }, border: { display: false } }
     }
   }
 });
@@ -416,8 +265,8 @@ new Chart(document.getElementById('chartDef'), {
     datasets: [{
       label: 'Défaillances dans la construction',
       data: [7300, 10030, 14112],
-      backgroundColor: '#f87171',
-      borderRadius: 3,
+      backgroundColor: '#16191C',
+      borderRadius: 0,
       borderSkipped: false,
       maxBarThickness: 70
     }]
@@ -428,15 +277,15 @@ new Chart(document.getElementById('chartDef'), {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#16161A', borderColor: '#1F1F22', borderWidth: 1,
-        titleColor: '#B89B5E', bodyColor: '#EAEAEA',
-        titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 12 },
+        backgroundColor: '#16191C', borderColor: '#16191C', borderWidth: 1,
+        titleColor: '#F1F2EE', bodyColor: '#F1F2EE',
+        titleFont: { family: 'Archivo', size: 11 }, bodyFont: { family: 'Archivo', size: 12 },
         callbacks: { label: ctx => '  ' + ctx.parsed.y.toLocaleString('fr-FR') + ' procédures' }
       }
     },
     scales: {
-      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => (v/1000) + ' k', font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
-      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Inter' } }, border: { display: false } }
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => (v/1000) + ' k', font: { size: 11, family: 'Archivo' } }, border: { display: false } },
+      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Archivo' } }, border: { display: false } }
     }
   }
 });
@@ -446,25 +295,25 @@ new Chart(document.getElementById('chartEif'), {
   data: {
     labels: ['2022', '2023'],
     datasets: [
-      { label: 'Marge Travaux', data: [3.8, 4.0], backgroundColor: '#fbbf24', borderRadius: 3, borderSkipped: false, maxBarThickness: 50 },
-      { label: 'Marge Concessions', data: [47.2, 46.3], backgroundColor: '#60a5fa', borderRadius: 3, borderSkipped: false, maxBarThickness: 50 }
+      { label: 'Marge Travaux', data: [3.8, 4.0], backgroundColor: '#4F565B', borderRadius: 0, borderSkipped: false, maxBarThickness: 50 },
+      { label: 'Marge Concessions', data: [47.2, 46.3], backgroundColor: '#16191C', borderRadius: 0, borderSkipped: false, maxBarThickness: 50 }
     ]
   },
   options: {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16, font: { size: 11, family: 'Inter' } } },
+      legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16, font: { size: 11, family: 'Archivo' } } },
       tooltip: {
-        backgroundColor: '#16161A', borderColor: '#1F1F22', borderWidth: 1,
-        titleColor: '#B89B5E', bodyColor: '#EAEAEA',
-        titleFont: { family: 'DM Mono', size: 11 }, bodyFont: { family: 'DM Mono', size: 12 },
+        backgroundColor: '#16191C', borderColor: '#16191C', borderWidth: 1,
+        titleColor: '#F1F2EE', bodyColor: '#F1F2EE',
+        titleFont: { family: 'Archivo', size: 11 }, bodyFont: { family: 'Archivo', size: 12 },
         callbacks: { label: ctx => '  ' + ctx.dataset.label + ' : ' + ctx.parsed.y + ' %' }
       }
     },
     scales: {
-      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => v + ' %', font: { size: 11, family: 'DM Mono' } }, border: { display: false } },
-      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Inter' } }, border: { display: false } }
+      y: { beginAtZero: true, grid: { color: gridColor }, ticks: { callback: v => v + ' %', font: { size: 11, family: 'Archivo' } }, border: { display: false } },
+      x: { grid: { display: false }, ticks: { font: { size: 11, family: 'Archivo' } }, border: { display: false } }
     }
   }
 });
