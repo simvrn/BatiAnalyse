@@ -436,9 +436,61 @@ th.tri:hover{color:var(--ink)}
 .reco-plan{margin:8px 0 0 22px}
 .reco-plan li{margin-bottom:8px}
 .art-sources{margin-top:28px}
+/* Rapports de deals M&A */
+.deal-tete{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:48px;align-items:start}
+.fiche{border-top:2px solid var(--ink)}
+.fiche h4{font-weight:700;font-size:15px;color:var(--muted);padding:10px 0 4px}
+.fiche dl div{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--trait);font-size:15px}
+.fiche dt{color:var(--muted)}
+.fiche dd{font-weight:700;text-align:right}
+.deal-body .article-corps{max-width:none}
+.status-banner,.status-banner-green,.warning-block{border:2px solid var(--ink);padding:16px 18px;margin:0 0 24px}
+.status-banner-label,.status-banner-green-label,.warning-block-label,.exec-summary-label{font-weight:700;margin-bottom:6px}
+.exec-summary{border-left:4px solid var(--ink);padding:4px 0 4px 18px;margin:0 0 28px;font-size:18px;line-height:1.6}
+.kpi-strip,.kpi-strip-2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px;margin:24px 0}
+.kpi-strip-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.kpi-strip-card{border-top:2px solid var(--ink);padding:12px 0}
+.kpi-strip-label{font-weight:600;font-size:15px}
+.kpi-strip-val{font-stretch:62%;font-weight:850;font-size:40px;line-height:1.05;margin:4px 0}
+.kpi-strip-sub{font-size:14px;color:var(--muted)}
+.deal-tl,.salvia-tl,.fgas-timeline{margin:28px 0;border-top:2px solid var(--ink)}
+.deal-tl-title,.salvia-tl-title,.fgas-title{font-weight:700;padding:10px 0 6px}
+.tl-row,.salvia-row,.fgas-row{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:10px 0 10px 12px;border-bottom:1px solid var(--trait);border-left:4px solid transparent;font-size:16px}
+.tl-row.current,.salvia-row.current,.fgas-row.deal{border-left-color:var(--ink);background:var(--beton-fonce)}
+.tl-date,.salvia-date,.fgas-date{font-weight:700;font-variant-numeric:tabular-nums}
+.numbered-list{margin:16px 0 24px;border-top:2px solid var(--ink)}
+.numbered-item{padding:12px 0;border-bottom:1px solid var(--trait)}
+.numbered-text{font-size:17px}
+.signal-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px;margin:24px 0}
+.signal-card{border-top:2px solid var(--ink);padding-top:12px;font-size:15px}
+.risk-verdict-warn,.risk-verdict-nc,.risk-verdict-ok{font-size:14px;color:var(--muted)}
+.reco-item{padding:14px 0;border-bottom:1px solid var(--trait)}
+.reco-item:first-child{padding-top:0}
+.reco-item:last-child{border-bottom:0;padding-bottom:0}
+.reco-text{font-size:16px}
+.watch-list{border-top:2px solid var(--ink);margin:16px 0}
+.watch-item{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--trait);font-size:16px}
+.watch-date{font-weight:700}
+.deal-sidebar{font-size:15px}
+.sidebar-card{margin-bottom:32px}
+.sidebar-card-title{font-weight:700;font-size:15px;color:var(--muted);padding-bottom:6px;border-bottom:2px solid var(--ink)}
+.sidebar-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px;padding:8px 0;border-bottom:1px solid var(--trait)}
+.sidebar-label{color:var(--muted)}
+.sidebar-val{font-weight:600;text-align:right}
+.sidebar-val.nc{color:var(--muted);font-weight:500}
+.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin:4px 0 8px}
+.perf-card{padding:10px 0;border-bottom:1px solid var(--trait)}
+.perf-label{font-size:14px;color:var(--muted)}
+.perf-val{font-stretch:62%;font-weight:850;font-size:30px;line-height:1.05}
+.perf-sub{font-size:13px;color:var(--muted)}
+.deal-sidebar .chart-wrap{margin:0 0 32px}
+.deal-sidebar .chart-wrap svg{overflow:visible;padding-right:14px}
+.deal-note{margin:8px 0}
 @media (max-width:900px){.rubriques{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.deal-tete{grid-template-columns:minmax(0,1fr);gap:28px}.signal-cards{grid-template-columns:minmax(0,1fr)}.signal-card{margin-bottom:16px}}
+@media (max-width:560px){.kpi-strip,.kpi-strip-2{grid-template-columns:minmax(0,1fr)}.tl-row,.salvia-row,.fgas-row,.watch-item{grid-template-columns:minmax(0,1fr);gap:2px}}
 @media (max-width:900px){.why-grid{grid-template-columns:minmax(0,1fr)}.why-card{margin-bottom:16px}}
-@media (max-width:560px){.art-meta div{padding:0 14px}.art-meta div:nth-child(3){padding-left:0;border-left:0}.chart-container.haut{height:520px}.chart-container{height:380px}.body-text,.article-content p{font-size:17px}}
+@media (max-width:560px){.art-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}.art-meta div{padding:0;border-left:0}.chart-container.haut{height:520px}.chart-container{height:380px}.body-text,.article-content p{font-size:17px}}
 @media (max-width:900px){.sommaire{position:static}}
 @media (max-width:560px){.coord div{grid-template-columns:1fr;gap:2px}}
 @media (max-width:560px){.modal-intro{padding-right:0;padding-top:44px}.kpi-modal-panel{padding:20px 18px}}

@@ -37,310 +37,70 @@
   ]
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
-  --border:#1F1F22; --border-hover:#B89B5E;
-  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
-  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
-.logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
-.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
-.nav-links a:hover{color:var(--text);}
-.nav-links a.active{color:var(--gold);}
-.nav-cta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;border:none;border-radius:6px;}
-.nav-cta:hover{opacity:0.88;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
-.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
-.nav-mobile a:last-child{border-bottom:none;}
-
-/* DEAL HEADER */
-.deal-header{padding:80px 40px 0;max-width:1200px;margin:0 auto;}
-.breadcrumb-row{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;color:var(--text-3);text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
-.breadcrumb-row a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
-.breadcrumb-row a:hover{color:var(--gold);}
-.breadcrumb-row span{opacity:0.4;}
-.deal-header-grid{display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;padding-bottom:32px;border-bottom:1px solid var(--border);}
-.deal-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.badge{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;white-space:nowrap;}
-.badge-retro{background:rgba(251,191,36,0.12);color:#fbbf24;border:1px solid rgba(251,191,36,0.25);}
-.badge-acquisition{background:rgba(59,130,246,0.12);color:#93c5fd;border:1px solid rgba(59,130,246,0.2);}
-.badge-boucle{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.25);}
-.badge-fgaz{background:rgba(139,92,246,0.12);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);}
-.deal-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:900;line-height:1.05;letter-spacing:-0.5px;margin-bottom:10px;}
-.deal-title em{font-style:italic;color:var(--gold);}
-.deal-subtitle{font-size:15px;color:var(--text-2);line-height:1.6;margin-bottom:20px;}
-.deal-meta-row{display:flex;gap:20px;flex-wrap:wrap;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);letter-spacing:0.08em;}
-.deal-meta-item strong{color:var(--gold);}
-
-/* Right: KPI card */
-.deal-kpi-card{background:var(--surface);border:1px solid var(--border);padding:24px;position:sticky;top:72px;}
-.deal-kpi-card-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.kpi-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(184,155,94,0.06);}
-.kpi-row:last-child{border-bottom:none;}
-.kpi-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);}
-.kpi-value{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text);}
-.kpi-value.gold{color:var(--gold);}
-.kpi-value.green{color:var(--green);}
-.kpi-value.nc{color:var(--text-3);font-style:italic;}
-
-/* LAYOUT BODY */
-.deal-body{max-width:1200px;margin:0 auto;padding:40px;display:grid;grid-template-columns:1fr 340px;gap:48px;align-items:start;}
-.deal-article{}
-.deal-sidebar{}
-
-/* AVERTISSEMENT BLOCK */
-.warning-block{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-left:3px solid #fbbf24;padding:16px 20px;margin-bottom:32px;}
-.warning-block-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:#fbbf24;margin-bottom:8px;}
-.warning-block p{font-size:13px;color:var(--text-2);line-height:1.65;}
-
-/* EXECUTIVE SUMMARY */
-.exec-summary{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);padding:20px 24px;margin-bottom:32px;}
-.exec-summary-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.exec-summary p{font-size:13px;color:var(--text-2);line-height:1.75;}
-
-/* KPI STRIPS */
-.kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px;}
-.kpi-strip-card{background:var(--surface);border:1px solid var(--border);padding:16px 18px;}
-.kpi-strip-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
-.kpi-strip-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--gold);line-height:1;}
-.kpi-strip-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:4px;}
-
-/* SECTION TITLES */
-.section-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.section-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);opacity:0.5;margin-right:8px;}
-h2.section-title{font-family:'DM Serif Display',serif;font-size:20px;font-weight:700;margin-bottom:14px;margin-top:36px;display:flex;align-items:baseline;gap:6px;}
-h2.section-title:first-child{margin-top:0;}
-.body-text{font-size:14px;color:var(--text-2);line-height:1.8;margin-bottom:16px;}
-.body-text strong{color:var(--text);font-weight:600;}
-
-/* NUMBERED LIST */
-.numbered-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
-.numbered-item{display:flex;gap:16px;align-items:flex-start;}
-.numbered-dot{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);flex-shrink:0;width:24px;padding-top:2px;}
-.numbered-text{font-size:14px;color:var(--text-2);line-height:1.65;}
-.numbered-text strong{color:var(--text);}
-
-/* RISK TABLE */
-.risk-table{width:100%;border-collapse:collapse;margin-bottom:28px;}
-.risk-table th{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);}
-.risk-table td{padding:12px 14px;border-bottom:1px solid rgba(184,155,94,0.05);font-size:13px;line-height:1.5;vertical-align:top;}
-.risk-table tr:hover td{background:var(--gold-glow);}
-.risk-verdict-ok{color:var(--green);font-family:'DM Mono',monospace;font-size:11px;}
-.risk-verdict-nc{color:var(--text-3);font-family:'DM Mono',monospace;font-size:11px;font-style:italic;}
-
-/* TIMELINE F-GAS */
-.fgas-timeline{background:var(--surface);border:1px solid var(--border);padding:20px 24px;margin-bottom:28px;}
-.fgas-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
-.fgas-row{display:flex;gap:16px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(184,155,94,0.05);}
-.fgas-row:last-child{border-bottom:none;}
-.fgas-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);flex-shrink:0;width:100px;}
-.fgas-event{font-size:13px;color:var(--text-2);line-height:1.5;}
-.fgas-event strong{color:var(--text);}
-.fgas-row.deal{background:rgba(184,155,94,0.04);margin:0 -24px;padding:10px 24px;}
-.fgas-row.deal .fgas-date{color:#fbbf24;}
-.fgas-row.deal .fgas-event{color:var(--text);}
-
-/* SIGNAL CARDS */
-.signal-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px;}
-.signal-card{background:var(--surface);border:1px solid var(--border);padding:16px;}
-.signal-card-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);margin-bottom:8px;}
-.signal-card-text{font-size:13px;color:var(--text-2);line-height:1.5;}
-
-/* CIBLE BOX (sidebar) */
-.sidebar-card{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:20px;}
-.sidebar-card-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.sidebar-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(184,155,94,0.05);gap:12px;}
-.sidebar-row:last-child{border-bottom:none;}
-.sidebar-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);flex-shrink:0;}
-.sidebar-val{font-size:12px;color:var(--text);text-align:right;line-height:1.4;}
-.sidebar-val.nc{color:var(--text-3);font-style:italic;font-size:11px;}
-
-/* ACQUÉREUR PERFS */
-.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
-.perf-card{background:var(--surface2);border:1px solid var(--border);padding:12px;}
-.perf-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:4px;}
-.perf-val{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;color:var(--gold);}
-.perf-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-top:2px;}
-
-/* RECO BOX */
-.reco-block{margin-bottom:28px;}
-.reco-item{border:1px solid var(--border);padding:18px 20px;margin-bottom:8px;position:relative;}
-.reco-item::before{content:'→';position:absolute;top:18px;left:-12px;color:var(--gold);font-size:14px;background:var(--bg);padding:0 4px;}
-.reco-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.reco-text{font-size:13px;color:var(--text-2);line-height:1.65;}
-
-/* WATCH LIST */
-.watch-list{display:flex;flex-direction:column;gap:0;margin-bottom:28px;}
-.watch-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(184,155,94,0.06);}
-.watch-item:last-child{border-bottom:none;}
-.watch-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);flex-shrink:0;width:110px;}
-.watch-text{font-size:13px;color:var(--text-2);line-height:1.5;}
-
-/* CHART — SPIE CA */
-.chart-wrap{background:var(--surface);border:1px solid var(--border);padding:20px;margin-bottom:28px;}
-.chart-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
-
-/* BACK LINK */
-.back-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--text-2);text-decoration:none;transition:color 0.15s;margin-bottom:16px;}
-.back-link:hover{color:var(--gold);}
-
-/* FOOTER */
-.page-footer{border-top:1px solid var(--border);padding:32px 40px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-.footer-logo{font-family:'DM Serif Display',serif;font-size:16px;font-weight:700;color:var(--white);}
-.footer-logo span{color:var(--gold);}
-
-@media(max-width:900px){
-  .deal-header-grid{grid-template-columns:1fr;}
-  .deal-body{grid-template-columns:1fr;}
-  .kpi-strip{grid-template-columns:1fr 1fr;}
-  .signal-cards{grid-template-columns:1fr;}
-  .perf-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:768px){
-  .nav-links{display:none !important;}
-  .nav-cta{display:none !important;}
-  .nav-hamburger{display:flex;}
-  nav{padding:0 16px;}
-  .deal-header{padding:68px 16px 0;}
-  .deal-body{padding:24px 16px;}
-  .kpi-strip{grid-template-columns:1fr;}
-  .page-footer{padding:24px 16px;flex-direction:column;align-items:flex-start;}
-}
-</style>
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Bati<span>Analyse</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub" class="active">M&amp;A</a></li>-->
-    <li><a href="/macro.html">Macro</a></li>
-    <li><a href="/blog.html">Analyses</a></li>
-  </ul>
-  <a href="#" class="nav-cta" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium (Prochainement)</a>
-  <button class="nav-hamburger" onclick="document.getElementById('navMobileSE').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="navMobileSE">
-  <a href="/">Accueil</a>
-  <a href="/valeurs-cotees.html">Valeurs cotées</a>
-  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
-  <a href="/macro.html">Macro</a>
-  <a href="/blog.html">Analyses</a>
-</div>
-
-<!-- DEAL HEADER -->
-<div class="deal-header">
-  <div class="breadcrumb-row">
-    <a href="/">BatiAnalyse</a><span>/</span>
-    <a href="/ma-hub">M&amp;A</a><span>/</span>
-    <a href="/ma-deals">Deals</a><span>/</span>
-    SPIE / J.D. Euroconfort
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/blog.html" aria-current="page">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
   </div>
-  <a href="/ma-deals" class="back-link">← Retour aux deals</a>
+</header>
 
-  <div class="deal-header-grid">
-    <div>
-      <div class="deal-badges">
-        <span class="badge badge-acquisition">Acquisition</span>
-        <span class="badge badge-boucle">Bouclé</span>
-        <span class="badge badge-retro">Rétrospective 27 mois</span>
-        <span class="badge badge-fgaz">F-Gas III</span>
-      </div>
-      <h1 class="deal-title">SPIE / J.D. <em>Euroconfort</em> — le vrai bilan</h1>
-      <p class="deal-subtitle">Janvier 2024. 27 mois après, avec FY2025, Rofa Industrial AG et la canicule 2025 : la thèse M&A froid France qu'on annonçait ne s'est pas produite. Et c'est plus instructif que si elle s'était produite.</p>
-      <div class="deal-meta-row">
-        <span><strong>Annonce :</strong> 3 janvier 2024</span>
-        <span><strong>Closing :</strong> Janvier 2024</span>
-        <span><strong>Recul :</strong> 27 mois</span>
-        <span><strong>Secteur :</strong> Froid commercial / Multi-techniques</span>
-        <span><strong>Géo :</strong> Bretagne, France</span>
-      </div>
-    </div>
-
-    <!-- Right KPI Summary -->
-    <div class="deal-kpi-card">
-      <div class="deal-kpi-card-title">Fiche deal</div>
-      <div class="kpi-row">
-        <span class="kpi-label">Acquéreur</span>
-        <span class="kpi-value">SPIE / SPIE Facilities</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Cible</span>
-        <span class="kpi-value">J.D. Euroconfort</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">CA cible (2022)</span>
-        <span class="kpi-value gold">~11 M€</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Effectifs cible</span>
-        <span class="kpi-value">45 ETP</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Montant</span>
-        <span class="kpi-value nc">NC (estimé 3–8 M€)</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Multiple implicite</span>
-        <span class="kpi-value nc">5–7x EBITDA (estimé)</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">% capital</span>
-        <span class="kpi-value nc">NC (prob. 100%)</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Intégration</span>
-        <span class="kpi-value">SPIE Facilities</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Financement</span>
-        <span class="kpi-value green">Fonds propres</span>
-      </div>
-      <div class="kpi-row">
-        <span class="kpi-label">Notif. concurrence</span>
-        <span class="kpi-value nc">Non requise</span>
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/ma-hub">M&amp;A</a> / <a href="/ma-deals">Deals</a> / SPIE / J.D. Euroconfort</p>
+      <div class="deal-tete">
+        <div>
+          <p class="art-themes">Acquisition, Bouclé, Rétrospective 27 mois, F-Gas III</p>
+          <h1 class="art-h1">SPIE / J.D. Euroconfort&nbsp;: le vrai bilan</h1>
+          <p class="chapo art-chapo">Janvier 2024. 27 mois après, avec FY2025, Rofa Industrial AG et la canicule 2025 : la thèse M&A froid France qu'on annonçait ne s'est pas produite. Et c'est plus instructif que si elle s'était produite.</p>
+          <div class="art-meta"><div><small>Annonce</small><strong>3 janvier 2024</strong></div><div><small>Closing</small><strong>Janvier 2024</strong></div><div><small>Recul</small><strong>27 mois</strong></div><div><small>Secteur</small><strong>Froid commercial / Multi-techniques</strong></div><div><small>Géo</small><strong>Bretagne, France</strong></div></div>
+        </div>
+        <aside class="fiche">
+          <h4>Fiche deal</h4>
+          <dl>
+          <div><dt>Acquéreur</dt><dd>SPIE / SPIE Facilities</dd></div>
+          <div><dt>Cible</dt><dd>J.D. Euroconfort</dd></div>
+          <div><dt>CA cible (2022)</dt><dd>~11 M€</dd></div>
+          <div><dt>Effectifs cible</dt><dd>45 ETP</dd></div>
+          <div><dt>Montant</dt><dd>NC (estimé 3–8 M€)</dd></div>
+          <div><dt>Multiple implicite</dt><dd>5–7x EBITDA (estimé)</dd></div>
+          <div><dt>% capital</dt><dd>NC (prob. 100%)</dd></div>
+          <div><dt>Intégration</dt><dd>SPIE Facilities</dd></div>
+          <div><dt>Financement</dt><dd>Fonds propres</dd></div>
+          <div><dt>Notif. concurrence</dt><dd>Non requise</dd></div>
+          </dl>
+        </aside>
       </div>
     </div>
   </div>
-</div>
 
 <!-- DEAL BODY -->
-<div class="deal-body">
+<div class="wrap cadre droite deal-body">
 
   <!-- MAIN ARTICLE -->
-  <div class="deal-article">
+  <div class="deal-article article-corps">
 
     <!-- Avertissement d'angle -->
     <div class="warning-block">
-      <div class="warning-block-label">⚠ Pourquoi cette analyse est différente</div>
+      <div class="warning-block-label">Pourquoi cette analyse est différente</div>
       <p>Nous sommes le 15 avril 2026. Le deal a 27 mois. J'ai désormais accès à : les résultats annuels SPIE <strong>2024 ET 2025</strong>, les 17 bolt-on réalisés sur 2 exercices complets post-deal, l'annonce majeure de <strong>Rofa Industrial AG</strong> (430 M€ CA, Allemagne) début 2026, la <strong>canicule 2025</strong> (+31 % PAC air/air au S2), et la <strong>succession programmée de Gauthier Louette</strong>. La thèse initiale doit être sérieusement corrigée.</p>
     </div>
 
     <!-- Résumé exécutif -->
     <div class="exec-summary">
-      <div class="exec-summary-label">Résumé exécutif — version avril 2026</div>
+      <div class="exec-summary-label">Résumé exécutif, version avril 2026</div>
       <p>En janvier 2024, SPIE rachetait Euroconfort (Bretagne, 11 M€ CA) deux mois avant l'entrée en vigueur de F-Gas III. 27 mois plus tard, le constat est net : <strong>SPIE n'a pas multiplié les acquisitions froid en France.</strong> Sur 17 bolt-on réalisés en 2024-2025, Euroconfort reste l'unique deal froid commercial français. Le groupe a redéployé ses 1 Md€+ de capacité d'acquisition vers l'Allemagne (Rofa en 2026, 430 M€ CA), la Pologne, la Suisse. La vraie leçon pour les PME du segment : <strong>les majors n'achètent pas la consolidation, ils attendent que les indépendants meurent de F-Gas III.</strong></p>
     </div>
 
@@ -364,24 +124,25 @@ h2.section-title:first-child{margin-top:0;}
     </div>
 
     <!-- Section 1 -->
-    <h2 class="section-title"><span class="section-num">01</span>Le deal en faits</h2>
+    <h2 class="art-h2">Le deal en faits</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <p class="body-text">SPIE a annoncé le 3 janvier 2024 l'acquisition de J.D. Euroconfort, fondée en 1994 à Cesson-Sévigné (35). La cible employait 45 ETP pour un chiffre d'affaires de 11 M€ en 2022, positionnée sur les métiers du <strong>froid commercial, de la climatisation et des cuisines professionnelles</strong>. Clientèle déclarée : luxe, santé, distribution, défense, collectivités.</p>
-    <p class="body-text">L'intégration a été réalisée sous SPIE Facilities — filiale services multi-techniques aux bâtiments tertiaires. Pascal Jagline, président fondateur, était maintenu en poste au moment de l'annonce. Montant non communiqué. Pas de notification à l'Autorité de la concurrence (taille très inférieure aux seuils). Financement implicite sur fonds propres, SPIE disposant d'une liquidité de <strong>1,72 Md€ fin 2023</strong>.</p>
+    <p class="body-text">L'intégration a été réalisée sous SPIE Facilities, filiale services multi-techniques aux bâtiments tertiaires. Pascal Jagline, président fondateur, était maintenu en poste au moment de l'annonce. Montant non communiqué. Pas de notification à l'Autorité de la concurrence (taille très inférieure aux seuils). Financement implicite sur fonds propres, SPIE disposant d'une liquidité de <strong>1,72 Md€ fin 2023</strong>.</p>
 
     <!-- Chronologie F-Gas -->
     <div class="fgas-timeline">
-      <div class="fgas-title">Calendrier F-Gas III — Contexte réglementaire</div>
+      <div class="fgas-title">Calendrier F-Gas III, Contexte réglementaire</div>
       <div class="fgas-row deal">
         <div class="fgas-date">3 jan. 2024</div>
         <div class="fgas-event"><strong>Annonce et closing du deal SPIE / Euroconfort</strong></div>
       </div>
       <div class="fgas-row">
         <div class="fgas-date">11 mar. 2024</div>
-        <div class="fgas-event"><strong>Règlement UE 2024/573 en vigueur</strong> — 62 jours après le closing. Phase-out HFC accélérée.</div>
+        <div class="fgas-event"><strong>Règlement UE 2024/573 en vigueur</strong>. 62 jours après le closing. Phase-out HFC accélérée.</div>
       </div>
       <div class="fgas-row">
         <div class="fgas-date">1 jan. 2025</div>
-        <div class="fgas-event"><strong>Interdiction maintenance HFC PRP ≥ 2 500</strong> — premier choc concret sur le marché du froid commercial.</div>
+        <div class="fgas-event"><strong>Interdiction maintenance HFC PRP ≥ 2 500</strong>. premier choc concret sur le marché du froid commercial.</div>
       </div>
       <div class="fgas-row">
         <div class="fgas-date">1 jan. 2025</div>
@@ -389,16 +150,17 @@ h2.section-title:first-child{margin-top:0;}
       </div>
       <div class="fgas-row">
         <div class="fgas-date">2026</div>
-        <div class="fgas-event"><strong>Baisse des quotas HFC -22 % vs 2024.</strong> Pression maximale exploitants. CAP frigoriste à distance lancé (L'atelier des Chefs) — signal d'alerte public sur la pénurie techniciens.</div>
+        <div class="fgas-event"><strong>Baisse des quotas HFC -22 % vs 2024.</strong> Pression maximale exploitants. CAP frigoriste à distance lancé (L'atelier des Chefs), signal d'alerte public sur la pénurie techniciens.</div>
       </div>
       <div class="fgas-row">
         <div class="fgas-date">1 jan. 2027</div>
-        <div class="fgas-event">Interdiction nouvelles installations climatisation PRP ≥ 150 (&lt;12 kW) — <strong>choc majeur côté équipementiers et installateurs.</strong></div>
+        <div class="fgas-event">Interdiction nouvelles installations climatisation PRP ≥ 150 (&lt;12 kW), <strong>choc majeur côté équipementiers et installateurs.</strong></div>
       </div>
     </div>
 
     <!-- Section 2 -->
-    <h2 class="section-title"><span class="section-num">02</span>Ce qui s'est réellement passé depuis</h2>
+    <h2 class="art-h2">Ce qui s'est réellement passé depuis</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
 
     <p class="body-text"><strong>Sur SPIE en tant que groupe :</strong> performance au-delà de toutes les attentes. FY2025 publié le 6 mars 2026 : CA &gt;10 Md€, EBITA ~760 M€ (marge ≥7,6 %), levier ramené à 1,3x, dividende 1,08 €/action (+8 %). En 3 ans (2022→2025), le groupe a fait +24 % de CA et +49 % d'EBITA.</p>
 
@@ -407,15 +169,16 @@ h2.section-title:first-child{margin-top:0;}
         <tr><th>Indicateur</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
       </thead>
       <tbody>
-        <tr><td>CA / Production</td><td>8,1 Md€</td><td>8,7 Md€</td><td>9,9 Md€</td><td style="color:var(--gold);font-weight:600;">&gt;10 Md€</td></tr>
-        <tr><td>EBITA</td><td>511 M€</td><td>584 M€</td><td>712 M€</td><td style="color:var(--gold);font-weight:600;">~760 M€</td></tr>
-        <tr><td>Bolt-on (CA acquis)</td><td>—</td><td>9 (~300 M€)</td><td>8 (457 M€)</td><td style="color:var(--gold);font-weight:600;">9 (347 M€)</td></tr>
-        <tr><td>Levier dette/EBITDA</td><td>—</td><td>—</td><td>—</td><td style="color:var(--green);font-weight:600;">1,3×</td></tr>
+        <tr><td>CA / Production</td><td>8,1 Md€</td><td>8,7 Md€</td><td>9,9 Md€</td><td>&gt;10 Md€</td></tr>
+        <tr><td>EBITA</td><td>511 M€</td><td>584 M€</td><td>712 M€</td><td>~760 M€</td></tr>
+        <tr><td>Bolt-on (CA acquis)</td><td>n.c.</td><td>9 (~300 M€)</td><td>8 (457 M€)</td><td>9 (347 M€)</td></tr>
+        <tr><td>Levier dette/EBITDA</td><td>n.c.</td><td>n.c.</td><td>n.c.</td><td>1,3×</td></tr>
       </tbody>
     </table>
-    <p style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);margin-bottom:24px;letter-spacing:0.08em;">Source : communiqués résultats annuels SPIE 2023, 2024, 2025 (publié le 6 mars 2026)</p>
+    </div>
+    <p class="note deal-note">Source : communiqués résultats annuels SPIE 2023, 2024, 2025 (publié le 6 mars 2026)</p>
 
-    <p class="body-text"><strong>Sur la doctrine M&A — le fait majeur :</strong> zéro bolt-on froid France depuis Euroconfort. Sur 17 opérations réalisées en 2024-2025, SPIE a tout concentré hors de France.</p>
+    <p class="body-text"><strong>Sur la doctrine M&A, le fait majeur :</strong> zéro bolt-on froid France depuis Euroconfort. Sur 17 opérations réalisées en 2024-2025, SPIE a tout concentré hors de France.</p>
 
     <table class="risk-table" style="margin-bottom:24px;">
       <thead>
@@ -424,64 +187,64 @@ h2.section-title:first-child{margin-top:0;}
       <tbody>
         <tr><td>2023</td><td>9</td><td>~300 M€</td><td>Mixte, Allemagne (Robur)</td></tr>
         <tr><td>2024</td><td>8</td><td>457 M€</td><td>Allemagne (Robur closing), renouvelables, pharma</td></tr>
-        <tr><td>2025</td><td>9</td><td>347 M€</td><td>Pologne, Suisse, Pays-Bas, Autriche — <strong>pas France</strong></td></tr>
-        <tr><td style="color:var(--gold);">Début 2026</td><td style="color:var(--gold);">Rofa</td><td style="color:var(--gold);font-weight:600;">430 M€</td><td>Allemagne industriel · <span style="color:var(--gold);font-weight:600;">39× Euroconfort en CA</span></td></tr>
+        <tr><td>2025</td><td>9</td><td>347 M€</td><td>Pologne, Suisse, Pays-Bas, Autriche, <strong>pas France</strong></td></tr>
+        <tr><td>Début 2026</td><td>Rofa</td><td>430 M€</td><td>Allemagne industriel · <span>39× Euroconfort en CA</span></td></tr>
       </tbody>
     </table>
+    </div>
 
-    <p class="body-text"><strong>Sur le marché du froid commercial :</strong> F-Gas III a tenu ses promesses. Taxe GWP opérationnelle depuis janvier 2025. R410A et R134a en hausse continue. Les fluides naturels (CO2, propane, NH3) sont devenus la norme des nouvelles installations. Et la ressource humaine est devenue le vrai verrou : salaire frigoriste expert CO2/NH3 à <strong>2 500–3 500 € net, +20-30 % en 2 ans</strong>. En mars 2026, un CAP Installateur froid à distance a été lancé (L'atelier des Chefs) — signal d'alerte public sur la pénurie.</p>
+    <p class="body-text"><strong>Sur le marché du froid commercial :</strong> F-Gas III a tenu ses promesses. Taxe GWP opérationnelle depuis janvier 2025. R410A et R134a en hausse continue. Les fluides naturels (CO2, propane, NH3) sont devenus la norme des nouvelles installations. Et la ressource humaine est devenue le vrai verrou : salaire frigoriste expert CO2/NH3 à <strong>2 500–3 500 € net, +20-30 % en 2 ans</strong>. En mars 2026, un CAP Installateur froid à distance a été lancé (L'atelier des Chefs), signal d'alerte public sur la pénurie.</p>
 
-    <p class="body-text"><strong>La canicule 2025, le facteur X :</strong> 27 jours de canicule en été 2025. Rebond de <strong>+31 % sur les ventes PAC air/air au S2 2025</strong> après un S1 en recul. Le marché clim a explosé — mais les PME qui ont tenu le choc sont celles qui avaient la capacité de recrutement, pas les moyens financiers pour valoriser des deals M&A.</p>
+    <p class="body-text"><strong>La canicule 2025, le facteur X :</strong> 27 jours de canicule en été 2025. Rebond de <strong>+31 % sur les ventes PAC air/air au S2 2025</strong> après un S1 en recul. Le marché clim a explosé, mais les PME qui ont tenu le choc sont celles qui avaient la capacité de recrutement, pas les moyens financiers pour valoriser des deals M&A.</p>
 
     <p class="body-text"><strong>Signal de gouvernance :</strong> en mars 2026, la succession du PDG <strong>Gauthier Louette</strong> (14 ans en poste) a été annoncée. Un changement de direction chez SPIE peut recalibrer la doctrine M&A. À surveiller.</p>
 
     <!-- Section 3 -->
-    <h2 class="section-title"><span class="section-num">03</span>Lecture stratégique — révision complète</h2>
+    <h2 class="art-h2">Lecture stratégique : révision complète</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <p class="body-text">L'analyse de janvier 2024 prédisait une vague de consolidation froid France en 12-18 mois. <strong>Elle ne s'est pas produite. Il faut réviser la thèse.</strong></p>
     <div class="numbered-list">
       <div class="numbered-item">
-        <div class="numbered-dot">01</div>
         <div class="numbered-text"><strong>C'était un opportuniste régional, pas le début d'une plateforme.</strong> SPIE a saisi une fenêtre : une PME bien positionnée (luxe, défense) en Bretagne, clientèle premium, équipe formée, dirigeant vendeur. Pas plus. Les bolt-on suivants l'ont prouvé : zéro réplication sur le froid France. Le groupe a clairement jugé que le ROI M&A était supérieur en Allemagne et en Europe de l'Est.</div>
       </div>
       <div class="numbered-item">
-        <div class="numbered-dot">02</div>
         <div class="numbered-text"><strong>Le calcul SPIE en 2026 se lit maintenant clairement.</strong> Rofa (430 M€ CA, marge EBITA high-single-digit) représente 39× Euroconfort en CA. Même avec un multiple plus élevé, le deal allemand crée beaucoup plus de valeur par euro investi qu'une accumulation de PME froid régionales françaises. Le marché français du froid commercial est trop fragmenté (&gt;14 000 établissements, majorité micro-entreprises), trop cher à consolider versus le dynamisme des marchés industriels allemands.</div>
       </div>
       <div class="numbered-item">
-        <div class="numbered-dot">03</div>
-        <div class="numbered-text"><strong>Le vrai pari de SPIE sur F-Gas III s'est joué ailleurs.</strong> Les renouvelables, l'efficacité énergétique tertiaire, l'industrie pharma — tous des marchés où la transition génère du CA récurrent de haute valeur. Le froid commercial est devenu une <em>ligne de capacité interne</em> (servir les contrats Facilities), pas une ligne de croissance.</div>
+        <div class="numbered-text"><strong>Le vrai pari de SPIE sur F-Gas III s'est joué ailleurs.</strong> Les renouvelables, l'efficacité énergétique tertiaire, l'industrie pharma, tous des marchés où la transition génère du CA récurrent de haute valeur. Le froid commercial est devenu une <em>ligne de capacité interne</em> (servir les contrats Facilities), pas une ligne de croissance.</div>
       </div>
     </div>
     <p class="body-text">Ce que le silence sur le prix Euroconfort révèle maintenant : à l'évidence, un ticket de <strong>3-8 M€</strong> (estimation sectorielle, 5-7× EBITDA), soit 0,3 % à 0,8 % des 1 Md€+ déployés en bolt-on sur 2024-2025. Une <strong>opération de lissage régional</strong>, pas une thèse structurante.</p>
 
     <!-- Section 4 -->
-    <h2 class="section-title"><span class="section-num">04</span>Impact concurrentiel — ce qu'on voit en 2026</h2>
+    <h2 class="art-h2">Impact concurrentiel : ce qu'on voit en 2026</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <p class="body-text"><strong>Equans (via Bouygues / Axima Réfrigération)</strong> est resté le leader incontesté du froid commercial/industriel en France. 80 agences. Stratégie : croissance organique + investissements industriels (Montauban-de-Bretagne, agroalimentaire), pas vague d'acquisitions de PME. Offres marketing 2026 explicites : F-Gas, CO2, NH3, propane, GTC centralisée, ingénierie 0 CAPEX. Equans construit la rente de maintenance à 10 ans chez les GMS.</p>
     <p class="body-text"><strong>Dalkia Froid Solutions (groupe EDF)</strong> a conservé son positionnement GMS sans vague d'acquisitions visibles. Le groupe est mobilisé par la guerre contractuelle de Paris : les recours Engie ont été déposés en janvier 2026 après l'attribution du réseau de chaleur à Dalkia le 17 décembre 2025. <strong>Les majors se battent sur les méga-contrats, pas sur les PME à racheter.</strong></p>
     <p class="body-text"><strong>PME froid commercial : la mortalité silencieuse a commencé.</strong> Pas de boom M&A mais une attrition progressive : les indépendants &lt;30 ETP qui n'ont pas requalifié leurs techniciens sur fluides naturels perdent leurs contrats de maintenance aux majors. Le CAP à distance lancé en mars 2026 est une mesure d'urgence filière, pas un outil de croissance.</p>
 
     <!-- Section 5 -->
-    <h2 class="section-title"><span class="section-num">05</span>Signal faible révisé — la consolidation se produit par érosion</h2>
+    <h2 class="art-h2">Signal faible révisé : la consolidation se produit par érosion</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <p class="body-text">La consolidation qu'on annonçait n'a pas eu lieu par M&A. <strong>Elle se produit par érosion.</strong> Trois évolutions concrètes depuis 2024 :</p>
     <div class="signal-cards">
       <div class="signal-card">
-        <div class="signal-card-num">Évolution 01</div>
-        <div class="signal-card-text"><strong>Les exploitants ont pris les devants.</strong> GMS, distribution, santé : ils signent des contrats pluriannuels avec les 4-5 majors pour sécuriser la transition F-Gas. Les PME locales perdent leurs clients. Pas besoin de les racheter — elles disparaissent toutes seules.</div>
+        <div class="signal-card-text"><strong>Les exploitants ont pris les devants.</strong> GMS, distribution, santé : ils signent des contrats pluriannuels avec les 4-5 majors pour sécuriser la transition F-Gas. Les PME locales perdent leurs clients. Pas besoin de les racheter, elles disparaissent toutes seules.</div>
       </div>
       <div class="signal-card">
-        <div class="signal-card-num">Évolution 02</div>
         <div class="signal-card-text"><strong>La valeur des PME froid ne monte pas, elle baisse.</strong> Hypothèse 2024 : « vendre maintenant avant que ça se consolide ». Réalité 2026 : les majors n'achètent pas, les multiples stagnent ou se compressent. Le dirigeant qui a refusé de vendre en 2024 n'aura pas de meilleure offre en 2027.</div>
       </div>
       <div class="signal-card">
-        <div class="signal-card-num">Évolution 03</div>
         <div class="signal-card-text"><strong>La canicule 2025 a créé un effet ciseaux.</strong> Demande PAC en explosion (+31 % S2) + obligation F-Gas en parallèle → capacité d'exécution PME débordée → perte de crédibilité sur contrats premium. Les majors récupèrent les contrats perdus.</div>
       </div>
     </div>
     <p class="body-text"><strong>Prédiction révisée 2026-2028 :</strong> pas de vague M&A visible. Mortalité PME par dépôt de bilan, cession d'actif à la casse, ou intégration opérationnelle chez un major sans deal formalisé (reprise de salariés, transfert de clients). Le pattern Euroconfort était l'exception, pas le début du cycle.</p>
 
     <!-- Section 6 -->
-    <h2 class="section-title"><span class="section-num">06</span>Risques d'exécution — verdict 2026</h2>
-    <table class="risk-table">
+    <h2 class="art-h2">Risques d'exécution : verdict 2026</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
+    <div class="tab-wrap">
+    <table class="art-table risk-table">
       <thead>
         <tr>
           <th>Risque identifié en 2024</th>
@@ -495,30 +258,32 @@ h2.section-title:first-child{margin-top:0;}
         </tr>
         <tr>
           <td>Fuite de techniciens</td>
-          <td><span class="risk-verdict-ok">✓ Pas de signal négatif public — l'absorption sous SPIE Facilities a probablement protégé</span></td>
+          <td><span class="risk-verdict-ok">Pas de signal négatif public, l'absorption sous SPIE Facilities a probablement protégé</span></td>
         </tr>
         <tr>
           <td>Intégration culturelle PME / grand groupe</td>
-          <td><span class="risk-verdict-ok">✓ Marque Euroconfort visible mais opérationnellement absorbée — pas de friction publique</span></td>
+          <td><span class="risk-verdict-ok">Marque Euroconfort visible mais opérationnellement absorbée, pas de friction publique</span></td>
         </tr>
         <tr>
           <td>Risque réglementaire</td>
-          <td><span class="risk-verdict-ok">✓ Inexistant — F-Gas III a renforcé la valeur de l'actif</span></td>
+          <td><span class="risk-verdict-ok">Inexistant, F-Gas III a renforcé la valeur de l'actif</span></td>
         </tr>
         <tr>
           <td>Risque dette LBO</td>
-          <td><span class="risk-verdict-ok">✓ Sans objet — financement fonds propres</span></td>
+          <td><span class="risk-verdict-ok">Sans objet, financement fonds propres</span></td>
         </tr>
         <tr>
           <td>Risque stratégique (nouveau, 2026)</td>
-          <td><span style="color:var(--text-2);font-size:13px;">Deal trop petit pour structurer une ligne métier — capacité interne, pas growth play. <strong>Confirmé.</strong></span></td>
+          <td><span>Deal trop petit pour structurer une ligne métier, capacité interne, pas growth play. <strong>Confirmé.</strong></span></td>
         </tr>
       </tbody>
     </table>
-    <p class="body-text">Le deal a tenu. Mais il est devenu <strong>opérationnellement invisible</strong> — preuve qu'il n'a jamais été stratégique au sens ligne de croissance.</p>
+    </div>
+    <p class="body-text">Le deal a tenu. Mais il est devenu <strong>opérationnellement invisible</strong>. preuve qu'il n'a jamais été stratégique au sens ligne de croissance.</p>
 
     <!-- Section 7 -->
-    <h2 class="section-title"><span class="section-num">07</span>Ce que ça change pour toi (version avril 2026)</h2>
+    <h2 class="art-h2">Ce que ça change pour toi (version avril 2026)</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <div class="reco-block">
       <div class="reco-item">
         <div class="reco-label">Si tu diriges une PME du segment froid commercial</div>
@@ -526,32 +291,33 @@ h2.section-title:first-child{margin-top:0;}
       </div>
       <div class="reco-item">
         <div class="reco-label">Si tu es commercial dans l'écosystème froid</div>
-        <div class="reco-text">Structure tes comptes-clés majors (SPIE Facilities, Equans, Dalkia, Engie Solutions) et oublie la pêche au petit indépendant. <strong>Ton marché PME va fondre de 20-30 % sur les 3 prochaines années.</strong> Les fluides naturels, les équipements CO2/NH3/propane, les outils de GTC multi-sites — voilà où est la croissance.</div>
+        <div class="reco-text">Structure tes comptes-clés majors (SPIE Facilities, Equans, Dalkia, Engie Solutions) et oublie la pêche au petit indépendant. <strong>Ton marché PME va fondre de 20-30 % sur les 3 prochaines années.</strong> Les fluides naturels, les équipements CO2/NH3/propane, les outils de GTC multi-sites, voilà où est la croissance.</div>
       </div>
       <div class="reco-item">
         <div class="reco-label">Si tu es investisseur sectoriel</div>
-        <div class="reco-text">La thèse « consolidation froid » est morte. Les thèses vivantes en 2026 : (a) <strong>équipementiers fluides naturels</strong> (Bitzer, Carrier, Daikin — CO2 trans-critique), (b) intégrateurs GTC supervision multi-sites, (c) <strong>SPIE elle-même</strong> comme proxy services multi-techniques transition énergétique (coté, dividende +8 %/an, levier 1,3×, objectif EBITA &gt;1 Md€ en 2028).</div>
+        <div class="reco-text">La thèse « consolidation froid » est morte. Les thèses vivantes en 2026 : (a) <strong>équipementiers fluides naturels</strong> (Bitzer, Carrier, Daikin, CO2 trans-critique), (b) intégrateurs GTC supervision multi-sites, (c) <strong>SPIE elle-même</strong> comme proxy services multi-techniques transition énergétique (coté, dividende +8 %/an, levier 1,3×, objectif EBITA &gt;1 Md€ en 2028).</div>
       </div>
     </div>
 
     <!-- Section 8 -->
-    <h2 class="section-title"><span class="section-num">08</span>À surveiller — calendrier réel 2026-2027</h2>
+    <h2 class="art-h2">À surveiller : calendrier réel 2026-2027</h2>
+    <div class="cote"><span class="ligne" aria-hidden="true"></span><span class="mesure">SPIE / J.D. Euroconfort</span></div>
     <div class="watch-list">
       <div class="watch-item">
         <div class="watch-date">Mai–Juin 2026</div>
-        <div class="watch-text"><strong>Closing effectif de Rofa Industrial AG</strong> — marqueur définitif du pivot allemand SPIE. Confirme ou non que le groupe a abandonné la France pour les industriels allemands.</div>
+        <div class="watch-text"><strong>Closing effectif de Rofa Industrial AG</strong>. marqueur définitif du pivot allemand SPIE. Confirme ou non que le groupe a abandonné la France pour les industriels allemands.</div>
       </div>
       <div class="watch-item">
         <div class="watch-date">Sept. 2026</div>
-        <div class="watch-text"><strong>Résultats semestriels SPIE</strong> — confirmation ou non de la non-acquisition froid France au S1 2026.</div>
+        <div class="watch-text"><strong>Résultats semestriels SPIE</strong>. confirmation ou non de la non-acquisition froid France au S1 2026.</div>
       </div>
       <div class="watch-item">
         <div class="watch-date">Fin 2026</div>
-        <div class="watch-text"><strong>Annonce officielle du successeur de Gauthier Louette</strong> (PDG depuis 14 ans) — possible recalibrage de la doctrine M&A SPIE selon le profil du nouveau dirigeant.</div>
+        <div class="watch-text"><strong>Annonce officielle du successeur de Gauthier Louette</strong> (PDG depuis 14 ans), possible recalibrage de la doctrine M&A SPIE selon le profil du nouveau dirigeant.</div>
       </div>
       <div class="watch-item">
         <div class="watch-date">1er jan. 2027</div>
-        <div class="watch-text"><strong>Nouvelle butée F-Gas III</strong> — interdiction installations climatisation PRP ≥ 150 (&lt;12 kW). Choc majeur côté équipementiers et installateurs. Les PME non certifiées fluides naturels perdront leurs agréments.</div>
+        <div class="watch-text"><strong>Nouvelle butée F-Gas III</strong>. interdiction installations climatisation PRP ≥ 150 (&lt;12 kW). Choc majeur côté équipementiers et installateurs. Les PME non certifiées fluides naturels perdront leurs agréments.</div>
       </div>
     </div>
 
@@ -562,7 +328,7 @@ h2.section-title:first-child{margin-top:0;}
 
     <!-- Données acquéreur -->
     <div class="sidebar-card">
-      <div class="sidebar-card-title">SPIE — Données actualisées 2025</div>
+      <div class="sidebar-card-title">SPIE, Données actualisées 2025</div>
       <div class="perf-grid">
         <div class="perf-card">
           <div class="perf-label">CA 2025</div>
@@ -599,7 +365,7 @@ h2.section-title:first-child{margin-top:0;}
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Rofa Industrial AG (2026)</span>
-        <span class="sidebar-val" style="color:var(--gold);">430 M€ CA · Allemagne</span>
+        <span class="sidebar-val">430 M€ CA · Allemagne</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Succession PDG</span>
@@ -609,7 +375,7 @@ h2.section-title:first-child{margin-top:0;}
 
     <!-- Données cible -->
     <div class="sidebar-card">
-      <div class="sidebar-card-title">J.D. Euroconfort — Profil cible</div>
+      <div class="sidebar-card-title">J.D. Euroconfort, Profil cible</div>
       <div class="sidebar-row">
         <span class="sidebar-label">Fondation</span>
         <span class="sidebar-val">1994</span>
@@ -642,47 +408,47 @@ h2.section-title:first-child{margin-top:0;}
 
     <!-- Graphique SPIE CA -->
     <div class="chart-wrap">
-      <div class="chart-title">SPIE — Évolution CA 2022–2025 (Md€)</div>
+      <div class="chart-title">SPIE, Évolution CA 2022–2025 (Md€)</div>
       <!-- Scale: 8.0–10.2, 80px height → 1 unit = 36.4px -->
       <svg viewBox="0 0 280 125" width="100%" height="125">
         <!-- Grid lines -->
-        <line x1="36" y1="10" x2="36" y2="90" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-        <line x1="36" y1="90" x2="265" y2="90" stroke="rgba(184,155,94,0.08)" stroke-width="1"/>
-        <line x1="36" y1="17" x2="265" y2="17" stroke="rgba(184,155,94,0.04)" stroke-width="1" stroke-dasharray="3 3"/>
-        <line x1="36" y1="54" x2="265" y2="54" stroke="rgba(184,155,94,0.04)" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="36" y1="10" x2="36" y2="90" stroke="#B1B3AC" stroke-width="1"/>
+        <line x1="36" y1="90" x2="265" y2="90" stroke="#B1B3AC" stroke-width="1"/>
+        <line x1="36" y1="17" x2="265" y2="17" stroke="#B1B3AC" stroke-width="1" stroke-dasharray="3 3"/>
+        <line x1="36" y1="54" x2="265" y2="54" stroke="#B1B3AC" stroke-width="1" stroke-dasharray="3 3"/>
         <!-- Y labels (8, 9, 10) -->
-        <text x="32" y="93" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="end">8</text>
-        <text x="32" y="57" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="end">9</text>
-        <text x="32" y="20" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="end">10</text>
+        <text x="32" y="93" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="end">8</text>
+        <text x="32" y="57" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="end">9</text>
+        <text x="32" y="20" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="end">10</text>
         <!-- Bars (range 8–10 = 80px, 1 unit = 40px) -->
         <!-- 2022: 8.1 → h=4, top=86 -->
-        <rect x="48" y="86" width="32" height="4" fill="rgba(184,155,94,0.3)" stroke="rgba(184,155,94,0.5)" stroke-width="1"/>
+        <rect x="48" y="86" width="32" height="4" fill="#16191C"/>
         <!-- 2023: 8.7 → h=28, top=62 -->
-        <rect x="100" y="62" width="32" height="28" fill="rgba(184,155,94,0.45)" stroke="rgba(184,155,94,0.6)" stroke-width="1"/>
+        <rect x="100" y="62" width="32" height="28" fill="#16191C"/>
         <!-- 2024: 9.9 → h=76, top=14 -->
-        <rect x="152" y="14" width="32" height="76" fill="rgba(184,155,94,0.65)" stroke="var(--gold)" stroke-width="1"/>
+        <rect x="152" y="14" width="32" height="76" fill="#16191C"/>
         <!-- 2025: 10.1 → h=84, top=6 (capped) -->
-        <rect x="204" y="10" width="32" height="80" fill="rgba(184,155,94,0.9)" stroke="var(--gold)" stroke-width="2"/>
+        <rect x="204" y="10" width="32" height="80" fill="#16191C"/>
         <!-- Values -->
-        <text x="64" y="82" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E" text-anchor="middle">8,1</text>
-        <text x="116" y="58" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E" text-anchor="middle">8,7</text>
-        <text x="168" y="10" font-family="DM Mono,monospace" font-size="7" fill="#B89B5E" text-anchor="middle">9,9</text>
-        <text x="220" y="7" font-family="DM Mono,monospace" font-size="7" fill="#fbbf24" text-anchor="middle" font-weight="600">&gt;10</text>
+        <text x="64" y="82" font-family="Archivo, sans-serif" font-size="7" fill="#16191C" font-weight="600" text-anchor="middle">8,1</text>
+        <text x="116" y="58" font-family="Archivo, sans-serif" font-size="7" fill="#16191C" font-weight="600" text-anchor="middle">8,7</text>
+        <text x="168" y="10" font-family="Archivo, sans-serif" font-size="7" fill="#16191C" font-weight="600" text-anchor="middle">9,9</text>
+        <text x="220" y="7" font-family="Archivo, sans-serif" font-size="7" fill="#16191C" font-weight="600" text-anchor="middle">&gt;10</text>
         <!-- X labels -->
-        <text x="64" y="102" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">2022</text>
-        <text x="116" y="102" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">2023</text>
-        <text x="168" y="102" font-family="DM Mono,monospace" font-size="7" fill="#5a5446" text-anchor="middle">2024</text>
-        <text x="220" y="102" font-family="DM Mono,monospace" font-size="7" fill="#fbbf24" text-anchor="middle" font-weight="600">2025</text>
+        <text x="64" y="102" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="middle">2022</text>
+        <text x="116" y="102" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="middle">2023</text>
+        <text x="168" y="102" font-family="Archivo, sans-serif" font-size="7" fill="#4F565B" text-anchor="middle">2024</text>
+        <text x="220" y="102" font-family="Archivo, sans-serif" font-size="7" fill="#16191C" font-weight="600" text-anchor="middle">2025</text>
         <!-- Deal marker on 2024 bar -->
-        <line x1="168" y1="94" x2="168" y2="113" stroke="rgba(251,191,36,0.5)" stroke-width="1" stroke-dasharray="2 2"/>
-        <text x="130" y="120" font-family="DM Mono,monospace" font-size="6.5" fill="#fbbf24">↑ Deal Euroconfort janv. 2024</text>
+        <line x1="168" y1="94" x2="168" y2="113" stroke="#B1B3AC" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="130" y="120" font-family="Archivo, sans-serif" font-size="6.5" fill="#16191C" font-weight="600">↑ Deal Euroconfort janv. 2024</text>
       </svg>
     </div>
 
     <!-- Comparables -->
     <div class="sidebar-card">
       <div class="sidebar-card-title">Multiples &amp; comparables</div>
-      <p style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-bottom:12px;">Services techniques régional (&lt;50 ETP)</p>
+      <p class="note deal-note">Services techniques régional (&lt;50 ETP)</p>
       <div class="sidebar-row">
         <span class="sidebar-label">Fourchette médiane</span>
         <span class="sidebar-val">5–7× EBITDA</span>
@@ -697,11 +463,11 @@ h2.section-title:first-child{margin-top:0;}
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Rofa Industrial (DE, 2026)</span>
-        <span class="sidebar-val" style="color:var(--gold);">430 M€ CA · deal en cours</span>
+        <span class="sidebar-val">430 M€ CA · deal en cours</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Écart Rofa vs Euroconfort</span>
-        <span class="sidebar-val" style="color:var(--gold);font-weight:600;">39× le CA</span>
+        <span class="sidebar-val">39× le CA</span>
       </div>
     </div>
 
@@ -710,7 +476,7 @@ h2.section-title:first-child{margin-top:0;}
       <div class="sidebar-card-title">Marché froid France 2025-2026</div>
       <div class="sidebar-row">
         <span class="sidebar-label">Canicule 2025</span>
-        <span class="sidebar-val" style="color:var(--green);">27 jours · +31 % PAC air/air S2</span>
+        <span class="sidebar-val">27 jours · +31 % PAC air/air S2</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Salaire frigoriste CO2/NH3</span>
@@ -718,7 +484,7 @@ h2.section-title:first-child{margin-top:0;}
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Hausse salariale (2 ans)</span>
-        <span class="sidebar-val" style="color:var(--red);">+20-30 %</span>
+        <span class="sidebar-val">+20-30 %</span>
       </div>
       <div class="sidebar-row">
         <span class="sidebar-label">Établissements froid France</span>
@@ -732,11 +498,22 @@ h2.section-title:first-child{margin-top:0;}
 
   </div>
 </div>
+</main>
 
-<footer class="page-footer">
-  <div class="footer-logo">Bati<span>Analyse</span></div>
-  <div>Analyse rétrospective — Avril 2026. Données non-contractuelles. Sources : communiqués résultats SPIE FY2024 &amp; FY2025 (6 mars 2026), Règlement UE 2024/573, Xerfi, Dalkia Froid Solutions, Climalife/GFF, presse professionnelle CVC.</div>
-  <div>© 2026 BatiAnalyse &nbsp;·&nbsp; <a href="/mentions-legales" style="color:inherit;text-decoration:underline;opacity:0.7;">Mentions légales</a></div>
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>Analyse rétrospective, Avril 2026. Données non-contractuelles. Sources : communiqués résultats SPIE FY2024 &amp; FY2025 (6 mars 2026), Règlement UE 2024/573, Xerfi, Dalkia Froid Solutions, Climalife/GFF, presse professionnelle CVC.</p>
+      <p style="margin-top:6px">© 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
+    </div>
+    <ul>
+      <li><a href="/blog.html">Toutes les analyses</a></li>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+    </ul>
+  </div>
 </footer>
 
 </body>
