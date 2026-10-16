@@ -3,384 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BatiAnalyse — Entreprise</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
-  --border:#1F1F22; --border-hover:#B89B5E;
-  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
-  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden;}
-
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(8,8,7,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);}
-.logo{font-family:'DM Serif Display',serif;font-size:18px;font-weight:700;color:var(--white);text-decoration:none;}
-.logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
-.nav-links a{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);text-decoration:none;transition:color 0.15s;}
-.nav-links a:hover{color:var(--text);}
-.nav-links a.active{color:var(--gold);}
-.nav-cta {font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;padding:8px 20px;background:var(--gold);border:none;border-radius:6px;color:var(--bg);text-decoration:none;transition:all 0.15s;text-transform:uppercase;}
-.nav-cta:hover { opacity:0.88; }
-
-/* BREADCRUMB */
-.breadcrumb-bar{padding:72px 32px 0;max-width:1100px;margin:0 auto;}
-.breadcrumb{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:10px;}
-.breadcrumb a{color:var(--text-3);text-decoration:none;transition:color 0.15s;}
-.breadcrumb a:hover{color:var(--gold);}
-
-/* COMPANY HEADER */
-.company-header{padding:20px 32px 0;border-bottom:1px solid var(--border);}
-.company-header-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;padding-bottom:24px;}
-.company-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:12px;}
-.company-signal{font-family:'DM Mono',monospace;font-size:9px;padding:3px 10px;letter-spacing:0.12em;}
-.signal-buy{background:var(--green-dim);color:var(--green);border:1px solid rgba(74,222,128,0.3);}
-.signal-hold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(184,155,94,0.3);}
-.signal-watch{background:var(--red-dim);color:var(--red);border:1px solid rgba(248,113,113,0.3);}
-.company-name{font-family:'DM Serif Display',serif;font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1;letter-spacing:-0.5px;margin-bottom:8px;}
-.company-sub{font-size:13px;color:var(--text-2);line-height:1.6;max-width:540px;}
-.company-kpis{display:flex;gap:0;flex-shrink:0;}
-.kpi{padding:14px 24px;border-left:1px solid var(--border);text-align:right;min-width:120px;border-radius:8px;}
-.kpi-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:var(--gold);line-height:1;}
-.kpi-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3);margin-top:4px;}
-.kpi-change{font-family:'DM Mono',monospace;font-size:11px;margin-top:3px;}
-
-/* TABS */
-.tabs-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:0;}
-.tab-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:14px 22px;background:none;border:none;color:var(--text-3);cursor:pointer;transition:all 0.15s;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;}
-.tab-btn:hover{color:var(--text-2);}
-.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
-
-/* LAYOUT */
-.page-wrap{max-width:1100px;margin:0 auto;padding:40px 32px 100px;}
-.two-col{display:grid;grid-template-columns:1fr 340px;gap:40px;align-items:start;}
-@media(max-width:960px){.two-col{grid-template-columns:1fr;}}
-
-/* SECTION TITLE */
-.sec-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.sec-block{margin-bottom:36px;}
-
-/* OVERVIEW */
-.overview-text{font-size:14px;line-height:1.8;color:var(--text-2);margin-bottom:20px;}
-.positioning-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
-.pos-card{background:var(--surface);border:1px solid var(--border);padding:16px 20px;border-radius:8px;}
-.pos-card-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px;}
-.pos-card-val{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
-.pos-bar{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
-.pos-bar-fill{height:100%;border-radius:2px;transition:width 1s ease;}
-.highlights{display:flex;flex-direction:column;gap:8px;}
-.highlight-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--text-2);line-height:1.5;}
-.highlight-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:7px;}
-
-/* BUSINESS BREAKDOWN */
-.segment-list{display:flex;flex-direction:column;gap:12px;}
-.segment{display:grid;grid-template-columns:140px 1fr 60px 70px;gap:12px;align-items:center;}
-.segment-name{font-size:12px;font-weight:600;color:var(--text);}
-.segment-bar-wrap{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
-.segment-bar{height:100%;border-radius:3px;transition:width 1.2s ease;}
-.segment-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);text-align:right;}
-.segment-margin{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);text-align:right;}
-.segment-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;}
-.seg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-
-/* GEO */
-.geo-list{display:flex;flex-direction:column;gap:10px;}
-.geo-item{display:grid;grid-template-columns:32px 1fr 80px 50px;gap:10px;align-items:center;}
-.geo-flag{font-size:16px;text-align:center;}
-.geo-name{font-size:12px;font-weight:600;}
-.geo-bar-wrap{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
-.geo-bar{height:100%;border-radius:2px;background:var(--gold);transition:width 1.2s ease;}
-.geo-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);text-align:right;}
-
-/* PROJECT TYPES */
-.project-grid{display:flex;flex-wrap:wrap;gap:8px;}
-.project-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;padding:6px 14px;border:1px solid var(--border);color:var(--text-2);background:var(--surface);}
-.project-tag.hot{border-color:var(--gold);color:var(--gold);background:rgba(184,155,94,0.07);}
-
-/* STRATEGIC */
-.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
-.swot-cell{background:var(--surface);padding:18px 20px;}
-.swot-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:10px;}
-.swot-label.str{color:var(--green);}
-.swot-label.wk{color:var(--red);}
-.swot-label.opp{color:var(--blue);}
-.swot-label.risk{color:#fb923c;}
-.swot-items{display:flex;flex-direction:column;gap:6px;}
-.swot-item{font-size:12px;color:var(--text-2);line-height:1.5;display:flex;align-items:flex-start;gap:8px;}
-.swot-item::before{content:'—';color:var(--text-3);flex-shrink:0;font-family:'DM Mono',monospace;font-size:11px;}
-
-/* FINANCIALS */
-.fin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-bottom:20px;}
-.fin-cell{background:var(--surface);padding:16px 20px;}
-.fin-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px;}
-.fin-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;}
-.fin-sub{font-size:11px;color:var(--text-3);margin-top:4px;}
-.fin-accordion{border:1px solid var(--border);}
-.fin-acc-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-2);background:var(--surface);transition:background 0.15s;user-select:none;}
-.fin-acc-header:hover{background:var(--surface2);}
-.fin-acc-header .arrow{transition:transform 0.2s;color:var(--gold);}
-.fin-acc-header.open .arrow{transform:rotate(90deg);}
-.fin-acc-body{display:none;background:var(--surface2);border-top:1px solid var(--border);}
-.fin-acc-body.open{display:block;}
-.fin-table{width:100%;border-collapse:collapse;}
-.fin-table td{padding:10px 18px;font-size:12px;border-bottom:1px solid var(--border);color:var(--text-2);}
-.fin-table td:last-child{text-align:right;font-family:'DM Mono',monospace;color:var(--text);}
-.fin-table tr:last-child td{border-bottom:none;}
-
-/* COMPETITION */
-.comp-list{display:flex;flex-direction:column;gap:10px;}
-.comp-item{background:var(--surface);border:1px solid var(--border);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;transition:border-color 0.15s;}
-.comp-item:hover{border-color:var(--border-hover);}
-.comp-name{font-size:13px;font-weight:600;}
-.comp-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);margin-top:3px;}
-.comp-badges{display:flex;gap:6px;}
-.comp-badge{font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid var(--border);color:var(--text-3);}
-
-/* TIMELINE (sidebar) */
-.timeline{display:flex;flex-direction:column;gap:0;}
-.tl-item{display:grid;grid-template-columns:48px 1fr;gap:0;position:relative;}
-.tl-item:not(:last-child)::after{content:'';position:absolute;left:23px;top:32px;bottom:-4px;width:1px;background:var(--border);}
-.tl-dot{width:10px;height:10px;border-radius:50%;margin:10px auto 0;position:relative;z-index:1;flex-shrink:0;}
-.tl-dot-wrap{display:flex;justify-content:center;padding-top:8px;}
-.tl-body{padding:6px 0 18px 12px;}
-.tl-date{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--text-3);margin-bottom:3px;}
-.tl-title{font-size:12px;font-weight:600;margin-bottom:2px;}
-.tl-sub{font-size:11px;color:var(--text-3);}
-.tl-type-div{background:var(--gold-dim);border:1px solid rgba(184,155,94,0.3);}
-.tl-dot-div{background:var(--gold);}
-.tl-type-earn{background:var(--blue-dim);border:1px solid rgba(96,165,250,0.3);}
-.tl-dot-earn{background:var(--blue);}
-.tl-type-ann{background:var(--surface2);border:1px solid var(--border);}
-.tl-dot-ann{background:var(--text-3);}
-.tl-badge{font-family:'DM Mono',monospace;font-size:8px;padding:2px 7px;margin-top:4px;display:inline-block;}
-
-/* ARTICLES */
-.articles-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
-.articles-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);}
-.articles-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);}
-.articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
-.art-card{background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;overflow:hidden;position:relative;animation:cardIn 0.4s ease forwards;opacity:0;}
-.art-card:hover{border-color:var(--border-hover);}
-.art-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
-.art-card:hover::before{transform:scaleX(1);}
-@keyframes cardIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-.art-card-img{height:180px;background:var(--surface2);background-size:cover;background-position:center;}
-.art-card-body{padding:20px;}
-.art-card-cat{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
-.art-card-title{font-family:'DM Serif Display',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px;}
-.art-card-excerpt{font-size:13px;color:var(--text-2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:14px;}
-.art-card-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);}
-.art-card.featured{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;}
-@media(max-width:768px){.art-card.featured{grid-column:span 1;display:block;}}
-.art-card.featured .art-card-img{height:100%;min-height:240px;}
-.art-card.featured .art-card-body{padding:28px;display:flex;flex-direction:column;justify-content:center;}
-.art-card.featured .art-card-title{font-size:22px;}
-
-/* EMPTY / SKELETONS */
-.empty-state{padding:60px 0;text-align:center;}
-.empty-icon{font-size:40px;opacity:0.15;margin-bottom:16px;}
-.empty-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--text-2);margin-bottom:8px;}
-.empty-sub{font-size:13px;color:var(--text-3);}
-@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-.sk{background: var(--surface2);background-size:800px 100%;animation:shimmer 1.4s infinite;border-radius:2px;}
-
-/* NEWS */
-.news-list{display:flex;flex-direction:column;gap:12px;}
-.news-item{background:var(--surface);border:1px solid var(--border);padding:16px 20px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;cursor:pointer;transition:border-color 0.15s;}
-.news-item:hover{border-color:var(--border-hover);}
-.news-source{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:5px;}
-.news-title{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:4px;}
-.news-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-3);white-space:nowrap;}
-.news-empty{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-3);padding:24px 0;text-align:center;}
-
-/* ── HAMBURGER NAV ── */
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:1px;}
-.nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;flex-direction:column;gap:16px;z-index:99;backdrop-filter:blur(16px);}
-.nav-mobile.open{display:flex;}
-.nav-mobile a{font-size:14px;color:var(--text-2);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--border);font-family:'Inter',sans-serif;}
-.nav-mobile a:last-child{border-bottom:none;}
-
-/* ── RESPONSIVE MOBILE ── */
-@media(max-width:768px){
-  .nav-links{display:none !important;}
-  .nav-cta{display:none !important;}
-  .nav-hamburger{display:flex;}
-  nav{padding:0 16px;}
-
-  .breadcrumb-bar{padding:68px 16px 0;}
-
-  .company-header{padding:12px 16px 0;}
-  .company-header-inner{grid-template-columns:1fr;gap:16px;}
-  .company-name{font-size:clamp(26px,7vw,40px);}
-  .company-kpis{flex-wrap:wrap;gap:0;}
-  .kpi{min-width:calc(50% - 1px);padding:10px 12px;}
-
-  .tabs-bar{padding:0 16px;overflow-x:auto;}
-  .tab-btn{padding:12px 14px;font-size:10px;}
-
-  .page-wrap{padding:24px 16px 60px;}
-  .two-col{grid-template-columns:1fr !important;}
-
-  .positioning-wrap{grid-template-columns:1fr;}
-  .fin-grid{grid-template-columns:1fr 1fr;}
-  .swot-grid{grid-template-columns:1fr;}
-
-  .segment{grid-template-columns:100px 1fr 50px 60px;gap:8px;}
-
-  .articles-grid{grid-template-columns:1fr !important;}
-  .art-card.featured{grid-column:span 1 !important;display:block !important;}
-}
-
-@media(max-width:480px){
-  .company-kpis{flex-direction:column;}
-  .kpi{min-width:100%;border-left:none;border-top:1px solid var(--border);}
-  .fin-grid{grid-template-columns:1fr;}
-}
-</style>
+<title>Entreprise | BatiAnalyse</title>
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Bati<span>Analyse</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/valeurs-cotees.html" class="active">Valeurs</a></li>
-    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub">M&amp;A</a></li>-->
-    <li><a href="/macro.html">Macro</a></li>
-    <li><a href="/blog.html">Analyses</a></li>
-  </ul>
-  <a href="#" class="nav-cta" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
-  <button class="nav-hamburger" onclick="document.getElementById('navMobileEnt').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="navMobileEnt">
-  <a href="/">Accueil</a>
-  <a href="/valeurs-cotees.html">Valeurs</a>
-  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
-  <a href="/macro.html">Macro</a>
-  <a href="/blog.html">Analyses</a>
-</div>
-
-<div class="breadcrumb-bar">
-  <div class="breadcrumb">
-    <a href="/">Accueil</a>
-    <span style="opacity:0.4">/</span>
-    <a href="/valeurs-cotees.html">Valeurs</a>
-    <span style="opacity:0.4">/</span>
-    <span id="breadcrumbName">Entreprise</span>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html" aria-current="page">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/blog.html">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
   </div>
-</div>
+</header>
 
-<div class="company-header">
-  <div class="company-header-inner">
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/valeurs-cotees.html">Valeurs</a> / <span id="breadcrumbName">Entreprise</span></p>
+      <p class="art-themes"><span id="companyTicker"></span><span class="company-signal" id="companySignal" hidden></span></p>
+      <h1 id="companyName">Chargement</h1>
+      <div class="ligne-sous">
+        <p class="maj" id="companySub"></p>
+        <div class="chiffres n" id="companyKpis"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-top:28px">
+    <div class="onglets tabs-bar">
+      <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
+      <button class="tab-btn" data-tab="finances">Données financières</button>
+      <button class="tab-btn" data-tab="articles">Analyses publiées</button>
+      <button class="tab-btn" data-tab="news">Actualités</button>
+    </div>
+
+    <!-- TAB : ARTICLES -->
+    <div id="tabArticles" style="display:none">
+      <div class="cote">
+        <h2>Analyses publiées</h2>
+        <span class="ligne" aria-hidden="true"></span>
+        <span class="mesure"><span id="companyLabel"></span>, <span id="artCount">…</span> articles</span>
+      </div>
+      <div class="liste" id="articlesGrid"></div>
+    </div>
+
+    <!-- TAB : VUE D'ENSEMBLE -->
+    <div id="tabOverview">
+      <div class="cadre droite ent-cadre">
+        <div>
+          <section class="ent-sec">
+            <div class="cote"><h2>Points clés</h2><span class="ligne" aria-hidden="true"></span></div>
+            <div class="highlights" id="highlightsList"></div>
+          </section>
+
+          <section class="ent-sec">
+            <div class="cote"><h2>Répartition des activités</h2><span class="ligne" aria-hidden="true"></span><span class="mesure" id="breakdownYear"></span></div>
+            <div class="segment-list" id="segmentList"></div>
+          </section>
+
+          <section class="ent-sec">
+            <div class="cote"><h2>Présence géographique</h2><span class="ligne" aria-hidden="true"></span></div>
+            <div class="segment-list" id="geoList"></div>
+          </section>
+
+          <section class="ent-sec">
+            <div class="cote"><h2>Positionnement concurrentiel</h2><span class="ligne" aria-hidden="true"></span></div>
+            <div class="comp-list" id="compList"></div>
+          </section>
+        </div>
+
+        <aside class="fil-actu">
+          <section>
+            <h4>Agenda investisseurs</h4>
+            <div class="timeline" id="timeline"></div>
+          </section>
+        </aside>
+      </div>
+    </div>
+
+    <!-- TAB : FINANCES -->
+    <div id="tabFinances" style="display:none">
+      <section class="ent-sec">
+        <div class="cote"><h2>Indicateurs clés</h2><span class="ligne" aria-hidden="true"></span><span class="mesure" id="finYear"></span></div>
+        <dl class="releve n" id="finGrid"></dl>
+      </section>
+      <section class="ent-sec" id="finAccordions"></section>
+    </div>
+
+    <!-- TAB : ACTUALITÉS -->
+    <div id="tabNews" style="display:none">
+      <section class="ent-sec">
+        <div class="cote"><h2>Actualités récentes</h2><span class="ligne" aria-hidden="true"></span></div>
+        <div class="news-list" id="newsList"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
     <div>
-      <div class="company-tag">
-        <span id="companyTicker">—</span>
-        <span class="company-signal" id="companySignal"></span>
-      </div>
-      <div class="company-name" id="companyName">Chargement…</div>
-      <div class="company-sub" id="companySub"></div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>© 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
     </div>
-    <div class="company-kpis" id="companyKpis"></div>
+    <ul>
+      <li><a href="/valeurs-cotees.html">Toutes les valeurs</a></li>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+    </ul>
   </div>
-</div>
-
-<div class="tabs-bar">
-  <button class="tab-btn active" data-tab="overview">Vue d'ensemble</button>
-  <button class="tab-btn" data-tab="finances">Données financières</button>
-  <button class="tab-btn" data-tab="articles">Analyses publiées</button>
-  <button class="tab-btn" data-tab="news">Actualités</button>
-</div>
-
-<div class="page-wrap">
-
-  <!-- ── TAB : ARTICLES ── -->
-  <div id="tabArticles" style="display:none">
-    <div class="articles-header">
-      <span class="articles-label">Analyses · <span id="companyLabel">—</span></span>
-      <span class="articles-count"><strong id="artCount">—</strong> articles</span>
-    </div>
-    <div class="articles-grid" id="articlesGrid"></div>
-  </div>
-
-  <!-- ── TAB : VUE D'ENSEMBLE ── -->
-  <div id="tabOverview">
-    <div class="two-col">
-
-      <!-- MAIN COLUMN -->
-      <div>
-
-        <!-- OVERVIEW -->
-        <div class="sec-block">
-          <div class="sec-title">Points clés</div>
-          <div class="highlights" id="highlightsList"></div>
-        </div>
-
-        <!-- BUSINESS BREAKDOWN -->
-        <div class="sec-block">
-          <div class="sec-title">
-            Répartition des activités
-            <span style="font-size:9px;color:var(--text-3)" id="breakdownYear"></span>
-          </div>
-          <div class="segment-list" id="segmentList"></div>
-        </div>
-
-        <!-- GEO -->
-        <div class="sec-block">
-          <div class="sec-title">Présence géographique</div>
-          <div class="geo-list" id="geoList"></div>
-        </div>
-
-        <!-- COMPETITION -->
-        <div class="sec-block">
-          <div class="sec-title">Positionnement concurrentiel</div>
-          <div class="comp-list" id="compList"></div>
-        </div>
-
-      </div>
-
-      <!-- SIDEBAR COLUMN -->
-      <div>
-
-        <!-- TIMELINE -->
-        <div class="sec-block">
-          <div class="sec-title">Agenda investisseurs</div>
-          <div class="timeline" id="timeline"></div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── TAB : FINANCES ── -->
-  <div id="tabFinances" style="display:none">
-    <div class="sec-block">
-      <div class="sec-title">Indicateurs clés <span style="font-size:9px;color:var(--text-3)" id="finYear"></span></div>
-      <div class="fin-grid" id="finGrid"></div>
-    </div>
-    <div class="sec-block" id="finAccordions"></div>
-  </div>
-
-  <!-- ── TAB : ACTUALITÉS ── -->
-  <div id="tabNews" style="display:none">
-    <div class="sec-block">
-      <div class="sec-title">Actualités récentes</div>
-      <div class="news-list" id="newsList"></div>
-    </div>
-  </div>
-
-</div>
+</footer>
 
 <script>
 // ═══════════════════════════════════════════════════════════════
@@ -413,7 +153,7 @@ const COMPANIES = {
       { name:'Cobra IS',           pct:10.7, ca:'8 004 M€',  color:'#a78bfa' },
       { name:'VINCI Immobilier',   pct:1.5,  ca:'1 105 M€',  color:'#60a5fa' },
     ],
-    breakdownYear: 'CA 2025 — 74,6 Mds€',
+    breakdownYear: 'CA 2025, 74,6 Mds€',
     geo: [
       { flag:'🇫🇷', name:'France',                                    pct:42 },
       { flag:'🌍', name:'Europe (hors France)',                        pct:36 },
@@ -448,13 +188,13 @@ const COMPANIES = {
       { date:'5 fév. 2026',       type:'earn', title:'Résultats annuels 2025 ✓', sub:'VINCI annonce un CA record de 74,6 Mds€ et valide l\'augmentation du dividende à 5,00 € par action.', past:true },
       { date:'Mi-avril 2026',     type:'ann',  title:'Assemblée Générale (AG)',   sub:'Vote définitif des comptes 2025 et du dividende proposé en février.' },
       { date:'20 avr. 2026',      type:'div',  title:'Détachement du dividende',  sub:'Date limite pour détenir l\'action afin de toucher le solde du dividende 2025.' },
-      { date:'23 avr. 2026',      type:'div',  title:'Paiement solde dividende 2025', sub:'Solde de 3,95 € par action versé (dividende total 5,00 € — acompte de 1,05 € déjà versé le 16 oct. 2025).' },
+      { date:'23 avr. 2026',      type:'div',  title:'Paiement solde dividende 2025', sub:'Solde de 3,95 € par action versé (dividende total 5,00 €, acompte de 1,05 € déjà versé le 16 oct. 2025).' },
       { date:'Fin avr. 2026',     type:'earn', title:'Chiffre d\'affaires T1 2026', sub:'Publication de l\'activité du premier trimestre 2026.' },
       { date:'Fin juil. 2026',    type:'earn', title:'Résultats semestriels (S1 2026)', sub:'Résultats de la première moitié de 2026 (CA, bénéfices, dette) et annonce du prochain acompte dividende.' },
       { date:'Fin oct. 2026',     type:'earn', title:'Chiffre d\'affaires T3 2026', sub:'Publication de l\'activité du troisième trimestre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'74,6 Md€', sub:'FY 2025',  color:'var(--text)'  },
         { label:'EBIT',                val:'9,0 Md€',  sub:'FY 2025',  color:'var(--gold)'  },
@@ -484,7 +224,7 @@ const COMPANIES = {
           ]
         },
         {
-          title:'Dette & Liquidité — 31 déc. 2025',
+          title:'Dette & Liquidité, 31 déc. 2025',
           rows:[
             ['Dette nette groupe', '19,1 Md€'],
             ['dont dette concessions', '~ 21,0 Md€'],
@@ -500,7 +240,7 @@ const COMPANIES = {
     news: [
       { source:'Communiqué Vinci', title:'Vinci Energies remporte un contrat data center de 340 M€ aux Pays-Bas', date:'12 mars 2025', url:'#' },
       { source:'Les Échos',        title:'Vinci : le modèle de concessions résiste mieux qu\'attendu malgré les taux', date:'5 mars 2025', url:'#' },
-      { source:'Communiqué Vinci', title:'Acquisition de Meridiam Infrastructure Portugal — renforcement des concessions ibériques', date:'18 fév 2025', url:'#' },
+      { source:'Communiqué Vinci', title:'Acquisition de Meridiam Infrastructure Portugal, renforcement des concessions ibériques', date:'18 fév 2025', url:'#' },
     ],
   },
 
@@ -515,7 +255,7 @@ const COMPANIES = {
     highlights: [
       'Présent dans 50 pays avec environ 85 311 salariés à fin 2025 (95,3 % basés en Europe).',
       'FY 2025 solide : CA de 25,313 Md€ (+8,0 %), ROC de 2,603 Md€ (+5,3 %) et cash-flow libre de 2,105 Md€.',
-      'Carnet de commandes Travaux de 29,9 Md€ (+3 %), avec 14,1 Md€ à exécuter en N+1 — visibilité élevée pluriannuelle.',
+      'Carnet de commandes Travaux de 29,9 Md€ (+3 %), avec 14,1 Md€ à exécuter en N+1, visibilité élevée pluriannuelle.',
       'Énergie Systèmes, la branche la plus dynamique (+11,8 % en 2025) : acteur de référence des services à l\'énergie en Allemagne avec plus de 1,1 Md€ d\'activité.',
     ],
     positioning: [
@@ -529,7 +269,7 @@ const COMPANIES = {
       { name:'Construction',     pct:16.2, ca:'4 091 M€',  color:'#60a5fa' },
       { name:'Concessions',      pct:15.7, ca:'3 978 M€',  color:'#a78bfa' },
     ],
-    breakdownYear: 'CA 2025 — 25,313 Md€ (segmentation officielle)',
+    breakdownYear: 'CA 2025, 25,313 Md€ (segmentation officielle)',
     geo: [
       { flag:'🇫🇷', name:'France',          pct:64.1 },
       { flag:'🇪🇺', name:'Europe hors France',pct:32.8 },
@@ -544,23 +284,23 @@ const COMPANIES = {
     timeline: [
       { date:'25 fév. 2026',  type:'earn', title:'Résultats annuels 2025 ✓',               sub:'Publication des résultats FY 2025 et réunion des analystes.', past:true },
       { date:'22 avr. 2026',  type:'ann',  title:'Assemblée Générale',                      sub:'Vote des résolutions et du dividende 4,80 € / action.' },
-      { date:'12 mai 2026',   type:'earn', title:'CA T1 2026',                              sub:'Information trimestrielle — chiffre d\'affaires du 1er trimestre 2026.' },
+      { date:'12 mai 2026',   type:'earn', title:'CA T1 2026',                              sub:'Information trimestrielle, chiffre d\'affaires du 1er trimestre 2026.' },
       { date:'26 août 2026',  type:'earn', title:'Résultats S1 2026',                       sub:'Résultats du 1er semestre 2026 et réunion des analystes.' },
-      { date:'12 nov. 2026',  type:'earn', title:'CA 9 premiers mois 2026',                 sub:'Information trimestrielle — chiffre d\'affaires des trois premiers trimestres.' },
+      { date:'12 nov. 2026',  type:'earn', title:'CA 9 premiers mois 2026',                 sub:'Information trimestrielle, chiffre d\'affaires des trois premiers trimestres.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'25,3 Md€',  sub:'FY 2025 (+8,0%)',   color:'var(--text)'  },
         { label:'EBIT (ROC)',           val:'2,60 Md€',  sub:'Marge 10,3%',       color:'var(--gold)'  },
         { label:'Résultat net',         val:'1,02 Md€',  sub:'FY 2025',           color:'var(--green)' },
-        { label:'Capitalisation',       val:'—',          sub:'Live',              color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',            val:'—',          sub:'Live',              color:'var(--text)', live:'per' },
+        { label:'Capitalisation',       val:'n.c.',          sub:'Live',              color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',            val:'n.c.',          sub:'Live',              color:'var(--text)', live:'per' },
         { label:'Rendement div.',       val:'≈ 3,7 %',    sub:'4,80 € / action',  color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title: 'Carnet de commandes Travaux — 31 déc. 2025',
+          title: 'Carnet de commandes Travaux, 31 déc. 2025',
           rows: [
             ['Backlog total',         '29,9 Md€ (+3% sur un an)'],
             ['Construction',          '5,6 Md€ (+3%)'],
@@ -572,7 +312,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',          '98 000 000'],
             ['Flottant',                         '72,1 %'],
@@ -584,7 +324,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette financière nette',                   '8 548 M€'],
             ['Évolution vs 2024',                        'Baisse de ~0,9 Md€ (génération de cash-flow libre)'],
@@ -613,7 +353,7 @@ const COMPANIES = {
     desc:    'Bouygues est un conglomérat diversifié opérant dans la construction (Bouygues Construction, Colas, Bouygues Immobilier), les télécommunications (Bouygues Telecom) et les médias (TF1). La décote de conglomérat pèse structurellement sur la valorisation malgré des fondamentaux BTP solides.',
     highlights: [
       'Décote de conglomérat estimée à 20-25% vs somme des parties',
-      'Bouygues Telecom — moteur de croissance et de cash-flow',
+      'Bouygues Telecom, moteur de croissance et de cash-flow',
       'Colas : leader mondial des revêtements routiers',
       'Question ouverte : simplification du portefeuille ?',
     ],
@@ -642,7 +382,7 @@ const COMPANIES = {
     swot: {
       strengths:  ['Diversification résiliente en cycle bas','Colas leader mondial revêtements','Bouygues Telecom très rentable'],
       weaknesses: ['Décote conglomérat structurelle','Marges BTP sous la moyenne sectorielle','Gouvernance familiale complexe'],
-      opps:       ['Simplification du portefeuille','Fibre & 5G — croissance Telecom','Grands contrats d\'infrastructure'],
+      opps:       ['Simplification du portefeuille','Fibre & 5G, croissance Telecom','Grands contrats d\'infrastructure'],
       risks:      ['Pression sur le marché du logement neuf','Disruption médias (TF1)','Consolidation télécom européen'],
     },
     competition: [
@@ -662,8 +402,8 @@ const COMPANIES = {
         { label:'Chiffre d\'affaires', val:'52,4 Md€', sub:'+3,1% vs N-1',    color:'var(--text)' },
         { label:'EBIT',                val:'2,0 Md€',  sub:'Marge 3,9%',       color:'var(--gold)' },
         { label:'Résultat net',        val:'1,5 Md€',  sub:'Marge nette 2,9%', color:'var(--green)' },
-        { label:'Capitalisation',      val:'— Md€',    sub:'En cours (live)',   color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—x',       sub:'En cours (live)',   color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:',  Md€',    sub:'En cours (live)',   color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:', x',       sub:'En cours (live)',   color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'4,1%',     sub:'Dividende 2024E',   color:'var(--blue)' },
       ],
       accordions: [
@@ -704,7 +444,7 @@ const COMPANIES = {
       { name:'Amériques',                              pct:27.9, ca:'12 957 M€', color:'#60a5fa' },
       { name:'Asie-Pacifique',                         pct:11.3, ca:'5 256 M€',  color:'#a78bfa' },
     ],
-    breakdownYear: 'CA 2025 — 46,483 Md€ (segmentation géographique)',
+    breakdownYear: 'CA 2025, 46,483 Md€ (segmentation géographique)',
     geo: [
       { flag:'🌍', name:'Europe du Sud – MO & Afrique', pct:34.6 },
       { flag:'🇪🇺', name:'Europe du Nord',               pct:29.7 },
@@ -714,29 +454,29 @@ const COMPANIES = {
     competition: [
       { name:'Kingspan',  ticker:'KRX.IR',  cap:'~12 Md€', pe:'~22x', note:'Isolation & enveloppe du bâtiment' },
       { name:'Knauf',     ticker:'NC',       cap:'NC',       pe:'NC',   note:'Concurrent direct plaques / mortiers' },
-      { name:'Sika',      ticker:'SIKA.SW',  cap:'~45 Md€', pe:'~30x', note:'Chimie de la construction — concurrent direct post-acquisitions' },
+      { name:'Sika',      ticker:'SIKA.SW',  cap:'~45 Md€', pe:'~30x', note:'Chimie de la construction, concurrent direct post-acquisitions' },
       { name:'Rockwool',  ticker:'ROCK-B.CO',cap:'~7 Md€',  pe:'~18x', note:'Isolation laine de roche' },
     ],
     timeline: [
-      { date:'27 fév. 2026',  type:'earn', title:'Résultats annuels 2025 ✓',          sub:'Réunion d\'information analystes / investisseurs — résultats FY 2025.', past:true },
+      { date:'27 fév. 2026',  type:'earn', title:'Résultats annuels 2025 ✓',          sub:'Réunion d\'information analystes / investisseurs, résultats FY 2025.', past:true },
       { date:'23 avr. 2026',  type:'earn', title:'CA T1 2026',                         sub:'Publication du chiffre d\'affaires du 1er trimestre 2026.' },
-      { date:'4 juin 2026',   type:'ann',  title:'Assemblée Générale — Salle Pleyel',  sub:'Paris, 15h00, Salle Pleyel. Vote des résolutions et du dividende 2,30 € / action.' },
+      { date:'4 juin 2026',   type:'ann',  title:'Assemblée Générale, Salle Pleyel',  sub:'Paris, 15h00, Salle Pleyel. Vote des résolutions et du dividende 2,30 € / action.' },
       { date:'30 juil. 2026', type:'earn', title:'Résultats semestriels 2026',         sub:'Publication des résultats de la première moitié de l\'exercice 2026.' },
       { date:'27 oct. 2026',  type:'earn', title:'CA 9 premiers mois 2026',            sub:'Publication de l\'activité des trois premiers trimestres de 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'46,5 Md€', sub:'FY 2025',       color:'var(--text)'  },
         { label:'EBIT',                val:'5,3 Md€',  sub:'Marge 11,4%',   color:'var(--gold)'  },
         { label:'Résultat net',        val:'2,9 Md€',  sub:'FY 2025',       color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',        sub:'Live',           color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',        sub:'Live',           color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',        sub:'Live',           color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',        sub:'Live',           color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'3,28 %',   sub:'2,30 € / action',color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',  '494 824 319'],
             ['Flottant estimé',         '91,5 %'],
@@ -745,7 +485,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette nette',                  '10 356 M€'],
             ['dont (vs fin 2024)',            '9 778 M€ un an plus tôt'],
@@ -771,7 +511,7 @@ const COMPANIES = {
     secteur: 'Énergie & Automatisation',
     pays:    'FR',
     signal:  '',
-    desc:    'Schneider Electric est un groupe mondial de technologies de l\'énergie positionné sur l\'électrification, l\'automatisation et les logiciels. Son activité est organisée autour de deux grands segments — Energy Management et Industrial Automation — avec une exposition forte aux marchés porteurs des data centers, des bâtiments, de l\'industrie et des infrastructures. Son positionnement repose sur un portefeuille large, une présence mondiale équilibrée, une base logicielle croissante et une forte capacité à transformer la demande structurelle en croissance rentable.',
+    desc:    'Schneider Electric est un groupe mondial de technologies de l\'énergie positionné sur l\'électrification, l\'automatisation et les logiciels. Son activité est organisée autour de deux grands segments, Energy Management et Industrial Automation, avec une exposition forte aux marchés porteurs des data centers, des bâtiments, de l\'industrie et des infrastructures. Son positionnement repose sur un portefeuille large, une présence mondiale équilibrée, une base logicielle croissante et une forte capacité à transformer la demande structurelle en croissance rentable.',
     highlights: [
       'Présent dans plus de 100 pays avec environ 168 000 collaborateurs dans le monde.',
       'Leader mondial de la gestion de l\'énergie et de l\'automatisation, avec un positionnement fort sur l\'électrification, les data centers et la transition énergétique.',
@@ -787,7 +527,7 @@ const COMPANIES = {
       { name:'Energy Management',    pct:82.5, ca:'33 130 M€', color:'#B89B5E' },
       { name:'Industrial Automation',pct:17.5, ca:'7 022 M€',  color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 40,152 Md€',
+    breakdownYear: 'CA 2025, 40,152 Md€',
     geo: [
       { flag:'🌎', name:'Amérique du Nord',  pct:34.6 },
       { flag:'🌏', name:'Asie-Pacifique',    pct:26.1 },
@@ -803,19 +543,19 @@ const COMPANIES = {
     timeline: [
       { date:'30 avr. 2026', type:'earn', title:'Chiffre d\'affaires T1 2026',           sub:'Publication de l\'activité du premier trimestre 2026.' },
       { date:'7 mai 2026',   type:'ann',  title:'Assemblée Générale',                    sub:'Vote définitif des comptes 2025 et du dividende proposé.' },
-      { date:'3 juin 2026',  type:'ann',  title:'Conférence CEO — BNP Paribas (Paris)',  sub:'Présentation stratégique lors de la conférence BNP Paribas.' },
+      { date:'3 juin 2026',  type:'ann',  title:'Conférence CEO, BNP Paribas (Paris)',  sub:'Présentation stratégique lors de la conférence BNP Paribas.' },
       { date:'16 juin 2026', type:'ann',  title:'J.P. Morgan European Industrials',      sub:'Conférence J.P. Morgan European Industrials Conference.' },
       { date:'30 juil. 2026',type:'earn', title:'Résultats semestriels 2026',            sub:'Publication des résultats de la première moitié de 2026.' },
       { date:'29 oct. 2026', type:'earn', title:'Chiffre d\'affaires T3 2026',           sub:'Publication de l\'activité du troisième trimestre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'40,2 Md€', sub:'FY 2025',  color:'var(--text)'  },
         { label:'EBIT',                val:'7,2 Md€',  sub:'Marge ~17,8%', color:'var(--gold)' },
         { label:'Résultat net',        val:'4,2 Md€',  sub:'FY 2025',  color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',        sub:'Live',      color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',        sub:'Live',      color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',        sub:'Live',      color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',        sub:'Live',      color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'1,83 %',   sub:'4,20 € / action', color:'var(--blue)' },
       ],
       accordions: [
@@ -831,7 +571,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation', '577 122 512'],
             ['Flottant',               '86,3 % (~498,1 M actions)'],
@@ -840,7 +580,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette nette',            '13,721 Md€'],
             ['dont (vs fin 2023)',      '8,147 Md€ un an plus tôt'],
@@ -880,7 +620,7 @@ const COMPANIES = {
       { name:'Transition énergétique & digitale', pct:53,  ca:'~5 024 M€', color:'#B89B5E' },
       { name:'Infrastructures électriques essentielles', pct:47, ca:'~4 457 M€', color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 9 480,6 M€ (mix d\'offres, indicateurs non-IFRS)',
+    breakdownYear: 'CA 2025, 9 480,6 M€ (mix d\'offres, indicateurs non-IFRS)',
     geo: [
       { flag:'🌎', name:'Amérique du Nord et Centrale', pct:42.2 },
       { flag:'🇪🇺', name:'Europe',                      pct:38.0 },
@@ -902,13 +642,13 @@ const COMPANIES = {
       { date:'29 juil. 2026',type:'earn', title:'Résultats S1 2026',          sub:'Publication des résultats du premier semestre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'9,48 Md€',  sub:'FY 2025',            color:'var(--text)'  },
         { label:'EBIT',                val:'1,81 Md€',  sub:'Marge opé. ajustée 20,7%', color:'var(--gold)'  },
         { label:'Résultat net',        val:'1,24 Md€',  sub:'FY 2025',            color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',          sub:'Live',               color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',          sub:'Live',               color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',          sub:'Live',               color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',          sub:'Live',               color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'≈ 1,8 %',    sub:'2,38 € / action',    color:'var(--blue)'  },
       ],
       accordions: [
@@ -920,7 +660,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',  '262 245 733'],
             ['Flottant estimé',         '≈ 97,0 %'],
@@ -929,7 +669,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette nette',              '4 222,6 M€'],
             ['Évolution vs 2024',        '+40% lié aux acquisitions (levier maîtrisé)'],
@@ -956,7 +696,7 @@ const COMPANIES = {
     highlights: [
       'Présent au Royaume-Uni, aux États-Unis et à Hong Kong avec environ 27 000 collaborateurs.',
       'Carnet de commandes record de £22,7 Md à fin FY2025, en hausse de 23% sur un an, porté par l\'énergie (Sizewell C, Net Zero Teesside).',
-      'FY2025 : CA de £10,8 Md (+8%), profit des activités earnings-based +16%, cash net de £1,446 Md — programme de rachat d\'actions 2026 porté à £200m.',
+      'FY2025 : CA de £10,8 Md (+8%), profit des activités earnings-based +16%, cash net de £1,446 Md, programme de rachat d\'actions 2026 porté à £200m.',
       'Part de marché estimée à 25% dans la transmission électrique au Royaume-Uni en 2025.',
     ],
     positioning: [
@@ -969,7 +709,7 @@ const COMPANIES = {
       { name:'Support Services',      pct:13.3, ca:'£1 427m', color:'#4ade80' },
       { name:'Infrastructure Investments', pct:5.8, ca:'£629m', color:'#60a5fa' },
     ],
-    breakdownYear: 'CA FY2025 — £10,767 Md (incl. quote-part JV & associates)',
+    breakdownYear: 'CA FY2025, £10,767 Md (incl. quote-part JV & associates)',
     geo: [
       { flag:'🇺🇸', name:'États-Unis',     pct:45.4 },
       { flag:'🇬🇧', name:'Royaume-Uni',    pct:44.4 },
@@ -988,18 +728,18 @@ const COMPANIES = {
       { date:'3 déc. 2026',   type:'earn', title:'Trading Update',                sub:'Mise à jour sur l\'activité et les perspectives fin d\'année.' },
     ],
     finances: {
-      year: 'FY2025 — 31 décembre 2025',
+      year: 'FY2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'£10,8 Md', sub:'FY2025 (+8%)',          color:'var(--text)'  },
         { label:'EBIT',                val:'£284m',    sub:'Statutaire',             color:'var(--gold)'  },
         { label:'Résultat net',        val:'£264m',    sub:'Statutaire FY2025',      color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',         sub:'Live',                  color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',         sub:'Live',                  color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',         sub:'Live',                  color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',         sub:'Live',                  color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'≈ 1,9 %',   sub:'14,0p / action (marché)',color:'var(--blue)' },
       ],
       accordions: [
         {
-          title: 'Carnet de commandes — 31 déc. 2025',
+          title: 'Carnet de commandes, 31 déc. 2025',
           rows: [
             ['Backlog total',          '£22,7 Md (+23% vs £18,4 Md fin 2024)'],
             ['UK Construction',        '£8,9 Md (39,2% du backlog)'],
@@ -1010,17 +750,17 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions ordinaires en circulation', '~494,0 millions (ordinary shares 50p each)'],
             ['Flottant',                           'Non communiqué publiquement'],
             ['Actionnariat salarié',               'Non détaillé dans les publications officielles'],
             ['Autocontrôle',                       '0% (24,2M actions rachetées et annulées le 24/12/2025)'],
-            ['Principal actionnaire identifié',    'Schroders plc — 5,10%'],
+            ['Principal actionnaire identifié',    'Schroders plc, 5,10%'],
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Cash net (hors concessions & leases)', '£1 446m'],
             ['Trésorerie & équivalents',              '£1 792m'],
@@ -1029,7 +769,7 @@ const COMPANIES = {
             ['Liquidité totale',                      '£2 272m'],
             ['Ratio DN / EBITDA',                     'Non publié'],
             ['Notation crédit',                       'Non publiée'],
-            ['Note',                                  'Rachat d\'actions 2026 porté à £200m — signe de bilan très solide'],
+            ['Note',                                  'Rachat d\'actions 2026 porté à £200m, signe de bilan très solide'],
           ]
         },
       ]
@@ -1041,12 +781,12 @@ const COMPANIES = {
     tagSlug: 'cofinimmo',
     ticker:  'COFB.BR',
     name:    'Cofinimmo',
-    secteur: 'Foncière — Immobilier de santé',
+    secteur: 'Foncière, Immobilier de santé',
     pays:    'BE',
     signal:  '',
     desc:    'Cofinimmo est une foncière cotée belge spécialisée dans l\'acquisition, le développement et la gestion d\'actifs immobiliers locatifs. Son portefeuille est aujourd\'hui majoritairement tourné vers l\'immobilier de santé en Europe, complété par des bureaux et des actifs de réseaux de distribution. Le groupe met en avant un portefeuille défensif, des baux longs (durée résiduelle moyenne 13 ans), un taux d\'occupation de 98,4% et une présence dans 9 pays européens.',
     highlights: [
-      'Présent dans 9 pays avec environ 150 collaborateurs — portefeuille consolidé de 6,1 Md€.',
+      'Présent dans 9 pays avec environ 150 collaborateurs, portefeuille consolidé de 6,1 Md€.',
       '77% du portefeuille investi en immobilier de santé, segment le plus défensif et à forte visibilité locative.',
       'FY 2025 au-dessus des perspectives : EPRA Earnings de 245,6 M€, taux d\'occupation 98,4%, durée résiduelle moyenne des baux 13 ans.',
       'Profil financier solide : ratio dette/actifs 42,8%, coût moyen de la dette 1,5%, notation BBB/Stable/A-2 (S&P, sous Positive Watch depuis juin 2025).',
@@ -1061,7 +801,7 @@ const COMPANIES = {
       { name:'Bureaux',             pct:15, ca:'~913 M€',                          color:'#4ade80' },
       { name:'Réseaux de distribution', pct:8, ca:'~487 M€',                       color:'#60a5fa' },
     ],
-    breakdownYear: 'Portefeuille consolidé FY2025 — 6,085 Md€ (valeur des actifs)',
+    breakdownYear: 'Portefeuille consolidé FY2025, 6,085 Md€ (valeur des actifs)',
     geo: [
       { flag:'🇧🇪', name:'Belgique',     pct:47 },
       { flag:'🇩🇪', name:'Allemagne',    pct:15 },
@@ -1074,44 +814,44 @@ const COMPANIES = {
       { flag:'🇬🇧', name:'Royaume-Uni',  pct:1  },
     ],
     competition: [
-      { name:'Aedifica',    ticker:'AED.BR',  cap:'~2,5 Md€', pe:'NC', note:'Foncière belge santé — concurrent direct' },
+      { name:'Aedifica',    ticker:'AED.BR',  cap:'~2,5 Md€', pe:'NC', note:'Foncière belge santé, concurrent direct' },
       { name:'Icade Santé', ticker:'ICAD.PA', cap:'~1,8 Md€', pe:'NC', note:'Foncière santé française' },
       { name:'Primary Health Properties', ticker:'PHP.L', cap:'~1,5 Md£', pe:'NC', note:'Foncière santé primaire UK' },
       { name:'Gecina',      ticker:'GFC.PA',  cap:'~7 Md€',   pe:'NC', note:'Foncière bureaux & résidentiel France' },
     ],
     timeline: [
       { date:'10 avr. 2026',  type:'earn', title:'Universal Registration Document 2025',  sub:'Publication du rapport annuel et du Sustainability Report.' },
-      { date:'22 avr. 2026',  type:'earn', title:'Interim Report — résultats au 31.03.2026', sub:'Résultats du premier trimestre 2026.' },
+      { date:'22 avr. 2026',  type:'earn', title:'Interim Report, résultats au 31.03.2026', sub:'Résultats du premier trimestre 2026.' },
       { date:'13 mai 2026',   type:'ann',  title:'Assemblée Générale Ordinaire',           sub:'Vote des résolutions et du dividende brut 5,20 € / action.' },
       { date:'18 mai 2026',   type:'div',  title:'Ex-date du dividende FY2025',            sub:'Détachement du dividende FY2025.' },
       { date:'21 mai 2026',   type:'div',  title:'Paiement du dividende FY2025',           sub:'Versement du dividende brut 5,20 € aux actionnaires.' },
-      { date:'23 juil. 2026', type:'earn', title:'Rapport semestriel — résultats au 30.06.2026', sub:'Résultats du premier semestre 2026.' },
-      { date:'23 oct. 2026',  type:'earn', title:'Interim Report — résultats au 30.09.2026', sub:'Résultats des neuf premiers mois 2026.' },
+      { date:'23 juil. 2026', type:'earn', title:'Rapport semestriel, résultats au 30.06.2026', sub:'Résultats du premier semestre 2026.' },
+      { date:'23 oct. 2026',  type:'earn', title:'Interim Report, résultats au 30.09.2026', sub:'Résultats des neuf premiers mois 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Gross Rental Income', val:'355 M€',   sub:'FY 2025',                         color:'var(--text)'  },
         { label:'Résultat opérationnel',val:'287,6 M€', sub:'Avant résultat sur portefeuille', color:'var(--gold)'  },
         { label:'Résultat net',         val:'213,5 M€', sub:'Part du groupe FY 2025',          color:'var(--green)' },
-        { label:'Capitalisation',       val:'—',         sub:'Live',                            color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',            val:'—',         sub:'Live',                            color:'var(--text)', live:'per' },
+        { label:'Capitalisation',       val:'n.c.',         sub:'Live',                            color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',            val:'n.c.',         sub:'Live',                            color:'var(--text)', live:'per' },
         { label:'Rendement div.',       val:'≈ 6,6 %',   sub:'5,20 € brut / action',           color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title: 'Visibilité locative — FY 2025',
+          title: 'Visibilité locative, FY 2025',
           rows: [
             ['EPRA Earnings',                   '245,6 M€'],
             ['Taux d\'occupation',               '98,4%'],
             ['Durée résiduelle moyenne des baux','13 ans'],
             ['Pipeline Finlande',               '~46 M€ identifiés'],
             ['Pipeline Espagne (cumulé)',        '~520 M€ à terme (exploitation + projets + foncier)'],
-            ['Note',                             'Pas de carnet de commandes industriel — visibilité via baux long terme'],
+            ['Note',                             'Pas de carnet de commandes industriel, visibilité via baux long terme'],
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',   '38 096 217'],
             ['Flottant Euronext',         '100% (définition Euronext)'],
@@ -1122,7 +862,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette financière brute',       '~2 588 M€ (1 589 M€ NC + 1 000 M€ C)'],
             ['Trésorerie',                   '23,8 M€'],
@@ -1151,7 +891,7 @@ const COMPANIES = {
     highlights: [
       'Leader du logement neuf en France avec 13,0% de part de marché en 2025 ; leader sur le segment des accédants avec près de 2 600 lots (+19%).',
       'Périmètre "New Nexity" retrouve une rentabilité opérationnelle positive : ROC de 25 M€ contre −118 M€ en 2024 ; résultat net pdG consolidé à −188 M€ (impacts non-récurrents).',
-      'Bilan assaini : dette nette de 328 M€, liquidité de 588 M€, levier 4,9x — en avance sur la trajectoire bancaire (covenant < 8,5x).',
+      'Bilan assaini : dette nette de 328 M€, liquidité de 588 M€, levier 4,9x, en avance sur la trajectoire bancaire (covenant < 8,5x).',
       '3 223 collaborateurs au 31 décembre 2025 ; présent principalement en France et marginalement en Allemagne, Belgique, Italie et Suisse.',
     ],
     positioning: [
@@ -1164,38 +904,38 @@ const COMPANIES = {
       { name:'Services',           pct:15.0, ca:'423 M€',   color:'#60a5fa' },
       { name:'Autres activités',   pct:0.2,  ca:'5 M€',     color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 2 821 M€ (consolidé IFRS)',
+    breakdownYear: 'CA 2025, 2 821 M€ (consolidé IFRS)',
     geo: [
       { flag:'🇫🇷', name:'France',        pct:97.4 },
       { flag:'🌍', name:'International',  pct:2.6  },
     ],
     competition: [
-      { name:'Kaufman & Broad', ticker:'KOF.PA', cap:'~0,6 Md€', pe:'~10x', note:'Promotion France — marges plus solides' },
+      { name:'Kaufman & Broad', ticker:'KOF.PA', cap:'~0,6 Md€', pe:'~10x', note:'Promotion France, marges plus solides' },
       { name:'Bassac',          ticker:'BA.PA',  cap:'~0,7 Md€', pe:'~7x',  note:'Promotion France + Europe' },
-      { name:'Bouygues Immo',   ticker:'EN.PA',  cap:'NC',       pe:'NC',   note:'Filiale Bouygues — promotion France' },
-      { name:'Vinci Immobilier',ticker:'DG.PA',  cap:'NC',       pe:'NC',   note:'Filiale Vinci — promotion France' },
+      { name:'Bouygues Immo',   ticker:'EN.PA',  cap:'NC',       pe:'NC',   note:'Filiale Bouygues, promotion France' },
+      { name:'Vinci Immobilier',ticker:'DG.PA',  cap:'NC',       pe:'NC',   note:'Filiale Vinci, promotion France' },
     ],
     timeline: [
       { date:'25 fév. 2026',   type:'earn', title:'Résultats annuels FY 2025 ✓',  sub:'CA 2 821 M€, ROC New Nexity +25 M€, RN pdG −188 M€. Dette nette : 328 M€. Backlog : 3,9 Md€.', past:true },
       { date:'23 avr. 2026',   type:'earn', title:'Activité T1 2026',             sub:'Publication de l\'activité du premier trimestre 2026.' },
-      { date:'21 mai 2026',    type:'ann',  title:'Assemblée Générale',           sub:'Vote des résolutions — aucun dividende proposé au titre de FY 2025.' },
+      { date:'21 mai 2026',    type:'ann',  title:'Assemblée Générale',           sub:'Vote des résolutions, aucun dividende proposé au titre de FY 2025.' },
       { date:'23 juil. 2026',  type:'earn', title:'Résultats semestriels S1 2026',sub:'Publication des résultats du premier semestre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'2 821 M€',  sub:'FY 2025 (consolidé IFRS)',          color:'var(--text)'  },
         { label:'ROC New Nexity',      val:'+25 M€',    sub:'vs −118 M€ en 2024',                color:'var(--gold)'  },
         { label:'Résultat net pdG',    val:'−188 M€',   sub:'FY 2025 (impacts non-récurrents)',  color:'var(--red)'   },
-        { label:'Capitalisation',      val:'—',         sub:'Live',                              color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',         sub:'Live',                              color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',         sub:'Live',                              color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',         sub:'Live',                              color:'var(--text)', live:'per' },
         { label:'Dividende FY 2025',   val:'0 €',       sub:'Aucun dividende versé',             color:'var(--text-2)'},
       ],
       accordions: [
         {
-          title: 'Carnet de commandes — 31 déc. 2025',
+          title: 'Carnet de commandes, 31 déc. 2025',
           rows: [
-            ['Backlog total',           '3,9 Md€ (vs 4,4 Md€ fin 2024 — −11,4%)'],
+            ['Backlog total',           '3,9 Md€ (vs 4,4 Md€ fin 2024, −11,4%)'],
             ['Résidentiel',             '3,8 Md€'],
             ['Tertiaire',               '63 M€'],
             ['Variation T4 2025',       '+1% vs 30 sept. 2025 (stable)'],
@@ -1204,7 +944,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — base 31 déc. 2024 (dernière répartition officielle publiée)',
+          title: 'Structure du capital, base 31 déc. 2024 (dernière répartition officielle publiée)',
           rows: [
             ['Actions (31/01/2026)',           '56 129 724'],
             ['Droits de vote bruts',            '56 129 724'],
@@ -1216,7 +956,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette financière nette',          '328 M€ (278 M€ hors impact Angelotti)'],
             ['Trésorerie nette & autres',        '587 M€'],
@@ -1256,15 +996,15 @@ const COMPANIES = {
       { name:'Tertiaire',         pct:21.9, ca:'248,9 M€', color:'#60a5fa' },
       { name:'Autres activités',  pct:1.4,  ca:'16,2 M€',  color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 1 136 M€ HT',
+    breakdownYear: 'CA 2025, 1 136 M€ HT',
     geo: [
-      { flag:'🇫🇷', name:'France — Île-de-France & principales métropoles', pct:100 },
+      { flag:'🇫🇷', name:'France, Île-de-France & principales métropoles', pct:100 },
     ],
     competition: [
-      { name:'Nexity',   ticker:'NXI.PA', cap:'~0,9 Md€', pe:'NC',   note:'Leader promotion France — en restructuration' },
+      { name:'Nexity',   ticker:'NXI.PA', cap:'~0,9 Md€', pe:'NC',   note:'Leader promotion France, en restructuration' },
       { name:'Bassac',   ticker:'BA.PA',  cap:'~0,7 Md€', pe:'~7x',  note:'Promotion France + Allemagne, Espagne, Belgique' },
-      { name:'Bouygues Immobilier', ticker:'EN.PA', cap:'NC', pe:'NC', note:'Filiale Bouygues — promotion France' },
-      { name:'Vinci Immobilier',    ticker:'DG.PA', cap:'NC', pe:'NC', note:'Filiale Vinci — promotion France' },
+      { name:'Bouygues Immobilier', ticker:'EN.PA', cap:'NC', pe:'NC', note:'Filiale Bouygues, promotion France' },
+      { name:'Vinci Immobilier',    ticker:'DG.PA', cap:'NC', pe:'NC', note:'Filiale Vinci, promotion France' },
     ],
     timeline: [
       { date:'29 janv. 2026',   type:'earn', title:'Résultats annuels FY 2025 ✓',       sub:'CA 1 136 M€, ROC 91 M€, RN pdG 54,2 M€. Trésorerie nette : 319,1 M€. Dividende proposé : 2,20 €.', past:true },
@@ -1277,30 +1017,30 @@ const COMPANIES = {
       { date:'1er oct. 2026',   type:'ann',  title:'Présentation T3 2026',               sub:'Conférence de présentation des résultats T3 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 30 novembre 2025',
+      year: 'FY 2025, 30 novembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'1 136 M€',  sub:'FY 2025',                 color:'var(--text)'  },
         { label:'ROC',                 val:'91,0 M€',   sub:'Marge 8,0%',              color:'var(--gold)'  },
         { label:'Résultat net pdG',    val:'54,2 M€',   sub:'FY 2025',                 color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',         sub:'Live',                     color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',         sub:'Live',                     color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',         sub:'Live',                     color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',         sub:'Live',                     color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'≈ 7,6 %',   sub:'2,20 € / action proposé', color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title: 'Carnet de commandes — 30 nov. 2025',
+          title: 'Carnet de commandes, 30 nov. 2025',
           rows: [
-            ['Backlog global',          '2 370,2 M€ HT (vs 2 497,0 M€ FY 2024 — −5,1%)'],
+            ['Backlog global',          '2 370,2 M€ HT (vs 2 497,0 M€ FY 2024, −5,1%)'],
             ['Logement',               '1 961,3 M€ HT (−1,3% vs FY 2024)'],
             ['Tertiaire',              '408,5 M€ HT (−19,8% vs FY 2024)'],
             ['Visibilité Logement',    '27,0 mois d\'activité (vs 26,3 mois FY 2024)'],
             ['Portefeuille foncier',   '32 392 lots'],
             ['Couverture foncier',     '> 6 ans d\'activité commerciale'],
-            ['Logement détail',        'Appartements 814,5 M€ — Maisons individuelles 56,4 M€'],
+            ['Logement détail',        'Appartements 814,5 M€, Maisons individuelles 56,4 M€'],
           ]
         },
         {
-          title: 'Structure du capital — base 30 nov. 2024 (dernière répartition officielle publiée)',
+          title: 'Structure du capital, base 30 nov. 2024 (dernière répartition officielle publiée)',
           rows: [
             ['Actions (31/10/2025)',         '19 862 022'],
             ['Droits de vote théoriques',    '25 590 867'],
@@ -1313,7 +1053,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 30 nov. 2025',
+          title: 'Dette & Liquidité, 30 nov. 2025',
           rows: [
             ['Trésorerie active',                  '322,5 M€'],
             ['Trésorerie nette (hors IFRS 16 & put Néorésid)', '319,1 M€ (position nette positive)'],
@@ -1352,7 +1092,7 @@ const COMPANIES = {
       { name:'Promotion immobilière Étranger', pct:21.0, ca:'313 M€',   color:'#60a5fa' },
       { name:'Autres (ZAPF, Kwerk…)',          pct:4.7,  ca:'70 M€',    color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 1 488 M€ HT',
+    breakdownYear: 'CA 2025, 1 488 M€ HT',
     geo: [
       { flag:'🇫🇷', name:'France',             pct:74.3 },
       { flag:'🇩🇪', name:'Allemagne',          pct:15.0 },
@@ -1361,10 +1101,10 @@ const COMPANIES = {
       { flag:'📦',  name:'Autres activités',   pct:4.7  },
     ],
     competition: [
-      { name:'Nexity',             ticker:'NXI.PA', cap:'~0,9 Md€', pe:'NC',   note:'Leader promotion France — en restructuration' },
-      { name:'Kaufman & Broad',    ticker:'KOF.PA', cap:'~0,7 Md€', pe:'~10x', note:'Promotion logements & bureaux — France' },
-      { name:'Vinci Immobilier',   ticker:'DG.PA',  cap:'NC',       pe:'NC',   note:'Filiale Vinci — promotion France' },
-      { name:'Bouygues Immobilier',ticker:'EN.PA',  cap:'NC',       pe:'NC',   note:'Filiale Bouygues — promotion France' },
+      { name:'Nexity',             ticker:'NXI.PA', cap:'~0,9 Md€', pe:'NC',   note:'Leader promotion France, en restructuration' },
+      { name:'Kaufman & Broad',    ticker:'KOF.PA', cap:'~0,7 Md€', pe:'~10x', note:'Promotion logements & bureaux, France' },
+      { name:'Vinci Immobilier',   ticker:'DG.PA',  cap:'NC',       pe:'NC',   note:'Filiale Vinci, promotion France' },
+      { name:'Bouygues Immobilier',ticker:'EN.PA',  cap:'NC',       pe:'NC',   note:'Filiale Bouygues, promotion France' },
     ],
     timeline: [
       { date:'12 mars 2026',  type:'earn', title:'Résultats annuels FY 2025 ✓',     sub:'CA 1 488 M€ (+6%), ROC 153 M€, RN pdG 93 M€. Backlog 2 188 M€ (+5%).', past:true },
@@ -1373,23 +1113,23 @@ const COMPANIES = {
       { date:'23 juil. 2026', type:'earn', title:'Résultats S1 2026',              sub:'Publication des résultats du premier semestre 2026, après clôture d\'Euronext Paris.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'1 488 M€',  sub:'FY 2025 (+6%)',            color:'var(--text)'  },
         { label:'ROC',                 val:'153 M€',    sub:'Marge 10,3%',              color:'var(--gold)'  },
         { label:'Résultat net pdG',    val:'93 M€',     sub:'FY 2025',                  color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',         sub:'Live',                      color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',         sub:'Live',                      color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',         sub:'Live',                      color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',         sub:'Live',                      color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'≈ 2,2 %',   sub:'1,00 € / action proposé',  color:'var(--blue)'  },
       ],
       accordions: [
         {
-          title: 'Carnet de commandes — 31 déc. 2025',
+          title: 'Carnet de commandes, 31 déc. 2025',
           rows: [
             ['Backlog total',              '2 188 M€ HT (+5% vs 2 081 M€ fin 2024)'],
-            ['Promotion France',           '1 713 M€ — 78,3% (+7%)'],
-            ['Promotion Étranger',         '439 M€ — 20,1% (−2%)'],
-            ['Autres',                     '37 M€ — 1,7% (+11%)'],
+            ['Promotion France',           '1 713 M€, 78,3% (+7%)'],
+            ['Promotion Étranger',         '439 M€, 20,1% (−2%)'],
+            ['Autres',                     '37 M€, 1,7% (+11%)'],
             ['Couverture backlog',         '≈ 18 mois d\'activité'],
             ['Portefeuille foncier',       '10 610 M€ (+10%)'],
             ['Couverture foncier',         '≈ 7 ans d\'activité'],
@@ -1397,7 +1137,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Structure du capital — base 31 déc. 2024 (dernière répartition complète publiée)',
+          title: 'Structure du capital, base 31 déc. 2024 (dernière répartition complète publiée)',
           rows: [
             ['Actions (31/12/2024)',        '16 633 199'],
             ['Actions (28/11/2025)',        '16 677 749 (dont 626 804 à annuler fin 2025)'],
@@ -1409,7 +1149,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette financière brute',                '714 M€'],
             ['Trésorerie (bilan)',                     '379 M€'],
@@ -1431,7 +1171,7 @@ const COMPANIES = {
     tagSlug: 'imerys',
     ticker:  'NK.PA',
     name:    'Imerys',
-    secteur: 'Spécialités minérales — Industrie',
+    secteur: 'Spécialités minérales, Industrie',
     pays:    'FR',
     signal:  'hold',
     desc:    'Imerys est un groupe français spécialisé dans les spécialités minérales destinées à l\'industrie. Le groupe opère au travers de trois segments : Minéraux de performance, Solutions pour les réfractaires, abrasifs et construction, et Solutions pour la transition énergétique. Son positionnement repose sur des solutions minérales à forte valeur ajoutée, une expertise de formulation et de procédés, ainsi qu\'une présence sur des marchés finaux diversifiés comme la construction, les biens de consommation, l\'automobile et les matériaux pour batteries. En 2025, la société a mis l\'accent sur la discipline prix/coûts, l\'innovation et la réduction structurelle de sa base de coûts via le projet Horizon.',
@@ -1439,7 +1179,7 @@ const COMPANIES = {
       'Présent dans 40 pays avec environ 12 300 collaborateurs.',
       'En FY 2025, le chiffre d\'affaires ressort à 3 384 M€ et l\'EBITDA ajusté à 546 M€, en ligne avec la guidance annuelle, malgré un effet de change défavorable de 22 M€.',
       'Leader mondial des spécialités minérales, organisé autour de trois pôles : Minéraux de performance, Solutions réfractaires/abrasifs/construction, et Solutions pour la transition énergétique.',
-      'Lancement du projet Horizon, visant 50 à 60 M€ d\'économies annuelles brutes vs la base de coûts 2025 — plus de la moitié attendue dès 2026, plein effet à partir de 2027.',
+      'Lancement du projet Horizon, visant 50 à 60 M€ d\'économies annuelles brutes vs la base de coûts 2025, plus de la moitié attendue dès 2026, plein effet à partir de 2027.',
     ],
     positioning: [
       { label:'Croissance',   val:44, color:'var(--green)' },
@@ -1451,7 +1191,7 @@ const COMPANIES = {
       { name:'Réfractaires, abrasifs & construction',pct:33.3, ca:'1 128 M€', color:'#60a5fa' },
       { name:'Solutions transition énergétique',     pct:7.0,  ca:'238 M€',   color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 3 384 M€',
+    breakdownYear: 'CA 2025, 3 384 M€',
     geo: [
       { flag:'🌍', name:'Europe, Moyen-Orient & Afrique', pct:47.8 },
       { flag:'🌎', name:'Amérique du Nord',               pct:27.6 },
@@ -1459,25 +1199,25 @@ const COMPANIES = {
       { flag:'🌎', name:'Amérique du Sud',                pct:5.5  },
     ],
     competition: [
-      { name:'Minerals Technologies', ticker:'MTX',    cap:'~1,6 Md$', pe:'~14x', note:'Spécialités minérales — carbonates & PCC' },
+      { name:'Minerals Technologies', ticker:'MTX',    cap:'~1,6 Md$', pe:'~14x', note:'Spécialités minérales, carbonates & PCC' },
       { name:'Elementis',             ticker:'ELM.L',  cap:'~0,8 Md£', pe:'~12x', note:'Spécialités chimiques & minérales' },
-      { name:'Quarzwerke',            ticker:'NC',     cap:'NC',        pe:'NC',   note:'Spécialités minérales — non coté' },
-      { name:'Sibelco',               ticker:'NC',     cap:'NC',        pe:'NC',   note:'Minéraux industriels — non coté' },
+      { name:'Quarzwerke',            ticker:'NC',     cap:'NC',        pe:'NC',   note:'Spécialités minérales, non coté' },
+      { name:'Sibelco',               ticker:'NC',     cap:'NC',        pe:'NC',   note:'Minéraux industriels, non coté' },
     ],
     timeline: [
       { date:'19 fév. 2026',    type:'earn', title:'Résultats annuels 2025 ✓',       sub:'Publication des résultats FY 2025. CA : 3 384 M€, EBITDA ajusté : 546 M€, RN courant pdG : 146 M€.', past:true },
       { date:'29 avr. 2026',    type:'earn', title:'Résultats T1 2026',              sub:'Publication des résultats du premier trimestre 2026 à 18h30 CEST.' },
-      { date:'12 mai 2026',     type:'ann',  title:'Assemblée Générale 2026',        sub:'Assemblée générale des actionnaires à 15h00 CEST — vote du dividende proposé de 0,75 € / action.' },
+      { date:'12 mai 2026',     type:'ann',  title:'Assemblée Générale 2026',        sub:'Assemblée générale des actionnaires à 15h00 CEST, vote du dividende proposé de 0,75 € / action.' },
       { date:'29 juil. 2026',   type:'earn', title:'Résultats S1 2026',             sub:'Publication des résultats du premier semestre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'3 384 M€',  sub:'FY 2025',                    color:'var(--text)'  },
         { label:'EBITDA ajusté',       val:'546 M€',    sub:'Marge 16,1%',                color:'var(--gold)'  },
         { label:'Résultat net courant',val:'146 M€',    sub:'Part du Groupe, courant',     color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',         sub:'Live',                        color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',         sub:'Live',                        color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',         sub:'Live',                        color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',         sub:'Live',                        color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'≈ 3,6 %',   sub:'0,75 € / action proposé',    color:'var(--blue)'  },
       ],
       accordions: [
@@ -1487,23 +1227,23 @@ const COMPANIES = {
             ['Backlog total',      'Non disponible'],
             ['Répartition',        'Non disponible'],
             ['Évolution',          'Non disponible'],
-            ['Visibilité 2026',    'Pas d\'amélioration significative des marchés observée en début 2026 — davantage de visibilité nécessaire avant tout engagement de performance'],
+            ['Visibilité 2026',    'Pas d\'amélioration significative des marchés observée en début 2026, davantage de visibilité nécessaire avant tout engagement de performance'],
             ['Note',               'Imerys ne publie pas de carnet de commandes chiffré comparable à celui de groupes de projets ou d\'ingénierie'],
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',  '84 940 955'],
             ['GBL (capital)',            '54,7%'],
             ['GBL (droits de vote)',     '67,9%'],
             ['Flottant (estimé)',        '~45,3%'],
             ['Actionnariat salarié',     'Non disponible'],
-            ['Autocontrôle',             'Actions propres confirmées — % non disponible'],
+            ['Autocontrôle',             'Actions propres confirmées, % non disponible'],
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette brute',                      '2 210 M€'],
             ['Trésorerie',                        '819 M€'],
@@ -1525,7 +1265,7 @@ const COMPANIES = {
     tagSlug: 'vicat',
     ticker:  'VCT.PA',
     name:    'Vicat',
-    secteur: 'Matériaux de construction — Ciment',
+    secteur: 'Matériaux de construction, Ciment',
     pays:    'FR',
     signal:  'hold',
     desc:    'Vicat est un groupe français de matériaux de construction, coté sur Euronext Paris et majoritairement contrôlé par la famille fondatrice. Il opère principalement dans le ciment, le béton prêt à l\'emploi et les granulats, ainsi que dans des activités complémentaires. Son modèle repose sur une implantation industrielle locale, un portefeuille équilibré entre pays développés et émergents et une discipline financière qui soutient à la fois la rentabilité et le désendettement. Le groupe met également en avant sa stratégie de décarbonation, notamment avec le projet VAIA.',
@@ -1545,7 +1285,7 @@ const COMPANIES = {
       { name:'Béton & Granulats',         pct:36.9, ca:'1 421 M€', color:'#60a5fa' },
       { name:'Autres Produits & Services',pct:10.0, ca:'387 M€',   color:'#4ade80' },
     ],
-    breakdownYear: 'CA 2025 — 3 854 M€',
+    breakdownYear: 'CA 2025, 3 854 M€',
     geo: [
       { flag:'🇫🇷', name:'France',             pct:31.1 },
       { flag:'🌎', name:'Amériques',            pct:24.5 },
@@ -1558,7 +1298,7 @@ const COMPANIES = {
       { name:'Holcim',               ticker:'HOLN.SW', cap:'~55 Md€',  pe:'~15x', note:'Leader mondial du ciment' },
       { name:'HeidelbergMaterials',  ticker:'HDMG.DE', cap:'~17 Md€',  pe:'~10x', note:'N°2 mondial, présence similaire' },
       { name:'CRH',                  ticker:'CRH',     cap:'~60 Md€',  pe:'~18x', note:'Leader mondial matériaux de construction' },
-      { name:'Imerys',               ticker:'NK.PA',   cap:'~2,5 Md€', pe:'~12x', note:'Matériaux industriels — France' },
+      { name:'Imerys',               ticker:'NK.PA',   cap:'~2,5 Md€', pe:'~12x', note:'Matériaux industriels, France' },
     ],
     timeline: [
       { date:'16 fév. 2026',    type:'earn', title:'Résultats annuels 2025 ✓',           sub:'Publication des résultats FY 2025 après bourse. CA : 3 854 M€, EBITDA : 771 M€, RN pdG : 275 M€.', past:true },
@@ -1569,13 +1309,13 @@ const COMPANIES = {
       { date:'5 nov. 2026',     type:'earn', title:'Chiffre d\'affaires 9 mois 2026',     sub:'Publication de l\'activité des neuf premiers mois 2026, après bourse.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires', val:'3 854 M€',  sub:'FY 2025',                color:'var(--text)'  },
         { label:'EBITDA',              val:'771 M€',     sub:'Marge 20,0%',             color:'var(--gold)'  },
         { label:'Résultat net pdG',    val:'275 M€',     sub:'FY 2025',                color:'var(--green)' },
-        { label:'Capitalisation',      val:'—',          sub:'Live',                    color:'var(--gold)', live:'cap' },
-        { label:'P/E ratio',           val:'—',          sub:'Live',                    color:'var(--text)', live:'per' },
+        { label:'Capitalisation',      val:'n.c.',          sub:'Live',                    color:'var(--gold)', live:'cap' },
+        { label:'P/E ratio',           val:'n.c.',          sub:'Live',                    color:'var(--text)', live:'per' },
         { label:'Rendement div.',      val:'2,6 %',      sub:'2,00 € / action',        color:'var(--blue)'  },
       ],
       accordions: [
@@ -1585,11 +1325,11 @@ const COMPANIES = {
             ['Backlog total',      'Non disponible'],
             ['Répartition',        'Non disponible'],
             ['Évolution',          'Non disponible'],
-            ['Note',               'Vicat ne publie pas de carnet de commandes consolidé — communication orientée tendances marché et visibilité géographique'],
+            ['Note',               'Vicat ne publie pas de carnet de commandes consolidé, communication orientée tendances marché et visibilité géographique'],
           ]
         },
         {
-          title: 'Structure du capital — 31 déc. 2025',
+          title: 'Structure du capital, 31 déc. 2025',
           rows: [
             ['Actions en circulation',  '44 900 000'],
             ['Valeur nominale',          '4 €'],
@@ -1602,7 +1342,7 @@ const COMPANIES = {
           ]
         },
         {
-          title: 'Dette & Liquidité — 31 déc. 2025',
+          title: 'Dette & Liquidité, 31 déc. 2025',
           rows: [
             ['Dette brute',                     '1 680 M€'],
             ['Trésorerie',                       '528 M€'],
@@ -1646,7 +1386,7 @@ const COMPANIES = {
       { name:'Central Europe',         pct:8.5,  ca:'882,0 M€',   color:'#a78bfa' },
       { name:'Global Services Energy', pct:4.4,  ca:'461,4 M€',   color:'#60a5fa' },
     ],
-    breakdownYear: 'Production FY 2025 — 10 379,9 M€',
+    breakdownYear: 'Production FY 2025, 10 379,9 M€',
     geo: [
       { flag:'🇩🇪', name:'Allemagne',       pct:34.5 },
       { flag:'🇫🇷', name:'France',           pct:32.3 },
@@ -1681,13 +1421,13 @@ const COMPANIES = {
       { date:'30 oct. 2026',      type:'earn', title:'Information trimestrielle T3 2026',  sub:'Publication de l\'activité au 30 septembre 2026.' },
     ],
     finances: {
-      year: 'FY 2025 — 31 décembre 2025',
+      year: 'FY 2025, 31 décembre 2025',
       kpis: [
         { label:'Chiffre d\'affaires (IFRS)', val:'10 397 M€', sub:'FY 2025',  color:'var(--text)'  },
         { label:'EBITA',                       val:'793,5 M€',  sub:'marge 7,6 %', color:'var(--gold)'  },
         { label:'Résultat net pdg',            val:'176,4 M€',  sub:'FY 2025',  color:'var(--green)' },
-        { label:'Capitalisation',              val:'—',          sub:'Live',     color:'var(--gold)',  live:'cap' },
-        { label:'P/E ratio',                   val:'—',          sub:'Live',     color:'var(--text)',  live:'per' },
+        { label:'Capitalisation',              val:'n.c.',          sub:'Live',     color:'var(--gold)',  live:'cap' },
+        { label:'P/E ratio',                   val:'n.c.',          sub:'Live',     color:'var(--text)',  live:'per' },
         { label:'Rendement div.',              val:'~2,3 %',     sub:'Calculé sur cours du 14/04/2026', color:'var(--blue)' },
       ],
       accordions: [
@@ -1715,7 +1455,7 @@ const COMPANIES = {
           ]
         },
         {
-          title:'Dette & Liquidité — 31 déc. 2025',
+          title:'Dette & Liquidité, 31 déc. 2025',
           rows:[
             ['Dette nette (hors IFRS 16)', '1 145,3 M€'],
             ['Dette nette (avec IFRS 16)', '1 778,0 M€'],
@@ -1734,7 +1474,7 @@ const COMPANIES = {
 
 }
 
-// ── Fiches partielles (articles uniquement, pas de données financières complètes) ──
+// Fiches partielles (articles uniquement, pas de données financières complètes)
 const STUBS = {
 }
 
@@ -1744,7 +1484,7 @@ const slug    = params.get('slug') || ''
 const company = COMPANIES[slug]
 const stub    = !company ? STUBS[slug] : null
 
-// ── INIT ──
+// INIT
 if (company) {
   renderHeader()
   renderOverview()
@@ -1755,7 +1495,7 @@ if (company) {
   requestAnimationFrame(() => setTimeout(animateBars, 120))
 } else if (stub) {
   // Fiche partielle : header + articles uniquement
-  document.title = `${stub.name} — BatiAnalyse`
+  document.title = `${stub.name} | BatiAnalyse`
   document.getElementById('breadcrumbName').textContent = stub.name
   document.getElementById('companyName').textContent    = stub.name
   document.getElementById('companyTicker').textContent  = stub.ticker
@@ -1774,20 +1514,19 @@ if (company) {
 } else {
   document.getElementById('companyName').textContent = 'Entreprise introuvable'
   document.getElementById('articlesGrid').innerHTML = `
-    <div class="empty-state">
-      <div class="empty-icon">◎</div>
-      <div class="empty-title">Page non disponible</div>
-      <div class="empty-sub">Cette entreprise n'est pas encore référencée.<br>
-        <a href="/valeurs-cotees.html" style="color:var(--gold)">← Retour aux valeurs</a></div>
+    <div class="empty-state visible">
+      <p class="empty-title">Page non disponible</p>
+      <p class="empty-sub">Cette entreprise n'est pas encore référencée.</p>
+      <a href="/valeurs-cotees.html" class="btn clair">Retour aux valeurs</a>
     </div>`
 }
 
-// ── HEADER ──
+// HEADER
 function renderHeader() {
-  document.title = `${company.name} — BatiAnalyse`
+  document.title = `${company.name} | BatiAnalyse`
   document.getElementById('breadcrumbName').textContent = company.name
   document.getElementById('companyLabel').textContent   = company.name
-  document.getElementById('companyTicker').textContent  = `${company.ticker} · ${company.secteur}`
+  document.getElementById('companyTicker').textContent  = `${company.ticker}, ${company.secteur.replace(' & ', ' et ')}`
   document.getElementById('companyName').textContent    = company.name
   document.getElementById('companySub').textContent     = company.desc
 
@@ -1795,43 +1534,34 @@ function renderHeader() {
   if (sig) { sig.textContent = ''; sig.className = 'company-signal'; }
 
   document.getElementById('companyKpis').innerHTML = `
-    <div class="kpi" id="kpiLivePrice">
-      <div class="kpi-val" style="color:var(--text-3)">—</div>
-      <div class="kpi-label">Cours</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-val" id="kpiCap">—</div>
-      <div class="kpi-label">Cap. boursière</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-val" id="kpiPE">—</div>
-      <div class="kpi-label">P/E ratio</div>
-    </div>`
+    <div id="kpiLivePrice"><small>Cours</small><strong>…</strong></div>
+    <div><small>Capitalisation</small><strong id="kpiCap">…</strong></div>
+    <div><small>P/E</small><strong id="kpiPE">…</strong></div>`
 }
 
-// ── OVERVIEW TAB ──
+// OVERVIEW TAB
 function renderOverview() {
   // Highlights
   document.getElementById('highlightsList').innerHTML = company.highlights.map(h => `
-    <div class="highlight-item"><div class="highlight-dot"></div><span>${h}</span></div>`).join('')
+    <div class="highlight-item">${h}</div>`).join('')
 
   // Business breakdown
   document.getElementById('breakdownYear').textContent = company.breakdownYear || ''
   document.getElementById('segmentList').innerHTML = company.segments.map(s => `
     <div class="segment">
       <div class="segment-name">${s.name}</div>
-      <div class="segment-bar-wrap"><div class="segment-bar" style="width:0%;background:${s.color}" data-w="${s.pct}"></div></div>
-      <div class="segment-pct">${s.pct}%</div>
+      <div class="segment-bar-wrap"><div class="segment-bar" style="width:0%" data-w="${s.pct}"></div></div>
+      <div class="segment-pct">${String(s.pct).replace('.', ',')}%</div>
       <div class="segment-margin" title="Chiffre d'affaires">${s.ca || s.margin || ''}</div>
     </div>`).join('')
 
   // Geo
   document.getElementById('geoList').innerHTML = company.geo.map(g => `
-    <div class="geo-item">
-      <div class="geo-flag">${g.flag}</div>
-      <div class="geo-name">${g.name}</div>
-      <div class="geo-bar-wrap"><div class="geo-bar" style="width:0%" data-w="${g.pct}"></div></div>
-      <div class="geo-pct">${g.pct}%</div>
+    <div class="segment">
+      <div class="segment-name">${g.name}</div>
+      <div class="segment-bar-wrap"><div class="segment-bar" style="width:0%" data-w="${g.pct}"></div></div>
+      <div class="segment-pct">${String(g.pct).replace('.', ',')}%</div>
+      <div class="segment-margin"></div>
     </div>`).join('')
 
   // Competition
@@ -1841,11 +1571,7 @@ function renderOverview() {
         <div class="comp-name">${c.name}</div>
         <div class="comp-meta">${c.note}</div>
       </div>
-      <div class="comp-badges">
-        <span class="comp-badge">${c.ticker}</span>
-        <span class="comp-badge">Cap ${c.cap}</span>
-        <span class="comp-badge">P/E ${c.pe}</span>
-      </div>
+      <div class="comp-badges n">${c.ticker}<br>Cap. ${c.cap}<br>P/E ${c.pe}</div>
     </div>`).join('')
 
   // Timeline
@@ -1867,16 +1593,12 @@ function renderOverview() {
 
   document.getElementById('timeline').innerHTML = company.timeline.map(e => {
     const past = e.past || isPastDate(e.date);
-    const title = e.title.replace(/\s*✓\s*$/, '') + (past ? ' ✓' : '');
+    const title = e.title.replace(/\s*✓\s*$/, '');
     return `
-    <div class="tl-item" style="${past ? 'opacity:0.6' : ''}">
-      <div class="tl-dot-wrap"><div class="tl-dot ${dotMap[e.type]}"></div></div>
-      <div class="tl-body">
-        <div class="tl-date">${e.date}</div>
-        <div class="tl-title">${title}</div>
-        <div class="tl-sub">${e.sub}</div>
-        <span class="tl-badge ${typeMap[e.type]}">${labelMap[e.type]}</span>
-      </div>
+    <div class="it tl-item${past ? ' passe' : ''}">
+      <time>${e.date}${past ? ', passé' : ''}</time>
+      <b>${title}</b> <span class="tl-badge">${labelMap[e.type]}</span>
+      <div class="tl-sub">${e.sub}</div>
     </div>`;
   }).join('')
 
@@ -1890,20 +1612,20 @@ function animateBars() {
   })
 }
 
-// ── FINANCES TAB ──
+// FINANCES TAB
 function renderFinances() {
   const f = company.finances
   document.getElementById('finYear').textContent = f.year || ''
 
   document.getElementById('finGrid').innerHTML = f.kpis.map(k => `
-    <div class="fin-cell">
-      <div class="fin-label">${k.label}</div>
-      <div class="fin-val" style="color:${k.color}" ${k.live ? `id="finLive_${k.live}"` : ''}>${k.val}</div>
-      <div class="fin-sub">${k.sub}</div>
+    <div>
+      <dt>${k.label}</dt>
+      <dd class="v" ${k.live ? `id="finLive_${k.live}"` : ''}>${k.val}</dd>
+      <dd class="s">${k.sub}</dd>
     </div>`).join('')
 
   document.getElementById('finAccordions').innerHTML = f.accordions.map((acc, i) => `
-    <div class="fin-accordion" style="margin-bottom:8px">
+    <div class="fin-accordion">
       <div class="fin-acc-header" onclick="toggleAcc(this)">
         ${acc.title}
         <span class="arrow">›</span>
@@ -1921,11 +1643,11 @@ function toggleAcc(el) {
   el.nextElementSibling.classList.toggle('open')
 }
 
-// ── NEWS TAB ──
+// NEWS TAB
 function renderNews() {
   const list = document.getElementById('newsList')
   if (!company.news || !company.news.length) {
-    list.innerHTML = `<div class="news-empty">Aucune actualité enregistrée pour le moment.</div>`
+    list.innerHTML = `<p class="vide">Aucune actualité enregistrée pour le moment.</p>`
     return
   }
   list.innerHTML = company.news.map(n => `
@@ -1938,7 +1660,7 @@ function renderNews() {
     </div>`).join('')
 }
 
-// ── ARTICLES ──
+// ARTICLES
 async function resolveTagId(tagSlug) {
   const r1 = await fetch(`${WP_API}/tags?slug=${encodeURIComponent(tagSlug)}&per_page=1`)
   if (r1.ok) { const t = await r1.json(); if (t.length) return t[0].id }
@@ -1957,10 +1679,9 @@ async function loadArticlesForSlug(tagSlug) {
   showSkeletons(grid)
   const tagId = await resolveTagId(tagSlug)
   if (!tagId) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">◎</div>
-      <div class="empty-title">Aucun article</div>
-      <div class="empty-sub">Aucun article publié pour cette entreprise.</div>
+    grid.innerHTML = `<div class="empty-state visible">
+      <p class="empty-title">Aucun article</p>
+      <p class="empty-sub">Aucun article publié pour cette entreprise.</p>
     </div>`
     document.getElementById('artCount').textContent = '0'
     return
@@ -1970,10 +1691,10 @@ async function loadArticlesForSlug(tagSlug) {
     if (!res.ok) throw new Error('HTTP ' + res.status)
     const posts = await res.json()
     document.getElementById('artCount').textContent = res.headers.get('X-WP-Total') || posts.length
-    if (!posts.length) { grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-title">Aucun article</div></div>`; return }
+    if (!posts.length) { grid.innerHTML = `<div class="empty-state visible"><p class="empty-title">Aucun article</p></div>`; return }
     grid.innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
   } catch(e) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-title">Erreur de chargement</div></div>`
+    grid.innerHTML = `<div class="empty-state visible"><p class="empty-title">Erreur de chargement</p></div>`
   }
 }
 
@@ -1982,11 +1703,10 @@ async function loadArticles() {
   showSkeletons(grid)
   const tagId = await resolveTagId(company.tagSlug)
   if (!tagId) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">◎</div>
-      <div class="empty-title">Tag introuvable</div>
-      <div class="empty-sub">Aucun tag WordPress "<strong>${company.tagSlug}</strong>" trouvé.<br>
-        <a href="https://wp-adminclaudecanouche.batianalyste.fr/wp-admin/edit-tags.php?taxonomy=post_tag" target="_blank" style="color:var(--gold)">Créer le tag →</a></div>
+    grid.innerHTML = `<div class="empty-state visible">
+      <p class="empty-title">Tag introuvable</p>
+      <p class="empty-sub">Aucun tag WordPress "<strong>${company.tagSlug}</strong>" trouvé.<br>
+        <a href="https://wp-adminclaudecanouche.batianalyste.fr/wp-admin/edit-tags.php?taxonomy=post_tag" target="_blank" style="color:var(--gold)">Créer le tag →</a></p>
     </div>`
     document.getElementById('artCount').textContent = '0'
     return
@@ -1997,18 +1717,16 @@ async function loadArticles() {
     const posts = await res.json()
     document.getElementById('artCount').textContent = res.headers.get('X-WP-Total') || posts.length
     if (!posts.length) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-        <div class="empty-icon">◎</div>
-        <div class="empty-title">Aucun article</div>
-        <div class="empty-sub">Aucun article tagué "${company.name}" pour l'instant.</div>
+      grid.innerHTML = `<div class="empty-state visible">
+        <p class="empty-title">Aucun article</p>
+        <p class="empty-sub">Aucun article tagué "${company.name}" pour l'instant.</p>
       </div>`
       return
     }
     grid.innerHTML = posts.map((p, i) => renderCard(p, i === 0)).join('')
   } catch(e) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
-      <div class="empty-icon">◎</div><div class="empty-title">Erreur</div>
-      <div class="empty-sub">${e.message}</div></div>`
+    grid.innerHTML = `<div class="empty-state visible"><p class="empty-title">Erreur</p>
+      <p class="empty-sub">${e.message}</p></div>`
   }
 }
 
@@ -2021,42 +1739,19 @@ function renderCard(post, featured = false) {
   const cat   = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Analyse'
   const words = (post.content?.rendered||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
   const read  = Math.max(1, Math.round(words/200))
-  if (featured) return `
-    <div class="art-card featured${img?'':' no-img'}" onclick="location.href='${link}'" style="${img?'':'display:block'}">
-      ${img?`<div class="art-card-img" style="background-image:url('${img}')"></div>`:''}
-      <div class="art-card-body">
-        <div class="art-card-cat">${cat}</div>
-        <div class="art-card-title">${title}</div>
-        <div class="art-card-excerpt">${excerpt}</div>
-        <div class="art-card-meta">${date} · ${read} min de lecture</div>
-      </div>
-    </div>`
   return `
-    <div class="art-card" onclick="location.href='${link}'">
-      ${img?`<div class="art-card-img" style="background-image:url('${img}')"></div>`:''}
-      <div class="art-card-body">
-        <div class="art-card-cat">${cat}</div>
-        <div class="art-card-title">${title}</div>
-        <div class="art-card-excerpt">${excerpt}</div>
-        <div class="art-card-meta">${date} · ${read} min</div>
-      </div>
-    </div>`
+    <a class="art${featured ? ' featured' : ''}" href="${link}">
+      <time>${date}</time>
+      <div><h3>${title}</h3><p>${excerpt}</p></div>
+      <span class="th">${cat}<small>${read} min de lecture</small></span>
+    </a>`
 }
 
 function showSkeletons(grid) {
-  grid.innerHTML = Array.from({length:6}).map(()=>`
-    <div class="art-card">
-      <div class="sk" style="height:180px"></div>
-      <div class="art-card-body">
-        <div class="sk" style="height:9px;width:70px;margin-bottom:10px"></div>
-        <div class="sk" style="height:15px;margin-bottom:6px"></div>
-        <div class="sk" style="height:15px;width:80%;margin-bottom:12px"></div>
-        <div class="sk" style="height:9px;width:120px"></div>
-      </div>
-    </div>`).join('')
+  grid.innerHTML = '<p class="vide">Chargement des analyses</p>'
 }
 
-// ── TABS ──
+// TABS
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
@@ -2071,7 +1766,7 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   })
 })
 
-// ── LIVE PRICE ──
+// LIVE PRICE
 function setFinCell(id, text) {
   const el = document.getElementById('finLive_' + id)
   if (el) el.textContent = text
@@ -2092,12 +1787,12 @@ async function loadLivePrice() {
     if (!livePrice) return
     const up = liveChange >= 0
 
-    // ── Header KPIs ──
+    // Header KPIs
     const kpiPrice = document.getElementById('kpiLivePrice')
     if (kpiPrice) kpiPrice.innerHTML = `
-      <div class="kpi-val">${livePrice.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</div>
-      <div class="kpi-change" style="color:${up?'var(--green)':'var(--red)'}">${up?'▲':'▼'} ${liveChange.toFixed(2)}%</div>
-      <div class="kpi-label">Cours</div>`
+      <small>Cours</small>
+      <strong>${livePrice.toLocaleString('fr-FR',{minimumFractionDigits:2})} €</strong>
+      <small class="var ${liveChange > 0 ? 'up' : liveChange < 0 ? 'down' : ''}">${liveChange > 0 ? '+' : ''}${liveChange.toFixed(2).replace('.', ',')}% aujourd'hui</small>`
 
     if (q) {
       if (q.cap !== null && q.cap !== undefined) {
@@ -2107,7 +1802,7 @@ async function loadLivePrice() {
         setFinCell('cap', capMd + ' Md€')
       }
       if (q.per !== null && q.per !== undefined) {
-        const perStr = q.per === 'Négatif' ? 'Négatif' : Number(q.per).toFixed(1) + 'x'
+        const perStr = q.per === 'Négatif' ? 'Négatif' : Number(q.per).toFixed(1).replace('.', ',') + 'x'
         const el = document.getElementById('kpiPE')
         if (el) el.textContent = perStr
         setFinCell('per', perStr)

@@ -486,11 +486,51 @@ th.tri:hover{color:var(--ink)}
 .deal-sidebar .chart-wrap{margin:0 0 32px}
 .deal-sidebar .chart-wrap svg{overflow:visible;padding-right:14px}
 .deal-note{margin:8px 0}
+/* Fiche entreprise */
+.ent-cadre{padding-top:8px}
+.ent-sec{padding:0 0 40px}
+.highlights{border-top:2px solid var(--ink)}
+.highlight-item{padding:12px 0;border-bottom:1px solid var(--trait);font-size:17px}
+.segment-list{border-top:2px solid var(--ink)}
+.segment{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 64px 96px;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--trait);font-size:15px}
+.segment-name{font-weight:600}
+.segment-bar-wrap{height:14px;background:var(--beton-fonce)}
+.segment-bar{height:100%;background:var(--ink);transition:width 1s ease}
+.segment-pct{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.segment-margin{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.comp-list{border-top:2px solid var(--ink)}
+.comp-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:12px 0;border-bottom:1px solid var(--trait)}
+.comp-name{font-weight:700}
+.comp-meta{color:var(--muted);font-size:15px}
+.comp-badges{font-size:14px;text-align:right;color:var(--muted)}
+.timeline .tl-badge{font-size:13px;color:var(--muted);font-weight:500}
+.timeline .tl-sub{color:var(--muted);font-size:14px;margin-top:2px}
+.timeline .passe{color:var(--muted)}
+.timeline .passe b{font-weight:600}
+.fin-accordion{border-top:2px solid var(--ink);margin-bottom:12px}
+.fin-acc-header{display:flex;justify-content:space-between;align-items:center;padding:12px 0;cursor:pointer;font-weight:700;user-select:none}
+.fin-acc-header:hover{background:var(--beton-fonce)}
+.fin-acc-header .arrow{font-size:22px;line-height:1;transition:transform .2s;padding-right:6px}
+.fin-acc-header.open .arrow{transform:rotate(90deg)}
+.fin-acc-body{display:none}
+.fin-acc-body.open{display:block}
+.fin-table td{padding:9px 16px 9px 0;font-size:15px}
+.fin-table td:last-child{text-align:right;font-weight:600;padding-right:0}
+.news-list{border-top:2px solid var(--ink)}
+.news-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:12px 0;border-bottom:1px solid var(--trait);cursor:pointer}
+.news-item:hover{background:var(--beton-fonce)}
+.news-source{font-size:14px;color:var(--muted)}
+.news-title{font-weight:700}
+.news-date{font-size:14px;font-weight:600;white-space:nowrap}
+.chiffres .var{display:block;font-weight:700;font-size:14px}
+.chiffres small.up{color:var(--up)}
+.chiffres small.down{color:var(--down)}
 @media (max-width:900px){.rubriques{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.segment{grid-template-columns:minmax(0,1fr) 56px;row-gap:4px}.segment-bar-wrap{grid-column:1 / -1;grid-row:2}.segment-margin{display:none}.comp-item,.news-item{grid-template-columns:minmax(0,1fr)}.comp-badges{text-align:left}}
 @media (max-width:900px){.deal-tete{grid-template-columns:minmax(0,1fr);gap:28px}.signal-cards{grid-template-columns:minmax(0,1fr)}.signal-card{margin-bottom:16px}}
 @media (max-width:560px){.kpi-strip,.kpi-strip-2{grid-template-columns:minmax(0,1fr)}.tl-row,.salvia-row,.fgas-row,.watch-item{grid-template-columns:minmax(0,1fr);gap:2px}}
 @media (max-width:900px){.why-grid{grid-template-columns:minmax(0,1fr)}.why-card{margin-bottom:16px}}
-@media (max-width:560px){.art-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}.art-meta div{padding:0;border-left:0}.chart-container.haut{height:520px}.chart-container{height:380px}.body-text,.article-content p{font-size:17px}}
+@media (max-width:560px){.chiffres{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px}.chiffres div,.chiffres div:first-child{padding:0;border-left:0}.art-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}.art-meta div{padding:0;border-left:0}.chart-container.haut{height:520px}.chart-container{height:380px}.body-text,.article-content p{font-size:17px}}
 @media (max-width:900px){.sommaire{position:static}}
 @media (max-width:560px){.coord div{grid-template-columns:1fr;gap:2px}}
 @media (max-width:560px){.modal-intro{padding-right:0;padding-top:44px}.kpi-modal-panel{padding:20px 18px}}
