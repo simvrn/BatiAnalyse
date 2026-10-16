@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════
-   BatiAnalyse — Cookie Consent Banner
+   BatiAnalyse : Cookie Consent Banner
    Conforme RGPD / recommandations CNIL
    ════════════════════════════════════════════════════ */
 (function () {
@@ -8,66 +8,57 @@
   // Si consentement déjà enregistré, ne rien faire
   if (localStorage.getItem(KEY)) return;
 
-  // Styles inline — pas de fichier CSS externe à charger
+  // Styles inline : pas de fichier CSS externe à charger
   const style = document.createElement('style');
   style.textContent = `
     #ba-cookie-banner {
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 10000;
-      background: #111110;
-      border-top: 1px solid rgba(201,168,76,0.25);
-      padding: 20px 32px;
+      background: #16191C;
+      border-top: 2px solid #16191C;
+      padding: 18px 28px;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap;
-      font-family: 'Syne', 'DM Sans', sans-serif;
-      animation: slideUp 0.3s ease;
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
+      font-family: 'Archivo', system-ui, 'Helvetica Neue', Arial, sans-serif;
     }
     #ba-cookie-banner p {
       flex: 1;
-      font-size: 13px;
-      color: #a09880;
-      line-height: 1.6;
-      min-width: 260px;
+      font-size: 15px;
+      color: #F1F2EE;
+      line-height: 1.5;
+      min-width: min(260px, 100%);
       margin: 0;
     }
     #ba-cookie-banner a {
-      color: #c9a84c;
-      text-decoration: none;
+      color: #FFFFFF;
+      text-decoration: underline;
     }
-    #ba-cookie-banner a:hover { text-decoration: underline; }
     .ba-cookie-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border: none;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border: 2px solid #F1F2EE;
       cursor: pointer;
-      transition: all 0.15s;
       white-space: nowrap;
       flex-shrink: 0;
     }
     .ba-cookie-btn-accept {
-      background: #c9a84c;
-      color: #080807;
+      background: #F1F2EE;
+      color: #16191C;
     }
-    .ba-cookie-btn-accept:hover { background: #e8c97a; }
+    .ba-cookie-btn-accept:hover { background: #FFFFFF; }
     .ba-cookie-btn-refuse {
       background: none;
-      color: #a09880;
-      border: 1px solid rgba(201,168,76,0.25);
+      color: #F1F2EE;
     }
-    .ba-cookie-btn-refuse:hover { color: #e8e4da; border-color: rgba(201,168,76,0.6); }
+    .ba-cookie-btn-refuse:hover { color: #FFFFFF; border-color: #FFFFFF; }
     @media (max-width: 600px) {
-      #ba-cookie-banner { padding: 16px; gap: 14px; }
-      .ba-cookie-btn { width: 100%; text-align: center; }
+      #ba-cookie-banner { padding: 16px 18px; gap: 12px; }
+      .ba-cookie-btn { flex: 1; text-align: center; }
     }
   `;
   document.head.appendChild(style);

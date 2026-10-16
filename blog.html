@@ -3,204 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BatiAnalyse — Analyses & Décryptages</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --black:#0B0B0C; --bg:#0B0B0C; --surface:#111113; --surface2:#16161A;
-  --border:#1F1F22; --border-hover:#B89B5E;
-  --gold:#B89B5E; --gold-dim:rgba(184,155,94,0.12); --gold-glow:rgba(184,155,94,0.06);
-  --green:#4ade80; --green-dim:rgba(74,222,128,0.12);
-  --red:#f87171; --red-dim:rgba(248,113,113,0.12);
-  --blue:#60a5fa; --blue-dim:rgba(96,165,250,0.12);
-  --text:#EAEAEA; --text-2:#9CA3AF; --text-3:#6B7280; --white:#EAEAEA;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
-
-
-/* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:100; height:56px; display:flex; align-items:center; justify-content:space-between; padding:0 32px; background:rgba(8,8,7,0.92); border-bottom:1px solid var(--border); backdrop-filter:blur(16px); }
-.logo { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; color:var(--white); text-decoration:none; }
-.logo span { color:var(--gold); }
-.nav-links { display:flex; align-items:center; gap:28px; list-style:none; }
-.nav-links a { font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); text-decoration:none; transition:color 0.15s; }
-.nav-links a:hover { color:var(--text); }
-.nav-links a.active { color:var(--gold); }
-.nav-cta { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; padding:8px 20px; background:var(--gold);border:none;border-radius:6px; color:var(--bg); text-decoration:none; transition:all 0.15s; text-transform:uppercase; }
-.nav-cta:hover { opacity:0.88; }
-
-/* HEADER */
-.page-header { padding:80px 32px 28px; border-bottom:1px solid var(--border); }
-.breadcrumb { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.18em; color:var(--text-3); text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-.breadcrumb span { color:var(--gold); }
-.page-header h1 { font-family:'DM Serif Display',serif; font-size:clamp(36px,4vw,60px); font-weight:900; line-height:1; letter-spacing:-0.5px; }
-.page-header h1 em { font-style:italic; color:var(--gold); }
-.page-sub { font-size:13px; color:var(--text-2); margin-top:10px; letter-spacing:0.02em; }
-
-/* FILTER BAR */
-.filter-bar { position:sticky; top:56px; z-index:50; background:var(--surface); border-bottom:1px solid var(--border); padding:16px 32px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-.filter-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-3); white-space:nowrap; }
-#catsBar { display:flex; gap:8px; flex-wrap:wrap; flex:1; }
-.cat-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.08em; padding:6px 14px; border:1px solid var(--border); background:transparent; color:var(--text-2); cursor:pointer; transition:all 0.15s; display:flex; align-items:center; gap:6px; white-space:nowrap; }
-.cat-btn:hover { border-color:var(--gold); color:var(--gold); }
-.cat-btn.active { background:var(--gold); color:var(--black); border-color:var(--gold); font-weight:700; }
-.cat-count { font-size:9px; opacity:0.7; }
-.search-wrap { margin-left:auto; position:relative; }
-.search-input { font-family:'DM Mono',monospace; font-size:12px; background:var(--surface2); border:1px solid var(--border); color:var(--text); padding:7px 14px 7px 32px; outline:none; width:220px; transition:border-color 0.2s; }
-.search-input:focus { border-color:var(--gold); }
-.search-input::placeholder { color:var(--text-3); }
-.search-icon { position:absolute; left:10px; top:50%; transform:translateY(-50%); font-size:13px; color:var(--text-3); pointer-events:none; }
-
-/* RESULTS META */
-.results-meta { padding:12px 32px; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-3); display:flex; justify-content:space-between; border-bottom:1px solid var(--border); }
-.results-meta strong { color:var(--gold); }
-
-/* GRID */
-.posts-container { padding:32px; }
-#postsGrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
-
-/* CARD */
-.post-card { background:var(--surface); border:1px solid var(--border); cursor:pointer; transition:all 0.2s; animation:cardIn 0.4s ease forwards; opacity:0; overflow:hidden; position:relative; border-radius:8px; }
-.post-card:hover { border-color:var(--border-hover); background:var(--surface2); }
-.post-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
-.post-card:hover::before { transform:scaleX(1); }
-@keyframes cardIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-
-.post-card.featured { grid-column:span 2; display:grid; grid-template-columns:1fr 1fr; }
-@media(max-width:768px) { .post-card.featured { grid-column:span 1; display:block; } }
-
-.card-img { background:var(--surface2); background-size:cover; background-position:center; }
-.post-card.featured .card-img { height:100%; min-height:260px; }
-/* thumbnail : image à gauche, texte à droite */
-.post-card.has-thumb { display:grid; grid-template-columns:180px 1fr; }
-.post-card.has-thumb .card-img { height:100%; min-height:130px; }
-@media(max-width:600px) {
-  .post-card.has-thumb { grid-template-columns:1fr; }
-  .post-card.has-thumb .card-img { height:180px; }
-}
-
-.card-body { padding:24px; display:flex; flex-direction:column; gap:10px; }
-.post-card.featured .card-body { padding:32px; justify-content:center; }
-.card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:600; }
-.card-title { font-family:'DM Serif Display',serif; font-size:18px; font-weight:700; line-height:1.25; }
-.post-card.featured .card-title { font-size:26px; }
-.card-excerpt { font-size:13px; color:var(--text-2); line-height:1.65; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
-.card-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-3); display:flex; gap:8px; align-items:center; margin-top:auto; padding-top:12px; }
-.card-read-time { color:var(--gold); }
-
-/* EMPTY / ERROR */
-.empty-state { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; padding:80px 32px; text-align:center; }
-.empty-icon { font-size:48px; opacity:0.2; margin-bottom:16px; }
-.empty-title { font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-2); margin-bottom:8px; }
-.empty-sub { font-size:13px; color:var(--text-3); }
-
-/* SKELETON */
-@keyframes shimmer { 0% { background-position:-400px 0; } 100% { background-position:400px 0; } }
-.sk { background: var(--surface2); background-size:800px 100%; animation:shimmer 1.4s infinite; border-radius:2px; }
-.sk-img { height:200px; }
-.sk-cat { height:9px; width:70px; margin:20px 24px 0; }
-.sk-title { height:15px; margin:10px 24px 0; }
-.sk-title.short { width:60%; }
-.sk-meta { height:9px; width:110px; margin:10px 24px 22px; }
-
-/* LOAD MORE */
-.load-more-wrap { text-align:center; margin-top:40px; }
-.load-more-btn { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:14px 36px; background:var(--gold); color:var(--bg); border:none; border-radius:6px; cursor:pointer; transition:all 0.2s; }
-.load-more-btn:hover { opacity:0.88; }
-.load-more-btn:disabled { opacity:0.3; cursor:default; }
-
-/* ── HAMBURGER NAV ── */
-.nav-hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
-.nav-hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:1px; }
-.nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border); padding:16px 24px; flex-direction:column; gap:16px; z-index:99; backdrop-filter:blur(16px); }
-.nav-mobile.open { display:flex; }
-.nav-mobile a { font-size:14px; color:var(--text-2); text-decoration:none; padding:8px 0; border-bottom:1px solid var(--border); font-family:'Inter',sans-serif; }
-.nav-mobile a:last-child { border-bottom:none; }
-
-/* ── RESPONSIVE MOBILE ── */
-@media (max-width: 768px) {
-  .nav-links { display:none !important; }
-  .nav-cta { display:none !important; }
-  .nav-hamburger { display:flex; }
-  nav { padding: 0 16px; }
-
-  .page-header { padding: 68px 16px 20px; }
-  .page-header h1 { font-size: clamp(28px, 7vw, 42px); }
-
-  .filter-bar { padding: 12px 16px; top: 56px; }
-  .search-wrap { margin-left: 0; width: 100%; }
-  .search-input { width: 100%; }
-
-  .results-meta { padding: 10px 16px; }
-
-  .posts-container { padding: 20px 16px; }
-  #postsGrid { grid-template-columns: 1fr; }
-
-  .post-card.featured { grid-column: span 1 !important; display: block !important; }
-  .post-card.featured .card-img { height: 200px; }
-
-  .load-more-wrap { margin-top: 24px; }
-}
-</style>
+<title>BatiAnalyse, analyses et décryptages BTP</title>
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
-<nav>
-  <a href="/" class="logo">Bati<span>Analyse</span></a>
-  <ul class="nav-links">
-    <li><a href="/">Accueil</a></li>
-    <li><a href="/valeurs-cotees.html">Valeurs</a></li>
-    <!--MASQUE_TEMP_MA:<li><a href="/ma-hub">M&amp;A</a></li>-->
-    <li><a href="/macro.html">Macro</a></li>
-    <li><a href="/blog.html" class="active">Analyses</a></li>
-  </ul>
-  <a href="#" class="nav-cta" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
-  <button class="nav-hamburger" onclick="document.getElementById('navMobileBlog').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile" id="navMobileBlog">
-  <a href="/">Accueil</a>
-  <a href="/valeurs-cotees.html">Valeurs</a>
-  <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
-  <a href="/macro.html">Macro</a>
-  <a href="/blog.html">Analyses</a>
-</div>
-
-<div class="page-header">
-  <div class="breadcrumb">BatiAnalyse <span>/</span> Analyses</div>
-  <h1>Analyses & <em>Décryptages</em></h1>
-  <p class="page-sub" id="pageSubtitle">Chargement des articles…</p>
-</div>
-
-<div class="filter-bar">
-  <span class="filter-label">Thème</span>
-  <div id="catsBar">
-    <button class="cat-btn active" data-id="">Tous</button>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/blog.html" aria-current="page">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
   </div>
-  <div class="search-wrap">
-    <span class="search-icon">⌕</span>
-    <input class="search-input" id="searchInput" type="text" placeholder="Rechercher un article…">
+</header>
+
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / Analyses</p>
+      <h1>Analyses et décryptages</h1>
+      <div class="ligne-sous">
+        <p class="maj" id="pageSubtitle">Chargement des articles.</p>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="results-meta">
-  <span>Affichage de <strong id="resultCount">—</strong> articles</span>
-  <span style="font-size:9px;letter-spacing:0.15em">CONTENU ÉDITORIAL · BATIANALYSE</span>
-</div>
+  <div class="wrap" style="padding-top:32px">
+    <div class="outils">
+      <span id="catsBar" class="cats">
+        <button class="filtre cat-btn active" data-id="">Tous</button>
+      </span>
+      <span class="esp"></span>
+      <label for="searchInput" style="position:absolute;left:-9999px">Rechercher un article</label>
+      <input id="searchInput" type="search" placeholder="Rechercher un article">
+    </div>
 
-<div class="posts-container">
-  <div id="postsGrid"></div>
-</div>
-<div class="load-more-wrap" id="loadMoreWrap" style="display:none">
-  <button class="load-more-btn" id="loadMoreBtn">Charger plus d'articles</button>
-</div>
+    <div class="liste" id="postsGrid"></div>
+
+    <p class="note">Affichage de <span id="resultCount">…</span> articles. Contenu éditorial BatiAnalyse.</p>
+
+    <p id="loadMoreWrap" style="display:none"><button class="btn clair" id="loadMoreBtn">Charger plus d'articles</button></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>© 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
+    </div>
+    <ul>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+      <li><a href="/mentions-legales#confidentialite">Confidentialité</a></li>
+      <li><a href="/mentions-legales#cookies">Cookies</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
 // ═══════════════════════════════════════════════════════
-// ARTICLES STATIQUES — pages internes non hébergées sur WordPress
+// ARTICLES STATIQUES : pages internes non hébergées sur WordPress
 // ═══════════════════════════════════════════════════════
 const STATIC_ARTICLES = [
   {
@@ -233,10 +103,10 @@ const STATIC_ARTICLES = [
 // ═══════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════
-// CONFIG SECTIONS WORDPRESS — ajouter une entrée par section
+// CONFIG SECTIONS WORDPRESS : ajouter une entrée par section
 // ═══════════════════════════════════════════════════════
 const WP_SECTIONS = {
-  analyses: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts',             // flux principal — tous les articles
+  analyses: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts',             // flux principal : tous les articles
   valeurs:  'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=7', // valeurs cotées BTP
   // ma:    'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=X',
   // macro: 'https://wp-adminclaudecanouche.batianalyste.fr/wp-json/wp/v2/posts?categories=Y',
@@ -269,9 +139,9 @@ async function loadCategories() {
     const bar = document.getElementById('catsBar')
     cats.sort((a,b) => b.count - a.count).forEach(cat => {
       const btn = document.createElement('button')
-      btn.className = 'cat-btn'
+      btn.className = 'filtre cat-btn'
       btn.dataset.id = cat.id
-      btn.innerHTML = `${cat.name} <span class="cat-count">${cat.count}</span>`
+      btn.innerHTML = `${cat.name} <small class="cat-count">${cat.count}</small>`
       btn.addEventListener('click', () => filterByCat(cat.id))
       bar.appendChild(btn)
     })
@@ -284,7 +154,7 @@ async function loadPosts(page = 1, reset = false) {
   loading = true
 
   try {
-    // Base = flux "analyses" (tous les articles) — filtres appliqués ensuite
+    // Base = flux "analyses" (tous les articles), filtres appliqués ensuite
     const base = WP_SECTIONS.analyses
     let url = `${base}?per_page=${PER_PAGE}&page=${page}&_embed&orderby=date&order=desc`
     if (currentCat)    url += `&categories=${currentCat}`
@@ -309,17 +179,16 @@ async function loadPosts(page = 1, reset = false) {
     const displayTotal = (total || allPosts.length) + (reset ? STATIC_ARTICLES.length : 0)
     document.getElementById('resultCount').textContent = displayTotal
     document.getElementById('pageSubtitle').textContent =
-      `${displayTotal} articles publiés · Contenu éditorial BatiAnalyse`
+      `${displayTotal} articles publiés.`
 
     const wrap = document.getElementById('loadMoreWrap')
     wrap.style.display = currentPage < totalPages ? 'block' : 'none'
 
   } catch(e) {
     document.getElementById('postsGrid').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">◎</div>
-        <div class="empty-title">Articles indisponibles</div>
-        <div class="empty-sub">Impossible de charger les articles pour le moment.</div>
+      <div class="empty-state visible">
+        <p class="empty-title">Articles indisponibles</p>
+        <p class="empty-sub">Impossible de charger les articles pour le moment.</p>
       </div>`
     document.getElementById('resultCount').textContent = '0'
   }
@@ -334,20 +203,13 @@ function renderPosts(reset) {
     grid.innerHTML = ''
     // Articles statiques en tête de liste
     STATIC_ARTICLES.forEach((art, idx) => {
-      const card = document.createElement('div')
-      card.className = 'post-card'
-      card.style.animationDelay = `${idx * 0.04}s`
-      card.onclick = () => location.href = art.url
+      const card = document.createElement('a')
+      card.className = 'art'
+      card.href = art.url
       card.innerHTML = `
-        <div class="card-body">
-          <div class="card-cat">${art.cat}</div>
-          <div class="card-title">${art.title}</div>
-          <div class="card-excerpt">${art.excerpt}</div>
-          <div class="card-meta">
-            <span>${art.date}</span>
-            <span class="card-read-time">${art.readTime} de lecture</span>
-          </div>
-        </div>`
+        <time>${art.date}</time>
+        <div><h3>${art.title}</h3><p>${art.excerpt}</p></div>
+        <span class="th">${art.cat}<small>${art.readTime} de lecture</small></span>`
       grid.appendChild(card)
     })
   }
@@ -355,10 +217,9 @@ function renderPosts(reset) {
   if (allPosts.length === 0) {
     if (reset && STATIC_ARTICLES.length === 0) {
       grid.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">◎</div>
-          <div class="empty-title">Aucun article trouvé</div>
-          <div class="empty-sub">Essayez un autre thème ou modifiez votre recherche.</div>
+        <div class="empty-state visible">
+          <p class="empty-title">Aucun article trouvé</p>
+          <p class="empty-sub">Essayez un autre thème ou modifiez votre recherche.</p>
         </div>`
     }
     return
@@ -383,38 +244,13 @@ function renderPosts(reset) {
     const wordCount = (post.content?.rendered || '').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length
     const readTime  = Math.max(1, Math.round(wordCount / 200))
 
-    const card = document.createElement('div')
-    card.className = `post-card${isFeatured ? ' featured' : ''}`
-    card.style.animationDelay = `${(reset ? idx : idx % PER_PAGE) * 0.04}s`
-    card.onclick = () => location.href = link
-
-    if (isFeatured) {
-      if (!img) card.style.display = 'block'
-      card.innerHTML = `
-        ${img ? `<div class="card-img" style="background-image:url('${img}')"></div>` : ''}
-        <div class="card-body">
-          <div class="card-cat">${cat}</div>
-          <div class="card-title">${title}</div>
-          <div class="card-excerpt">${excerpt}</div>
-          <div class="card-meta">
-            ${date ? `<span>${date}</span>` : ''}
-            <span class="card-read-time">${readTime} min de lecture</span>
-          </div>
-        </div>`
-    } else {
-      if (img) card.classList.add('has-thumb')
-      card.innerHTML = `
-        ${img ? `<div class="card-img" style="background-image:url('${img}')"></div>` : ''}
-        <div class="card-body">
-          <div class="card-cat">${cat}</div>
-          <div class="card-title">${title}</div>
-          <div class="card-excerpt">${excerpt}</div>
-          <div class="card-meta">
-            ${date ? `<span>${date}</span>` : ''}
-            <span class="card-read-time">${readTime} min</span>
-          </div>
-        </div>`
-    }
+    const card = document.createElement('a')
+    card.className = `art${isFeatured ? ' featured' : ''}`
+    card.href = link
+    card.innerHTML = `
+      <time>${date}</time>
+      <div><h3>${title}</h3><p>${excerpt}</p></div>
+      <span class="th">${cat}<small>${readTime} min de lecture</small></span>`
 
     grid.appendChild(card)
   })
@@ -455,14 +291,7 @@ document.getElementById('loadMoreBtn').addEventListener('click', () => {
 // ── SKELETONS ──
 function showSkeletons() {
   const grid = document.getElementById('postsGrid')
-  grid.innerHTML = Array.from({length: 6}).map(() => `
-    <div class="post-card skeleton">
-      <div class="sk sk-img"></div>
-      <div class="sk sk-cat"></div>
-      <div class="sk sk-title"></div>
-      <div class="sk sk-title short"></div>
-      <div class="sk sk-meta"></div>
-    </div>`).join('')
+  grid.innerHTML = '<p class="vide">Chargement des articles</p>'
   document.getElementById('loadMoreWrap').style.display = 'none'
 }
 
