@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BatiAnalyse, agenda investisseurs</title>
+<link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">BatiAnalyse</a>
+    <nav aria-label="Navigation principale">
+      <a href="/">Accueil</a>
+      <a href="/valeurs-cotees.html">Valeurs</a>
+      <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
+      <a href="/macro.html">Macro</a>
+      <a href="/agenda.html" aria-current="page">Agenda</a>
+      <a href="/blog.html">Analyses</a>
+    </nav>
+    <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
+  </div>
+</header>
+
+<main>
+  <div class="entete">
+    <div class="wrap">
+      <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/valeurs-cotees.html">Valeurs</a> / Agenda investisseurs</p>
+      <h1>Agenda investisseurs</h1>
+      <div class="ligne-sous">
+        <p class="maj">Résultats, chiffres d'affaires, assemblées générales et dividendes des valeurs BTP françaises cotées. Dates reprises des calendriers officiels des entreprises uniquement.</p>
+        <div class="chiffres n">
+          <div><small>À venir</small><strong id="nbAvenir">…</strong></div>
+          <div><small>À confirmer</small><strong id="nbConfirmer">…</strong></div>
+          <div><small>Prochaine date</small><strong id="prochaine">…</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap cadre">
+    <nav class="lateral" aria-label="Filtres">
+      <div>
+        <h4>Par secteur</h4>
+        <button type="button" class="active" data-sec="tous">Tous les secteurs <small data-n="tous"></small></button>
+        <button type="button" data-sec="construction">Construction <small data-n="construction"></small></button>
+        <button type="button" data-sec="materiaux">Matériaux <small data-n="materiaux"></small></button>
+        <button type="button" data-sec="promotion">Promotion immobilière <small data-n="promotion"></small></button>
+        <button type="button" data-sec="equipement">Équipements <small data-n="equipement"></small></button>
+      </div>
+    </nav>
+
+    <div class="content">
+      <div class="outils">
+        <label for="choixEntreprise" style="position:absolute;left:-9999px">Entreprise</label>
+        <select id="choixEntreprise"><option value="tous">Toutes les entreprises</option></select>
+      </div>
+
+      <section class="ag-sec" style="padding-top:0">
+        <div class="cote"><h2>Prochains événements</h2><span class="ligne" aria-hidden="true"></span><span class="mesure" id="mesureProchains"></span></div>
+        <div id="prochains"></div>
+      </section>
+
+      <section class="ag-sec">
+        <div class="cote"><h2 id="moisTitre"></h2><span class="ligne" aria-hidden="true"></span>
+          <span class="ag-nav">
+            <button type="button" id="moisPrec" aria-label="Mois précédent">Précédent</button>
+            <button type="button" id="moisAuj">Aujourd'hui</button>
+            <button type="button" id="moisSuiv" aria-label="Mois suivant">Suivant</button>
+          </span>
+        </div>
+        <div class="ag-grille" id="grille" role="grid"></div>
+        <div class="ag-liste-mois" id="listeMois"></div>
+        <div class="ag-detail" id="detail" aria-live="polite"></div>
+      </section>
+
+      <section class="ag-sec">
+        <div class="cote"><h2>Date à confirmer</h2><span class="ligne" aria-hidden="true"></span><span class="mesure" id="mesureConfirmer"></span></div>
+        <p class="note" style="margin:0 0 12px">L'entreprise n'a pas encore publié de date officielle. L'événement sera daté dès sa publication.</p>
+        <div id="aConfirmer"></div>
+      </section>
+
+      <section class="ag-sec">
+        <details id="blocPasses">
+          <summary class="cote" style="cursor:pointer"><h2>Événements passés</h2><span class="ligne" aria-hidden="true"></span><span class="mesure" id="mesurePasses"></span></summary>
+          <div id="passes"></div>
+        </details>
+      </section>
+
+      <p class="note" id="erreur" hidden>Agenda momentanément indisponible.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="/">BatiAnalyse</a>
+      <p>© 2026 BatiAnalyse. Les analyses ne constituent pas des conseils en investissement.</p>
+    </div>
+    <ul>
+      <li><a href="/#methodology">Méthodologie</a></li>
+      <li><a href="mailto:contact@batianalyse.fr">Contact</a></li>
+      <li><a href="/mentions-legales">Mentions légales</a></li>
+      <li><a href="/mentions-legales#confidentialite">Confidentialité</a></li>
+      <li><a href="/mentions-legales#cookies">Cookies</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// ── LES 12 VALEURS SUIVIES ──
+// Identité seulement (nom, code, secteur). Les événements viennent de /data/calendrier.json.
+const ENTREPRISES = {
+  vinci:          { nom:'Vinci',              ticker:'DG.PA',   secteur:'construction' },
+  eiffage:        { nom:'Eiffage',            ticker:'FGR.PA',  secteur:'construction' },
+  bouygues:       { nom:'Bouygues',           ticker:'EN.PA',   secteur:'construction' },
+  spie:           { nom:'Spie',               ticker:'SPIE.PA', secteur:'construction' },
+  'saint-gobain': { nom:'Saint-Gobain',       ticker:'SGO.PA',  secteur:'materiaux' },
+  imerys:         { nom:'Imerys',             ticker:'NK.PA',   secteur:'materiaux' },
+  vicat:          { nom:'Vicat',              ticker:'VCT.PA',  secteur:'materiaux' },
+  nexity:         { nom:'Nexity',             ticker:'NXI.PA',  secteur:'promotion' },
+  kaufman:        { nom:'Kaufman & Broad',    ticker:'KOF.PA',  secteur:'promotion' },
+  bassac:         { nom:'Bassac',             ticker:'BA.PA',   secteur:'promotion' },
+  legrand:        { nom:'Legrand',            ticker:'LR.PA',   secteur:'equipement' },
+  schneider:      { nom:'Schneider Electric', ticker:'SU.PA',   secteur:'equipement' },
+}
+const TYPE_LABEL = { resultats:'Résultats', ca:"Chiffre d'affaires", ag:'Assemblée générale', dividende:'Dividende', operation:'Opération', rapport:'Rapport annuel' }
+const JOURS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+
+const aujourdhui = new Date(); aujourdhui.setHours(0, 0, 0, 0)
+const isoJour = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+const ISO_AUJ = isoJour(aujourdhui)
+const versDate = iso => new Date(iso + 'T00:00:00')
+const fmtLong = iso => versDate(iso).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
+const fmtCourt = iso => versDate(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'short' })
+const fmtVerif = iso => versDate(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' })
+const nbEv = n => `${n} ${n > 1 ? 'événements' : 'événement'}`
+function dansJours(iso) {
+  const j = Math.round((versDate(iso) - aujourdhui) / 86400000)
+  return j === 0 ? "Aujourd'hui" : j === 1 ? 'Demain' : `Dans ${j} jours`
+}
+
+let EVENEMENTS = []
+let filtreSec = 'tous', filtreEnt = 'tous'
+let moisVu = new Date(aujourdhui.getFullYear(), aujourdhui.getMonth(), 1)
+let jourChoisi = null
+
+const visibles = () => EVENEMENTS.filter(ev =>
+  (filtreSec === 'tous' || ev.ent.secteur === filtreSec) && (filtreEnt === 'tous' || ev.entreprise === filtreEnt))
+
+function ligne(ev, jour, sous) {
+  return `<div class="cal-ev">
+    <div class="cal-ev-day ${ev.date && ev.date < ISO_AUJ ? 'past' : ''}">${jour}${sous ? `<small class="ag-dans">${sous}</small>` : ''}</div>
+    <div class="cal-ev-badge">${TYPE_LABEL[ev.type] || ev.type}</div>
+    <div class="cal-ev-co"><a class="cal-ev-name" href="/entreprise.html?slug=${ev.entreprise}">${ev.ent.nom}</a><span class="cal-ev-ticker">${ev.ent.ticker}</span></div>
+    <div class="cal-ev-lbl">${ev.libelle}<br><small><a href="${ev.lien_communique || ev.source_url}" target="_blank" rel="noopener">Source</a>, vérifié le ${fmtVerif(ev.date_verification)}</small></div>
+  </div>`
+}
+
+function rendreListes() {
+  const evs = visibles()
+  const dates = evs.filter(ev => ev.date).sort((a, b) => a.date.localeCompare(b.date))
+  const avenir = dates.filter(ev => ev.date >= ISO_AUJ)
+  const passes = dates.filter(ev => ev.date < ISO_AUJ).reverse()
+  const confirmer = evs.filter(ev => !ev.date)
+
+  document.getElementById('nbAvenir').textContent = avenir.length
+  document.getElementById('nbConfirmer').textContent = confirmer.length
+  document.getElementById('prochaine').textContent = avenir.length ? fmtCourt(avenir[0].date) : 'n.c.'
+
+  document.getElementById('mesureProchains').textContent = nbEv(avenir.length)
+  document.getElementById('prochains').innerHTML = avenir.length
+    ? avenir.slice(0, 5).map(ev => ligne(ev, fmtCourt(ev.date), dansJours(ev.date))).join('')
+    : '<p class="cal-empty ag-vide">Aucune date officielle à venir pour le moment. Les événements attendus sans date publiée sont listés plus bas, dans «&nbsp;Date à confirmer&nbsp;».</p>'
+
+  document.getElementById('mesureConfirmer').textContent = nbEv(confirmer.length)
+  document.getElementById('aConfirmer').innerHTML = confirmer.length
+    ? confirmer.map(ev => ligne(ev, 'À confirmer')).join('')
+    : '<p class="cal-empty ag-vide">Aucun événement en attente de date.</p>'
+
+  document.getElementById('mesurePasses').textContent = nbEv(passes.length)
+  document.getElementById('passes').innerHTML = passes.length
+    ? passes.map(ev => ligne(ev, fmtCourt(ev.date))).join('')
+    : '<p class="cal-empty ag-vide">Aucun événement passé.</p>'
+
+  document.querySelectorAll('[data-n]').forEach(el => {
+    const s = el.dataset.n
+    el.textContent = EVENEMENTS.filter(ev => s === 'tous' || ev.ent.secteur === s).length
+  })
+}
+
+function rendreMois() {
+  const an = moisVu.getFullYear(), m = moisVu.getMonth()
+  const titre = moisVu.toLocaleDateString('fr-FR', { month:'long', year:'numeric' })
+  document.getElementById('moisTitre').textContent = titre.charAt(0).toUpperCase() + titre.slice(1)
+
+  const parJour = {}
+  visibles().filter(ev => ev.date).forEach(ev => { (parJour[ev.date] = parJour[ev.date] || []).push(ev) })
+
+  // Grille du lundi au dimanche, 6 semaines au plus
+  const premier = new Date(an, m, 1)
+  const debut = new Date(an, m, 1 - ((premier.getDay() + 6) % 7))
+  const nbJoursMois = new Date(an, m + 1, 0).getDate()
+  const semaines = Math.ceil(((premier.getDay() + 6) % 7 + nbJoursMois) / 7)
+  let html = JOURS.map(j => `<div class="ag-entete" role="columnheader">${j}</div>`).join('')
+  for (let i = 0; i < semaines * 7; i++) {
+    const d = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate() + i)
+    const iso = isoJour(d)
+    const evs = parJour[iso] || []
+    const cls = ['ag-jour']
+    if (d.getMonth() !== m) cls.push('hors')
+    if (iso === ISO_AUJ) cls.push('auj')
+    if (iso < ISO_AUJ) cls.push('passe')
+    if (evs.length) cls.push('a-ev')
+    if (iso === jourChoisi) cls.push('choisi')
+    if (i % 7 > 4) cls.push('we')
+    html += `<div class="${cls.join(' ')}" role="gridcell"${evs.length ? ` tabindex="0" data-jour="${iso}" aria-label="${fmtLong(iso)}, ${nbEv(evs.length)}"` : ''}>
+      <span class="ag-num">${d.getDate()}</span>
+      ${evs.map(ev => `<span class="ag-ev"><b>${ev.ent.nom}</b>${TYPE_LABEL[ev.type] || ev.type}</span>`).join('')}
+    </div>`
+  }
+  document.getElementById('grille').innerHTML = html
+
+  // Sur mobile : liste des jours du mois qui ont un événement
+  const duMois = Object.keys(parJour).filter(iso => iso.startsWith(`${an}-${String(m + 1).padStart(2, '0')}`)).sort()
+  document.getElementById('listeMois').innerHTML = duMois.length
+    ? duMois.map(iso => parJour[iso].map(ev => ligne(ev, fmtCourt(iso), iso >= ISO_AUJ ? dansJours(iso) : '')).join('')).join('')
+    : '<p class="cal-empty ag-vide">Aucun événement daté ce mois-ci.</p>'
+
+  rendreDetail(parJour)
+}
+
+function rendreDetail(parJour) {
+  const el = document.getElementById('detail')
+  const evs = jourChoisi && parJour[jourChoisi]
+  el.innerHTML = evs ? `<h3 class="ag-detail-titre">${fmtLong(jourChoisi)}</h3>${evs.map(ev => ligne(ev, fmtCourt(ev.date))).join('')}` : ''
+}
+
+function tout() { rendreListes(); rendreMois() }
+
+document.getElementById('grille').addEventListener('click', e => {
+  const c = e.target.closest('[data-jour]'); if (!c) return
+  jourChoisi = jourChoisi === c.dataset.jour ? null : c.dataset.jour
+  rendreMois()
+})
+document.getElementById('grille').addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.jour) { e.preventDefault(); e.target.click() }
+})
+document.getElementById('moisPrec').onclick = () => { moisVu = new Date(moisVu.getFullYear(), moisVu.getMonth() - 1, 1); jourChoisi = null; rendreMois() }
+document.getElementById('moisSuiv').onclick = () => { moisVu = new Date(moisVu.getFullYear(), moisVu.getMonth() + 1, 1); jourChoisi = null; rendreMois() }
+document.getElementById('moisAuj').onclick = () => { moisVu = new Date(aujourdhui.getFullYear(), aujourdhui.getMonth(), 1); jourChoisi = null; rendreMois() }
+document.querySelectorAll('.lateral button[data-sec]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('.lateral button[data-sec]').forEach(x => x.classList.toggle('active', x === b))
+  filtreSec = b.dataset.sec; jourChoisi = null; tout()
+})
+const choix = document.getElementById('choixEntreprise')
+choix.innerHTML += Object.entries(ENTREPRISES).sort((a, b) => a[1].nom.localeCompare(b[1].nom, 'fr'))
+  .map(([id, e]) => `<option value="${id}">${e.nom}</option>`).join('')
+choix.onchange = () => { filtreEnt = choix.value; jourChoisi = null; tout() }
+
+fetch('/data/calendrier.json', { cache: 'no-cache' })
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(d => {
+    EVENEMENTS = (d.evenements || []).filter(ev => ENTREPRISES[ev.entreprise] && ev.libelle && ev.source_url)
+      .map(ev => ({ ...ev, ent: ENTREPRISES[ev.entreprise] }))
+    tout()
+  })
+  .catch(() => {
+    document.getElementById('erreur').hidden = false
+    document.querySelectorAll('.ag-sec').forEach(s => s.hidden = true)
+    ;['nbAvenir', 'nbConfirmer', 'prochaine'].forEach(id => document.getElementById(id).textContent = 'n.c.')
+  })
+</script>
+<script src="/cookie-banner.js" defer></script>
+</body>
+</html>

@@ -212,8 +212,8 @@ footer a:hover{color:var(--ink);border-bottom-color:var(--ink)}
   body{font-size:16px}
   .wrap{padding:0 18px}
   .top .wrap{gap:12px}
-  .top nav a{font-size:13.5px}
-  .top nav{gap:10px}
+  .top nav a{font-size:13px}
+  .top nav{gap:8px}
   .logo{font-size:23px}
   .lateral > div + div h4:first-child{margin-top:0}
   .cote{flex-wrap:wrap;justify-content:space-between;gap:6px 16px}
@@ -538,3 +538,34 @@ th.tri:hover{color:var(--ink)}
 @media (max-width:560px){.cal-ev{grid-template-columns:62px minmax(0,1fr);gap:2px 14px}.cal-ev-badge{display:none}.cal-ev-lbl{grid-column:2}.section-articles .art{grid-template-columns:1fr}.outils input,.outils select{min-width:0;flex:1 1 100%}}
 @media (max-width:560px){.cote h2{flex-shrink:1;min-width:0;overflow-wrap:break-word}}
 @media (prefers-reduced-motion:reduce){.bandeau-piste{animation:none}}
+/* Agenda investisseurs : grille mensuelle (mêmes variables, aucune couleur ajoutée) */
+.ag-nav{display:flex;gap:18px}
+.ag-nav button{font:inherit;font-weight:600;font-size:16px;background:none;border:0;border-bottom:2px solid var(--ink);padding:0;cursor:pointer;color:var(--ink)}
+.ag-nav button:hover{background:var(--chantier)}
+.ag-grille{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:2px solid var(--ink);border-left:1px solid var(--trait)}
+.ag-entete{font-weight:600;font-size:14px;color:var(--muted);padding:8px 10px;border-right:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.ag-jour{min-height:108px;padding:8px 10px;border-right:1px solid var(--trait);border-bottom:1px solid var(--trait);display:flex;flex-direction:column;gap:6px;min-width:0}
+.ag-jour.we{background:var(--beton-fonce)}
+.ag-jour.hors .ag-num{color:var(--trait)}
+.ag-jour.passe .ag-num{color:var(--muted);font-weight:500}
+.ag-jour{position:relative}
+.ag-jour.auj::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--chantier)}
+.ag-jour.auj .ag-num{font-weight:800;color:var(--ink)}
+.ag-jour.a-ev{cursor:pointer}
+.ag-jour.a-ev:hover,.ag-jour.choisi{background:var(--clair)}
+.ag-num{font-weight:600;font-size:15px;font-variant-numeric:tabular-nums}
+.ag-ev{display:block;font-size:13px;line-height:1.3;border-left:3px solid var(--ink);padding-left:6px;overflow-wrap:anywhere}
+.ag-jour.passe .ag-ev{border-left-color:var(--trait);color:var(--muted)}
+.ag-ev b{display:block;font-weight:700}
+.ag-detail:not(:empty){margin-top:22px}
+.ag-detail-titre{font-size:22px;margin-bottom:6px}
+.ag-detail-titre::first-letter{text-transform:uppercase}
+.ag-dans{display:block;font-size:13px;font-weight:500;color:var(--muted)}
+.ag-vide{padding:16px 0}
+.ag-liste-mois{display:none;border-top:2px solid var(--ink)}
+.ag-sec{padding:0 0 48px}
+#blocPasses summary{list-style:none}
+#blocPasses summary::-webkit-details-marker{display:none}
+.cal-ev-name{text-decoration:none}
+.cal-ev-name:hover{text-decoration:underline}
+@media (max-width:560px){.ag-grille,.ag-detail{display:none}.ag-liste-mois{display:block}.ag-nav{gap:12px}.ag-nav button{font-size:15px}}

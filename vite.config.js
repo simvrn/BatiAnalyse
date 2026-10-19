@@ -12,6 +12,7 @@ export default defineConfig({
         'ma-entreprise': resolve(__dirname, 'ma-entreprise.html'),
         pe: resolve(__dirname, 'pe.html'),
         macro: resolve(__dirname, 'macro.html'),
+        agenda: resolve(__dirname, 'agenda.html'),
         reglementation: resolve(__dirname, 'reglementation.html'),
         contech: resolve(__dirname, 'contech.html'),
         blog: resolve(__dirname, 'blog.html'),

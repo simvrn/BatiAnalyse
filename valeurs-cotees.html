@@ -17,6 +17,7 @@
       <a href="/valeurs-cotees.html" aria-current="page">Valeurs</a>
       <!--MASQUE_TEMP_MA:<a href="/ma-hub">M&amp;A</a>-->
       <a href="/macro.html">Macro</a>
+      <a href="/agenda.html">Agenda</a>
       <a href="/blog.html">Analyses</a>
     </nav>
     <a class="premium" href="#" style="visibility:hidden;pointer-events:none;" aria-hidden="true">Accès Premium</a>
@@ -51,7 +52,7 @@
       </div>
       <div>
         <h4>Outils</h4>
-        <button type="button" class="cal-open-btn" onclick="openCalendar()">Agenda investisseurs</button>
+        <a href="/agenda.html">Agenda investisseurs</a>
       </div>
     </nav>
 
@@ -137,30 +138,6 @@
   </div>
 </footer>
 
-<!-- AGENDA CALENDAR OVERLAY -->
-<div id="calOverlay" class="cal-overlay" onclick="handleCalClick(event)">
-  <div class="cal-panel" role="dialog" aria-label="Agenda investisseurs">
-    <div class="cal-panel-head">
-      <div>
-        <h2 class="cal-h1">Agenda investisseurs</h2>
-        <p class="cal-hsub">Résultats, AG, dividendes. <span id="calCount"></span> valeurs BTP françaises cotées.</p>
-      </div>
-      <button class="cal-x" onclick="closeCalendar()" aria-label="Fermer">Fermer</button>
-    </div>
-    <div class="cal-body-wrap">
-      <div class="cal-sec-nav lateral">
-        <h4>Par secteur</h4>
-        <button type="button" class="cal-sec-item active" data-sec="tous" onclick="filterCal('tous')">Tous les secteurs <small class="cal-sec-n" id="cbn-tous"></small></button>
-        <button type="button" class="cal-sec-item" data-sec="construction" onclick="filterCal('construction')">Construction <small class="cal-sec-n" id="cbn-construction"></small></button>
-        <button type="button" class="cal-sec-item" data-sec="materiaux" onclick="filterCal('materiaux')">Matériaux <small class="cal-sec-n" id="cbn-materiaux"></small></button>
-        <button type="button" class="cal-sec-item" data-sec="promotion" onclick="filterCal('promotion')">Promotion immobilière <small class="cal-sec-n" id="cbn-promotion"></small></button>
-        <button type="button" class="cal-sec-item" data-sec="equipement" onclick="filterCal('equipement')">Équipements <small class="cal-sec-n" id="cbn-equipement"></small></button>
-      </div>
-      <div class="cal-events-pane" id="calMain"></div>
-    </div>
-  </div>
-</div>
-
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modalContent"></div>
@@ -201,124 +178,6 @@ const stocks = [
 
 // Initialiser perf_1an à null sur chaque stock (sera alimenté par l'API)
 stocks.forEach(s => { if (s.perf_1an === undefined) s.perf_1an = null })
-
-// ── AGENDA INVESTISSEURS ──
-// Événements lus dans /data/calendrier.json (dates des calendriers officiels uniquement).
-// Une entrée sans date publiée (date: null) s'affiche « À confirmer ».
-let AGENDA = {};
-fetch('/data/calendrier.json', { cache: 'no-cache' })
-  .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(d => {
-    AGENDA = {};
-    (d.evenements || []).forEach(ev => { (AGENDA[ev.entreprise] = AGENDA[ev.entreprise] || []).push(ev) });
-    if (document.getElementById('calOverlay').classList.contains('open')) { updateCalCounts(); renderCalendar(calActiveSec) }
-  })
-  .catch(() => {});
-
-const CAL_SECTORS = ['tous','construction','materiaux','promotion','equipement'];
-let calActiveSec = 'tous';
-
-function openCalendar() {
-  updateCalCounts();
-  renderCalendar(calActiveSec);
-  document.getElementById('calOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCalendar() {
-  document.getElementById('calOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function handleCalClick(e) {
-  if (e.target === document.getElementById('calOverlay')) closeCalendar();
-}
-
-function filterCal(sec) {
-  calActiveSec = sec;
-  document.querySelectorAll('.cal-sec-item').forEach(el => {
-    el.classList.toggle('active', el.dataset.sec === sec);
-  });
-  renderCalendar(sec);
-}
-
-function updateCalCounts() {
-  const counts = {};
-  CAL_SECTORS.forEach(s => { counts[s] = 0; });
-  stocks.forEach(s => {
-    const n = (AGENDA[s.id] || []).length;
-    counts['tous'] += n;
-    if (counts[s.secteur] !== undefined) counts[s.secteur] += n;
-    else counts[s.secteur] = n;
-  });
-  CAL_SECTORS.forEach(s => {
-    const el = document.getElementById('cbn-' + s);
-    if (el) el.textContent = counts[s] || 0;
-  });
-}
-
-function renderCalendar(sec) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const TYPE_LABEL = { resultats:'Résultats', ag:'AG', dividende:'Dividende', ca:'CA', operation:'Opération', rapport:'Rapport' };
-  const fmtVerif = iso => new Date(iso + 'T00:00:00').toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
-
-  const evs = [];
-  stocks.forEach(s => {
-    if (sec !== 'tous' && s.secteur !== sec) return;
-    (AGENDA[s.id] || []).forEach(ev => evs.push({ ...ev, stock: s }));
-  });
-  const dates = evs.filter(ev => ev.date).sort((a, b) => a.date.localeCompare(b.date));
-  const avenir = dates.filter(ev => new Date(ev.date + 'T00:00:00') >= today);
-  const passes = dates.filter(ev => new Date(ev.date + 'T00:00:00') < today).reverse();
-  const aConfirmer = evs.filter(ev => !ev.date);
-
-  const ligne = (ev, cls, jour) => `<div class="cal-ev">
-          <div class="cal-ev-day ${cls}">${jour}</div>
-          <div class="cal-ev-badge ${ev.type}">${TYPE_LABEL[ev.type] || ev.type}</div>
-          <div class="cal-ev-co">
-            <span class="cal-ev-name">${ev.stock.name}</span>
-            <span class="cal-ev-ticker">${ev.stock.ticker}</span>
-          </div>
-          <div class="cal-ev-lbl">${ev.label || ev.libelle}<br><small><a href="${ev.lien_communique || ev.source_url}" target="_blank" rel="noopener">Source</a>, vérifié le ${fmtVerif(ev.date_verification)}</small></div>
-        </div>`;
-  const jourDe = ev => new Date(ev.date + 'T00:00:00').toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
-  const nb = n => `${n} ${n > 1 ? 'événements' : 'événement'}`;
-
-  let html = '';
-  if (!evs.length) {
-    html = '<div class="cal-empty">Aucun événement pour ce secteur.</div>';
-  } else {
-    const months = {};
-    avenir.forEach(ev => {
-      const d = new Date(ev.date + 'T00:00:00');
-      const key = ev.date.slice(0, 7);
-      if (!months[key]) months[key] = { label: d.toLocaleDateString('fr-FR', { month:'long', year:'numeric' }), evs: [] };
-      months[key].evs.push(ev);
-    });
-    Object.values(months).forEach(m => {
-      html += `<div class="cal-month-block">
-        <div class="cal-month-head"><span>${m.label}</span><span class="cal-month-n">${nb(m.evs.length)}</span></div>`;
-      m.evs.forEach(ev => {
-        const isSoon = (new Date(ev.date + 'T00:00:00') - today) < 14 * 86400000;
-        html += ligne(ev, isSoon ? 'soon' : '', jourDe(ev));
-      });
-      html += '</div>';
-    });
-    if (aConfirmer.length) {
-      html += `<div class="cal-month-block">
-        <div class="cal-month-head"><span>À confirmer</span><span class="cal-month-n">${nb(aConfirmer.length)}</span></div>
-        ${aConfirmer.map(ev => ligne(ev, 'past', 'À confirmer')).join('')}
-      </div>`;
-    }
-    if (passes.length) {
-      html += `<details class="cal-month-block">
-        <summary class="cal-month-head" style="cursor:pointer"><span>Événements passés</span><span class="cal-month-n">${nb(passes.length)}</span></summary>
-        ${passes.map(ev => ligne(ev, 'past', jourDe(ev))).join('')}
-      </details>`;
-    }
-  }
-  document.getElementById('calMain').innerHTML = html;
-}
 
 // ── STATE ──
 let currentFilters = { secteur:'tous', perf:'tous', pays:'tous' };
@@ -605,10 +464,7 @@ function closeModalOutside(e) {
   if(e.target.id==='modalOverlay') closeModal();
 }
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    if (document.getElementById('calOverlay').classList.contains('open')) closeCalendar();
-    else closeModal();
-  }
+  if (e.key === 'Escape') closeModal();
 });
 
 // ── INIT ──
@@ -728,7 +584,6 @@ async function loadLiveQuotes() {
 
 // Initialiser le compteur d'entreprises dès le chargement
 document.getElementById('stockCount').textContent = stocks.length
-document.getElementById('calCount').textContent = stocks.length
 // Compteurs du filtre par secteur, calculés depuis la liste des valeurs
 document.querySelectorAll('[data-count]').forEach(el => {
   const sec = el.dataset.count
