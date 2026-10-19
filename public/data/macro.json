@@ -1,0 +1,2430 @@
+{
+ "genere_le": "2026-10-19",
+ "derniere_publication": "2026-10-18",
+ "indicateurs": {
+  "taux_bce": {
+   "libelle": "Taux de dépôt de la BCE",
+   "unite": "%",
+   "frequence": "à chaque décision",
+   "derniere_valeur": 2.5,
+   "date_valeur": "2026-09-16",
+   "date_publication": "2026-10-18",
+   "source_nom": "Banque centrale européenne",
+   "source_url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
+   "source_api": "https://data-api.ecb.europa.eu/service/data/FM/D.U2.EUR.4F.KR.DFR.LEV?format=csvdata&detail=dataonly",
+   "serie_id": "FM.D.U2.EUR.4F.KR.DFR.LEV",
+   "note_historique": "Dates d'entrée en vigueur de chaque changement de taux, depuis 1999.",
+   "derives": {
+    "variation_pb": 25,
+    "valeur_precedente": 2.25,
+    "date_precedente": "2026-06-17",
+    "methode": "Écart en points de base avec le taux précédent."
+   },
+   "historique": [
+    {
+     "date": "1999-01-01",
+     "valeur": 2.0
+    },
+    {
+     "date": "1999-01-04",
+     "valeur": 2.75
+    },
+    {
+     "date": "1999-01-22",
+     "valeur": 2.0
+    },
+    {
+     "date": "1999-04-09",
+     "valeur": 1.5
+    },
+    {
+     "date": "1999-11-05",
+     "valeur": 2.0
+    },
+    {
+     "date": "2000-02-04",
+     "valeur": 2.25
+    },
+    {
+     "date": "2000-03-17",
+     "valeur": 2.5
+    },
+    {
+     "date": "2000-04-28",
+     "valeur": 2.75
+    },
+    {
+     "date": "2000-06-09",
+     "valeur": 3.25
+    },
+    {
+     "date": "2000-09-01",
+     "valeur": 3.5
+    },
+    {
+     "date": "2000-10-06",
+     "valeur": 3.75
+    },
+    {
+     "date": "2001-05-11",
+     "valeur": 3.5
+    },
+    {
+     "date": "2001-08-31",
+     "valeur": 3.25
+    },
+    {
+     "date": "2001-09-18",
+     "valeur": 2.75
+    },
+    {
+     "date": "2001-11-09",
+     "valeur": 2.25
+    },
+    {
+     "date": "2002-12-06",
+     "valeur": 1.75
+    },
+    {
+     "date": "2003-03-07",
+     "valeur": 1.5
+    },
+    {
+     "date": "2003-06-06",
+     "valeur": 1.0
+    },
+    {
+     "date": "2005-12-06",
+     "valeur": 1.25
+    },
+    {
+     "date": "2006-03-08",
+     "valeur": 1.5
+    },
+    {
+     "date": "2006-06-15",
+     "valeur": 1.75
+    },
+    {
+     "date": "2006-08-09",
+     "valeur": 2.0
+    },
+    {
+     "date": "2006-10-11",
+     "valeur": 2.25
+    },
+    {
+     "date": "2006-12-13",
+     "valeur": 2.5
+    },
+    {
+     "date": "2007-03-14",
+     "valeur": 2.75
+    },
+    {
+     "date": "2007-06-13",
+     "valeur": 3.0
+    },
+    {
+     "date": "2008-07-09",
+     "valeur": 3.25
+    },
+    {
+     "date": "2008-10-08",
+     "valeur": 2.75
+    },
+    {
+     "date": "2008-10-09",
+     "valeur": 3.25
+    },
+    {
+     "date": "2008-11-12",
+     "valeur": 2.75
+    },
+    {
+     "date": "2008-12-10",
+     "valeur": 2.0
+    },
+    {
+     "date": "2009-01-21",
+     "valeur": 1.0
+    },
+    {
+     "date": "2009-03-11",
+     "valeur": 0.5
+    },
+    {
+     "date": "2009-04-08",
+     "valeur": 0.25
+    },
+    {
+     "date": "2011-04-13",
+     "valeur": 0.5
+    },
+    {
+     "date": "2011-07-13",
+     "valeur": 0.75
+    },
+    {
+     "date": "2011-11-09",
+     "valeur": 0.5
+    },
+    {
+     "date": "2011-12-14",
+     "valeur": 0.25
+    },
+    {
+     "date": "2012-07-11",
+     "valeur": 0.0
+    },
+    {
+     "date": "2014-06-11",
+     "valeur": -0.1
+    },
+    {
+     "date": "2014-09-10",
+     "valeur": -0.2
+    },
+    {
+     "date": "2015-12-09",
+     "valeur": -0.3
+    },
+    {
+     "date": "2016-03-16",
+     "valeur": -0.4
+    },
+    {
+     "date": "2019-09-18",
+     "valeur": -0.5
+    },
+    {
+     "date": "2022-07-27",
+     "valeur": 0.0
+    },
+    {
+     "date": "2022-09-14",
+     "valeur": 0.75
+    },
+    {
+     "date": "2022-11-02",
+     "valeur": 1.5
+    },
+    {
+     "date": "2022-12-21",
+     "valeur": 2.0
+    },
+    {
+     "date": "2023-02-08",
+     "valeur": 2.5
+    },
+    {
+     "date": "2023-03-22",
+     "valeur": 3.0
+    },
+    {
+     "date": "2023-05-10",
+     "valeur": 3.25
+    },
+    {
+     "date": "2023-06-21",
+     "valeur": 3.5
+    },
+    {
+     "date": "2023-08-02",
+     "valeur": 3.75
+    },
+    {
+     "date": "2023-09-20",
+     "valeur": 4.0
+    },
+    {
+     "date": "2024-06-12",
+     "valeur": 3.75
+    },
+    {
+     "date": "2024-09-18",
+     "valeur": 3.5
+    },
+    {
+     "date": "2024-10-23",
+     "valeur": 3.25
+    },
+    {
+     "date": "2024-12-18",
+     "valeur": 3.0
+    },
+    {
+     "date": "2025-02-05",
+     "valeur": 2.75
+    },
+    {
+     "date": "2025-03-12",
+     "valeur": 2.5
+    },
+    {
+     "date": "2025-04-23",
+     "valeur": 2.25
+    },
+    {
+     "date": "2025-06-11",
+     "valeur": 2.0
+    },
+    {
+     "date": "2026-06-17",
+     "valeur": 2.25
+    },
+    {
+     "date": "2026-09-16",
+     "valeur": 2.5
+    }
+   ],
+   "date_consultation": "2026-10-19"
+  },
+  "permis_construire": {
+   "libelle": "Permis de construire, logements autorisés",
+   "unite": "logements",
+   "frequence": "mensuelle",
+   "derniere_valeur": 29749,
+   "date_valeur": "2026-08",
+   "date_publication": "2026-09-29",
+   "source_nom": "SDES, ministère de la Transition écologique (Sitadel)",
+   "source_url": "https://www.statistiques.developpement-durable.gouv.fr/catalogue?page=dataset&datasetId=6513eed03b05e5cd969c2710",
+   "source_api": "https://data.statistiques.developpement-durable.gouv.fr/dido/api/v1/datafiles/175486a6-76a3-4c6c-a34b-aeb96758910b/csv?millesime=2026-09&withColumnName=true&withColumnDescription=false",
+   "serie_id": "6513eed03b05e5cd969c2710 / 175486a6-76a3-4c6c-a34b-aeb96758910b / Tous logements / CVS-CJO",
+   "note_historique": "Logements autorisés par mois, France, données corrigées des variations saisonnières et des jours ouvrés.",
+   "derives": {
+    "variation_mois_pct": -1.1,
+    "cumul_12_mois": 369723,
+    "ecart_moyenne_5_ans_pct": -9.7,
+    "methode": "Variation sur un mois en données CVS-CJO. Cumul des 12 derniers mois. Écart du cumul 12 mois avec la moyenne annuelle des 60 mois précédents."
+   },
+   "historique": [
+    {
+     "date": "2000-01",
+     "valeur": 32234
+    },
+    {
+     "date": "2000-02",
+     "valeur": 30917
+    },
+    {
+     "date": "2000-03",
+     "valeur": 32483
+    },
+    {
+     "date": "2000-04",
+     "valeur": 34352
+    },
+    {
+     "date": "2000-05",
+     "valeur": 36048
+    },
+    {
+     "date": "2000-06",
+     "valeur": 32492
+    },
+    {
+     "date": "2000-07",
+     "valeur": 33804
+    },
+    {
+     "date": "2000-08",
+     "valeur": 32523
+    },
+    {
+     "date": "2000-09",
+     "valeur": 31047
+    },
+    {
+     "date": "2000-10",
+     "valeur": 31311
+    },
+    {
+     "date": "2000-11",
+     "valeur": 33873
+    },
+    {
+     "date": "2000-12",
+     "valeur": 31848
+    },
+    {
+     "date": "2001-01",
+     "valeur": 31168
+    },
+    {
+     "date": "2001-02",
+     "valeur": 33100
+    },
+    {
+     "date": "2001-03",
+     "valeur": 33154
+    },
+    {
+     "date": "2001-04",
+     "valeur": 28572
+    },
+    {
+     "date": "2001-05",
+     "valeur": 30581
+    },
+    {
+     "date": "2001-06",
+     "valeur": 31668
+    },
+    {
+     "date": "2001-07",
+     "valeur": 33297
+    },
+    {
+     "date": "2001-08",
+     "valeur": 31759
+    },
+    {
+     "date": "2001-09",
+     "valeur": 30226
+    },
+    {
+     "date": "2001-10",
+     "valeur": 33852
+    },
+    {
+     "date": "2001-11",
+     "valeur": 32152
+    },
+    {
+     "date": "2001-12",
+     "valeur": 30233
+    },
+    {
+     "date": "2002-01",
+     "valeur": 30654
+    },
+    {
+     "date": "2002-02",
+     "valeur": 29695
+    },
+    {
+     "date": "2002-03",
+     "valeur": 30601
+    },
+    {
+     "date": "2002-04",
+     "valeur": 33784
+    },
+    {
+     "date": "2002-05",
+     "valeur": 29854
+    },
+    {
+     "date": "2002-06",
+     "valeur": 30330
+    },
+    {
+     "date": "2002-07",
+     "valeur": 31440
+    },
+    {
+     "date": "2002-08",
+     "valeur": 29055
+    },
+    {
+     "date": "2002-09",
+     "valeur": 33079
+    },
+    {
+     "date": "2002-10",
+     "valeur": 33008
+    },
+    {
+     "date": "2002-11",
+     "valeur": 33169
+    },
+    {
+     "date": "2002-12",
+     "valeur": 31853
+    },
+    {
+     "date": "2003-01",
+     "valeur": 31267
+    },
+    {
+     "date": "2003-02",
+     "valeur": 32842
+    },
+    {
+     "date": "2003-03",
+     "valeur": 32693
+    },
+    {
+     "date": "2003-04",
+     "valeur": 33480
+    },
+    {
+     "date": "2003-05",
+     "valeur": 33665
+    },
+    {
+     "date": "2003-06",
+     "valeur": 32632
+    },
+    {
+     "date": "2003-07",
+     "valeur": 36464
+    },
+    {
+     "date": "2003-08",
+     "valeur": 34931
+    },
+    {
+     "date": "2003-09",
+     "valeur": 37036
+    },
+    {
+     "date": "2003-10",
+     "valeur": 35449
+    },
+    {
+     "date": "2003-11",
+     "valeur": 37096
+    },
+    {
+     "date": "2003-12",
+     "valeur": 37277
+    },
+    {
+     "date": "2004-01",
+     "valeur": 38362
+    },
+    {
+     "date": "2004-02",
+     "valeur": 39717
+    },
+    {
+     "date": "2004-03",
+     "valeur": 37838
+    },
+    {
+     "date": "2004-04",
+     "valeur": 40294
+    },
+    {
+     "date": "2004-05",
+     "valeur": 40502
+    },
+    {
+     "date": "2004-06",
+     "valeur": 42047
+    },
+    {
+     "date": "2004-07",
+     "valeur": 40867
+    },
+    {
+     "date": "2004-08",
+     "valeur": 42494
+    },
+    {
+     "date": "2004-09",
+     "valeur": 42958
+    },
+    {
+     "date": "2004-10",
+     "valeur": 43623
+    },
+    {
+     "date": "2004-11",
+     "valeur": 44181
+    },
+    {
+     "date": "2004-12",
+     "valeur": 43708
+    },
+    {
+     "date": "2005-01",
+     "valeur": 45405
+    },
+    {
+     "date": "2005-02",
+     "valeur": 42340
+    },
+    {
+     "date": "2005-03",
+     "valeur": 42800
+    },
+    {
+     "date": "2005-04",
+     "valeur": 44822
+    },
+    {
+     "date": "2005-05",
+     "valeur": 41841
+    },
+    {
+     "date": "2005-06",
+     "valeur": 49243
+    },
+    {
+     "date": "2005-07",
+     "valeur": 46218
+    },
+    {
+     "date": "2005-08",
+     "valeur": 45966
+    },
+    {
+     "date": "2005-09",
+     "valeur": 47119
+    },
+    {
+     "date": "2005-10",
+     "valeur": 45046
+    },
+    {
+     "date": "2005-11",
+     "valeur": 48455
+    },
+    {
+     "date": "2005-12",
+     "valeur": 52559
+    },
+    {
+     "date": "2006-01",
+     "valeur": 49296
+    },
+    {
+     "date": "2006-02",
+     "valeur": 50321
+    },
+    {
+     "date": "2006-03",
+     "valeur": 50672
+    },
+    {
+     "date": "2006-04",
+     "valeur": 52397
+    },
+    {
+     "date": "2006-05",
+     "valeur": 49882
+    },
+    {
+     "date": "2006-06",
+     "valeur": 52601
+    },
+    {
+     "date": "2006-07",
+     "valeur": 49699
+    },
+    {
+     "date": "2006-08",
+     "valeur": 49648
+    },
+    {
+     "date": "2006-09",
+     "valeur": 46108
+    },
+    {
+     "date": "2006-10",
+     "valeur": 50372
+    },
+    {
+     "date": "2006-11",
+     "valeur": 52707
+    },
+    {
+     "date": "2006-12",
+     "valeur": 51416
+    },
+    {
+     "date": "2007-01",
+     "valeur": 46822
+    },
+    {
+     "date": "2007-02",
+     "valeur": 50703
+    },
+    {
+     "date": "2007-03",
+     "valeur": 52566
+    },
+    {
+     "date": "2007-04",
+     "valeur": 47796
+    },
+    {
+     "date": "2007-05",
+     "valeur": 50126
+    },
+    {
+     "date": "2007-06",
+     "valeur": 48911
+    },
+    {
+     "date": "2007-07",
+     "valeur": 47799
+    },
+    {
+     "date": "2007-08",
+     "valeur": 48622
+    },
+    {
+     "date": "2007-09",
+     "valeur": 45251
+    },
+    {
+     "date": "2007-10",
+     "valeur": 47167
+    },
+    {
+     "date": "2007-11",
+     "valeur": 41332
+    },
+    {
+     "date": "2007-12",
+     "valeur": 45777
+    },
+    {
+     "date": "2008-01",
+     "valeur": 45984
+    },
+    {
+     "date": "2008-02",
+     "valeur": 48016
+    },
+    {
+     "date": "2008-03",
+     "valeur": 46839
+    },
+    {
+     "date": "2008-04",
+     "valeur": 42441
+    },
+    {
+     "date": "2008-05",
+     "valeur": 43039
+    },
+    {
+     "date": "2008-06",
+     "valeur": 39497
+    },
+    {
+     "date": "2008-07",
+     "valeur": 37070
+    },
+    {
+     "date": "2008-08",
+     "valeur": 36308
+    },
+    {
+     "date": "2008-09",
+     "valeur": 35737
+    },
+    {
+     "date": "2008-10",
+     "valeur": 38132
+    },
+    {
+     "date": "2008-11",
+     "valeur": 33658
+    },
+    {
+     "date": "2008-12",
+     "valeur": 31509
+    },
+    {
+     "date": "2009-01",
+     "valeur": 32665
+    },
+    {
+     "date": "2009-02",
+     "valeur": 28744
+    },
+    {
+     "date": "2009-03",
+     "valeur": 30580
+    },
+    {
+     "date": "2009-04",
+     "valeur": 30515
+    },
+    {
+     "date": "2009-05",
+     "valeur": 28820
+    },
+    {
+     "date": "2009-06",
+     "valeur": 29229
+    },
+    {
+     "date": "2009-07",
+     "valeur": 32977
+    },
+    {
+     "date": "2009-08",
+     "valeur": 30813
+    },
+    {
+     "date": "2009-09",
+     "valeur": 32869
+    },
+    {
+     "date": "2009-10",
+     "valeur": 35148
+    },
+    {
+     "date": "2009-11",
+     "valeur": 34282
+    },
+    {
+     "date": "2009-12",
+     "valeur": 34571
+    },
+    {
+     "date": "2010-01",
+     "valeur": 35827
+    },
+    {
+     "date": "2010-02",
+     "valeur": 38041
+    },
+    {
+     "date": "2010-03",
+     "valeur": 41799
+    },
+    {
+     "date": "2010-04",
+     "valeur": 40773
+    },
+    {
+     "date": "2010-05",
+     "valeur": 39152
+    },
+    {
+     "date": "2010-06",
+     "valeur": 40391
+    },
+    {
+     "date": "2010-07",
+     "valeur": 43628
+    },
+    {
+     "date": "2010-08",
+     "valeur": 38225
+    },
+    {
+     "date": "2010-09",
+     "valeur": 40685
+    },
+    {
+     "date": "2010-10",
+     "valeur": 39246
+    },
+    {
+     "date": "2010-11",
+     "valeur": 37265
+    },
+    {
+     "date": "2010-12",
+     "valeur": 39413
+    },
+    {
+     "date": "2011-01",
+     "valeur": 43062
+    },
+    {
+     "date": "2011-02",
+     "valeur": 39308
+    },
+    {
+     "date": "2011-03",
+     "valeur": 38865
+    },
+    {
+     "date": "2011-04",
+     "valeur": 40778
+    },
+    {
+     "date": "2011-05",
+     "valeur": 44528
+    },
+    {
+     "date": "2011-06",
+     "valeur": 43562
+    },
+    {
+     "date": "2011-07",
+     "valeur": 45424
+    },
+    {
+     "date": "2011-08",
+     "valeur": 46341
+    },
+    {
+     "date": "2011-09",
+     "valeur": 46681
+    },
+    {
+     "date": "2011-10",
+     "valeur": 41984
+    },
+    {
+     "date": "2011-11",
+     "valeur": 43610
+    },
+    {
+     "date": "2011-12",
+     "valeur": 45105
+    },
+    {
+     "date": "2012-01",
+     "valeur": 41382
+    },
+    {
+     "date": "2012-02",
+     "valeur": 40126
+    },
+    {
+     "date": "2012-03",
+     "valeur": 39791
+    },
+    {
+     "date": "2012-04",
+     "valeur": 43226
+    },
+    {
+     "date": "2012-05",
+     "valeur": 41516
+    },
+    {
+     "date": "2012-06",
+     "valeur": 40350
+    },
+    {
+     "date": "2012-07",
+     "valeur": 39829
+    },
+    {
+     "date": "2012-08",
+     "valeur": 48147
+    },
+    {
+     "date": "2012-09",
+     "valeur": 38302
+    },
+    {
+     "date": "2012-10",
+     "valeur": 38370
+    },
+    {
+     "date": "2012-11",
+     "valeur": 36692
+    },
+    {
+     "date": "2012-12",
+     "valeur": 38828
+    },
+    {
+     "date": "2013-01",
+     "valeur": 41600
+    },
+    {
+     "date": "2013-02",
+     "valeur": 47894
+    },
+    {
+     "date": "2013-03",
+     "valeur": 40096
+    },
+    {
+     "date": "2013-04",
+     "valeur": 33867
+    },
+    {
+     "date": "2013-05",
+     "valeur": 32259
+    },
+    {
+     "date": "2013-06",
+     "valeur": 32584
+    },
+    {
+     "date": "2013-07",
+     "valeur": 31307
+    },
+    {
+     "date": "2013-08",
+     "valeur": 30029
+    },
+    {
+     "date": "2013-09",
+     "valeur": 29817
+    },
+    {
+     "date": "2013-10",
+     "valeur": 33708
+    },
+    {
+     "date": "2013-11",
+     "valeur": 32158
+    },
+    {
+     "date": "2013-12",
+     "valeur": 31844
+    },
+    {
+     "date": "2014-01",
+     "valeur": 31974
+    },
+    {
+     "date": "2014-02",
+     "valeur": 33226
+    },
+    {
+     "date": "2014-03",
+     "valeur": 36169
+    },
+    {
+     "date": "2014-04",
+     "valeur": 28346
+    },
+    {
+     "date": "2014-05",
+     "valeur": 31802
+    },
+    {
+     "date": "2014-06",
+     "valeur": 31139
+    },
+    {
+     "date": "2014-07",
+     "valeur": 32936
+    },
+    {
+     "date": "2014-08",
+     "valeur": 29834
+    },
+    {
+     "date": "2014-09",
+     "valeur": 29663
+    },
+    {
+     "date": "2014-10",
+     "valeur": 30295
+    },
+    {
+     "date": "2014-11",
+     "valeur": 28008
+    },
+    {
+     "date": "2014-12",
+     "valeur": 30467
+    },
+    {
+     "date": "2015-01",
+     "valeur": 31675
+    },
+    {
+     "date": "2015-02",
+     "valeur": 29677
+    },
+    {
+     "date": "2015-03",
+     "valeur": 31577
+    },
+    {
+     "date": "2015-04",
+     "valeur": 32758
+    },
+    {
+     "date": "2015-05",
+     "valeur": 30407
+    },
+    {
+     "date": "2015-06",
+     "valeur": 34892
+    },
+    {
+     "date": "2015-07",
+     "valeur": 32693
+    },
+    {
+     "date": "2015-08",
+     "valeur": 33746
+    },
+    {
+     "date": "2015-09",
+     "valeur": 32056
+    },
+    {
+     "date": "2015-10",
+     "valeur": 34307
+    },
+    {
+     "date": "2015-11",
+     "valeur": 36872
+    },
+    {
+     "date": "2015-12",
+     "valeur": 35840
+    },
+    {
+     "date": "2016-01",
+     "valeur": 34292
+    },
+    {
+     "date": "2016-02",
+     "valeur": 37830
+    },
+    {
+     "date": "2016-03",
+     "valeur": 33657
+    },
+    {
+     "date": "2016-04",
+     "valeur": 38781
+    },
+    {
+     "date": "2016-05",
+     "valeur": 37825
+    },
+    {
+     "date": "2016-06",
+     "valeur": 37114
+    },
+    {
+     "date": "2016-07",
+     "valeur": 37927
+    },
+    {
+     "date": "2016-08",
+     "valeur": 38729
+    },
+    {
+     "date": "2016-09",
+     "valeur": 41616
+    },
+    {
+     "date": "2016-10",
+     "valeur": 38716
+    },
+    {
+     "date": "2016-11",
+     "valeur": 42020
+    },
+    {
+     "date": "2016-12",
+     "valeur": 41781
+    },
+    {
+     "date": "2017-01",
+     "valeur": 35829
+    },
+    {
+     "date": "2017-02",
+     "valeur": 38450
+    },
+    {
+     "date": "2017-03",
+     "valeur": 43444
+    },
+    {
+     "date": "2017-04",
+     "valeur": 39409
+    },
+    {
+     "date": "2017-05",
+     "valeur": 40952
+    },
+    {
+     "date": "2017-06",
+     "valeur": 41888
+    },
+    {
+     "date": "2017-07",
+     "valeur": 43343
+    },
+    {
+     "date": "2017-08",
+     "valeur": 41394
+    },
+    {
+     "date": "2017-09",
+     "valeur": 43518
+    },
+    {
+     "date": "2017-10",
+     "valeur": 39332
+    },
+    {
+     "date": "2017-11",
+     "valeur": 37932
+    },
+    {
+     "date": "2017-12",
+     "valeur": 41187
+    },
+    {
+     "date": "2018-01",
+     "valeur": 37779
+    },
+    {
+     "date": "2018-02",
+     "valeur": 42037
+    },
+    {
+     "date": "2018-03",
+     "valeur": 39040
+    },
+    {
+     "date": "2018-04",
+     "valeur": 39009
+    },
+    {
+     "date": "2018-05",
+     "valeur": 40919
+    },
+    {
+     "date": "2018-06",
+     "valeur": 36168
+    },
+    {
+     "date": "2018-07",
+     "valeur": 35517
+    },
+    {
+     "date": "2018-08",
+     "valeur": 38473
+    },
+    {
+     "date": "2018-09",
+     "valeur": 39850
+    },
+    {
+     "date": "2018-10",
+     "valeur": 38354
+    },
+    {
+     "date": "2018-11",
+     "valeur": 36738
+    },
+    {
+     "date": "2018-12",
+     "valeur": 35855
+    },
+    {
+     "date": "2019-01",
+     "valeur": 37579
+    },
+    {
+     "date": "2019-02",
+     "valeur": 33641
+    },
+    {
+     "date": "2019-03",
+     "valeur": 37398
+    },
+    {
+     "date": "2019-04",
+     "valeur": 39129
+    },
+    {
+     "date": "2019-05",
+     "valeur": 36471
+    },
+    {
+     "date": "2019-06",
+     "valeur": 36692
+    },
+    {
+     "date": "2019-07",
+     "valeur": 36254
+    },
+    {
+     "date": "2019-08",
+     "valeur": 34825
+    },
+    {
+     "date": "2019-09",
+     "valeur": 34695
+    },
+    {
+     "date": "2019-10",
+     "valeur": 41229
+    },
+    {
+     "date": "2019-11",
+     "valeur": 37940
+    },
+    {
+     "date": "2019-12",
+     "valeur": 41183
+    },
+    {
+     "date": "2020-01",
+     "valeur": 40397
+    },
+    {
+     "date": "2020-02",
+     "valeur": 39881
+    },
+    {
+     "date": "2020-03",
+     "valeur": 35255
+    },
+    {
+     "date": "2020-04",
+     "valeur": 16012
+    },
+    {
+     "date": "2020-05",
+     "valeur": 22581
+    },
+    {
+     "date": "2020-06",
+     "valeur": 30931
+    },
+    {
+     "date": "2020-07",
+     "valeur": 29364
+    },
+    {
+     "date": "2020-08",
+     "valeur": 32444
+    },
+    {
+     "date": "2020-09",
+     "valeur": 34420
+    },
+    {
+     "date": "2020-10",
+     "valeur": 36283
+    },
+    {
+     "date": "2020-11",
+     "valeur": 39388
+    },
+    {
+     "date": "2020-12",
+     "valeur": 37096
+    },
+    {
+     "date": "2021-01",
+     "valeur": 37653
+    },
+    {
+     "date": "2021-02",
+     "valeur": 37708
+    },
+    {
+     "date": "2021-03",
+     "valeur": 37717
+    },
+    {
+     "date": "2021-04",
+     "valeur": 39078
+    },
+    {
+     "date": "2021-05",
+     "valeur": 38896
+    },
+    {
+     "date": "2021-06",
+     "valeur": 38383
+    },
+    {
+     "date": "2021-07",
+     "valeur": 39810
+    },
+    {
+     "date": "2021-08",
+     "valeur": 36653
+    },
+    {
+     "date": "2021-09",
+     "valeur": 42221
+    },
+    {
+     "date": "2021-10",
+     "valeur": 39079
+    },
+    {
+     "date": "2021-11",
+     "valeur": 39724
+    },
+    {
+     "date": "2021-12",
+     "valeur": 39008
+    },
+    {
+     "date": "2022-01",
+     "valeur": 40948
+    },
+    {
+     "date": "2022-02",
+     "valeur": 50068
+    },
+    {
+     "date": "2022-03",
+     "valeur": 49714
+    },
+    {
+     "date": "2022-04",
+     "valeur": 45640
+    },
+    {
+     "date": "2022-05",
+     "valeur": 44919
+    },
+    {
+     "date": "2022-06",
+     "valeur": 41198
+    },
+    {
+     "date": "2022-07",
+     "valeur": 40745
+    },
+    {
+     "date": "2022-08",
+     "valeur": 48939
+    },
+    {
+     "date": "2022-09",
+     "valeur": 34121
+    },
+    {
+     "date": "2022-10",
+     "valeur": 29859
+    },
+    {
+     "date": "2022-11",
+     "valeur": 31181
+    },
+    {
+     "date": "2022-12",
+     "valeur": 31011
+    },
+    {
+     "date": "2023-01",
+     "valeur": 33273
+    },
+    {
+     "date": "2023-02",
+     "valeur": 34453
+    },
+    {
+     "date": "2023-03",
+     "valeur": 31540
+    },
+    {
+     "date": "2023-04",
+     "valeur": 32478
+    },
+    {
+     "date": "2023-05",
+     "valeur": 29873
+    },
+    {
+     "date": "2023-06",
+     "valeur": 33151
+    },
+    {
+     "date": "2023-07",
+     "valeur": 30140
+    },
+    {
+     "date": "2023-08",
+     "valeur": 31404
+    },
+    {
+     "date": "2023-09",
+     "valeur": 27187
+    },
+    {
+     "date": "2023-10",
+     "valeur": 31007
+    },
+    {
+     "date": "2023-11",
+     "valeur": 31028
+    },
+    {
+     "date": "2023-12",
+     "valeur": 30865
+    },
+    {
+     "date": "2024-01",
+     "valeur": 28296
+    },
+    {
+     "date": "2024-02",
+     "valeur": 28981
+    },
+    {
+     "date": "2024-03",
+     "valeur": 26150
+    },
+    {
+     "date": "2024-04",
+     "valeur": 25949
+    },
+    {
+     "date": "2024-05",
+     "valeur": 25430
+    },
+    {
+     "date": "2024-06",
+     "valeur": 25748
+    },
+    {
+     "date": "2024-07",
+     "valeur": 27154
+    },
+    {
+     "date": "2024-08",
+     "valeur": 26926
+    },
+    {
+     "date": "2024-09",
+     "valeur": 25157
+    },
+    {
+     "date": "2024-10",
+     "valeur": 27280
+    },
+    {
+     "date": "2024-11",
+     "valeur": 26974
+    },
+    {
+     "date": "2024-12",
+     "valeur": 26620
+    },
+    {
+     "date": "2025-01",
+     "valeur": 26872
+    },
+    {
+     "date": "2025-02",
+     "valeur": 28071
+    },
+    {
+     "date": "2025-03",
+     "valeur": 29722
+    },
+    {
+     "date": "2025-04",
+     "valeur": 34775
+    },
+    {
+     "date": "2025-05",
+     "valeur": 30438
+    },
+    {
+     "date": "2025-06",
+     "valeur": 35311
+    },
+    {
+     "date": "2025-07",
+     "valeur": 32548
+    },
+    {
+     "date": "2025-08",
+     "valeur": 30166
+    },
+    {
+     "date": "2025-09",
+     "valeur": 32356
+    },
+    {
+     "date": "2025-10",
+     "valeur": 29983
+    },
+    {
+     "date": "2025-11",
+     "valeur": 29391
+    },
+    {
+     "date": "2025-12",
+     "valeur": 30872
+    },
+    {
+     "date": "2026-01",
+     "valeur": 30974
+    },
+    {
+     "date": "2026-02",
+     "valeur": 29379
+    },
+    {
+     "date": "2026-03",
+     "valeur": 38386
+    },
+    {
+     "date": "2026-04",
+     "valeur": 26982
+    },
+    {
+     "date": "2026-05",
+     "valeur": 31510
+    },
+    {
+     "date": "2026-06",
+     "valeur": 30068
+    },
+    {
+     "date": "2026-07",
+     "valeur": 30073
+    },
+    {
+     "date": "2026-08",
+     "valeur": 29749
+    }
+   ],
+   "date_consultation": "2026-10-16"
+  },
+  "chomage_bit": {
+   "libelle": "Taux de chômage au sens du BIT",
+   "unite": "%",
+   "frequence": "trimestrielle",
+   "derniere_valeur": 8.3,
+   "date_valeur": "2026-Q2",
+   "date_publication": "2026-08-07",
+   "source_nom": "INSEE",
+   "source_url": "https://www.insee.fr/fr/statistiques/serie/001688527",
+   "source_api": "https://api.insee.fr/series/BDM/data/SERIES_BDM/001688527",
+   "serie_id": "001688527",
+   "note_historique": "Taux de chômage au sens du BIT - Ensemble - France hors Mayotte - Données CVS",
+   "derives": {
+    "variation_trimestre_pt": 0.2,
+    "methode": "Écart en points avec le trimestre précédent."
+   },
+   "historique": [
+    {
+     "date": "1975-Q1",
+     "valeur": 3.2
+    },
+    {
+     "date": "1975-Q2",
+     "valeur": 3.5
+    },
+    {
+     "date": "1975-Q3",
+     "valeur": 3.8
+    },
+    {
+     "date": "1975-Q4",
+     "valeur": 3.9
+    },
+    {
+     "date": "1976-Q1",
+     "valeur": 4.0
+    },
+    {
+     "date": "1976-Q2",
+     "valeur": 4.0
+    },
+    {
+     "date": "1976-Q3",
+     "valeur": 3.9
+    },
+    {
+     "date": "1976-Q4",
+     "valeur": 4.0
+    },
+    {
+     "date": "1977-Q1",
+     "valeur": 4.2
+    },
+    {
+     "date": "1977-Q2",
+     "valeur": 4.5
+    },
+    {
+     "date": "1977-Q3",
+     "valeur": 4.7
+    },
+    {
+     "date": "1977-Q4",
+     "valeur": 4.6
+    },
+    {
+     "date": "1978-Q1",
+     "valeur": 4.5
+    },
+    {
+     "date": "1978-Q2",
+     "valeur": 4.5
+    },
+    {
+     "date": "1978-Q3",
+     "valeur": 4.8
+    },
+    {
+     "date": "1978-Q4",
+     "valeur": 5.0
+    },
+    {
+     "date": "1979-Q1",
+     "valeur": 5.1
+    },
+    {
+     "date": "1979-Q2",
+     "valeur": 5.2
+    },
+    {
+     "date": "1979-Q3",
+     "valeur": 5.3
+    },
+    {
+     "date": "1979-Q4",
+     "valeur": 5.4
+    },
+    {
+     "date": "1980-Q1",
+     "valeur": 5.5
+    },
+    {
+     "date": "1980-Q2",
+     "valeur": 5.5
+    },
+    {
+     "date": "1980-Q3",
+     "valeur": 5.6
+    },
+    {
+     "date": "1980-Q4",
+     "valeur": 5.8
+    },
+    {
+     "date": "1981-Q1",
+     "valeur": 6.2
+    },
+    {
+     "date": "1981-Q2",
+     "valeur": 6.5
+    },
+    {
+     "date": "1981-Q3",
+     "valeur": 6.8
+    },
+    {
+     "date": "1981-Q4",
+     "valeur": 6.9
+    },
+    {
+     "date": "1982-Q1",
+     "valeur": 7.0
+    },
+    {
+     "date": "1982-Q2",
+     "valeur": 7.1
+    },
+    {
+     "date": "1982-Q3",
+     "valeur": 7.2
+    },
+    {
+     "date": "1982-Q4",
+     "valeur": 7.3
+    },
+    {
+     "date": "1983-Q1",
+     "valeur": 7.3
+    },
+    {
+     "date": "1983-Q2",
+     "valeur": 7.3
+    },
+    {
+     "date": "1983-Q3",
+     "valeur": 7.5
+    },
+    {
+     "date": "1983-Q4",
+     "valeur": 7.8
+    },
+    {
+     "date": "1984-Q1",
+     "valeur": 8.2
+    },
+    {
+     "date": "1984-Q2",
+     "valeur": 8.6
+    },
+    {
+     "date": "1984-Q3",
+     "valeur": 8.8
+    },
+    {
+     "date": "1984-Q4",
+     "valeur": 9.0
+    },
+    {
+     "date": "1985-Q1",
+     "valeur": 9.1
+    },
+    {
+     "date": "1985-Q2",
+     "valeur": 9.1
+    },
+    {
+     "date": "1985-Q3",
+     "valeur": 9.1
+    },
+    {
+     "date": "1985-Q4",
+     "valeur": 9.1
+    },
+    {
+     "date": "1986-Q1",
+     "valeur": 9.0
+    },
+    {
+     "date": "1986-Q2",
+     "valeur": 9.1
+    },
+    {
+     "date": "1986-Q3",
+     "valeur": 9.1
+    },
+    {
+     "date": "1986-Q4",
+     "valeur": 9.2
+    },
+    {
+     "date": "1987-Q1",
+     "valeur": 9.3
+    },
+    {
+     "date": "1987-Q2",
+     "valeur": 9.3
+    },
+    {
+     "date": "1987-Q3",
+     "valeur": 9.2
+    },
+    {
+     "date": "1987-Q4",
+     "valeur": 9.1
+    },
+    {
+     "date": "1988-Q1",
+     "valeur": 9.0
+    },
+    {
+     "date": "1988-Q2",
+     "valeur": 8.9
+    },
+    {
+     "date": "1988-Q3",
+     "valeur": 8.9
+    },
+    {
+     "date": "1988-Q4",
+     "valeur": 8.7
+    },
+    {
+     "date": "1989-Q1",
+     "valeur": 8.4
+    },
+    {
+     "date": "1989-Q2",
+     "valeur": 8.3
+    },
+    {
+     "date": "1989-Q3",
+     "valeur": 8.1
+    },
+    {
+     "date": "1989-Q4",
+     "valeur": 8.1
+    },
+    {
+     "date": "1990-Q1",
+     "valeur": 8.1
+    },
+    {
+     "date": "1990-Q2",
+     "valeur": 8.0
+    },
+    {
+     "date": "1990-Q3",
+     "valeur": 8.0
+    },
+    {
+     "date": "1990-Q4",
+     "valeur": 8.0
+    },
+    {
+     "date": "1991-Q1",
+     "valeur": 7.9
+    },
+    {
+     "date": "1991-Q2",
+     "valeur": 8.1
+    },
+    {
+     "date": "1991-Q3",
+     "valeur": 8.3
+    },
+    {
+     "date": "1991-Q4",
+     "valeur": 8.5
+    },
+    {
+     "date": "1992-Q1",
+     "valeur": 8.7
+    },
+    {
+     "date": "1992-Q2",
+     "valeur": 8.9
+    },
+    {
+     "date": "1992-Q3",
+     "valeur": 9.1
+    },
+    {
+     "date": "1992-Q4",
+     "valeur": 9.3
+    },
+    {
+     "date": "1993-Q1",
+     "valeur": 9.6
+    },
+    {
+     "date": "1993-Q2",
+     "valeur": 9.9
+    },
+    {
+     "date": "1993-Q3",
+     "valeur": 10.2
+    },
+    {
+     "date": "1993-Q4",
+     "valeur": 10.5
+    },
+    {
+     "date": "1994-Q1",
+     "valeur": 10.7
+    },
+    {
+     "date": "1994-Q2",
+     "valeur": 10.7
+    },
+    {
+     "date": "1994-Q3",
+     "valeur": 10.6
+    },
+    {
+     "date": "1994-Q4",
+     "valeur": 10.4
+    },
+    {
+     "date": "1995-Q1",
+     "valeur": 10.2
+    },
+    {
+     "date": "1995-Q2",
+     "valeur": 9.9
+    },
+    {
+     "date": "1995-Q3",
+     "valeur": 9.8
+    },
+    {
+     "date": "1995-Q4",
+     "valeur": 9.9
+    },
+    {
+     "date": "1996-Q1",
+     "valeur": 10.2
+    },
+    {
+     "date": "1996-Q2",
+     "valeur": 10.5
+    },
+    {
+     "date": "1996-Q3",
+     "valeur": 10.5
+    },
+    {
+     "date": "1996-Q4",
+     "valeur": 10.6
+    },
+    {
+     "date": "1997-Q1",
+     "valeur": 10.7
+    },
+    {
+     "date": "1997-Q2",
+     "valeur": 10.7
+    },
+    {
+     "date": "1997-Q3",
+     "valeur": 10.6
+    },
+    {
+     "date": "1997-Q4",
+     "valeur": 10.5
+    },
+    {
+     "date": "1998-Q1",
+     "valeur": 10.3
+    },
+    {
+     "date": "1998-Q2",
+     "valeur": 10.2
+    },
+    {
+     "date": "1998-Q3",
+     "valeur": 10.1
+    },
+    {
+     "date": "1998-Q4",
+     "valeur": 10.2
+    },
+    {
+     "date": "1999-Q1",
+     "valeur": 10.2
+    },
+    {
+     "date": "1999-Q2",
+     "valeur": 10.2
+    },
+    {
+     "date": "1999-Q3",
+     "valeur": 9.9
+    },
+    {
+     "date": "1999-Q4",
+     "valeur": 9.5
+    },
+    {
+     "date": "2000-Q1",
+     "valeur": 9.1
+    },
+    {
+     "date": "2000-Q2",
+     "valeur": 8.7
+    },
+    {
+     "date": "2000-Q3",
+     "valeur": 8.4
+    },
+    {
+     "date": "2000-Q4",
+     "valeur": 8.0
+    },
+    {
+     "date": "2001-Q1",
+     "valeur": 7.8
+    },
+    {
+     "date": "2001-Q2",
+     "valeur": 7.7
+    },
+    {
+     "date": "2001-Q3",
+     "valeur": 7.7
+    },
+    {
+     "date": "2001-Q4",
+     "valeur": 7.8
+    },
+    {
+     "date": "2002-Q1",
+     "valeur": 7.8
+    },
+    {
+     "date": "2002-Q2",
+     "valeur": 7.9
+    },
+    {
+     "date": "2002-Q3",
+     "valeur": 7.9
+    },
+    {
+     "date": "2002-Q4",
+     "valeur": 7.9
+    },
+    {
+     "date": "2003-Q1",
+     "valeur": 8.4
+    },
+    {
+     "date": "2003-Q2",
+     "valeur": 8.5
+    },
+    {
+     "date": "2003-Q3",
+     "valeur": 8.4
+    },
+    {
+     "date": "2003-Q4",
+     "valeur": 8.8
+    },
+    {
+     "date": "2004-Q1",
+     "valeur": 9.0
+    },
+    {
+     "date": "2004-Q2",
+     "valeur": 8.8
+    },
+    {
+     "date": "2004-Q3",
+     "valeur": 8.8
+    },
+    {
+     "date": "2004-Q4",
+     "valeur": 8.9
+    },
+    {
+     "date": "2005-Q1",
+     "valeur": 8.6
+    },
+    {
+     "date": "2005-Q2",
+     "valeur": 8.8
+    },
+    {
+     "date": "2005-Q3",
+     "valeur": 9.0
+    },
+    {
+     "date": "2005-Q4",
+     "valeur": 9.1
+    },
+    {
+     "date": "2006-Q1",
+     "valeur": 9.2
+    },
+    {
+     "date": "2006-Q2",
+     "valeur": 9.0
+    },
+    {
+     "date": "2006-Q3",
+     "valeur": 8.9
+    },
+    {
+     "date": "2006-Q4",
+     "valeur": 8.4
+    },
+    {
+     "date": "2007-Q1",
+     "valeur": 8.5
+    },
+    {
+     "date": "2007-Q2",
+     "valeur": 8.1
+    },
+    {
+     "date": "2007-Q3",
+     "valeur": 8.0
+    },
+    {
+     "date": "2007-Q4",
+     "valeur": 7.5
+    },
+    {
+     "date": "2008-Q1",
+     "valeur": 7.2
+    },
+    {
+     "date": "2008-Q2",
+     "valeur": 7.3
+    },
+    {
+     "date": "2008-Q3",
+     "valeur": 7.4
+    },
+    {
+     "date": "2008-Q4",
+     "valeur": 7.8
+    },
+    {
+     "date": "2009-Q1",
+     "valeur": 8.6
+    },
+    {
+     "date": "2009-Q2",
+     "valeur": 9.2
+    },
+    {
+     "date": "2009-Q3",
+     "valeur": 9.2
+    },
+    {
+     "date": "2009-Q4",
+     "valeur": 9.6
+    },
+    {
+     "date": "2010-Q1",
+     "valeur": 9.3
+    },
+    {
+     "date": "2010-Q2",
+     "valeur": 9.3
+    },
+    {
+     "date": "2010-Q3",
+     "valeur": 9.2
+    },
+    {
+     "date": "2010-Q4",
+     "valeur": 9.2
+    },
+    {
+     "date": "2011-Q1",
+     "valeur": 9.1
+    },
+    {
+     "date": "2011-Q2",
+     "valeur": 9.1
+    },
+    {
+     "date": "2011-Q3",
+     "valeur": 9.2
+    },
+    {
+     "date": "2011-Q4",
+     "valeur": 9.4
+    },
+    {
+     "date": "2012-Q1",
+     "valeur": 9.4
+    },
+    {
+     "date": "2012-Q2",
+     "valeur": 9.7
+    },
+    {
+     "date": "2012-Q3",
+     "valeur": 9.8
+    },
+    {
+     "date": "2012-Q4",
+     "valeur": 10.2
+    },
+    {
+     "date": "2013-Q1",
+     "valeur": 10.3
+    },
+    {
+     "date": "2013-Q2",
+     "valeur": 10.4
+    },
+    {
+     "date": "2013-Q3",
+     "valeur": 10.3
+    },
+    {
+     "date": "2013-Q4",
+     "valeur": 10.1
+    },
+    {
+     "date": "2014-Q1",
+     "valeur": 10.1
+    },
+    {
+     "date": "2014-Q2",
+     "valeur": 10.2
+    },
+    {
+     "date": "2014-Q3",
+     "valeur": 10.3
+    },
+    {
+     "date": "2014-Q4",
+     "valeur": 10.5
+    },
+    {
+     "date": "2015-Q1",
+     "valeur": 10.3
+    },
+    {
+     "date": "2015-Q2",
+     "valeur": 10.5
+    },
+    {
+     "date": "2015-Q3",
+     "valeur": 10.4
+    },
+    {
+     "date": "2015-Q4",
+     "valeur": 10.2
+    },
+    {
+     "date": "2016-Q1",
+     "valeur": 10.2
+    },
+    {
+     "date": "2016-Q2",
+     "valeur": 10.0
+    },
+    {
+     "date": "2016-Q3",
+     "valeur": 9.9
+    },
+    {
+     "date": "2016-Q4",
+     "valeur": 10.0
+    },
+    {
+     "date": "2017-Q1",
+     "valeur": 9.6
+    },
+    {
+     "date": "2017-Q2",
+     "valeur": 9.5
+    },
+    {
+     "date": "2017-Q3",
+     "valeur": 9.5
+    },
+    {
+     "date": "2017-Q4",
+     "valeur": 9.0
+    },
+    {
+     "date": "2018-Q1",
+     "valeur": 9.3
+    },
+    {
+     "date": "2018-Q2",
+     "valeur": 9.1
+    },
+    {
+     "date": "2018-Q3",
+     "valeur": 8.9
+    },
+    {
+     "date": "2018-Q4",
+     "valeur": 8.8
+    },
+    {
+     "date": "2019-Q1",
+     "valeur": 8.8
+    },
+    {
+     "date": "2019-Q2",
+     "valeur": 8.4
+    },
+    {
+     "date": "2019-Q3",
+     "valeur": 8.3
+    },
+    {
+     "date": "2019-Q4",
+     "valeur": 8.2
+    },
+    {
+     "date": "2020-Q1",
+     "valeur": 7.9
+    },
+    {
+     "date": "2020-Q2",
+     "valeur": 7.1
+    },
+    {
+     "date": "2020-Q3",
+     "valeur": 9.0
+    },
+    {
+     "date": "2020-Q4",
+     "valeur": 8.1
+    },
+    {
+     "date": "2021-Q1",
+     "valeur": 8.2
+    },
+    {
+     "date": "2021-Q2",
+     "valeur": 7.9
+    },
+    {
+     "date": "2021-Q3",
+     "valeur": 7.9
+    },
+    {
+     "date": "2021-Q4",
+     "valeur": 7.4
+    },
+    {
+     "date": "2022-Q1",
+     "valeur": 7.4
+    },
+    {
+     "date": "2022-Q2",
+     "valeur": 7.4
+    },
+    {
+     "date": "2022-Q3",
+     "valeur": 7.2
+    },
+    {
+     "date": "2022-Q4",
+     "valeur": 7.2
+    },
+    {
+     "date": "2023-Q1",
+     "valeur": 7.1
+    },
+    {
+     "date": "2023-Q2",
+     "valeur": 7.2
+    },
+    {
+     "date": "2023-Q3",
+     "valeur": 7.4
+    },
+    {
+     "date": "2023-Q4",
+     "valeur": 7.6
+    },
+    {
+     "date": "2024-Q1",
+     "valeur": 7.5
+    },
+    {
+     "date": "2024-Q2",
+     "valeur": 7.3
+    },
+    {
+     "date": "2024-Q3",
+     "valeur": 7.4
+    },
+    {
+     "date": "2024-Q4",
+     "valeur": 7.3
+    },
+    {
+     "date": "2025-Q1",
+     "valeur": 7.4
+    },
+    {
+     "date": "2025-Q2",
+     "valeur": 7.5
+    },
+    {
+     "date": "2025-Q3",
+     "valeur": 7.7
+    },
+    {
+     "date": "2025-Q4",
+     "valeur": 7.9
+    },
+    {
+     "date": "2026-Q1",
+     "valeur": 8.1
+    },
+    {
+     "date": "2026-Q2",
+     "valeur": 8.3
+    }
+   ],
+   "date_consultation": "2026-10-16"
+  }
+ }
+}

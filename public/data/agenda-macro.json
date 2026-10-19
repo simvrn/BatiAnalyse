@@ -1,0 +1,47 @@
+{
+ "note": "Saisi à la main depuis le calendrier officiel de la BCE (date du deuxième jour de réunion, jour de la décision). L'API de données ne publie pas ce calendrier.",
+ "source_url": "https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html",
+ "date_verification": "2026-10-16",
+ "evenements": [
+  {
+   "date": "2026-10-29",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2026-12-17",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-02-04",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-03-18",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-04-29",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-06-10",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-07-22",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-09-09",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-10-28",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  },
+  {
+   "date": "2027-12-16",
+   "libelle": "Réunion de politique monétaire de la BCE, décision sur les taux (Francfort)"
+  }
+ ]
+}

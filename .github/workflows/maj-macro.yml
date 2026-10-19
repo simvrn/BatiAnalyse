@@ -1,0 +1,45 @@
+name: Mise à jour des données macro
+
+on:
+  schedule:
+    - cron: '0 5 * * *'   # tous les jours à 5h UTC (7h à Paris en été, 6h en hiver)
+  workflow_dispatch:       # lancement manuel possible depuis l'onglet Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maj-macro
+  cancel-in-progress: false
+
+jobs:
+  maj:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Télécharger les 3 séries
+        id: maj
+        continue-on-error: true
+        run: python3 scripts/maj_macro.py
+
+      - name: Vérifier le format de macro.json
+        run: python3 scripts/test_macro.py
+
+      - name: Commit si les données ont changé
+        run: |
+          if git diff --quiet -- public/data/macro.json; then
+            echo "Aucune donnée nouvelle, pas de commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/macro.json
+          git commit -m "data: mise à jour des indicateurs macro"
+          git push
+
+      - name: Signaler une source en erreur
+        if: steps.maj.outcome == 'failure'
+        run: |
+          echo "::error::Au moins une source macro est en erreur. Les dernières données valides ont été conservées. Voir l'étape « Télécharger les 3 séries »."
+          exit 1
