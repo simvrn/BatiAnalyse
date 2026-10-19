@@ -29,7 +29,7 @@
       <p class="fil"><a href="/">BatiAnalyse</a> / Valeurs cotées</p>
       <h1>Valeurs BTP et construction</h1>
       <div class="ligne-sous">
-        <p class="maj" id="pageSubtitle"><span id="stockCount">14</span> entreprises cotées. Chargement en cours.</p>
+        <p class="maj" id="pageSubtitle"><span id="stockCount"></span> entreprises françaises cotées. Chargement en cours.</p>
         <div class="chiffres n">
           <div><small>Indice BTP du jour</small><strong id="statIndexBTP">…</strong></div>
           <div><small>En hausse</small><strong id="statHausse" class="up">…</strong></div>
@@ -43,18 +43,13 @@
     <nav class="lateral sidebar" aria-label="Filtres">
       <div>
         <h4>Par secteur</h4>
-        <button type="button" class="sidebar-item active" onclick="sidebarFilter('tous')">Toutes les valeurs <small>14</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilter('construction')">Construction <small>5</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilter('materiaux')">Matériaux <small>3</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilter('promotion')">Promotion immobilière <small>3</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilter('equipement')">Équipements <small>2</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilter('infrastructure')">Infrastructures <small>1</small></button>
+        <button type="button" class="sidebar-item active" onclick="sidebarFilter('tous')">Toutes les valeurs <small data-count="tous"></small></button>
+        <button type="button" class="sidebar-item" onclick="sidebarFilter('construction')">Construction <small data-count="construction"></small></button>
+        <button type="button" class="sidebar-item" onclick="sidebarFilter('materiaux')">Matériaux <small data-count="materiaux"></small></button>
+        <button type="button" class="sidebar-item" onclick="sidebarFilter('promotion')">Promotion immobilière <small data-count="promotion"></small></button>
+        <button type="button" class="sidebar-item" onclick="sidebarFilter('equipement')">Équipements <small data-count="equipement"></small></button>
       </div>
       <div>
-        <h4>Par pays</h4>
-        <button type="button" class="sidebar-item" onclick="sidebarFilterPays('FR')">France <small>12</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilterPays('GB')">Royaume-Uni <small>1</small></button>
-        <button type="button" class="sidebar-item" onclick="sidebarFilterPays('BE')">Belgique <small>1</small></button>
         <h4>Outils</h4>
         <button type="button" class="cal-open-btn" onclick="openCalendar()">Agenda investisseurs</button>
       </div>
@@ -111,7 +106,7 @@
         <p class="empty-sub">Modifiez vos filtres ou votre recherche.</p>
       </div>
 
-      <p class="note">Affichage de <span id="resultCount">14</span> valeurs. Données indicatives, source : Google Finance. Ce n'est pas un conseil en investissement. La barre montre l'écart du jour : à droite du trait, la valeur monte, à gauche, elle baisse.</p>
+      <p class="note">Affichage de <span id="resultCount"></span> valeurs. Données indicatives, source : Google Finance. Ce n'est pas un conseil en investissement. La barre montre l'écart du jour : à droite du trait, la valeur monte, à gauche, elle baisse.</p>
 
       <!-- ARTICLES VALEURS (catégorie 7) -->
       <section class="section-articles">
@@ -148,7 +143,7 @@
     <div class="cal-panel-head">
       <div>
         <h2 class="cal-h1">Agenda investisseurs</h2>
-        <p class="cal-hsub">Résultats, AG, dividendes. 14 valeurs BTP cotées, 2026.</p>
+        <p class="cal-hsub">Résultats, AG, dividendes. <span id="calCount"></span> valeurs BTP françaises cotées, 2026.</p>
       </div>
       <button class="cal-x" onclick="closeCalendar()" aria-label="Fermer">Fermer</button>
     </div>
@@ -160,7 +155,6 @@
         <button type="button" class="cal-sec-item" data-sec="materiaux" onclick="filterCal('materiaux')">Matériaux <small class="cal-sec-n" id="cbn-materiaux"></small></button>
         <button type="button" class="cal-sec-item" data-sec="promotion" onclick="filterCal('promotion')">Promotion immobilière <small class="cal-sec-n" id="cbn-promotion"></small></button>
         <button type="button" class="cal-sec-item" data-sec="equipement" onclick="filterCal('equipement')">Équipements <small class="cal-sec-n" id="cbn-equipement"></small></button>
-        <button type="button" class="cal-sec-item" data-sec="infrastructure" onclick="filterCal('infrastructure')">Infrastructures <small class="cal-sec-n" id="cbn-infrastructure"></small></button>
       </div>
       <div class="cal-events-pane" id="calMain"></div>
     </div>
@@ -202,8 +196,6 @@ const stocks = [
   { id:'vicat', ticker:'VCT.PA', tvSymbol:'EURONEXT:VCT', name:'Vicat', secteur:'materiaux', pays:'FR', price:32.70, change:0.80, ytd:6.2, cap:1.2, pe:9.8, marge:'10,3%', carnet:'—', signal:'buy', desc:'Vicat, cimentier franco-mondial, opère dans 12 pays avec une exposition significative aux marchés émergents (Inde, Afrique, Moyen-Orient). Sa stratégie de décarbonation du béton et ses investissements dans les ciments alternatifs le positionnent favorablement dans la transition bas-carbone du secteur.', articles:['Vicat : les marchés émergents comme relais de croissance','Décarbonation du ciment — qui prend le mieux le virage ?','Valorisation à 9x : la décote des cimentiers est-elle justifiée ?'] },
   { id:'bassac', ticker:'BA.PA', tvSymbol:'EURONEXT:BA', name:'Bassac', secteur:'promotion', pays:'FR', price:42.10, change:1.20, ytd:8.9, cap:0.5, pe:7.2, marge:'6,4%', carnet:'1,2 Md€', signal:'buy', desc:'Bassac (ex-Pierre & Vacances Développement) est un promoteur immobilier familial discret mais régulièrement profitable. Sa gestion prudente du foncier, sa présence sur les marchés régionaux dynamiques et sa politique de dividende constante en font une valeur de fond de portefeuille sur le segment promotion.', articles:['Bassac : le promoteur discret que les analystes ignorent','Résultats 2025 : marge nette à 6,4%, dans le haut de la fourchette','Valeur patrimoniale vs cours de bourse : la décote persiste'] },
   { id:'spie', ticker:'SPIE.PA', tvSymbol:'EURONEXT:SPIE', name:'Spie', secteur:'construction', pays:'FR', price:36.80, change:0.90, ytd:9.4, cap:4.1, pe:15.6, marge:'5,2%', carnet:'12 Md€', signal:'hold', desc:'Spie est un leader européen des services multi-techniques dans les domaines de l\'énergie et des communications. Son modèle de services récurrents et sa forte exposition à la rénovation énergétique des bâtiments lui confèrent une visibilité supérieure à la moyenne du secteur. La croissance externe reste un axe central de développement.', articles:['Spie : services multi-techniques, la valeur récurrence','Transition énergétique — Spie en première ligne','LBO to blue chip : l\'histoire financière remarquable de Spie'] },
-  { id:'cofinimmo', ticker:'COFB.BR', tvSymbol:'EURONEXT:COFB', name:'Cofinimmo', secteur:'infrastructure', pays:'BE', price:62.40, change:-0.85, ytd:-4.2, cap:2.8, pe:18.1, marge:'45,2%', carnet:'—', signal:'watch', desc:'Cofinimmo est la plus grande foncière cotée belge, spécialisée dans l\'immobilier de santé, les bureaux et la distribution. Dans un contexte de taux élevés, sa décote sur ANR reste importante mais la qualité de ses actifs de santé (EHPAD, cliniques) lui confère une résilience défensive. La remontée des taux pèse structurellement sur sa valorisation.', articles:['Cofinimmo : la foncière santé résiste aux taux hauts','ANR vs cours : décote à 25%, opportunité ou value trap ?','Portefeuille EHPAD — la carte de la démographie'] },
-  { id:'balfour', ticker:'BBY.L', tvSymbol:'LSE:BBY', name:'Balfour Beatty', secteur:'construction', pays:'GB', price:412.00, change:1.85, ytd:14.2, cap:2.9, pe:12.4, marge:'3,1%', carnet:'18 Md€', signal:'hold', desc:'Balfour Beatty est l\'un des leaders britanniques du BTP, positionné sur les infrastructures, la construction civile et les PPP. Le groupe bénéficie du grand plan d\'investissement infrastructures du Royaume-Uni post-Brexit. Son portefeuille PPP représente un actif sous-valorisé au bilan qui soutient la valeur fondamentale.', articles:['Balfour Beatty : le plan infra UK comme catalyseur','PPP portfolio — actif caché dans le bilan','Construction UK : qui profite vraiment des 100Md£ d\'investissements ?'] },
   { id:'schneider', ticker:'SU.PA', tvSymbol:'EURONEXT:SU', name:'Schneider Electric', secteur:'equipement', pays:'FR', price:228.50, change:0.72, ytd:18.6, cap:126.0, pe:31.2, marge:'17,8%', carnet:'—', signal:'hold', desc:'Schneider Electric, bien que non exclusivement BTP, est incontournable dans l\'analyse du secteur de l\'efficacité énergétique des bâtiments. Son exposition à la gestion intelligente de l\'énergie, aux data centers et à l\'électrification en fait un bénéficiaire direct de toutes les grandes tendances structurelles du bâtiment durable.', articles:['Schneider Electric : la convergence bâtiment-numérique-énergie','Data centers — la bonne surprise dans les résultats 2025','Premium 31x : la juste valeur d\'un leader de la transition'] },
 ];
 
@@ -281,17 +273,6 @@ const AGENDA = {
     { date:'2026-06-25', type:'dividende', label:'Détachement dividende (0,74 €)' },
     { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
   ],
-  cofinimmo: [
-    { date:'2026-02-25', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-05-08', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-05-20', type:'dividende', label:'Versement acompte dividende' },
-    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  balfour: [
-    { date:'2026-03-04', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-05-14', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-08-12', type:'resultats', label:'Résultats S1 2026' },
-  ],
   schneider: [
     { date:'2026-02-13', type:'resultats', label:'Résultats annuels 2025' },
     { date:'2026-04-23', type:'ag',        label:'Assemblée Générale 2026' },
@@ -301,7 +282,7 @@ const AGENDA = {
   ],
 };
 
-const CAL_SECTORS = ['tous','construction','materiaux','promotion','equipement','infrastructure'];
+const CAL_SECTORS = ['tous','construction','materiaux','promotion','equipement'];
 let calActiveSec = 'tous';
 
 function openCalendar() {
@@ -792,7 +773,7 @@ async function loadLiveQuotes() {
       const dateStr = now.toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long', year:'numeric' })
       const timeStr = now.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) + ' CET'
       const sub     = document.getElementById('pageSubtitle')
-      if (sub) sub.innerHTML = `<span id="stockCount">${stocks.length}</span> entreprises cotées. Mis à jour le ${dateStr} à ${timeStr.replace(':', 'h')}.`
+      if (sub) sub.innerHTML = `<span id="stockCount">${stocks.length}</span> entreprises françaises cotées. Mis à jour le ${dateStr} à ${timeStr.replace(':', 'h')}.`
 
       render()
     }
@@ -805,6 +786,12 @@ async function loadLiveQuotes() {
 
 // Initialiser le compteur d'entreprises dès le chargement
 document.getElementById('stockCount').textContent = stocks.length
+document.getElementById('calCount').textContent = stocks.length
+// Compteurs du filtre par secteur, calculés depuis la liste des valeurs
+document.querySelectorAll('[data-count]').forEach(el => {
+  const sec = el.dataset.count
+  el.textContent = sec === 'tous' ? stocks.length : stocks.filter(s => s.secteur === sec).length
+})
 
 // ═══════════════════════════════════════════════════════
 // CONFIG SECTIONS WORDPRESS : ajouter une entrée par section
