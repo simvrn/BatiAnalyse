@@ -1,0 +1,17 @@
+{
+ "note": "Dates reprises uniquement des calendriers officiels des entreprises. Sans date publiée, l'événement est « À confirmer ».",
+ "evenements": [
+  {"entreprise": "schneider", "type": "resultats", "libelle": "Résultats semestriels 2026", "date": "2026-07-30", "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "operation", "libelle": "Accord pour l'acquisition de PTC", "date": "2026-10-05", "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "ca", "libelle": "Chiffre d'affaires du troisième trimestre 2026", "date": "2026-10-16", "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "operation", "libelle": "Fin du programme de rachat d'actions", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "operation", "libelle": "Vote des actionnaires de PTC et autorisations réglementaires", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "operation", "libelle": "Finalisation de l'acquisition de Shelly", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "resultats", "libelle": "Résultats annuels 2026", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "rapport", "libelle": "Rapport annuel 2026", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "ca", "libelle": "Chiffre d'affaires du premier trimestre 2027", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "ag", "libelle": "Assemblée générale 2027", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "dividende", "libelle": "Détachement du dividende 2026", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"},
+  {"entreprise": "schneider", "type": "dividende", "libelle": "Paiement du dividende 2026", "date": null, "source_url": "https://www.se.com/ww/fr/about-us/investor-relations/financial-calendar-and-events", "date_verification": "2026-10-19"}
+ ]
+}

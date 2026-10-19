@@ -143,7 +143,7 @@
     <div class="cal-panel-head">
       <div>
         <h2 class="cal-h1">Agenda investisseurs</h2>
-        <p class="cal-hsub">Résultats, AG, dividendes. <span id="calCount"></span> valeurs BTP françaises cotées, 2026.</p>
+        <p class="cal-hsub">Résultats, AG, dividendes. <span id="calCount"></span> valeurs BTP françaises cotées.</p>
       </div>
       <button class="cal-x" onclick="closeCalendar()" aria-label="Fermer">Fermer</button>
     </div>
@@ -203,84 +203,17 @@ const stocks = [
 stocks.forEach(s => { if (s.perf_1an === undefined) s.perf_1an = null })
 
 // ── AGENDA INVESTISSEURS ──
-const AGENDA = {
-  vinci: [
-    { date:'2026-02-05', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-17', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-04-24', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-04-28', type:'dividende', label:'Détachement dividende (2,13 €)' },
-    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  eiffage: [
-    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-23', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-04-30', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-07-31', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  bouygues: [
-    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-24', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-05-08', type:'dividende', label:'Détachement dividende (1,80 €)' },
-    { date:'2026-05-15', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  'saint-gobain': [
-    { date:'2026-02-26', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-24', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-06-05', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-06-11', type:'dividende', label:'Détachement dividende (2,00 €)' },
-    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  nexity: [
-    { date:'2026-02-19', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-06-18', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-07-24', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  kaufman: [
-    { date:'2026-02-05', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-10', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-06-03', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-06-18', type:'dividende', label:'Détachement dividende (2,50 €)' },
-    { date:'2026-10-08', type:'resultats', label:'Résultats 9 mois 2026' },
-  ],
-  imerys: [
-    { date:'2026-02-25', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-30', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-05-12', type:'dividende', label:'Détachement dividende (0,65 €)' },
-    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  legrand: [
-    { date:'2026-02-12', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-29', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-05-28', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-06-05', type:'dividende', label:'Détachement dividende (1,80 €)' },
-    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  vicat: [
-    { date:'2026-03-11', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-06-04', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-08-05', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  bassac: [
-    { date:'2026-03-26', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-05-27', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-09-25', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  spie: [
-    { date:'2026-03-05', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-05-06', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-05-14', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-06-25', type:'dividende', label:'Détachement dividende (0,74 €)' },
-    { date:'2026-07-29', type:'resultats', label:'Résultats S1 2026' },
-  ],
-  schneider: [
-    { date:'2026-02-13', type:'resultats', label:'Résultats annuels 2025' },
-    { date:'2026-04-23', type:'ag',        label:'Assemblée Générale 2026' },
-    { date:'2026-04-30', type:'ca',        label:"Chiffre d'affaires T1 2026" },
-    { date:'2026-05-05', type:'dividende', label:'Détachement dividende (3,80 €)' },
-    { date:'2026-07-30', type:'resultats', label:'Résultats S1 2026' },
-  ],
-};
+// Événements lus dans /data/calendrier.json (dates des calendriers officiels uniquement).
+// Une entrée sans date publiée (date: null) s'affiche « À confirmer ».
+let AGENDA = {};
+fetch('/data/calendrier.json', { cache: 'no-cache' })
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(d => {
+    AGENDA = {};
+    (d.evenements || []).forEach(ev => { (AGENDA[ev.entreprise] = AGENDA[ev.entreprise] || []).push(ev) });
+    if (document.getElementById('calOverlay').classList.contains('open')) { updateCalCounts(); renderCalendar(calActiveSec) }
+  })
+  .catch(() => {});
 
 const CAL_SECTORS = ['tous','construction','materiaux','promotion','equipement'];
 let calActiveSec = 'tous';
@@ -326,54 +259,63 @@ function updateCalCounts() {
 
 function renderCalendar(sec) {
   const today = new Date(); today.setHours(0,0,0,0);
-  const TYPE_LABEL = { resultats:'Résultats', ag:'AG', dividende:'Dividende', ca:"CA" };
+  const TYPE_LABEL = { resultats:'Résultats', ag:'AG', dividende:'Dividende', ca:'CA', operation:'Opération', rapport:'Rapport' };
+  const fmtVerif = iso => new Date(iso + 'T00:00:00').toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
 
   const evs = [];
   stocks.forEach(s => {
     if (sec !== 'tous' && s.secteur !== sec) return;
     (AGENDA[s.id] || []).forEach(ev => evs.push({ ...ev, stock: s }));
   });
-  evs.sort((a, b) => new Date(a.date) - new Date(b.date));
+  const dates = evs.filter(ev => ev.date).sort((a, b) => a.date.localeCompare(b.date));
+  const avenir = dates.filter(ev => new Date(ev.date + 'T00:00:00') >= today);
+  const passes = dates.filter(ev => new Date(ev.date + 'T00:00:00') < today).reverse();
+  const aConfirmer = evs.filter(ev => !ev.date);
 
-  const months = {};
-  evs.forEach(ev => {
-    const d = new Date(ev.date);
-    const key = d.getFullYear() + '-' + String(d.getMonth()).padStart(2, '0');
-    if (!months[key]) months[key] = {
-      label: d.toLocaleDateString('fr-FR', { month:'long', year:'numeric' }),
-      evs: []
-    };
-    months[key].evs.push(ev);
-  });
-
-  let html = '';
-  if (!Object.keys(months).length) {
-    html = '<div class="cal-empty">Aucun événement pour ce secteur.</div>';
-  } else {
-    Object.values(months).forEach(m => {
-      html += `<div class="cal-month-block">
-        <div class="cal-month-head">
-          <span>${m.label}</span>
-          <span class="cal-month-n">${m.evs.length} ${m.evs.length > 1 ? 'événements' : 'événement'}</span>
-        </div>`;
-      m.evs.forEach(ev => {
-        const d = new Date(ev.date);
-        const isPast = d < today;
-        const isSoon = !isPast && (d - today) < 14 * 86400000;
-        const dayStr = d.toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
-        const cls = isPast ? 'past' : (isSoon ? 'soon' : '');
-        html += `<div class="cal-ev">
-          <div class="cal-ev-day ${cls}">${dayStr}</div>
+  const ligne = (ev, cls, jour) => `<div class="cal-ev">
+          <div class="cal-ev-day ${cls}">${jour}</div>
           <div class="cal-ev-badge ${ev.type}">${TYPE_LABEL[ev.type] || ev.type}</div>
           <div class="cal-ev-co">
             <span class="cal-ev-name">${ev.stock.name}</span>
             <span class="cal-ev-ticker">${ev.stock.ticker}</span>
           </div>
-          <div class="cal-ev-lbl">${ev.label}</div>
+          <div class="cal-ev-lbl">${ev.label || ev.libelle}<br><small><a href="${ev.lien_communique || ev.source_url}" target="_blank" rel="noopener">Source</a>, vérifié le ${fmtVerif(ev.date_verification)}</small></div>
         </div>`;
+  const jourDe = ev => new Date(ev.date + 'T00:00:00').toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
+  const nb = n => `${n} ${n > 1 ? 'événements' : 'événement'}`;
+
+  let html = '';
+  if (!evs.length) {
+    html = '<div class="cal-empty">Aucun événement pour ce secteur.</div>';
+  } else {
+    const months = {};
+    avenir.forEach(ev => {
+      const d = new Date(ev.date + 'T00:00:00');
+      const key = ev.date.slice(0, 7);
+      if (!months[key]) months[key] = { label: d.toLocaleDateString('fr-FR', { month:'long', year:'numeric' }), evs: [] };
+      months[key].evs.push(ev);
+    });
+    Object.values(months).forEach(m => {
+      html += `<div class="cal-month-block">
+        <div class="cal-month-head"><span>${m.label}</span><span class="cal-month-n">${nb(m.evs.length)}</span></div>`;
+      m.evs.forEach(ev => {
+        const isSoon = (new Date(ev.date + 'T00:00:00') - today) < 14 * 86400000;
+        html += ligne(ev, isSoon ? 'soon' : '', jourDe(ev));
       });
       html += '</div>';
     });
+    if (aConfirmer.length) {
+      html += `<div class="cal-month-block">
+        <div class="cal-month-head"><span>À confirmer</span><span class="cal-month-n">${nb(aConfirmer.length)}</span></div>
+        ${aConfirmer.map(ev => ligne(ev, 'past', 'À confirmer')).join('')}
+      </div>`;
+    }
+    if (passes.length) {
+      html += `<details class="cal-month-block">
+        <summary class="cal-month-head" style="cursor:pointer"><span>Événements passés</span><span class="cal-month-n">${nb(passes.length)}</span></summary>
+        ${passes.map(ev => ligne(ev, 'past', jourDe(ev))).join('')}
+      </details>`;
+    }
   }
   document.getElementById('calMain').innerHTML = html;
 }
