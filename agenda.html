@@ -30,7 +30,7 @@
       <p class="fil"><a href="/">BatiAnalyse</a> / <a href="/valeurs-cotees.html">Valeurs</a> / Agenda investisseurs</p>
       <h1>Agenda investisseurs</h1>
       <div class="ligne-sous">
-        <p class="maj">Résultats, chiffres d'affaires, assemblées générales et dividendes des valeurs BTP françaises cotées. Dates reprises des calendriers officiels des entreprises uniquement.</p>
+        <p class="maj">Résultats, chiffres d'affaires, assemblées générales et dividendes des valeurs BTP françaises cotées. Dates reprises des calendriers officiels des entreprises. Les dates estimées sont signalées.</p>
         <div class="chiffres n">
           <div><small>À venir</small><strong id="nbAvenir">…</strong></div>
           <div><small>À confirmer</small><strong id="nbConfirmer">…</strong></div>
@@ -156,7 +156,7 @@ function ligne(ev, jour, sous) {
     <div class="cal-ev-day ${ev.date && ev.date < ISO_AUJ ? 'past' : ''}">${jour}${sous ? `<small class="ag-dans">${sous}</small>` : ''}</div>
     <div class="cal-ev-badge">${TYPE_LABEL[ev.type] || ev.type}</div>
     <div class="cal-ev-co"><a class="cal-ev-name" href="/entreprise.html?slug=${ev.entreprise}">${ev.ent.nom}</a><span class="cal-ev-ticker">${ev.ent.ticker}</span></div>
-    <div class="cal-ev-lbl">${ev.libelle}<br><small><a href="${ev.lien_communique || ev.source_url}" target="_blank" rel="noopener">Source</a>, vérifié le ${fmtVerif(ev.date_verification)}</small></div>
+    <div class="cal-ev-lbl">${ev.libelle}${ev.precision ? `<br><small class="ag-precision">${ev.precision}</small>` : ''}<br><small><a href="${ev.lien_communique || ev.source_url}" target="_blank" rel="noopener">Source</a>, vérifié le ${fmtVerif(ev.date_verification)}</small></div>
   </div>`
 }
 
@@ -173,7 +173,7 @@ function rendreListes() {
 
   document.getElementById('mesureProchains').textContent = nbEv(avenir.length)
   document.getElementById('prochains').innerHTML = avenir.length
-    ? avenir.slice(0, 5).map(ev => ligne(ev, fmtCourt(ev.date), dansJours(ev.date))).join('')
+    ? avenir.slice(0, 5).map(ev => ligne(ev, fmtCourt(ev.date), ev.estimation ? 'Estimation' : dansJours(ev.date))).join('')
     : '<p class="cal-empty ag-vide">Aucune date officielle à venir pour le moment. Les événements attendus sans date publiée sont listés plus bas, dans «&nbsp;Date à confirmer&nbsp;».</p>'
 
   document.getElementById('mesureConfirmer').textContent = nbEv(confirmer.length)
@@ -219,7 +219,7 @@ function rendreMois() {
     if (i % 7 > 4) cls.push('we')
     html += `<div class="${cls.join(' ')}" role="gridcell"${evs.length ? ` tabindex="0" data-jour="${iso}" aria-label="${fmtLong(iso)}, ${nbEv(evs.length)}"` : ''}>
       <span class="ag-num">${d.getDate()}</span>
-      ${evs.map(ev => `<span class="ag-ev"><b>${ev.ent.nom}</b>${TYPE_LABEL[ev.type] || ev.type}</span>`).join('')}
+      ${evs.map(ev => `<span class="ag-ev"><b>${ev.ent.nom}</b>${TYPE_LABEL[ev.type] || ev.type}${ev.estimation ? ' (estim.)' : ''}</span>`).join('')}
     </div>`
   }
   document.getElementById('grille').innerHTML = html
