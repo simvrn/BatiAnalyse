@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-19",
- "derniere_publication": "2026-10-18",
+ "genere_le": "2026-10-21",
+ "derniere_publication": "2026-10-20",
  "indicateurs": {
   "taux_bce": {
    "libelle": "Taux de dépôt de la BCE",
@@ -8,7 +8,7 @@
    "frequence": "à chaque décision",
    "derniere_valeur": 2.5,
    "date_valeur": "2026-09-16",
-   "date_publication": "2026-10-18",
+   "date_publication": "2026-10-20",
    "source_nom": "Banque centrale européenne",
    "source_url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
    "source_api": "https://data-api.ecb.europa.eu/service/data/FM/D.U2.EUR.4F.KR.DFR.LEV?format=csvdata&detail=dataonly",
@@ -278,7 +278,7 @@
      "valeur": 2.5
     }
    ],
-   "date_consultation": "2026-10-19"
+   "date_consultation": "2026-10-21"
   },
   "permis_construire": {
    "libelle": "Permis de construire, logements autorisés",
