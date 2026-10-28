@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-10-27",
- "derniere_publication": "2026-10-27",
+ "genere_le": "2026-10-28",
+ "derniere_publication": "2026-10-28",
  "indicateurs": {
   "taux_bce": {
    "libelle": "Taux de dépôt de la BCE",
@@ -8,7 +8,7 @@
    "frequence": "à chaque décision",
    "derniere_valeur": 2.5,
    "date_valeur": "2026-09-16",
-   "date_publication": "2026-10-27",
+   "date_publication": "2026-10-28",
    "source_nom": "Banque centrale européenne",
    "source_url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
    "source_api": "https://data-api.ecb.europa.eu/service/data/FM/D.U2.EUR.4F.KR.DFR.LEV?format=csvdata&detail=dataonly",
@@ -278,1170 +278,1074 @@
      "valeur": 2.5
     }
    ],
-   "date_consultation": "2026-10-27"
+   "date_consultation": "2026-10-28"
   },
   "permis_construire": {
    "libelle": "Permis de construire, logements autorisés",
    "unite": "logements",
    "frequence": "mensuelle",
-   "derniere_valeur": 29749,
-   "date_valeur": "2026-08",
-   "date_publication": "2026-09-29",
+   "derniere_valeur": 31428,
+   "date_valeur": "2026-09",
+   "date_publication": "2026-10-28",
    "source_nom": "SDES, ministère de la Transition écologique (Sitadel)",
    "source_url": "https://www.statistiques.developpement-durable.gouv.fr/catalogue?page=dataset&datasetId=6513eed03b05e5cd969c2710",
-   "source_api": "https://data.statistiques.developpement-durable.gouv.fr/dido/api/v1/datafiles/175486a6-76a3-4c6c-a34b-aeb96758910b/csv?millesime=2026-09&withColumnName=true&withColumnDescription=false",
+   "source_api": "https://data.statistiques.developpement-durable.gouv.fr/dido/api/v1/datafiles/175486a6-76a3-4c6c-a34b-aeb96758910b/csv?millesime=2026-10&withColumnName=true&withColumnDescription=false",
    "serie_id": "6513eed03b05e5cd969c2710 / 175486a6-76a3-4c6c-a34b-aeb96758910b / Tous logements / CVS-CJO",
    "note_historique": "Logements autorisés par mois, France, données corrigées des variations saisonnières et des jours ouvrés.",
    "derives": {
-    "variation_mois_pct": -1.1,
-    "cumul_12_mois": 369723,
-    "ecart_moyenne_5_ans_pct": -9.7,
+    "variation_mois_pct": 1.2,
+    "cumul_12_mois": 377834,
+    "ecart_moyenne_5_ans_pct": -9.1,
     "methode": "Variation sur un mois en données CVS-CJO. Cumul des 12 derniers mois. Écart du cumul 12 mois avec la moyenne annuelle des 60 mois précédents."
    },
    "historique": [
     {
-     "date": "2000-01",
-     "valeur": 32234
-    },
-    {
-     "date": "2000-02",
-     "valeur": 30917
-    },
-    {
-     "date": "2000-03",
-     "valeur": 32483
-    },
-    {
-     "date": "2000-04",
-     "valeur": 34352
-    },
-    {
-     "date": "2000-05",
-     "valeur": 36048
-    },
-    {
-     "date": "2000-06",
-     "valeur": 32492
-    },
-    {
-     "date": "2000-07",
-     "valeur": 33804
-    },
-    {
-     "date": "2000-08",
-     "valeur": 32523
-    },
-    {
-     "date": "2000-09",
-     "valeur": 31047
-    },
-    {
-     "date": "2000-10",
-     "valeur": 31311
-    },
-    {
-     "date": "2000-11",
-     "valeur": 33873
-    },
-    {
-     "date": "2000-12",
-     "valeur": 31848
-    },
-    {
-     "date": "2001-01",
-     "valeur": 31168
-    },
-    {
-     "date": "2001-02",
-     "valeur": 33100
-    },
-    {
-     "date": "2001-03",
-     "valeur": 33154
-    },
-    {
-     "date": "2001-04",
-     "valeur": 28572
-    },
-    {
-     "date": "2001-05",
-     "valeur": 30581
-    },
-    {
-     "date": "2001-06",
-     "valeur": 31668
-    },
-    {
-     "date": "2001-07",
-     "valeur": 33297
-    },
-    {
-     "date": "2001-08",
-     "valeur": 31759
-    },
-    {
-     "date": "2001-09",
-     "valeur": 30226
-    },
-    {
-     "date": "2001-10",
-     "valeur": 33852
-    },
-    {
-     "date": "2001-11",
-     "valeur": 32152
-    },
-    {
-     "date": "2001-12",
-     "valeur": 30233
-    },
-    {
      "date": "2002-01",
-     "valeur": 30654
+     "valeur": 30424
     },
     {
      "date": "2002-02",
-     "valeur": 29695
+     "valeur": 30008
     },
     {
      "date": "2002-03",
-     "valeur": 30601
+     "valeur": 30620
     },
     {
      "date": "2002-04",
-     "valeur": 33784
+     "valeur": 33370
     },
     {
      "date": "2002-05",
-     "valeur": 29854
+     "valeur": 30686
     },
     {
      "date": "2002-06",
-     "valeur": 30330
+     "valeur": 30191
     },
     {
      "date": "2002-07",
-     "valeur": 31440
+     "valeur": 31209
     },
     {
      "date": "2002-08",
-     "valeur": 29055
+     "valeur": 30342
     },
     {
      "date": "2002-09",
-     "valeur": 33079
+     "valeur": 32670
     },
     {
      "date": "2002-10",
-     "valeur": 33008
+     "valeur": 33278
     },
     {
      "date": "2002-11",
-     "valeur": 33169
+     "valeur": 33186
     },
     {
      "date": "2002-12",
-     "valeur": 31853
+     "valeur": 30825
     },
     {
      "date": "2003-01",
-     "valeur": 31267
+     "valeur": 31195
     },
     {
      "date": "2003-02",
-     "valeur": 32842
+     "valeur": 32753
     },
     {
      "date": "2003-03",
-     "valeur": 32693
+     "valeur": 32307
     },
     {
      "date": "2003-04",
-     "valeur": 33480
+     "valeur": 33201
     },
     {
      "date": "2003-05",
-     "valeur": 33665
+     "valeur": 34511
     },
     {
      "date": "2003-06",
-     "valeur": 32632
+     "valeur": 32531
     },
     {
      "date": "2003-07",
-     "valeur": 36464
+     "valeur": 36155
     },
     {
      "date": "2003-08",
-     "valeur": 34931
+     "valeur": 35750
     },
     {
      "date": "2003-09",
-     "valeur": 37036
+     "valeur": 36447
     },
     {
      "date": "2003-10",
-     "valeur": 35449
+     "valeur": 35727
     },
     {
      "date": "2003-11",
-     "valeur": 37096
+     "valeur": 36931
     },
     {
      "date": "2003-12",
-     "valeur": 37277
+     "valeur": 36272
     },
     {
      "date": "2004-01",
-     "valeur": 38362
+     "valeur": 38102
     },
     {
      "date": "2004-02",
-     "valeur": 39717
+     "valeur": 39710
     },
     {
      "date": "2004-03",
-     "valeur": 37838
+     "valeur": 37887
     },
     {
      "date": "2004-04",
-     "valeur": 40294
+     "valeur": 39816
     },
     {
      "date": "2004-05",
-     "valeur": 40502
+     "valeur": 40714
     },
     {
      "date": "2004-06",
-     "valeur": 42047
+     "valeur": 42010
     },
     {
      "date": "2004-07",
-     "valeur": 40867
+     "valeur": 40652
     },
     {
      "date": "2004-08",
-     "valeur": 42494
+     "valeur": 42900
     },
     {
      "date": "2004-09",
-     "valeur": 42958
+     "valeur": 42890
     },
     {
      "date": "2004-10",
-     "valeur": 43623
+     "valeur": 43922
     },
     {
      "date": "2004-11",
-     "valeur": 44181
+     "valeur": 43797
     },
     {
      "date": "2004-12",
-     "valeur": 43708
+     "valeur": 43373
     },
     {
      "date": "2005-01",
-     "valeur": 45405
+     "valeur": 45283
     },
     {
      "date": "2005-02",
-     "valeur": 42340
+     "valeur": 41864
     },
     {
      "date": "2005-03",
-     "valeur": 42800
+     "valeur": 42738
     },
     {
      "date": "2005-04",
-     "valeur": 44822
+     "valeur": 44667
     },
     {
      "date": "2005-05",
-     "valeur": 41841
+     "valeur": 41882
     },
     {
      "date": "2005-06",
-     "valeur": 49243
+     "valeur": 49109
     },
     {
      "date": "2005-07",
-     "valeur": 46218
+     "valeur": 45664
     },
     {
      "date": "2005-08",
-     "valeur": 45966
+     "valeur": 46190
     },
     {
      "date": "2005-09",
-     "valeur": 47119
+     "valeur": 47024
     },
     {
      "date": "2005-10",
-     "valeur": 45046
+     "valeur": 45466
     },
     {
      "date": "2005-11",
-     "valeur": 48455
+     "valeur": 48007
     },
     {
      "date": "2005-12",
-     "valeur": 52559
+     "valeur": 52794
     },
     {
      "date": "2006-01",
-     "valeur": 49296
+     "valeur": 49092
     },
     {
      "date": "2006-02",
-     "valeur": 50321
+     "valeur": 49829
     },
     {
      "date": "2006-03",
-     "valeur": 50672
+     "valeur": 50677
     },
     {
      "date": "2006-04",
-     "valeur": 52397
+     "valeur": 51579
     },
     {
      "date": "2006-05",
-     "valeur": 49882
+     "valeur": 49594
     },
     {
      "date": "2006-06",
-     "valeur": 52601
+     "valeur": 52357
     },
     {
      "date": "2006-07",
-     "valeur": 49699
+     "valeur": 49896
     },
     {
      "date": "2006-08",
-     "valeur": 49648
+     "valeur": 49589
     },
     {
      "date": "2006-09",
-     "valeur": 46108
+     "valeur": 46171
     },
     {
      "date": "2006-10",
-     "valeur": 50372
+     "valeur": 50755
     },
     {
      "date": "2006-11",
-     "valeur": 52707
+     "valeur": 52399
     },
     {
      "date": "2006-12",
-     "valeur": 51416
+     "valeur": 51101
     },
     {
      "date": "2007-01",
-     "valeur": 46822
+     "valeur": 46797
     },
     {
      "date": "2007-02",
-     "valeur": 50703
+     "valeur": 50253
     },
     {
      "date": "2007-03",
-     "valeur": 52566
+     "valeur": 52863
     },
     {
      "date": "2007-04",
-     "valeur": 47796
+     "valeur": 47504
     },
     {
      "date": "2007-05",
-     "valeur": 50126
+     "valeur": 49245
     },
     {
      "date": "2007-06",
-     "valeur": 48911
+     "valeur": 48541
     },
     {
      "date": "2007-07",
-     "valeur": 47799
+     "valeur": 47681
     },
     {
      "date": "2007-08",
-     "valeur": 48622
+     "valeur": 48838
     },
     {
      "date": "2007-09",
-     "valeur": 45251
+     "valeur": 45173
     },
     {
      "date": "2007-10",
-     "valeur": 47167
+     "valeur": 46944
     },
     {
      "date": "2007-11",
-     "valeur": 41332
+     "valeur": 40724
     },
     {
      "date": "2007-12",
-     "valeur": 45777
+     "valeur": 45769
     },
     {
      "date": "2008-01",
-     "valeur": 45984
+     "valeur": 45771
     },
     {
      "date": "2008-02",
-     "valeur": 48016
+     "valeur": 47066
     },
     {
      "date": "2008-03",
-     "valeur": 46839
+     "valeur": 46707
     },
     {
      "date": "2008-04",
-     "valeur": 42441
+     "valeur": 42140
     },
     {
      "date": "2008-05",
-     "valeur": 43039
+     "valeur": 42399
     },
     {
      "date": "2008-06",
-     "valeur": 39497
+     "valeur": 39016
     },
     {
      "date": "2008-07",
-     "valeur": 37070
+     "valeur": 37072
     },
     {
      "date": "2008-08",
-     "valeur": 36308
+     "valeur": 36573
     },
     {
      "date": "2008-09",
-     "valeur": 35737
+     "valeur": 35631
     },
     {
      "date": "2008-10",
-     "valeur": 38132
+     "valeur": 38010
     },
     {
      "date": "2008-11",
-     "valeur": 33658
+     "valeur": 33890
     },
     {
      "date": "2008-12",
-     "valeur": 31509
+     "valeur": 30792
     },
     {
      "date": "2009-01",
-     "valeur": 32665
+     "valeur": 33271
     },
     {
      "date": "2009-02",
-     "valeur": 28744
+     "valeur": 28395
     },
     {
      "date": "2009-03",
-     "valeur": 30580
+     "valeur": 29784
     },
     {
      "date": "2009-04",
-     "valeur": 30515
+     "valeur": 30243
     },
     {
      "date": "2009-05",
-     "valeur": 28820
+     "valeur": 28482
     },
     {
      "date": "2009-06",
-     "valeur": 29229
+     "valeur": 28537
     },
     {
      "date": "2009-07",
-     "valeur": 32977
+     "valeur": 31600
     },
     {
      "date": "2009-08",
-     "valeur": 30813
+     "valeur": 31101
     },
     {
      "date": "2009-09",
-     "valeur": 32869
+     "valeur": 32278
     },
     {
      "date": "2009-10",
-     "valeur": 35148
+     "valeur": 34474
     },
     {
      "date": "2009-11",
-     "valeur": 34282
+     "valeur": 34347
     },
     {
      "date": "2009-12",
-     "valeur": 34571
+     "valeur": 34161
     },
     {
      "date": "2010-01",
-     "valeur": 35827
+     "valeur": 35566
     },
     {
      "date": "2010-02",
-     "valeur": 38041
+     "valeur": 37495
     },
     {
      "date": "2010-03",
-     "valeur": 41799
+     "valeur": 41312
     },
     {
      "date": "2010-04",
-     "valeur": 40773
+     "valeur": 40140
     },
     {
      "date": "2010-05",
-     "valeur": 39152
+     "valeur": 38761
     },
     {
      "date": "2010-06",
-     "valeur": 40391
+     "valeur": 39927
     },
     {
      "date": "2010-07",
-     "valeur": 43628
+     "valeur": 43217
     },
     {
      "date": "2010-08",
-     "valeur": 38225
+     "valeur": 38238
     },
     {
      "date": "2010-09",
-     "valeur": 40685
+     "valeur": 39945
     },
     {
      "date": "2010-10",
-     "valeur": 39246
+     "valeur": 38920
     },
     {
      "date": "2010-11",
-     "valeur": 37265
+     "valeur": 36993
     },
     {
      "date": "2010-12",
-     "valeur": 39413
+     "valeur": 39004
     },
     {
      "date": "2011-01",
-     "valeur": 43062
+     "valeur": 42625
     },
     {
      "date": "2011-02",
-     "valeur": 39308
+     "valeur": 38329
     },
     {
      "date": "2011-03",
-     "valeur": 38865
+     "valeur": 38773
     },
     {
      "date": "2011-04",
-     "valeur": 40778
+     "valeur": 40129
     },
     {
      "date": "2011-05",
-     "valeur": 44528
+     "valeur": 44848
     },
     {
      "date": "2011-06",
-     "valeur": 43562
+     "valeur": 43276
     },
     {
      "date": "2011-07",
-     "valeur": 45424
+     "valeur": 44890
     },
     {
      "date": "2011-08",
-     "valeur": 46341
+     "valeur": 45156
     },
     {
      "date": "2011-09",
-     "valeur": 46681
+     "valeur": 46956
     },
     {
      "date": "2011-10",
-     "valeur": 41984
+     "valeur": 41924
     },
     {
      "date": "2011-11",
-     "valeur": 43610
+     "valeur": 43505
     },
     {
      "date": "2011-12",
-     "valeur": 45105
+     "valeur": 44799
     },
     {
      "date": "2012-01",
-     "valeur": 41382
+     "valeur": 41082
     },
     {
      "date": "2012-02",
-     "valeur": 40126
+     "valeur": 39869
     },
     {
      "date": "2012-03",
-     "valeur": 39791
+     "valeur": 39279
     },
     {
      "date": "2012-04",
-     "valeur": 43226
+     "valeur": 41581
     },
     {
      "date": "2012-05",
-     "valeur": 41516
+     "valeur": 40583
     },
     {
      "date": "2012-06",
-     "valeur": 40350
+     "valeur": 40368
     },
     {
      "date": "2012-07",
-     "valeur": 39829
+     "valeur": 39077
     },
     {
      "date": "2012-08",
-     "valeur": 48147
+     "valeur": 44782
     },
     {
      "date": "2012-09",
-     "valeur": 38302
+     "valeur": 38393
     },
     {
      "date": "2012-10",
-     "valeur": 38370
+     "valeur": 38024
     },
     {
      "date": "2012-11",
-     "valeur": 36692
+     "valeur": 36013
     },
     {
      "date": "2012-12",
-     "valeur": 38828
+     "valeur": 38180
     },
     {
      "date": "2013-01",
-     "valeur": 41600
+     "valeur": 41396
     },
     {
      "date": "2013-02",
-     "valeur": 47894
+     "valeur": 47409
     },
     {
      "date": "2013-03",
-     "valeur": 40096
+     "valeur": 41388
     },
     {
      "date": "2013-04",
-     "valeur": 33867
+     "valeur": 34024
     },
     {
      "date": "2013-05",
-     "valeur": 32259
+     "valeur": 30743
     },
     {
      "date": "2013-06",
-     "valeur": 32584
+     "valeur": 33380
     },
     {
      "date": "2013-07",
-     "valeur": 31307
+     "valeur": 31501
     },
     {
      "date": "2013-08",
-     "valeur": 30029
+     "valeur": 30356
     },
     {
      "date": "2013-09",
-     "valeur": 29817
+     "valeur": 30337
     },
     {
      "date": "2013-10",
-     "valeur": 33708
+     "valeur": 34646
     },
     {
      "date": "2013-11",
-     "valeur": 32158
+     "valeur": 33566
     },
     {
      "date": "2013-12",
-     "valeur": 31844
+     "valeur": 32039
     },
     {
      "date": "2014-01",
-     "valeur": 31974
+     "valeur": 32344
     },
     {
      "date": "2014-02",
-     "valeur": 33226
+     "valeur": 32807
     },
     {
      "date": "2014-03",
-     "valeur": 36169
+     "valeur": 37341
     },
     {
      "date": "2014-04",
-     "valeur": 28346
+     "valeur": 28459
     },
     {
      "date": "2014-05",
-     "valeur": 31802
+     "valeur": 31992
     },
     {
      "date": "2014-06",
-     "valeur": 31139
+     "valeur": 32145
     },
     {
      "date": "2014-07",
-     "valeur": 32936
+     "valeur": 33083
     },
     {
      "date": "2014-08",
-     "valeur": 29834
+     "valeur": 29953
     },
     {
      "date": "2014-09",
-     "valeur": 29663
+     "valeur": 30523
     },
     {
      "date": "2014-10",
-     "valeur": 30295
+     "valeur": 30616
     },
     {
      "date": "2014-11",
-     "valeur": 28008
+     "valeur": 28792
     },
     {
      "date": "2014-12",
-     "valeur": 30467
+     "valeur": 31203
     },
     {
      "date": "2015-01",
-     "valeur": 31675
+     "valeur": 32346
     },
     {
      "date": "2015-02",
-     "valeur": 29677
+     "valeur": 29935
     },
     {
      "date": "2015-03",
-     "valeur": 31577
+     "valeur": 32539
     },
     {
      "date": "2015-04",
-     "valeur": 32758
+     "valeur": 33412
     },
     {
      "date": "2015-05",
-     "valeur": 30407
+     "valeur": 30341
     },
     {
      "date": "2015-06",
-     "valeur": 34892
+     "valeur": 35263
     },
     {
      "date": "2015-07",
-     "valeur": 32693
+     "valeur": 32351
     },
     {
      "date": "2015-08",
-     "valeur": 33746
+     "valeur": 34152
     },
     {
      "date": "2015-09",
-     "valeur": 32056
+     "valeur": 32949
     },
     {
      "date": "2015-10",
-     "valeur": 34307
+     "valeur": 34253
     },
     {
      "date": "2015-11",
-     "valeur": 36872
+     "valeur": 37837
     },
     {
      "date": "2015-12",
-     "valeur": 35840
+     "valeur": 36383
     },
     {
      "date": "2016-01",
-     "valeur": 34292
+     "valeur": 34995
     },
     {
      "date": "2016-02",
-     "valeur": 37830
+     "valeur": 37394
     },
     {
      "date": "2016-03",
-     "valeur": 33657
+     "valeur": 34550
     },
     {
      "date": "2016-04",
-     "valeur": 38781
+     "valeur": 38843
     },
     {
      "date": "2016-05",
-     "valeur": 37825
+     "valeur": 38684
     },
     {
      "date": "2016-06",
-     "valeur": 37114
+     "valeur": 37201
     },
     {
      "date": "2016-07",
-     "valeur": 37927
+     "valeur": 37577
     },
     {
      "date": "2016-08",
-     "valeur": 38729
+     "valeur": 39513
     },
     {
      "date": "2016-09",
-     "valeur": 41616
+     "valeur": 41638
     },
     {
      "date": "2016-10",
-     "valeur": 38716
+     "valeur": 38375
     },
     {
      "date": "2016-11",
-     "valeur": 42020
+     "valeur": 43280
     },
     {
      "date": "2016-12",
-     "valeur": 41781
+     "valeur": 41613
     },
     {
      "date": "2017-01",
-     "valeur": 35829
+     "valeur": 36739
     },
     {
      "date": "2017-02",
-     "valeur": 38450
+     "valeur": 39017
     },
     {
      "date": "2017-03",
-     "valeur": 43444
+     "valeur": 44196
     },
     {
      "date": "2017-04",
-     "valeur": 39409
+     "valeur": 39529
     },
     {
      "date": "2017-05",
-     "valeur": 40952
+     "valeur": 42030
     },
     {
      "date": "2017-06",
-     "valeur": 41888
+     "valeur": 42142
     },
     {
      "date": "2017-07",
-     "valeur": 43343
+     "valeur": 43310
     },
     {
      "date": "2017-08",
-     "valeur": 41394
+     "valeur": 41989
     },
     {
      "date": "2017-09",
-     "valeur": 43518
+     "valeur": 43875
     },
     {
      "date": "2017-10",
-     "valeur": 39332
+     "valeur": 39302
     },
     {
      "date": "2017-11",
-     "valeur": 37932
+     "valeur": 38091
     },
     {
      "date": "2017-12",
-     "valeur": 41187
+     "valeur": 41551
     },
     {
      "date": "2018-01",
-     "valeur": 37779
+     "valeur": 38183
     },
     {
      "date": "2018-02",
-     "valeur": 42037
+     "valeur": 42619
     },
     {
      "date": "2018-03",
-     "valeur": 39040
+     "valeur": 39522
     },
     {
      "date": "2018-04",
-     "valeur": 39009
+     "valeur": 39256
     },
     {
      "date": "2018-05",
-     "valeur": 40919
+     "valeur": 41600
     },
     {
      "date": "2018-06",
-     "valeur": 36168
+     "valeur": 36796
     },
     {
      "date": "2018-07",
-     "valeur": 35517
+     "valeur": 35883
     },
     {
      "date": "2018-08",
-     "valeur": 38473
+     "valeur": 38950
     },
     {
      "date": "2018-09",
-     "valeur": 39850
+     "valeur": 40331
     },
     {
      "date": "2018-10",
-     "valeur": 38354
+     "valeur": 39073
     },
     {
      "date": "2018-11",
-     "valeur": 36738
+     "valeur": 36838
     },
     {
      "date": "2018-12",
-     "valeur": 35855
+     "valeur": 36005
     },
     {
      "date": "2019-01",
-     "valeur": 37579
+     "valeur": 37506
     },
     {
      "date": "2019-02",
-     "valeur": 33641
+     "valeur": 34395
     },
     {
      "date": "2019-03",
-     "valeur": 37398
+     "valeur": 37573
     },
     {
      "date": "2019-04",
-     "valeur": 39129
+     "valeur": 39710
     },
     {
      "date": "2019-05",
-     "valeur": 36471
+     "valeur": 37001
     },
     {
      "date": "2019-06",
-     "valeur": 36692
+     "valeur": 37060
     },
     {
      "date": "2019-07",
-     "valeur": 36254
+     "valeur": 37048
     },
     {
      "date": "2019-08",
-     "valeur": 34825
+     "valeur": 35117
     },
     {
      "date": "2019-09",
-     "valeur": 34695
+     "valeur": 34882
     },
     {
      "date": "2019-10",
-     "valeur": 41229
+     "valeur": 42063
     },
     {
      "date": "2019-11",
-     "valeur": 37940
+     "valeur": 38278
     },
     {
      "date": "2019-12",
-     "valeur": 41183
+     "valeur": 41871
     },
     {
      "date": "2020-01",
-     "valeur": 40397
+     "valeur": 40464
     },
     {
      "date": "2020-02",
-     "valeur": 39881
+     "valeur": 40057
     },
     {
      "date": "2020-03",
-     "valeur": 35255
+     "valeur": 35804
     },
     {
      "date": "2020-04",
-     "valeur": 16012
+     "valeur": 16033
     },
     {
      "date": "2020-05",
-     "valeur": 22581
+     "valeur": 21838
     },
     {
      "date": "2020-06",
-     "valeur": 30931
+     "valeur": 31453
     },
     {
      "date": "2020-07",
-     "valeur": 29364
+     "valeur": 29843
     },
     {
      "date": "2020-08",
-     "valeur": 32444
+     "valeur": 32196
     },
     {
      "date": "2020-09",
-     "valeur": 34420
+     "valeur": 35013
     },
     {
      "date": "2020-10",
-     "valeur": 36283
+     "valeur": 36965
     },
     {
      "date": "2020-11",
-     "valeur": 39388
+     "valeur": 39210
     },
     {
      "date": "2020-12",
-     "valeur": 37096
+     "valeur": 37678
     },
     {
      "date": "2021-01",
-     "valeur": 37653
+     "valeur": 38166
     },
     {
      "date": "2021-02",
-     "valeur": 37708
+     "valeur": 37952
     },
     {
      "date": "2021-03",
-     "valeur": 37717
+     "valeur": 37716
     },
     {
      "date": "2021-04",
-     "valeur": 39078
+     "valeur": 39370
     },
     {
      "date": "2021-05",
-     "valeur": 38896
+     "valeur": 39406
     },
     {
      "date": "2021-06",
-     "valeur": 38383
+     "valeur": 39273
     },
     {
      "date": "2021-07",
-     "valeur": 39810
+     "valeur": 40860
     },
     {
      "date": "2021-08",
-     "valeur": 36653
+     "valeur": 36969
     },
     {
      "date": "2021-09",
-     "valeur": 42221
+     "valeur": 42374
     },
     {
      "date": "2021-10",
-     "valeur": 39079
+     "valeur": 39778
     },
     {
      "date": "2021-11",
-     "valeur": 39724
+     "valeur": 40256
     },
     {
      "date": "2021-12",
-     "valeur": 39008
+     "valeur": 39792
     },
     {
      "date": "2022-01",
-     "valeur": 40948
+     "valeur": 41744
     },
     {
      "date": "2022-02",
-     "valeur": 50068
+     "valeur": 50763
     },
     {
      "date": "2022-03",
-     "valeur": 49714
+     "valeur": 50084
     },
     {
      "date": "2022-04",
-     "valeur": 45640
+     "valeur": 45913
     },
     {
      "date": "2022-05",
-     "valeur": 44919
+     "valeur": 45708
     },
     {
      "date": "2022-06",
-     "valeur": 41198
+     "valeur": 41805
     },
     {
      "date": "2022-07",
-     "valeur": 40745
+     "valeur": 42306
     },
     {
      "date": "2022-08",
-     "valeur": 48939
+     "valeur": 50775
     },
     {
      "date": "2022-09",
-     "valeur": 34121
+     "valeur": 34212
     },
     {
      "date": "2022-10",
-     "valeur": 29859
+     "valeur": 30310
     },
     {
      "date": "2022-11",
-     "valeur": 31181
+     "valeur": 31713
     },
     {
      "date": "2022-12",
-     "valeur": 31011
+     "valeur": 31161
     },
     {
      "date": "2023-01",
-     "valeur": 33273
+     "valeur": 33669
     },
     {
      "date": "2023-02",
-     "valeur": 34453
+     "valeur": 34971
     },
     {
      "date": "2023-03",
-     "valeur": 31540
+     "valeur": 31743
     },
     {
      "date": "2023-04",
-     "valeur": 32478
+     "valeur": 32466
     },
     {
      "date": "2023-05",
-     "valeur": 29873
+     "valeur": 30333
     },
     {
      "date": "2023-06",
-     "valeur": 33151
+     "valeur": 33519
     },
     {
      "date": "2023-07",
-     "valeur": 30140
+     "valeur": 30834
     },
     {
      "date": "2023-08",
-     "valeur": 31404
+     "valeur": 32051
     },
     {
      "date": "2023-09",
-     "valeur": 27187
+     "valeur": 27591
     },
     {
      "date": "2023-10",
-     "valeur": 31007
+     "valeur": 31407
     },
     {
      "date": "2023-11",
@@ -1449,138 +1353,142 @@
     },
     {
      "date": "2023-12",
-     "valeur": 30865
+     "valeur": 31343
     },
     {
      "date": "2024-01",
-     "valeur": 28296
+     "valeur": 29301
     },
     {
      "date": "2024-02",
-     "valeur": 28981
+     "valeur": 28949
     },
     {
      "date": "2024-03",
-     "valeur": 26150
+     "valeur": 27164
     },
     {
      "date": "2024-04",
-     "valeur": 25949
+     "valeur": 26592
     },
     {
      "date": "2024-05",
-     "valeur": 25430
+     "valeur": 25498
     },
     {
      "date": "2024-06",
-     "valeur": 25748
+     "valeur": 26916
     },
     {
      "date": "2024-07",
-     "valeur": 27154
+     "valeur": 27640
     },
     {
      "date": "2024-08",
-     "valeur": 26926
+     "valeur": 27303
     },
     {
      "date": "2024-09",
-     "valeur": 25157
+     "valeur": 25822
     },
     {
      "date": "2024-10",
-     "valeur": 27280
+     "valeur": 28248
     },
     {
      "date": "2024-11",
-     "valeur": 26974
+     "valeur": 27623
     },
     {
      "date": "2024-12",
-     "valeur": 26620
+     "valeur": 28011
     },
     {
      "date": "2025-01",
-     "valeur": 26872
+     "valeur": 27737
     },
     {
      "date": "2025-02",
-     "valeur": 28071
+     "valeur": 27912
     },
     {
      "date": "2025-03",
-     "valeur": 29722
+     "valeur": 30701
     },
     {
      "date": "2025-04",
-     "valeur": 34775
+     "valeur": 35419
     },
     {
      "date": "2025-05",
-     "valeur": 30438
+     "valeur": 31259
     },
     {
      "date": "2025-06",
-     "valeur": 35311
+     "valeur": 36097
     },
     {
      "date": "2025-07",
-     "valeur": 32548
+     "valeur": 34014
     },
     {
      "date": "2025-08",
-     "valeur": 30166
+     "valeur": 31195
     },
     {
      "date": "2025-09",
-     "valeur": 32356
+     "valeur": 32499
     },
     {
      "date": "2025-10",
-     "valeur": 29983
+     "valeur": 30344
     },
     {
      "date": "2025-11",
-     "valeur": 29391
+     "valeur": 29041
     },
     {
      "date": "2025-12",
-     "valeur": 30872
+     "valeur": 31333
     },
     {
      "date": "2026-01",
-     "valeur": 30974
+     "valeur": 31361
     },
     {
      "date": "2026-02",
-     "valeur": 29379
+     "valeur": 31193
     },
     {
      "date": "2026-03",
-     "valeur": 38386
+     "valeur": 41040
     },
     {
      "date": "2026-04",
-     "valeur": 26982
+     "valeur": 28540
     },
     {
      "date": "2026-05",
-     "valeur": 31510
+     "valeur": 31467
     },
     {
      "date": "2026-06",
-     "valeur": 30068
+     "valeur": 30640
     },
     {
      "date": "2026-07",
-     "valeur": 30073
+     "valeur": 30398
     },
     {
      "date": "2026-08",
-     "valeur": 29749
+     "valeur": 31049
+    },
+    {
+     "date": "2026-09",
+     "valeur": 31428
     }
    ],
-   "date_consultation": "2026-10-16"
+   "date_consultation": "2026-10-28"
   },
   "chomage_bit": {
    "libelle": "Taux de chômage au sens du BIT",
