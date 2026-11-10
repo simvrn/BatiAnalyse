@@ -1,6 +1,6 @@
 {
- "genere_le": "2026-11-09",
- "derniere_publication": "2026-11-09",
+ "genere_le": "2026-11-10",
+ "derniere_publication": "2026-11-10",
  "indicateurs": {
   "taux_bce": {
    "libelle": "Taux de dépôt de la BCE",
@@ -8,7 +8,7 @@
    "frequence": "à chaque décision",
    "derniere_valeur": 2.5,
    "date_valeur": "2026-09-16",
-   "date_publication": "2026-11-09",
+   "date_publication": "2026-11-10",
    "source_nom": "Banque centrale européenne",
    "source_url": "https://data.ecb.europa.eu/data/datasets/FM/FM.D.U2.EUR.4F.KR.DFR.LEV",
    "source_api": "https://data-api.ecb.europa.eu/service/data/FM/D.U2.EUR.4F.KR.DFR.LEV?format=csvdata&detail=dataonly",
@@ -278,7 +278,7 @@
      "valeur": 2.5
     }
    ],
-   "date_consultation": "2026-11-09"
+   "date_consultation": "2026-11-10"
   },
   "permis_construire": {
    "libelle": "Permis de construire, logements autorisés",
@@ -1494,16 +1494,16 @@
    "libelle": "Taux de chômage au sens du BIT",
    "unite": "%",
    "frequence": "trimestrielle",
-   "derniere_valeur": 8.3,
-   "date_valeur": "2026-Q2",
-   "date_publication": "2026-08-07",
+   "derniere_valeur": 8.2,
+   "date_valeur": "2026-Q3",
+   "date_publication": "2026-11-10",
    "source_nom": "INSEE",
    "source_url": "https://www.insee.fr/fr/statistiques/serie/001688527",
    "source_api": "https://api.insee.fr/series/BDM/data/SERIES_BDM/001688527",
    "serie_id": "001688527",
    "note_historique": "Taux de chômage au sens du BIT - Ensemble - France hors Mayotte - Données CVS",
    "derives": {
-    "variation_trimestre_pt": 0.2,
+    "variation_trimestre_pt": -0.1,
     "methode": "Écart en points avec le trimestre précédent."
    },
    "historique": [
@@ -2213,7 +2213,7 @@
     },
     {
      "date": "2019-Q1",
-     "valeur": 8.8
+     "valeur": 8.7
     },
     {
      "date": "2019-Q2",
@@ -2330,9 +2330,13 @@
     {
      "date": "2026-Q2",
      "valeur": 8.3
+    },
+    {
+     "date": "2026-Q3",
+     "valeur": 8.2
     }
    ],
-   "date_consultation": "2026-10-16"
+   "date_consultation": "2026-11-10"
   }
  }
 }
